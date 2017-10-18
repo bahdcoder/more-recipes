@@ -1,0 +1,20 @@
+{
+  "name": "more-recipes-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kati-frantz/more-recipes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kati-frantz/more-recipes/issues"
+  },
+  "homepage": "https://github.com/kati-frantz/more-recipes#readme"
+}

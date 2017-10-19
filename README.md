@@ -12,13 +12,13 @@ Checkout the [Live Version Here](https://kati-frantz.github.io/more-recipes/temp
 
 - Clone this repository 
 ```bash
-git clone https://kati-frantz/more-recipes
+git clone https://github.com/kati-frantz/more-recipes.git
 ```
 - Get into the directory with the template
 ```bash 
 cd more-recipes/template
 ```
--Install live server on your local machine to create a simple local server 
+- Install live server on your local machine to create a simple local server . This will server the application, and will provide live reloading in case you are making changes to the template
 ```bash
 npm i -g live-server
 ```
@@ -26,7 +26,7 @@ npm i -g live-server
 ```bash
 live-server
 ```
-- Navigate to local host port 8080 to view the project
+- Navigate to [localhost:8080](localhost:8080) in your browser to view the project template
 
 
 

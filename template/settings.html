@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">    
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="css/custom.css">
-    <title>Create recipe</title>
+    <title>Profile settings</title>
 </head>
 <body>
     <!-- The navigation bar begin -->
@@ -68,79 +68,36 @@
     <!-- The navigation bar ending -->
 
 
-    <!-- Page body -->
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-8">
-                    <div class="card">
-                        <!-- Upload recipe image -->
-                        <div class="upload-recipe-img">
-                            <div class="row justify-content-center">
-                                <div class="col-12">
-                                    <p class="text-center">
-                                        <span class="h2"><i class="ion ion-camera"></i></span>
-                                        <br>
-                                        Click to upload image
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End upload recipe image -->
-                        <hr>
 
-                        <!-- Create recipe form -->
-                        <div class="card-body">
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" placeholder="Recipe title ...">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" placeholder="How long to cook ?">
-                                    </div>
-                                </div>
-                                <textarea placeholder="Tell the world about your recipe ..." cols="3" rows="3" class="form-control"></textarea>
-                                <hr>
-                                <h3 class="text-muted mb-3 mt-3">
-                                    <span class="mr-2">Ingredients</span>
-                                    <span class="text-muted h4"> 
-                                        <i class="ion ion-plus"></i> 
-                                    </span>
-                                </h3>
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <input type="text" class="form-control" placeholder="50 Naira Garri">
-                                    </li>
-                                </ul>
-                                <h3 class="text-muted mb-3 mt-3">
-                                    <span class="mr-2">Procedure</span>
-                                    <span class="text-muted h4"> 
-                                        <i class="ion ion-plus"></i> 
-                                    </span>
-                                </h3>
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-1 h3">
-                                                    <span class="badge badge-primary">1</span>
-                                            </div>
-                                            <div class="col-11">
-                                                <input type="text" class="form-control" placeholder="Pour the garri inside the cup...">
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <br>
-                                <br>
-                                <button disabled class="btn btn-success form-control">
-                                    Publish Recipe
-                                </button>
-                        </div>
-                        <!-- End create recipe form -->
-                    </div>
+    <!-- Begin settings section -->
+    <div class="container my-5">
+
+        <!-- Profile settings Page heading -->
+        <div class="row justify-content-center my-5">
+            <h2 class="text-center display-3">Profile Settings</h2>
+        </div>
+        <!-- End Profile settings Page heading -->
+
+        <!-- End Profile Page heading -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-sm-12">
+                <div class="input-group mb-5">
+                    <span class="input-group-addon mr-3">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </span>
+                    Send me an email each time someone leaves a review on my recipe
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon mr-3">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </span>
+                    Send me an email when my favorite recipes are updated
+                </div>
             </div>
+            
         </div>
     </div>
-    <!-- End page body -->
+    <!-- End settings section -->
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

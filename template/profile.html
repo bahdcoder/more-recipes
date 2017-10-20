@@ -1,82 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <title>Frantz Testing Github Pages</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">    
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <title>Janet's profile</title>
 </head>
 <body>
     <!-- The navigation bar begin -->
     <section class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#">More-receipes</a>
+                <!-- Navigation logo brand -->
+                <a class="navbar-brand" href="/">
+                    <img src="img/logo.png" class="navbar-logo-img mr-2" alt="">
+                    More-recipes
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- End Navigation logo brand -->
             
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left navigation links -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link">Home <span class="sr-only">(current)</span></a>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link">Recipes <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="recipes.html">Recipes <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
+                     <!-- End Left navigation links -->
+
+                     <!-- Navigation Search Form -->
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-default my-2 my-sm-0" type="button">Search</button>
                     </form>
+                    <!-- End Navigation Search Form -->
+
+                    <!-- Right navigation links -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link">Login <span class="sr-only">(current)</span></a>
+                            <a href="create-recipe.html" class="nav-link">Create recipe <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Register<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Submit recipes<span class="sr-only">(current)</span></a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <img class="mr-2 navbar-avatar-img" src="http://i.pravatar.cc/300" alt="Recipe author avatar">
+                                    Hey, Kati Frantz
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="profile.html">My profile</a>
+                                <a class="dropdown-item" href="favorites.html">My favorites</a>
+                                <a class="dropdown-item" href="settings.html">Notification settings</a>
+                            </div>
                         </li>
                     </ul>
+                    <!-- End Right navigation links -->
+
+
                 </div>
             </nav>
     </section>
     <!-- The navigation bar ending -->
 
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="container">
+    <!-- Page body section -->
+    <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-8 text-center">
-                    <div class="justify-content-center mx-auto">
-                        <img style="width: 60px; height: 60px; border-radius: 100%;" src="http://i.pravatar.cc/300" alt="Recipe author avatar">
-                    </div>
-                    <br>
+
+                <!-- Profile avatar -->
+                <div class="justify-content-center mx-auto my-5">
+                    <img style="width: 60px; height: 60px; border-radius: 100%;" src="http://i.pravatar.cc/300" alt="Recipe author avatar">
+                </div>
+                <!-- End of profile avatar -->
+
+                <!-- User name -->
                 <h1 class="text-center">Kati Frantz</h1>
-                <br>
-                <p class="text-center">
+                <!-- End user name -->
+
+                <!-- User stats -->
+                <p class="text-center my-4">
                     <span class="mr-3 h2"> 531,233 </span> <span class="text-muted h6 mr-3">RECIPES</span>
                     <span class="mr-3 h2"> 531 </span> <span class="text-muted h6">REVIEWS</span>
                 </p>
-                <br>
-                <p class="text-center">
+                <!-- End user stats -->
+
+                <!-- User bio -->
+                <p class="text-center my-4">
                     I am an Andela developer, with a great passion for cooking. 
                     I'm in charge of organizing birthday parties for my fellow andelans. 
                     What's the meal you wanna cook for your next event ? 
                     Hit me up for a recipe. 
                 </p>
+                <!-- End user bio -->
+
+                
             </div>
         </div>
     </div>
+    <!-- End of the page body section -->
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 </html>

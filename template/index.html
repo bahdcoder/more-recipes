@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">    
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
+    <link rel="stylesheet" href="css/custom.css">
     <title>More-Recipes </title>
 </head>
 <body>
@@ -18,7 +17,7 @@
     <section class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="/">
-                    <img src="img/logo.png" class="mr-2" style="width: 30px; height: 30px;" alt="">
+                    <img src="img/logo.png" class="navbar-logo-img mr-2" alt="">
                     More-recipes
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,11 +26,8 @@
             
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link">Home <span class="sr-only">(current)</span></a>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link">Recipes <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="recipes.html">Recipes <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
@@ -40,14 +36,19 @@
                     </form>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="login.html" class="nav-link">Login <span class="sr-only">(current)</span></a>
+                            <a href="create-recipe.html" class="nav-link">Create recipe <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="register.html" class="nav-link">Register<span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Submit recipes<span class="sr-only">(current)</span></a>
-                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <img class="mr-2 navbar-avatar-img" src="http://i.pravatar.cc/300" alt="Recipe author avatar">
+                                    Hey, Kati Frantz
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <a class="dropdown-item" href="profile.html">My profile</a>
+                              <a class="dropdown-item" href="favorites.html">My favorites</a>
+                              <a class="dropdown-item" href="settings.html">Notification settings</a>
+                            </div>
+                          </li>
                     </ul>
                 </div>
             </nav>
@@ -57,14 +58,14 @@
     <!-- The Jumbotron Area -->
     <div class="container-fluid">
         <div class="jumbotron text-center">
-                <h1 class="display-3">
-                        <img src="img/logo.png" class="mr-2" style="width: 180px; height: 180px;" alt="">
+                <h1 class="display-3 mb-5">
+                        <img src="img/logo.png" class="jumbotron-logo-img mr-2" alt="">
                 </h1>
-                <br>
+                
                 <p class="lead">Making everyday cooking fun !</p>
                 <br>
                 <p class="lead">
-                    <a href="" class="btn btn-primary btn-lg" role="button">Submit a recipe</a>
+                    <a href="/create-recipe.html" class="btn btn-primary btn-lg" role="button">Create a recipe</a>
                 </p>
             </div>
     </div>
@@ -75,7 +76,7 @@
         <h1 class="display-4 text-center">Top Rated Recipes</h1>
         <br>
         <div class="card-deck">
-            <div class="card">
+            <div class="card mb-3">
                 <img class="card-img-top" style="height: 250px;" src="https://i.imgur.com/KH1os7I.jpg" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title text-center">Pressurized African Cassava Golden Grains ( Garri )</h5>
@@ -90,15 +91,16 @@
                         <a href="single-recipe.html" class="btn btn-sm btn-primary">Checkout Recipe</a>                            
                     </p>
                     <p class="text-muted h6 text-center">
-                        <span class="mr-3 h5"><i class="ion ion-thumbsup"></i> 12 </span>
-                        <span class="mr-3 h5"><i class="ion ion-thumbsdown"></i> 5301</span>
+                        <span class="mr-3 h5"><i class="ion ion-happy-outline"></i> 12 </span>
+                        <span class="mr-3 h5"><i class="ion ion-sad-outline"></i> 5,301</span>
+                        <span class="mr-3 h5"><i class="ion ion-ios-heart"></i> 5,301</span>
                     </p>
                 </div>
             </div>
-            <div class="card">
+            <div class="card mb-3">
                 <img class="card-img-top" style="height: 250px;" src="https://i.imgur.com/fU1OmUo.jpg" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Emergency Jollof</h5>
+                    <h5 class="card-title text-center">Emergency Jollof and coconut stew</h5>
                     <hr>
                     <p class="text-sm">
                         <small><span class="text-muted">by</span> Kati Frantz</small>
@@ -110,12 +112,13 @@
                         <a href="single-recipe.html" class="btn btn-sm btn-primary">Checkout Recipe</a>                            
                     </p>
                     <p class="text-muted h6 text-center">
-                        <span class="mr-3 h5"><i class="ion ion-thumbsup"></i> 531,233 </span>
-                        <span class="mr-3 h5"><i class="ion ion-thumbsdown"></i> 0</span>
+                        <span class="mr-3 h5"><i class="ion ion-happy-outline"></i> 12 </span>
+                        <span class="mr-3 h5"><i class="ion ion-sad-outline"></i> 5,301</span>
+                        <span class="mr-3 h5"><i class="ion ion-ios-heart"></i> 5,301</span>
                     </p>
                 </div>
             </div>
-            <div class="card">
+            <div class="card mb-3">
                 <img class="card-img-top" style="height: 250px;" src="https://i.imgur.com/av7fjeA.jpg" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title text-center">Advanced Abacha and Egg sauce</h5>
@@ -130,8 +133,9 @@
                         <a href="single-recipe.html" class="btn btn-sm btn-primary">Checkout Recipe</a>                            
                     </p>
                     <p class="text-muted h6 text-center">
-                        <span class="mr-3 h5"><i class="ion ion-thumbsup"></i> 2 </span>
-                        <span class="mr-3 h5"><i class="ion ion-thumbsdown"></i> 11</span>
+                        <span class="mr-3 h5"><i class="ion ion-happy-outline"></i> 12 </span>
+                        <span class="mr-3 h5"><i class="ion ion-sad-outline"></i> 5,301</span>
+                        <span class="mr-3 h5"><i class="ion ion-ios-heart"></i> 5,301</span>
                     </p>
                 </div>
             </div>
@@ -142,6 +146,7 @@
     <h1 class="mt-3 mb-3"></h1>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 </html>

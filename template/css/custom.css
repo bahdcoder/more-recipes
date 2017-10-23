@@ -1,0 +1,23 @@
+.navbar-logo-img {
+    width: 30px;
+    height: 30px;
+}
+
+.jumbotron-logo-img {
+    width: 180px;
+    height: 180px;
+}
+
+.navbar-avatar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.upload-recipe-img {
+    background-color: rgba(0,0,0,.2);
+    height: 190px;
+    padding: 60px;
+    color: rgba(0,0,0,.6);
+    font-weight: bolder;
+}

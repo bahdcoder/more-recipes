@@ -10,16 +10,17 @@
     <link href="https://fonts.googleapis.com/css?family=Unica+One" rel="stylesheet">    
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="css/custom.css">
-    <title>Login</title>
+    <title>Profile settings</title>
 </head>
 <body>
-
-    
     <!-- The navigation bar begin -->
     <section class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <img src="img/logo.png" class="navbar-logo-img mr-2" alt="">                    
-                <a class="navbar-brand" href="/">More-recipes</a>
+                <!-- Navigation logo brand -->
+                <a class="navbar-brand" href="index.html">
+                    <img src="img/logo.png" class="navbar-logo-img mr-2" alt="">
+                    More-recipes
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,9 +33,9 @@
                             <a class="nav-link" href="recipes.html">Recipes <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
-                    <!-- End Left navigation links -->
+                     <!-- End Left navigation links -->
 
-                    <!-- Navigation Search Form -->
+                     <!-- Navigation Search Form -->
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-default my-2 my-sm-0" type="button">Search</button>
@@ -44,7 +45,18 @@
                     <!-- Right navigation links -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="/register.html" class="nav-link">Register<span class="sr-only">(current)</span></a>
+                            <a href="create-recipe.html" class="nav-link">Create recipe <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <img class="mr-2 navbar-avatar-img" src="http://i.pravatar.cc/300" alt="Recipe author avatar">
+                                    Hey, Kati Frantz
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="profile.html">My profile</a>
+                                <a class="dropdown-item" href="favorites.html">My favorites</a>
+                                <a class="dropdown-item" href="settings.html">Notification settings</a>
+                            </div>
                         </li>
                     </ul>
                     <!-- End Right navigation links -->
@@ -55,42 +67,38 @@
     </section>
     <!-- The navigation bar ending -->
 
-    <!-- The login form -->
-    <br><br><br>
+
+
+    <!-- Begin settings section -->
     <div class="container my-5">
+
+        <!-- Profile settings Page heading -->
+        <div class="row justify-content-center my-5">
+            <h2 class="text-center display-3">Profile Settings</h2>
+        </div>
+        <!-- End Profile settings Page heading -->
+
+        <!-- End Profile Page heading -->
         <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-8 col-xs-12">
-                    <div class="card">
-                        <div class="card-body">
-                                <form>
-                                    <h3 class="text-center mb-3 mt-3">Login</h3>
-                                    <div class="form-group row">
-                                        <label for="staticEmail" class="col-sm-3 col-form-label">Email</label>
-                                        <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="staticEmail" placeholder="email@example.com">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
-                                        <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-3 col-form-label"></label>
-                                        <div class="col-sm-9">
-                                            <button class="btn btn-primary form-control" type="submit">Login</button>
-                                        </div>
-                                    </div>
-                                </form>
-                        </div>
-                    </div>
+            <div class="col-lg-8 col-sm-12">
+                <div class="input-group mb-5">
+                    <span class="input-group-addon mr-3">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </span>
+                    Send me an email each time someone leaves a review on my recipe
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon mr-3">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </span>
+                    Send me an email when my favorite recipes are updated
+                </div>
             </div>
+            
         </div>
     </div>
-    <!-- End of the login form -->
+    <!-- End settings section -->
 
-    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>

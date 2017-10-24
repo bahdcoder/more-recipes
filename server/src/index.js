@@ -4,6 +4,6 @@ import RecipesController from './controllers/recipe.controller';
 const app = new Express();
 
 const recipesController = new RecipesController();
-app.use('/recipes', recipesController.router);
+app.use('/api/recipes', recipesController.router);
 
-app.listen(4000);
+app.listen(4040);

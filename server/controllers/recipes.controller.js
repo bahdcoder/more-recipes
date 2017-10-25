@@ -32,7 +32,7 @@ export default class RecipesController {
    */
   store(req, res) {
     this.some = 1;
-    const validator = new Validators.StoreRecipeValidator(req.data);
+    const validator = new Validators.StoreRecipeValidator(req.body);
 
     if (!validator.isValid()) {
       return res.json(validator.errors);

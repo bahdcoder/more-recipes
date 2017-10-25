@@ -11,21 +11,19 @@ export default class StoreRecipeValidator {
     this.errors = [];
   }
   /**
-   * Get the errors from validation
-   */
-  get errors() {
-    return this.errors;
-  }
-  /**
    * Validate the recipe
    * @returns {boolean} true or false
    */
   isValid() {
-    this.validateTitle();
-    this.validateDescription();
-    this.validateTimeToCook();
-    this.validateIngredients();
-    this.validateProcedure();
+    if (this.recipe) {
+      this.validateTitle();
+      this.validateDescription();
+      this.validateTimeToCook();
+      this.validateIngredients();
+      this.validateProcedure();
+    } else {
+      this.errors.push('No recipe was provided');
+    }
 
     if (this.errors.length > 0) {
       return false;

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import Validators from './../validators';
 
 /**
  * Controller to handle all recipe endpoint routes
@@ -11,6 +12,7 @@ export default class RecipesController {
     this.router = new Router();
 
     this.router.get('/', (req, res) => { this.index(req, res); });
+    this.router.post('/', (req, res) => { this.store(req, res); });
   }
   /**
    * Return a list of all recipes
@@ -21,5 +23,21 @@ export default class RecipesController {
   index(req, res) {
     this.something = 1;
     return res.json(['some response from the recipes controller']);
+  }
+  /**
+   * Store a new recipe into the database
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json of newly created recipe
+   */
+  store(req, res) {
+    this.some = 1;
+    const validator = new Validators.StoreRecipeValidator(req.data);
+
+    if (!validator.isValid()) {
+      return res.json(validator.errors);
+    }
+
+    return res.json(['some response from the recipes controller after creating recipe']);
   }
 }

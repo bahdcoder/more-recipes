@@ -1,7 +1,9 @@
 import Express from 'express';
+import RecipesController from './controllers/recipes.controller';
 
 const app = new Express();
-app.get('/', (req ,res) => {
-  res.json(['some express json from home endpoint ']);
-});
+
+const recipesController = new RecipesController();
+app.use('/api/recipes', recipesController.router);
+
 app.listen(4044);

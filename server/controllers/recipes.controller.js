@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import Database from './../database';
 import Validators from './../validators';
 
 /**
@@ -10,6 +11,7 @@ export default class RecipesController {
    */
   constructor() {
     this.router = new Router();
+    this.database = new Database();
 
     this.router.get('/', (req, res) => { this.index(req, res); });
     this.router.post('/', (req, res) => { this.store(req, res); });
@@ -21,7 +23,7 @@ export default class RecipesController {
    * @returns {json} json
    */
   index(req, res) {
-    return res.sendSuccessResponse({ recipes: ['recipe1', 'recipe2'] });
+    return res.sendSuccessResponse({ recipes: this.database.recipes });
   }
   /**
    * Store a new recipe into the database
@@ -29,14 +31,16 @@ export default class RecipesController {
    * @param {object} res express response object
    * @returns {json} json of newly created recipe
    */
-  store(req, res) {
+  async store(req, res) {
     const validator = new Validators.StoreRecipeValidator(req.body);
 
     if (!validator.isValid()) {
       return res.sendFailureResponse({ errors: validator.errors });
     }
 
-    return res.json(['some response from the recipes controller after creating recipe']);
+    const recipe = await this.database.save(req.body);
+
+    return res.sendSuccessResponse(recipe, 201);
   }
 }
 

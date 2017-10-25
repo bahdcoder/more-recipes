@@ -9,6 +9,6 @@ app.use(Middleware.Api);
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: false }));
 const recipesController = new Controllers.RecipesController();
-app.use('/api/recipes', recipesController.router);
+app.use('/api/v1/recipes', recipesController.router);
 app.listen(4044);
 

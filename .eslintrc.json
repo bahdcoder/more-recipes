@@ -16,6 +16,7 @@
       "curly": ["error", "multi-line"],
       "linebreak-style": ["error", "windows"],
       "import/no-unresolved": [2, { "commonjs": true }],
+      "class-methods-use-this": ["off"],
       "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
       "valid-jsdoc": ["error", {
         "requireReturn": true,

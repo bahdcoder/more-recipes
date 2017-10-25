@@ -21,7 +21,6 @@ export default class RecipesController {
    * @returns {json} json
    */
   index(req, res) {
-    this.something = 1;
     return res.sendSuccessResponse({ recipes: ['recipe1', 'recipe2'] });
   }
   /**
@@ -31,7 +30,6 @@ export default class RecipesController {
    * @returns {json} json of newly created recipe
    */
   store(req, res) {
-    this.some = 1;
     const validator = new Validators.StoreRecipeValidator(req.body);
 
     if (!validator.isValid()) {
@@ -41,3 +39,4 @@ export default class RecipesController {
     return res.json(['some response from the recipes controller after creating recipe']);
   }
 }
+

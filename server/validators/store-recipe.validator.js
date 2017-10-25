@@ -37,11 +37,12 @@ export default class StoreRecipeValidator {
    * @returns {null} no return value
    */
   validateTitle() {
-    if (!this.recipe.title) {
+    if (this.recipe.title) {
+      if (this.recipe.title.length < 5) {
+        this.errors.push('The title must be longer than 5 characters.');
+      }
+    } else {
       this.errors.push('The title is required.');
-    }
-    if (this.recipe.title && this.recipe.title.length < 1) {
-      this.errors.push('The title must not be an empty string');
     }
   }
   /**
@@ -50,12 +51,12 @@ export default class StoreRecipeValidator {
    * @returns {null} no return value
    */
   validateDescription() {
-    if (!this.recipe.description) {
+    if (this.recipe.description) {
+      if (this.recipe.description.length < 5) {
+        this.errors.push('The description must be longer than 5 characters.');
+      }
+    } else {
       this.errors.push('The description is required.');
-    }
-
-    if (this.recipe.description && this.recipe.description.length < 1) {
-      this.errors.push('The description must not be an empty string');
     }
   }
   /**
@@ -63,12 +64,12 @@ export default class StoreRecipeValidator {
    * @returns {null} null
    */
   validateTimeToCook() {
-    if (!this.recipe.time_to_cook) {
+    if (this.recipe.time_to_cook) {
+      if (Number.isNaN(parseInt(this.recipe.time_to_cook, 10))) {
+        this.errors.push('The time to cook must be a number in minutes.');
+      }
+    } else {
       this.errors.push('The time to cook is required.');
-    }
-
-    if (this.recipe.time_to_cook && Number.isInteger(parseInt(this.recipe.time_to_cook, 10))) {
-      this.errors.push('The time to cook must be a number in minutes.');
     }
   }
   /**
@@ -76,18 +77,27 @@ export default class StoreRecipeValidator {
    * @returns {null} no return
    */
   validateIngredients() {
-    const { ingredients } = this.recipe;
+    let { ingredients } = this.recipe;
 
-    if (!ingredients) {
+    if (ingredients) {
+      try {
+        ingredients = JSON.parse(ingredients);
+      } catch (e) {
+        this.errors.push('The ingredients must be a json list of ingredients');
+        return;
+      }
+
+      if (!Array.isArray(ingredients)) {
+        this.errors.push('There must be a list of ingredients');
+      }
+
+      if (Array.isArray(ingredients)) {
+        if (ingredients.length < 1) {
+          this.errors.push('There must be at least one ingredient');
+        }
+      }
+    } else {
       this.errors.push('The ingredients are required.');
-    }
-
-    if (ingredients && !Array.isArray(ingredients)) {
-      this.errors.push('There must be a list of ingredients');
-    }
-
-    if (ingredients && Array.isArray(ingredients) && ingredients.length < 1) {
-      this.errors.push('There must be at least one ingredient');
     }
   }
   /**
@@ -95,18 +105,26 @@ export default class StoreRecipeValidator {
    * @returns {null} no return
    */
   validateProcedure() {
-    const { procedure } = this.recipe;
+    let { procedure } = this.recipe;
 
-    if (!procedure) {
+    if (procedure) {
+      try {
+        procedure = JSON.parse(procedure);
+      } catch (e) {
+        this.errors.push('The procedure must be a json of procedural steps');
+        return;
+      }
+      if (!Array.isArray(procedure)) {
+        this.errors.push('There must be a list of procedure steps');
+      }
+
+      if (Array.isArray(procedure)) {
+        if (procedure.length < 1) {
+          this.errors.push('There must be at least one procedure step');
+        }
+      }
+    } else {
       this.errors.push('The procedure is required.');
-    }
-
-    if (procedure && !Array.isArray(procedure)) {
-      this.errors.push('There must be a list of steps in the procedure');
-    }
-
-    if (procedure && Array.isArray(procedure) && procedure.length < 1) {
-      this.errors.push('There must be at least one step for procedure.');
     }
   }
 }

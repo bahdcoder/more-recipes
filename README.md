@@ -37,3 +37,33 @@ live-server
 ## THE CLIENT SIDE
 
 *Coming soon*
+
+
+
+class RecipesController {
+  getAllRecipes(req, res) {
+    res.json(['al recipes'])
+  }
+} 
+import RecipesController from './'
+
+let recipesCon = new RecipesController();
+app.get('api/recipes', recipesCon.getAllRecipes);
+
+
+- how to create es6 class 
+class UsersController {
+  index(req, res) {
+
+
+  }
+
+  store(req, res) {
+
+  }
+} 
+
+let usersController = new UsersController();
+
+app.get('/users', usersController.index);
+app.post('/users', usersController.store);

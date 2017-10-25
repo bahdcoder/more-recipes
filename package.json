@@ -8,7 +8,7 @@
     "babel-node": "babel-node --",
     "build": "./node_modules/.bin/babel server -d build",
     "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register --reporter spec"
+    "test": "./node_modules/.bin/mocha test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "babel-preset-es2015-node": "^6.1.1",
     "babel-watch": "^2.0.7",
     "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",

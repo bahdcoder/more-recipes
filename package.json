@@ -8,6 +8,8 @@
     "babel-node": "babel-node --",
     "build": "./node_modules/.bin/babel server -d build",
     "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
     "test": "./node_modules/.bin/mocha test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec"
   },
   "repository": {
@@ -32,10 +34,13 @@
     "babel-watch": "^2.0.7",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.2.1"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

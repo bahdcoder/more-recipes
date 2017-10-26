@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/kati-frantz/more-recipes.svg?branch=server-side)](https://travis-ci.org/kati-frantz/more-recipes)
+[![Coverage Status](https://coveralls.io/repos/github/kati-frantz/more-recipes/badge.svg?branch=server-side)](https://coveralls.io/github/kati-frantz/more-recipes?branch=server-side)
 
 # MORE-RECIPES
 

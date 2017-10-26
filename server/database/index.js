@@ -21,6 +21,7 @@ export default class Database {
         return reject(Error('The record could not be saved to the database.'));
       }
 
+      recipe.id = this.generateRandomId();
       recipe.createdAt = new Date();
       recipe.updatedAt = new Date();
       recipe.upvotes = 0;
@@ -28,7 +29,9 @@ export default class Database {
       recipe.favorites = 0;
       recipe.ingredients = JSON.parse(recipe.ingredients);
       recipe.procedure = JSON.parse(recipe.procedure);
-      //  this.recipes.push(recipe);
+
+      this.recipes.push(recipe);
+
       return resolve(recipe);
     });
   }
@@ -49,11 +52,10 @@ export default class Database {
       recipe.description = newRecipe.description;
       recipe.time_to_cook = newRecipe.time_to_cook;
       recipe.updatedAt = new Date();
-      recipe.upvotes = 0;
-      recipe.downvotes = 0;
-      recipe.favorites = 0;
       recipe.ingredients = JSON.parse(newRecipe.ingredients);
       recipe.procedure = JSON.parse(newRecipe.procedure);
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1, recipe);
 
       return resolve(recipe);
     });
@@ -71,7 +73,9 @@ export default class Database {
       if (!recipe) {
         return reject(Error('Recipe was not found in the database.'));
       }
-      //  this.recipes.splice(this.recipes.indexOf(recipe), 1);
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1);
+
       return resolve('Recipe deleted.');
     });
   }
@@ -84,6 +88,15 @@ export default class Database {
    */
   findById(recipeId) {
     return this.recipes.find(rec => rec.id === parseInt(recipeId, 10));
+  }
+  /**
+   * Find index of a recipe using its id
+   * @param {any} recipeId id of recipe to find
+   * @returns {object} recipe
+   * @memberof Database
+   */
+  findIndexById(recipeId) {
+    return this.recipes.findIndex(rec => rec.id === parseInt(recipeId, 10));
   }
 
   /**
@@ -104,5 +117,54 @@ export default class Database {
       recipe.reviews.push(review);
       return resolve(recipe);
     });
+  }
+  /**
+   * Upvote a recipe
+   * @param {Number} recipeId id of recipe to be upvoted
+   * @returns {Promise} resolves with recipe
+   * @memberof Database
+   */
+  upvote(recipeId) {
+    return new Promise((resolve, reject) => {
+      const recipe = this.findById(recipeId);
+      if (!recipe) {
+        return reject(Error('The recipe was not found in the database.'));
+      }
+
+      recipe.upvotes += 1;
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1, recipe);
+
+      return resolve(recipe);
+    });
+  }
+
+  /**
+   * Downvote a recipe
+   * @param {Number} recipeId id of recipe to be downvoted
+   * @returns {Promise} resolves with recipe
+   * @memberof Database
+   */
+  downvote(recipeId) {
+    return new Promise((resolve, reject) => {
+      const recipe = this.findById(recipeId);
+      if (!recipe) {
+        return reject(Error('The recipe was not found in the database.'));
+      }
+
+      recipe.downvotes += 1;
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1);
+
+      return resolve(recipe);
+    });
+  }
+  /**
+   * Generates a random id for a newly created recipe
+   * @returns {Number} number
+   * @memberof Database
+   */
+  generateRandomId() {
+    return Math.floor(Math.random() * (Math.ceil(10000) - Math.floor(5000))) + Math.floor(5000);
   }
 }

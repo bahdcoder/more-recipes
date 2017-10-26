@@ -11,7 +11,7 @@ export default (req, res, next) => {
     data
   });
 
-  res.sendFailureResponse = (data, statusCode = 422) => res.status(statusCode).json({
+  res.sendFailureResponse = (data, statusCode = 404) => res.status(statusCode).json({
     status: 'fail',
     data
   });

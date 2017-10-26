@@ -17,6 +17,7 @@ export default class RecipesController {
     this.router.post('/', (req, res) => { this.store(req, res); });
     this.router.put('/:id', (req, res) => { this.update(req, res); });
     this.router.delete('/:id', (req, res) => { this.delete(req, res); });
+    this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
   }
   /**
    * Return a list of all recipes
@@ -26,7 +27,7 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   index(req, res) {
-    return res.sendSuccessResponse({ recipes: this.database.recipes });
+    return res.sendSuccessResponse({ recipes: this.database.recipes }, 200);
   }
   /**
    * Store a new recipe into the database
@@ -78,9 +79,25 @@ export default class RecipesController {
   async delete(req, res) {
     try {
       await this.database.delete(req.params.id);
-      return res.sendSuccessResponse('Recipe deleted.', 200);
+      return res.sendSuccessResponse({ message: 'Recipe deleted.' });
     } catch (e) {
       return res.sendFailureResponse(e.message);
+    }
+  }
+
+  /**
+   * Upvote a recipe
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json
+   * @memberof RecipesController
+   */
+  async upvote(req, res) {
+    try {
+      const recipe = await this.database.upvote(req.params.id);
+      return res.sendSuccessResponse(recipe);
+    } catch (e) {
+      return res.sendFailureResponse(e.message, 404);
     }
   }
 }

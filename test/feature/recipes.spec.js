@@ -13,7 +13,6 @@ describe('/recipes', () => {
         .end((error, response) => {
           expect(response).to.have.status(200);
           const res = response.body;
-          console.log(res);
           
           expect(res.data.recipes).to.not.be.undefined;
           expect(Array.isArray(res.data.recipes)).to.be.true;

@@ -44,7 +44,7 @@ export default [
     ],
     "createdAt": "2016-09-10 00:00:00",
     "updatedAt": "2017-10-10 00:00:00",
-    "upvotes": 11,
+    "upvotes": 112,
     "downvotes": 3323,
     "favorites": 12
   },
@@ -68,7 +68,7 @@ export default [
     ],
     "createdAt": "2016-09-10 00:00:00",
     "updatedAt": "2017-10-10 00:00:00",
-    "upvotes": 11,
+    "upvotes": 2901,
     "downvotes": 3323,
     "favorites": 12
   },
@@ -93,7 +93,7 @@ export default [
     ],
     "createdAt": "2015-09-10 11:20:51",
     "updatedAt": "2017-10-11 01:00:02",
-    "upvotes": 11,
+    "upvotes": 783,
     "downvotes": 3323,
     "favorites": 12
   }

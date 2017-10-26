@@ -21,6 +21,7 @@ export default class Database {
         return reject(Error('The record could not be saved to the database.'));
       }
 
+      recipe.id = this.generateRandomId();
       recipe.createdAt = new Date();
       recipe.updatedAt = new Date();
       recipe.upvotes = 0;
@@ -116,5 +117,54 @@ export default class Database {
       recipe.reviews.push(review);
       return resolve(recipe);
     });
+  }
+  /**
+   * Upvote a recipe
+   * @param {Number} recipeId id of recipe to be upvoted
+   * @returns {Promise} resolves with recipe
+   * @memberof Database
+   */
+  upvote(recipeId) {
+    return new Promise((resolve, reject) => {
+      const recipe = this.findById(recipeId);
+      if (!recipe) {
+        return reject(Error('The recipe was not found in the database.'));
+      }
+
+      recipe.upvotes += 1;
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1, recipe);
+
+      return resolve(recipe);
+    });
+  }
+
+  /**
+   * Downvote a recipe
+   * @param {Number} recipeId id of recipe to be downvoted
+   * @returns {Promise} resolves with recipe
+   * @memberof Database
+   */
+  downvote(recipeId) {
+    return new Promise((resolve, reject) => {
+      const recipe = this.findById(recipeId);
+      if (!recipe) {
+        return reject(Error('The recipe was not found in the database.'));
+      }
+
+      recipe.downvotes += 1;
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1);
+
+      return resolve(recipe);
+    });
+  }
+  /**
+   * Generates a random id for a newly created recipe
+   * @returns {Number} number
+   * @memberof Database
+   */
+  generateRandomId() {
+    return Math.floor(Math.random() * (Math.ceil(10000) - Math.floor(5000))) + Math.floor(5000);
   }
 }

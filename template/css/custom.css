@@ -9,7 +9,14 @@
 }
 
 .jumbotron {
-    background-color: rgb(236, 172, 135);
+    background-image: url('./../img/banner.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.jumbotron-title {
+    color: white;
+    font-weight: bolder;
 }
 
 .navbar .navbar-nav .nav-item .create-recipe-link {

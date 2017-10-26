@@ -85,4 +85,24 @@ export default class Database {
   findById(recipeId) {
     return this.recipes.find(rec => rec.id === parseInt(recipeId, 10));
   }
+
+  /**
+   * Save a review for a recipe
+   * @param {any} recipeId recipe id
+   * @param {string} review review to be saved
+   * @returns {Promise} resolved with recipe, rejects with error
+   * @memberof Database
+   */
+  saveReview(recipeId, review) {
+    return new Promise((resolve, reject) => {
+      const recipe = this.findById(recipeId);
+      if (!recipe) {
+        return reject(Error('The recipe was not found in the database.'));
+      }
+
+      recipe.reviews = [];
+      recipe.reviews.push(review);
+      return resolve(recipe);
+    });
+  }
 }

@@ -22,7 +22,7 @@ export default class StoreRecipeValidator {
       this.validateIngredients();
       this.validateProcedure();
     } else {
-      this.errors.push('No recipe was provided');
+      this.errors.push('No recipe was provided.');
     }
 
     if (this.errors.length > 0) {
@@ -83,17 +83,17 @@ export default class StoreRecipeValidator {
       try {
         ingredients = JSON.parse(ingredients);
       } catch (e) {
-        this.errors.push('The ingredients must be a json list of ingredients');
+        this.errors.push('The ingredients must be a json list of ingredients.');
         return;
       }
 
       if (!Array.isArray(ingredients)) {
-        this.errors.push('There must be a list of ingredients');
+        this.errors.push('There must be a list of ingredients.');
       }
 
       if (Array.isArray(ingredients)) {
         if (ingredients.length < 1) {
-          this.errors.push('There must be at least one ingredient');
+          this.errors.push('There must be at least one ingredient.');
         }
       }
     } else {
@@ -111,16 +111,16 @@ export default class StoreRecipeValidator {
       try {
         procedure = JSON.parse(procedure);
       } catch (e) {
-        this.errors.push('The procedure must be a json of procedural steps');
+        this.errors.push('The procedure must be a json of procedural steps.');
         return;
       }
       if (!Array.isArray(procedure)) {
-        this.errors.push('There must be a list of procedure steps');
+        this.errors.push('There must be a list of procedure steps.');
       }
 
       if (Array.isArray(procedure)) {
         if (procedure.length < 1) {
-          this.errors.push('There must be at least one procedure step');
+          this.errors.push('There must be at least one procedure step.');
         }
       }
     } else {

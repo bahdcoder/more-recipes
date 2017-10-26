@@ -16,11 +16,7 @@ export default class Database {
    * @returns {Promise} promise with recipe
    */
   save(recipe) {
-    return new Promise((resolve, reject) => {
-      if (this.error) {
-        return reject(Error('The record could not be saved to the database.'));
-      }
-
+    return new Promise((resolve) => {
       recipe.id = this.generateRandomId();
       recipe.createdAt = new Date();
       recipe.updatedAt = new Date();

@@ -30,15 +30,11 @@ export default class RecipesController {
   index(req, res) {
     const { recipes } = this.database;
 
-    if (req.query.sort) {
-      if (req.query.sort === 'upvotes') {
-        if (req.query.order) {
-          if (req.query.order === 'desc') {
-            recipes.sort((recipe1, recipe2) => recipe1.upvotes < recipe2.upvotes);
-          } else {
-            recipes.sort((recipe1, recipe2) => recipe1.upvotes > recipe2.upvotes);
-          }
-        }
+    if (req.query.sort === 'upvotes') {
+      if (req.query.order === 'desc') {
+        recipes.sort((recipe1, recipe2) => recipe1.upvotes < recipe2.upvotes);
+      } else {
+        recipes.sort((recipe1, recipe2) => recipe1.upvotes > recipe2.upvotes);
       }
     }
 
@@ -55,7 +51,7 @@ export default class RecipesController {
     const validator = new Validators.StoreRecipeValidator(req.body);
 
     if (!validator.isValid()) {
-      return res.sendFailureResponse({ errors: validator.errors });
+      return res.sendFailureResponse({ errors: validator.errors }, 422);
     }
 
     const recipe = await this.database.save(req.body);
@@ -73,7 +69,7 @@ export default class RecipesController {
     const validator = new Validators.StoreRecipeValidator(req.body);
 
     if (!validator.isValid()) {
-      return res.sendFailureResponse({ errors: validator.errors });
+      return res.sendFailureResponse({ errors: validator.errors }, 422);
     }
 
     try {

@@ -29,6 +29,30 @@ describe('/recipes', () => {
           done();
         });
     });
+    it('Should return a sorted list of recipes when called with sort and order queries', (done) => {
+      Chai.request(Application)
+        .get('/api/v1/recipes?sort=upvotes&order=desc')
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          const res = response.body;
+          
+          expect(res.data.recipes).to.not.be.undefined;
+          expect(Array.isArray(res.data.recipes)).to.be.true;
+          done();
+        });
+    });
+    it('Should return a sorted list of recipes when called with sort query', (done) => {
+      Chai.request(Application)
+        .get('/api/v1/recipes?sort=upvotes')
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          const res = response.body;
+          
+          expect(res.data.recipes).to.not.be.undefined;
+          expect(Array.isArray(res.data.recipes)).to.be.true;
+          done();
+        });
+    });
   });
 
   describe('/recipes POST endpoint', () => {
@@ -60,6 +84,26 @@ describe('/recipes', () => {
           done();
         });
     });
+
+    it('Should return the correct validation errors if there are any', (done) => {
+      Chai.request(Application)
+        .post('/api/v1/recipes')
+        .send({
+          ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces","1 sized Cucumber","1/2 medium sized Cabbage","1 tin sweet corn","1 big tin Heinz baked beans","1 tbsp mayonaise","1 tin green peas","2 cksp Salad cream","2 boiled eggs"]),
+          procedure: JSON.stringify(["Wash all the vegetables with enough water and salt.","Slice nicely cabbage, lettuce and dice the cucumber and carrot and set aside.","Dice boiled eggs, sieve water off the sweet corn and green pea and set aside","Arrange all the vegetables in a plate.","Pour salad cream and mayonnaise in a small bowl and add a dash of black pepper if you wish for a nice zing then mix with the salad and serve"])
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          
+          const res = response.body;
+          expect(res.data.errors).to.have.members([ 
+                'The title is required.',
+                'The description is required.',
+                'The time to cook is required.' 
+          ]);
+          done();
+        });
+    });
   });
 
   describe('/recipes/:id PUT endpoint', () => {
@@ -85,6 +129,40 @@ describe('/recipes', () => {
           done();
         });
     });
+    it('Should return correct validation errors if there are any', (done) => {
+      Chai.request(Application)
+        .put(`/api/v1/recipes/12121`)
+        .send({
+          description: 'this stuff is not nice, really. am just building my api - updated.',
+          ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces","1 sized Cucumber","1/2 medium sized Cabbage","1 tin sweet corn","1 big tin Heinz baked beans","1 tbsp mayonaise","1 tin green peas","2 cksp Salad cream","2 boiled eggs"]),
+          procedure: JSON.stringify(["Wash all the vegetables with enough water and salt.","Slice nicely cabbage, lettuce and dice the cucumber and carrot and set aside.","Dice boiled eggs, sieve water off the sweet corn and green pea and set aside","Arrange all the vegetables in a plate.","Pour salad cream and mayonnaise in a small bowl and add a dash of black pepper if you wish for a nice zing then mix with the salad and serve"])
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          const resp = response.body;
+          
+          expect(resp.data.errors).to.have.members([ 'The title is required.', 'The time to cook is required.' ]);
+          done();
+        });
+    });
+    it('Should return a 404 if the recipe is not found', (done) => {
+      Chai.request(Application)
+        .put(`/api/v1/recipes/12122323341`)
+        .send({
+          title: 'Vegetable Salad Updated title',
+          description: 'this stuff is not nice, really. am just building my api - updated.',
+          image_url: 'https://i.imgur.com/av7fjeA.jpg',
+          time_to_cook: 205,
+          ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces","1 sized Cucumber","1/2 medium sized Cabbage","1 tin sweet corn","1 big tin Heinz baked beans","1 tbsp mayonaise","1 tin green peas","2 cksp Salad cream","2 boiled eggs"]),
+          procedure: JSON.stringify(["Wash all the vegetables with enough water and salt.","Slice nicely cabbage, lettuce and dice the cucumber and carrot and set aside.","Dice boiled eggs, sieve water off the sweet corn and green pea and set aside","Arrange all the vegetables in a plate.","Pour salad cream and mayonnaise in a small bowl and add a dash of black pepper if you wish for a nice zing then mix with the salad and serve"])
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+          
+          expect(response.body.data).to.equal('The record could not be found in the database.');
+          done();
+        });
+    });
   });
 
   describe('/recipes/:id DELETE endpoint', () => {
@@ -92,10 +170,20 @@ describe('/recipes', () => {
       Chai.request(Application)
         .delete('/api/v1/recipes/7856565')
         .end((error, response) => {
-          console.log(response.body);
           expect(response).to.have.status(200);
 
           expect(response.body.data.message).to.equal('Recipe deleted.');
+          done();
+        });
+    });
+
+    it('Should return a 404 if the recipe is not found', (done) => {
+      Chai.request(Application)
+        .delete('/api/v1/recipes/7856565232323')
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+
+          expect(response.body.data).to.equal('Recipe was not found in the database.');
           done();
         });
     });
@@ -124,6 +212,16 @@ describe('/recipes', () => {
               });
         });
     });
+    it('Should return a 404 if the recipe is not found', (done) => {
+      Chai.request(Application)
+        .post('/api/v1/recipes/1324123123/upvote')
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+
+          expect(response.body.data).to.equal('The recipe was not found in the database.');
+          done();
+        });
+    });
   });
 
   describe('/recipes/:id/downvote POST endpoint', () => {
@@ -148,6 +246,17 @@ describe('/recipes', () => {
                 
                 done();
               });
+        });
+    });
+
+    it('Should return a 404 if the recipe is not found', (done) => {
+      Chai.request(Application)
+        .post('/api/v1/recipes/1324123123/downvote')
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+
+          expect(response.body.data).to.equal('The recipe was not found in the database.');
+          done();
         });
     });
   });

@@ -26,7 +26,7 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   index(req, res) {
-    return res.sendSuccessResponse({ recipes: this.database.recipes });
+    return res.sendSuccessResponse({ recipes: this.database.recipes }, 200);
   }
   /**
    * Store a new recipe into the database
@@ -78,7 +78,7 @@ export default class RecipesController {
   async delete(req, res) {
     try {
       await this.database.delete(req.params.id);
-      return res.sendSuccessResponse('Recipe deleted.', 200);
+      return res.sendSuccessResponse({ message: 'Recipe deleted.' });
     } catch (e) {
       return res.sendFailureResponse(e.message);
     }

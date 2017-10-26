@@ -13,6 +13,7 @@ describe('/recipes', () => {
         .end((error, response) => {
           expect(response).to.have.status(200);
           const res = response.body;
+          console.log(res);
           
           expect(res.data.recipes).to.not.be.undefined;
           expect(Array.isArray(res.data.recipes)).to.be.true;
@@ -90,11 +91,12 @@ describe('/recipes', () => {
   describe('/recipes/:id DELETE endpoint', () => {
     it('Should delete the recipe with specified id', (done) => {
       Chai.request(Application)
-        .delete('/api/v1/recipes/12121')
+        .delete('/api/v1/recipes/7856565')
         .end((error, response) => {
+          console.log(response.body);
           expect(response).to.have.status(200);
 
-          expect(response.body.data).to.equal('Recipe deleted.');
+          expect(response.body.data.message).to.equal('Recipe deleted.');
           done();
         });
     });

@@ -28,7 +28,9 @@ export default class Database {
       recipe.favorites = 0;
       recipe.ingredients = JSON.parse(recipe.ingredients);
       recipe.procedure = JSON.parse(recipe.procedure);
-      //  this.recipes.push(recipe);
+
+      this.recipes.push(recipe);
+
       return resolve(recipe);
     });
   }
@@ -49,11 +51,10 @@ export default class Database {
       recipe.description = newRecipe.description;
       recipe.time_to_cook = newRecipe.time_to_cook;
       recipe.updatedAt = new Date();
-      recipe.upvotes = 0;
-      recipe.downvotes = 0;
-      recipe.favorites = 0;
       recipe.ingredients = JSON.parse(newRecipe.ingredients);
       recipe.procedure = JSON.parse(newRecipe.procedure);
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1, recipe);
 
       return resolve(recipe);
     });
@@ -71,7 +72,9 @@ export default class Database {
       if (!recipe) {
         return reject(Error('Recipe was not found in the database.'));
       }
-      //  this.recipes.splice(this.recipes.indexOf(recipe), 1);
+
+      this.recipes.splice(this.findIndexById(recipe.id), 1);
+
       return resolve('Recipe deleted.');
     });
   }
@@ -84,6 +87,15 @@ export default class Database {
    */
   findById(recipeId) {
     return this.recipes.find(rec => rec.id === parseInt(recipeId, 10));
+  }
+  /**
+   * Find index of a recipe using its id
+   * @param {any} recipeId id of recipe to find
+   * @returns {object} recipe
+   * @memberof Database
+   */
+  findIndexById(recipeId) {
+    return this.recipes.findIndex(rec => rec.id === parseInt(recipeId, 10));
   }
 
   /**

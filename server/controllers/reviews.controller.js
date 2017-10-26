@@ -15,7 +15,8 @@ export default class ReviewsController {
     this.router = new Router();
     this.database = new Database();
 
-    this.router.post('/', (req, res) => { this.store(req, res); });
+    //  To be revisited. The naming convension is kinda cliche :(
+    this.router.post('/recipes/:recipeId/reviews', (req, res) => { this.store(req, res); });
   }
 
   /**
@@ -30,7 +31,7 @@ export default class ReviewsController {
       const recipe = await this.database.saveReview(req.params.recipeId, req.body.review);
       return res.sendSuccessResponse(recipe);
     } catch (e) {
-      return res.sendFailedResponse(e.message);
+      return res.sendFailureResponse(e.message);
     }
   }
 }

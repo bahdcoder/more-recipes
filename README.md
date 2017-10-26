@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kati-frantz/more-recipes.svg?branch=server-side)](https://travis-ci.org/kati-frantz/more-recipes)
+
 # MORE-RECIPES
 
 Bahdcoder Andela Cycle 28 Boot-camp Project

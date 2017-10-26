@@ -15,7 +15,7 @@ describe('/recipes', () => {
           const res = response.body;
           
           expect(res.data.recipes).to.not.be.undefined;
-          expect(Array.isArray(res.data.recipes)).to.be.true;
+          expect(Array.isArray(res.data.recipes)).to.be.false;
           expect(res.data.recipes[0].id).to.not.be.undefined;
           expect(res.data.recipes[0].title).to.not.be.undefined;
           expect(res.data.recipes[0].description).to.not.be.undefined;

@@ -18,6 +18,7 @@ export default class RecipesController {
     this.router.put('/:id', (req, res) => { this.update(req, res); });
     this.router.delete('/:id', (req, res) => { this.delete(req, res); });
     this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
+    this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });
   }
   /**
    * Return a list of all recipes
@@ -95,6 +96,22 @@ export default class RecipesController {
   async upvote(req, res) {
     try {
       const recipe = await this.database.upvote(req.params.id);
+      return res.sendSuccessResponse(recipe);
+    } catch (e) {
+      return res.sendFailureResponse(e.message, 404);
+    }
+  }
+
+  /**
+   * Upvote a recipe
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json
+   * @memberof RecipesController
+   */
+  async downvote(req, res) {
+    try {
+      const recipe = await this.database.downvote(req.params.id);
       return res.sendSuccessResponse(recipe);
     } catch (e) {
       return res.sendFailureResponse(e.message, 404);

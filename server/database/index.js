@@ -154,7 +154,7 @@ export default class Database {
 
       recipe.downvotes += 1;
 
-      this.recipes.splice(this.findIndexById(recipe.id), 1);
+      this.recipes.splice(this.findIndexById(recipe.id), 1, recipe);
 
       return resolve(recipe);
     });

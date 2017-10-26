@@ -12,3 +12,4 @@ const recipesController = new Controllers.RecipesController();
 app.use('/api/v1/recipes', recipesController.router);
 app.listen(4044);
 
+export default app;

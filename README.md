@@ -28,8 +28,6 @@ live-server
 ```
 - Navigate to [localhost:8080](localhost:8080) in your browser to view the project template
 
-
-
 ## THE SERVER SIDE
 
 - Clone repository

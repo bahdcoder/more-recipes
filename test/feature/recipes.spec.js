@@ -1,23 +1,23 @@
 /* eslint-disable */
 import ChaiHttp from 'chai-http';
 import Chai, { expect } from 'chai';
+import Application from './../../server';
 
 Chai.use(ChaiHttp);
 
 describe('/recipes', () => {
   describe('/recipes GET endpoint', () => {
     it('Should return a list of recipes when called', (done) => {
-      Chai.request('http://localhost:4044')
+      Chai.request(Application)
         .get('/api/v1/recipes')
         .end((error, response) => {
           expect(response).to.have.status(200);
-
           const res = response.body;
+          
           expect(res.data.recipes).to.not.be.undefined;
           expect(Array.isArray(res.data.recipes)).to.be.true;
-
           expect(res.data.recipes[0].id).to.not.be.undefined;
-          expect(res.data.recipes[0].name).to.not.be.undefined;
+          expect(res.data.recipes[0].title).to.not.be.undefined;
           expect(res.data.recipes[0].description).to.not.be.undefined;
           expect(res.data.recipes[0].image_url).to.not.be.undefined;
           expect(res.data.recipes[0].time_to_cook).to.not.be.undefined;
@@ -32,8 +32,8 @@ describe('/recipes', () => {
   });
 
   describe('/recipes POST endpoint', () => {
-    it.only('Should return the newly created recipe', (done) => {
-      Chai.request('http://localhost:4044')
+    it('Should return the newly created recipe', (done) => {
+      Chai.request(Application)
         .post('/api/v1/recipes')
         .send({
           title: 'Vegetable Salad',

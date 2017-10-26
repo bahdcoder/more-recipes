@@ -28,7 +28,21 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   index(req, res) {
-    return res.sendSuccessResponse({ recipes: this.database.recipes }, 200);
+    const { recipes } = this.database;
+
+    if (req.query.sort) {
+      if (req.query.sort === 'upvotes') {
+        if (req.query.order) {
+          if (req.query.order === 'desc') {
+            recipes.sort((recipe1, recipe2) => recipe1.upvotes < recipe2.upvotes);
+          } else {
+            recipes.sort((recipe1, recipe2) => recipe1.upvotes > recipe2.upvotes);
+          }
+        }
+      }
+    }
+
+    return res.sendSuccessResponse({ recipes }, 200);
   }
   /**
    * Store a new recipe into the database

@@ -61,4 +61,29 @@ describe('/recipes', () => {
         });
     });
   });
+
+  describe('/recipes/:id PUT endpoint', () => {
+    it('Should update the recipe, and return the updated recipe', (done) => {
+      Chai.request(Application)
+        .put(`/api/v1/recipes/12121`)
+        .send({
+          title: 'Vegetable Salad Updated title',
+          description: 'this stuff is not nice, really. am just building my api - updated.',
+          image_url: 'https://i.imgur.com/av7fjeA.jpg',
+          time_to_cook: 205,
+          ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces","1 sized Cucumber","1/2 medium sized Cabbage","1 tin sweet corn","1 big tin Heinz baked beans","1 tbsp mayonaise","1 tin green peas","2 cksp Salad cream","2 boiled eggs"]),
+          procedure: JSON.stringify(["Wash all the vegetables with enough water and salt.","Slice nicely cabbage, lettuce and dice the cucumber and carrot and set aside.","Dice boiled eggs, sieve water off the sweet corn and green pea and set aside","Arrange all the vegetables in a plate.","Pour salad cream and mayonnaise in a small bowl and add a dash of black pepper if you wish for a nice zing then mix with the salad and serve"])
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          const resp = response.body;
+
+          expect(resp.data.id).to.equal(12121);
+          expect(resp.data.title).to.equal('Vegetable Salad Updated title');
+          expect(resp.data.description).to.equal('this stuff is not nice, really. am just building my api - updated.');
+
+          done();
+        });
+    });
+  });
 });

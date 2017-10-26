@@ -32,4 +32,30 @@ export default class Database {
       return resolve(recipe);
     });
   }
+  /**
+   * Dummy update a record to database
+   * @param {object} recipeId id of recipe to be updated to database
+   * @param {object} newRecipe the new data for the recipe from request
+   * @returns {Promise} promise with recipe
+   */
+  update(recipeId, newRecipe) {
+    return new Promise((resolve, reject) => {
+      const recipe = this.recipes.find(rec => rec.id === parseInt(recipeId, 10));
+      if (!recipe) {
+        return reject(Error('The record could not be found in the database.'));
+      }
+
+      recipe.title = newRecipe.title;
+      recipe.description = newRecipe.description;
+      recipe.time_to_cook = newRecipe.time_to_cook;
+      recipe.updatedAt = new Date();
+      recipe.upvotes = 0;
+      recipe.downvotes = 0;
+      recipe.favorites = 0;
+      recipe.ingredients = JSON.parse(newRecipe.ingredients);
+      recipe.procedure = JSON.parse(newRecipe.procedure);
+
+      return resolve(recipe);
+    });
+  }
 }

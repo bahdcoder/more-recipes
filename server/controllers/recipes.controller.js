@@ -15,6 +15,7 @@ export default class RecipesController {
 
     this.router.get('/', (req, res) => { this.index(req, res); });
     this.router.post('/', (req, res) => { this.store(req, res); });
+    this.router.put('/:id', (req, res) => { this.update(req, res); });
   }
   /**
    * Return a list of all recipes
@@ -41,6 +42,26 @@ export default class RecipesController {
     const recipe = await this.database.save(req.body);
 
     return res.sendSuccessResponse(recipe, 201);
+  }
+  /**
+   * Update a recipe in storage
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json with updated recipe
+   */
+  async update(req, res) {
+    const validator = new Validators.StoreRecipeValidator(req.body);
+
+    if (!validator.isValid()) {
+      return res.sendFailureResponse({ errors: validator.errors });
+    }
+
+    try {
+      const recipe = await this.database.update(req.params.id, req.body);
+      return res.sendSuccessResponse(recipe, 200);
+    } catch (error) {
+      return res.sendFailureResponse(error.message, 404);
+    }
   }
 }
 

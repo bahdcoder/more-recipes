@@ -1,0 +1,89 @@
+.navbar-logo-img {
+    width: 30px;
+    height: 30px;
+}
+
+.jumbotron-logo-img {
+    width: 180px;
+    height: 180px;
+}
+
+.jumbotron {
+    background-color: rgb(236, 172, 135);
+}
+
+.navbar .navbar-nav .nav-item .create-recipe-link {
+    color: #8bad00;
+    font-weight: 700;
+}
+
+.navbar-avatar-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.upload-recipe-img {
+    background-color: rgba(0,0,0,.2);
+    height: 190px;
+    padding: 60px;
+    color: rgba(0,0,0,.6);
+    font-weight: bolder;
+}
+
+.card-title {
+    color: #8bad00;
+    font-weight: bolder;
+}
+
+.card-title a {
+    text-decoration: none;
+    color: #8bad00;
+}
+.display-4, .display-1, .display-2, .display-3, .display-5, 
+.ion {
+    color: #E27C3E;
+}
+
+.header-color {
+    color: #E27C3E;
+}
+
+.color-darker {
+    color: #212529;
+}
+
+.ion .ion-text {
+    color: #212529;
+}
+
+.btn-primary {
+    background-color: #8bad00;
+    border: 1px solid #8bad00;
+}
+.btn-primary:hover {
+    background-color: #647c0c;
+    border: 1px solid #647c0c;
+}
+
+.btn-primary:disabled {
+    background-color: #8bad00;
+    border: 1px solid #8bad00;
+}
+.badge-primary {
+    background-color: #8bad00;
+    border: 1px solid #8bad00;
+}
+
+.pagination > li > a {
+    color: #8bad00;
+}
+
+.pagination > li > a:hover {
+    color: #647c0c;
+}
+
+.pagination > li.active .page-link{
+    background-color: #8bad00;
+    border-color: #8bad00;
+}

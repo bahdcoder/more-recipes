@@ -1,0 +1,50 @@
+{
+  "name": "more-recipes",
+  "version": "1.0.0",
+  "description": "Bahdcoder Andela Cycle 28 Boot-camp Project",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/babel-watch server",
+    "babel-node": "babel-node --",
+    "build": "./node_modules/.bin/babel server -d build",
+    "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
+    "test": "./node_modules/.bin/mocha test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kati-frantz/more-recipes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kati-frantz/more-recipes/issues"
+  },
+  "homepage": "https://github.com/kati-frantz/more-recipes#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015-node": "^6.1.1",
+    "babel-watch": "^2.0.7",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.0.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.2.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "jsonfile": "^4.0.0"
+  }
+}

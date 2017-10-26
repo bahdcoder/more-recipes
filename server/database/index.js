@@ -40,7 +40,7 @@ export default class Database {
    */
   update(recipeId, newRecipe) {
     return new Promise((resolve, reject) => {
-      const recipe = this.recipes.find(rec => rec.id === parseInt(recipeId, 10));
+      const recipe = this.findById(recipeId);
       if (!recipe) {
         return reject(Error('The record could not be found in the database.'));
       }
@@ -57,5 +57,32 @@ export default class Database {
 
       return resolve(recipe);
     });
+  }
+
+  /**
+   * Delete a recipe from storage
+   * @param {number} recipeId id of recipe to be deleted
+   * @returns {Promise} Promise
+   * @memberof Database
+   */
+  delete(recipeId) {
+    return new Promise((resolve, reject) => {
+      const recipe = this.findById(recipeId);
+      if (!recipe) {
+        return reject(Error('Recipe was not found in the database.'));
+      }
+      //  this.recipes.splice(this.recipes.indexOf(recipe), 1);
+      return resolve('Recipe deleted.');
+    });
+  }
+
+  /**
+   * Find a recipe using its id
+   * @param {any} recipeId id of recipe to find
+   * @returns {object} recipe
+   * @memberof Database
+   */
+  findById(recipeId) {
+    return this.recipes.find(rec => rec.id === parseInt(recipeId, 10));
   }
 }

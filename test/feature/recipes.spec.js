@@ -86,4 +86,17 @@ describe('/recipes', () => {
         });
     });
   });
+
+  describe('/recipes/:id DELETE endpoint', () => {
+    it('Should delete the recipe with specified id', (done) => {
+      Chai.request(Application)
+        .delete('/api/v1/recipes/12121')
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+
+          expect(response.body.data).to.equal('Recipe deleted.');
+          done();
+        });
+    });
+  });
 });

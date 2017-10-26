@@ -16,12 +16,14 @@ export default class RecipesController {
     this.router.get('/', (req, res) => { this.index(req, res); });
     this.router.post('/', (req, res) => { this.store(req, res); });
     this.router.put('/:id', (req, res) => { this.update(req, res); });
+    this.router.delete('/:id', (req, res) => { this.delete(req, res); });
   }
   /**
    * Return a list of all recipes
    * @param {object} req express request object
    * @param {object} res express response object
    * @returns {json} json
+   * @memberof RecipesController
    */
   index(req, res) {
     return res.sendSuccessResponse({ recipes: this.database.recipes });
@@ -31,6 +33,7 @@ export default class RecipesController {
    * @param {object} req express request object
    * @param {object} res express response object
    * @returns {json} json of newly created recipe
+   * @memberof RecipesController
    */
   async store(req, res) {
     const validator = new Validators.StoreRecipeValidator(req.body);
@@ -48,6 +51,7 @@ export default class RecipesController {
    * @param {object} req express request object
    * @param {object} res express response object
    * @returns {json} json with updated recipe
+   * @memberof RecipesController
    */
   async update(req, res) {
     const validator = new Validators.StoreRecipeValidator(req.body);
@@ -63,5 +67,20 @@ export default class RecipesController {
       return res.sendFailureResponse(error.message, 404);
     }
   }
-}
 
+  /**
+   * Delete a recipe from the database
+   * @param {any} req express request object
+   * @param {any} res express response object
+   * @returns {json} confirmation message
+   * @memberof RecipesController
+   */
+  async delete(req, res) {
+    try {
+      await this.database.delete(req.params.id);
+      return res.sendSuccessResponse('Recipe deleted.', 200);
+    } catch (e) {
+      return res.sendFailureResponse(e.message);
+    }
+  }
+}

@@ -1,14 +1,14 @@
 /* eslint-disable */
-import ChaiHttp from 'chai-http';
-import Chai, { expect } from 'chai';
-import Application from './../../server';
+import chaiHttp from 'chai-http';
+import chai, { expect } from 'chai';
+import application from './../../server/app.js';
 
-Chai.use(ChaiHttp);
+chai.use(chaiHttp);
 
 describe('/recipes', () => {
   describe('/recipes GET endpoint', () => {
     it('Should return a list of recipes when called', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .get('/api/v1/recipes')
         .end((error, response) => {
           expect(response).to.have.status(200);
@@ -30,7 +30,7 @@ describe('/recipes', () => {
         });
     });
     it('Should return a sorted list of recipes when called with sort and order queries', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .get('/api/v1/recipes?sort=upvotes&order=desc')
         .end((error, response) => {
           expect(response).to.have.status(200);
@@ -42,7 +42,7 @@ describe('/recipes', () => {
         });
     });
     it('Should return a sorted list of recipes when called with sort query', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .get('/api/v1/recipes?sort=upvotes')
         .end((error, response) => {
           expect(response).to.have.status(200);
@@ -57,7 +57,7 @@ describe('/recipes', () => {
 
   describe('/recipes POST endpoint', () => {
     it('Should return the newly created recipe', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes')
         .send({
           title: 'Vegetable Salad',
@@ -86,7 +86,7 @@ describe('/recipes', () => {
     });
 
     it('Should return the correct validation errors if there are any', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes')
         .send({
           ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces","1 sized Cucumber","1/2 medium sized Cabbage","1 tin sweet corn","1 big tin Heinz baked beans","1 tbsp mayonaise","1 tin green peas","2 cksp Salad cream","2 boiled eggs"]),
@@ -108,7 +108,7 @@ describe('/recipes', () => {
 
   describe('/recipes/:id PUT endpoint', () => {
     it('Should update the recipe, and return the updated recipe', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .put(`/api/v1/recipes/12121`)
         .send({
           title: 'Vegetable Salad Updated title',
@@ -130,7 +130,7 @@ describe('/recipes', () => {
         });
     });
     it('Should return correct validation errors if there are any', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .put(`/api/v1/recipes/12121`)
         .send({
           description: 'this stuff is not nice, really. am just building my api - updated.',
@@ -146,7 +146,7 @@ describe('/recipes', () => {
         });
     });
     it('Should return a 404 if the recipe is not found', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .put(`/api/v1/recipes/12122323341`)
         .send({
           title: 'Vegetable Salad Updated title',
@@ -167,7 +167,7 @@ describe('/recipes', () => {
 
   describe('/recipes/:id DELETE endpoint', () => {
     it('Should delete the recipe with specified id', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .delete('/api/v1/recipes/7856565')
         .end((error, response) => {
           expect(response).to.have.status(200);
@@ -178,7 +178,7 @@ describe('/recipes', () => {
     });
 
     it('Should return a 404 if the recipe is not found', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .delete('/api/v1/recipes/7856565232323')
         .end((error, response) => {
           expect(response).to.have.status(404);
@@ -191,7 +191,7 @@ describe('/recipes', () => {
 
   describe('/recipes/:id/upvote POST endpoint', () => {
     it('Should increase upvotes for a recipe', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes')
         .send({
           title: 'Vegetable Salad',
@@ -203,7 +203,7 @@ describe('/recipes', () => {
         })
         .end((error, response) => {
           expect(response).to.have.status(201);
-            Chai.request(Application)
+            chai.request(application)
               .post(`/api/v1/recipes/${response.body.data.id}/upvote`)
               .end((error, response) => {
                 expect(response).to.have.status(200);
@@ -213,7 +213,7 @@ describe('/recipes', () => {
         });
     });
     it('Should return a 404 if the recipe is not found', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes/1324123123/upvote')
         .end((error, response) => {
           expect(response).to.have.status(404);
@@ -226,7 +226,7 @@ describe('/recipes', () => {
 
   describe('/recipes/:id/downvote POST endpoint', () => {
     it('Should increase downvotes for a recipe', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes')
         .send({
           title: 'Vegetable Salad',
@@ -238,7 +238,7 @@ describe('/recipes', () => {
         })
         .end((error, response) => {
           expect(response).to.have.status(201);
-            Chai.request(Application)
+            chai.request(application)
               .post(`/api/v1/recipes/${response.body.data.id}/downvote`)
               .end((error, response) => {
                 expect(response).to.have.status(200);
@@ -250,7 +250,7 @@ describe('/recipes', () => {
     });
 
     it('Should return a 404 if the recipe is not found', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes/1324123123/downvote')
         .end((error, response) => {
           expect(response).to.have.status(404);

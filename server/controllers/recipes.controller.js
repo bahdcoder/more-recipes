@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Database from './../database';
-import Validators from './../validators';
+import validators from './../validators';
 
 /**
  * Controller to handle all recipe endpoint routes
@@ -48,7 +48,7 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async store(req, res) {
-    const validator = new Validators.StoreRecipeValidator(req.body);
+    const validator = new validators.StoreRecipeValidator(req.body);
 
     if (!validator.isValid()) {
       return res.sendFailureResponse({ errors: validator.errors }, 422);
@@ -66,7 +66,7 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async update(req, res) {
-    const validator = new Validators.StoreRecipeValidator(req.body);
+    const validator = new validators.StoreRecipeValidator(req.body);
 
     if (!validator.isValid()) {
       return res.sendFailureResponse({ errors: validator.errors }, 422);

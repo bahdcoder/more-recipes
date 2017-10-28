@@ -1,14 +1,14 @@
 /* eslint-disable */
-import ChaiHttp from 'chai-http';
-import Chai, { expect } from 'chai';
-import Application from './../../server';
+import chaiHttp from 'chai-http';
+import chai, { expect } from 'chai';
+import application from './../../server/app.js';
 
-Chai.use(ChaiHttp);
+chai.use(chaiHttp);
 
 describe('/recipes/:id/reviews', () => {
   describe('/recipes/:id/reviews POST endpoint', () => {
     it('Should save a review for the recipe.', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes/12121/reviews')
         .send({ review: 'I absolutely hate your cooking. Its a mess.' })
         .end((error, response) => {
@@ -25,7 +25,7 @@ describe('/recipes/:id/reviews', () => {
     });
 
     it('Should return a 404 if the recipe is not found.', (done) => {
-      Chai.request(Application)
+      chai.request(application)
         .post('/api/v1/recipes/1324234121/reviews')
         .send({ review: 'this is a valid review' })
         .end((error, response) => {
@@ -37,7 +37,7 @@ describe('/recipes/:id/reviews', () => {
     });
 
     it('Should return validation errors if review is not provided', (done) => {
-      Chai.request(Application)
+      chai.request(application)
       .post('/api/v1/recipes/12121/reviews')
       .send({})
       .end((error, response) => {

@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/kati-frantz/more-recipes.svg?branch=server-side)](https://travis-ci.org/kati-frantz/more-recipes)
+[![Coverage Status](https://coveralls.io/repos/github/kati-frantz/more-recipes/badge.svg?branch=server-side)](https://coveralls.io/github/kati-frantz/more-recipes?branch=server-side)
+
 # MORE-RECIPES
 
 Bahdcoder Andela Cycle 28 Boot-camp Project
@@ -28,12 +31,18 @@ live-server
 ```
 - Navigate to [localhost:8080](localhost:8080) in your browser to view the project template
 
-
-
 ## THE SERVER SIDE
 
-*Coming soon*
-
+- Clone repository
+- Install dependencies
+- Run server: 
+```bash
+  npm run start
+```
+- Run tests:
+```bash
+  npm run test
+```
 ## THE CLIENT SIDE
 
 *Coming soon*

@@ -43,6 +43,7 @@
     "nyc": "^11.2.1"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jsonfile": "^4.0.0",

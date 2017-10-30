@@ -49,6 +49,8 @@
     "jsonfile": "^4.0.0",
     "jsonwebtoken": "^8.1.0",
     "mysql2": "^1.4.2",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
     "sequelize": "^4.19.0",
     "sequelize-cli": "^3.0.0"
   }

@@ -47,6 +47,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jsonfile": "^4.0.0",
+    "jsonwebtoken": "^8.1.0",
     "mysql2": "^1.4.2",
     "sequelize": "^4.19.0",
     "sequelize-cli": "^3.0.0"

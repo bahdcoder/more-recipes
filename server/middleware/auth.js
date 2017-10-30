@@ -14,11 +14,12 @@ export default async (req, res, next) => {
     const userData = jwt.verify(accessToken, 'secret');
     const user = await models.User.findOne({ where: { email: userData.email } });
     if (user) {
+      req.authUser = user;
       return next();
     }
 
     throw new Error('Invalid token.');
   } catch (e) {
-    return res.sendFailureResponse({ message: e.message }, 401);
+    return res.sendFailureResponse({ message: 'Unauthenticated.' }, 401);
   }
 };

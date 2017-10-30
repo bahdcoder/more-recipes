@@ -58,6 +58,7 @@ describe('/recipes', () => {
 
   describe('/recipes POST endpoint', () => {
     it('Should return the newly created recipe', (done) => {
+      
       chai.request(application)
         .post('/api/v1/recipes')
         .send({
@@ -106,7 +107,7 @@ describe('/recipes', () => {
         });
     });
 
-    it('Should return unauthenticated if there is no valid access_token', (done) => {
+    it.only('Should return unauthenticated if there is no valid access_token', (done) => {
       chai.request(application)
           .post('/api/v1/recipes')
           .send({

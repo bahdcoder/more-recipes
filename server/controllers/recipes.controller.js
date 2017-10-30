@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Database from './../database';
-
+import middleware from '../middleware/index';
 /**
  * Controller to handle all recipe endpoint routes
  */
@@ -114,9 +114,9 @@ export default class RecipesController {
    * @returns {null} null
    */
   defineRoutes() {
-    this.router.get('/', (req, res) => { this.index(req, res); });
-    this.router.post('/', (req, res) => { this.store(req, res); });
-    this.router.put('/:id', (req, res) => { this.update(req, res); });
+    this.router.get('/', this.index);
+    this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.store);
+    this.router.put('/:id', middleware.auth, middleware.createRecipeValidator, this.update);
     this.router.delete('/:id', (req, res) => { this.delete(req, res); });
     this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
     this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });

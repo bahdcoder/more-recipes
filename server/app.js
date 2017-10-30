@@ -16,6 +16,7 @@ app.use(middleware.Api);
 app.post('/api/v1/recipes', middleware.createRecipeValidator);
 app.put('/api/v1/recipes/:id', middleware.createRecipeValidator);
 app.post('/api/v1/users/signup', middleware.registerUserValidator);
+app.post('/api/v1/users/signin', middleware.signinUserValidator);
 
 app.use('/api/v1', (new controllers.ReviewsController()).router);
 app.use('/api/v1/recipes', (new controllers.RecipesController()).router);

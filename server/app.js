@@ -11,8 +11,8 @@ const app = new express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(middleware.Api);
-
+app.use(middleware.api);
+app.post('/api/v1/recipes', middleware.auth);
 app.post('/api/v1/recipes', middleware.createRecipeValidator);
 app.put('/api/v1/recipes/:id', middleware.createRecipeValidator);
 app.post('/api/v1/users/signup', middleware.registerUserValidator);

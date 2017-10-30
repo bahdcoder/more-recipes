@@ -17,6 +17,11 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false
     },
+    favorites: {
+      type: Sequelize.ARRAY(Sequelize.INTEGER),
+      allowNull: false,
+      defaultValue: []
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

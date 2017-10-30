@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    favorites: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
+    },
   }, {
     classMethods: {
       associate(models) {

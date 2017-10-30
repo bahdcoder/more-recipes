@@ -1,5 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
+    },
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     imageUrl: DataTypes.STRING,
@@ -11,7 +17,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate(models) {
-        Recipe.belongsTo(models.User);
+        Recipe.belongsTo(models.User, {
+          foreignKey: 'UserId',
+          onDelete: 'CASCADE'
+        });
+        Recipe.hasMany(models.Review);
       }
     }
   });

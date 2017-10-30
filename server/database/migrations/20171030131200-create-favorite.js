@@ -1,17 +1,14 @@
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Reviews', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Favorites', {
     id: {
       allowNull: false,
       primaryKey: true,
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4
     },
-    review: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
     UserId: {
       type: Sequelize.UUID,
+      onDelete: 'CASCADE',
       references: {
         model: 'Users',
         key: 'id'
@@ -19,7 +16,6 @@ module.exports = {
     },
     RecipeId: {
       type: Sequelize.UUID,
-      onDelete: 'CASCADE',
       references: {
         model: 'Recipes',
         key: 'id'
@@ -34,5 +30,5 @@ module.exports = {
       type: Sequelize.DATE
     }
   }),
-  down: queryInterface => queryInterface.dropTable('Reviews')
+  down: queryInterface => queryInterface.dropTable('Favorites')
 };

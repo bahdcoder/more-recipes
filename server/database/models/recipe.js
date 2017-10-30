@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'UserId',
           onDelete: 'CASCADE'
         });
+        Recipe.hasMany(models.Review);
       }
     }
   });

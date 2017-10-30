@@ -14,7 +14,7 @@
       "no-param-reassign": 0,
       "comma-dangle": 0,
       "curly": ["error", "multi-line"],
-      "linebreak-style": ["error", "windows"],
+      "linebreak-style": 0,
       "import/no-unresolved": [2, { "commonjs": true }],
       "class-methods-use-this": ["off"],
       "no-shadow": ["error", { "allow": ["req", "res", "err"] }],

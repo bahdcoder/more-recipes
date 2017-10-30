@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import Database from './../database';
-import Validators from './../validators';
 
 /**
  * Controller to handle all recipe endpoint routes
@@ -13,12 +12,7 @@ export default class RecipesController {
     this.router = new Router();
     this.database = new Database();
 
-    this.router.get('/', (req, res) => { this.index(req, res); });
-    this.router.post('/', (req, res) => { this.store(req, res); });
-    this.router.put('/:id', (req, res) => { this.update(req, res); });
-    this.router.delete('/:id', (req, res) => { this.delete(req, res); });
-    this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
-    this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });
+    this.defineRoutes();
   }
   /**
    * Return a list of all recipes
@@ -48,12 +42,6 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async store(req, res) {
-    const validator = new Validators.StoreRecipeValidator(req.body);
-
-    if (!validator.isValid()) {
-      return res.sendFailureResponse({ errors: validator.errors }, 422);
-    }
-
     const recipe = await this.database.save(req.body);
 
     return res.sendSuccessResponse(recipe, 201);
@@ -66,12 +54,6 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async update(req, res) {
-    const validator = new Validators.StoreRecipeValidator(req.body);
-
-    if (!validator.isValid()) {
-      return res.sendFailureResponse({ errors: validator.errors }, 422);
-    }
-
     try {
       const recipe = await this.database.update(req.params.id, req.body);
       return res.sendSuccessResponse(recipe, 200);
@@ -126,5 +108,17 @@ export default class RecipesController {
     } catch (e) {
       return res.sendFailureResponse(e.message, 404);
     }
+  }
+  /**
+   * Define routes for this controller
+   * @returns {null} null
+   */
+  defineRoutes() {
+    this.router.get('/', (req, res) => { this.index(req, res); });
+    this.router.post('/', (req, res) => { this.store(req, res); });
+    this.router.put('/:id', (req, res) => { this.update(req, res); });
+    this.router.delete('/:id', (req, res) => { this.delete(req, res); });
+    this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
+    this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });
   }
 }

@@ -2,12 +2,12 @@
   "name": "more-recipes",
   "version": "1.0.0",
   "description": "Bahdcoder Andela Cycle 28 Boot-camp Project",
-  "main": "server/index.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-watch server",
+    "start": "./node_modules/.bin/babel-watch server/app.js",
     "babel-node": "babel-node --",
-    "build": "./node_modules/.bin/babel server -d build",
-    "dist": "./node_modules/.bin/babel server -d dist --presets=babili",
+    "build": "./node_modules/.bin/babel server/app.js -d build",
+    "dist": "./node_modules/.bin/babel server/app.js -d dist --presets=babili",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
     "test": "./node_modules/.bin/mocha test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec"
@@ -43,8 +43,15 @@
     "nyc": "^11.2.1"
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "jsonfile": "^4.0.0"
+    "jsonfile": "^4.0.0",
+    "jsonwebtoken": "^8.1.0",
+    "mysql2": "^1.4.2",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.19.0",
+    "sequelize-cli": "^3.0.0"
   }
 }

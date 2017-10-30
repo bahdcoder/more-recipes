@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import Database from './../database';
-import Validators from './../validators';
+import validators from './../validators';
 /**
  * Controller to handle all reviews for recipes
  * @export ReviewsController
@@ -27,7 +27,7 @@ export default class ReviewsController {
    * @memberof ReviewsController
    */
   async store(req, res) {
-    const validator = new Validators.StoreReviewValidator(req.body.review);
+    const validator = new validators.StoreReviewValidator(req.body.review);
 
     if (!validator.isValid()) {
       return res.sendFailureResponse(validator.errors, 422);

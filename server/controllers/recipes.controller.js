@@ -88,9 +88,10 @@ export default class RecipesController {
    * @returns {json} confirmation message
    * @memberof RecipesController
    */
-  async delete(req, res) {
+  async destroy(req, res) {
     try {
-      await this.database.delete(req.params.id);
+      const recipe = await models.Recipe.findById(req.params.id);
+      await recipe.destroy();
       return res.sendSuccessResponse({ message: 'Recipe deleted.' });
     } catch (e) {
       return res.sendFailureResponse(e.message);
@@ -136,7 +137,7 @@ export default class RecipesController {
     this.router.get('/', this.index);
     this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
     this.router.put('/:id', middleware.auth, middleware.authorize, middleware.createRecipeValidator, this.update);
-    this.router.delete('/:id', (req, res) => { this.delete(req, res); });
+    this.router.delete('/:id', middleware.auth, middleware.authorize, this.destroy);
     this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
     this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });
   }

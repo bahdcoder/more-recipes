@@ -63,7 +63,18 @@ export default class RecipesController {
    */
   async update(req, res) {
     try {
-      const recipe = await this.database.update(req.params.id, req.body);
+      const recipe = await models.Recipe.findById(req.params.id);
+      const reqBody = req.body;
+
+      await recipe.update({
+        title: reqBody.title,
+        description: reqBody.description,
+        imageUrl: reqBody.imageUrl,
+        timeToCook: reqBody.time_to_cook,
+        ingredients: reqBody.ingredients,
+        procedure: reqBody.procedure
+      });
+
       return res.sendSuccessResponse(recipe, 200);
     } catch (error) {
       return res.sendFailureResponse(error.message, 404);

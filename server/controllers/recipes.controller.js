@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import models from '../database/models';
+import client from '../helpers/redis-client';
 import middleware from '../middleware/index';
 /**
  * Controller to handle all recipe endpoint routes
@@ -63,7 +64,7 @@ export default class RecipesController {
    */
   async update(req, res) {
     try {
-      const recipe = await models.Recipe.findById(req.params.id);
+      const recipe = req.currentRecipe;
       const reqBody = req.body;
 
       await recipe.update({
@@ -90,7 +91,7 @@ export default class RecipesController {
    */
   async destroy(req, res) {
     try {
-      const recipe = await models.Recipe.findById(req.params.id);
+      const recipe = req.currentRecipe;
       await recipe.destroy();
       return res.sendSuccessResponse({ message: 'Recipe deleted.' });
     } catch (e) {
@@ -107,10 +108,13 @@ export default class RecipesController {
    */
   async upvote(req, res) {
     try {
-      const recipe = await this.database.upvote(req.params.id);
-      return res.sendSuccessResponse(recipe);
+      const recipe = req.currentRecipe;
+
+      await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+
+      return res.sendSuccessResponse({ message: 'Recipe upvoted!' });
     } catch (e) {
-      return res.sendFailureResponse(e.message, 404);
+      return res.sendFailureResponse(e.message, 500);
     }
   }
 
@@ -123,10 +127,13 @@ export default class RecipesController {
    */
   async downvote(req, res) {
     try {
-      const recipe = await this.database.downvote(req.params.id);
-      return res.sendSuccessResponse(recipe);
+      const recipe = req.currentRecipe;
+
+      await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
+
+      return res.sendSuccessResponse({ message: 'Recipe downvoted!' });
     } catch (e) {
-      return res.sendFailureResponse(e.message, 404);
+      return res.sendFailureResponse(e.message, 500);
     }
   }
   /**
@@ -138,7 +145,7 @@ export default class RecipesController {
     this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
     this.router.put('/:id', middleware.auth, middleware.authorize, middleware.createRecipeValidator, this.update);
     this.router.delete('/:id', middleware.auth, middleware.authorize, this.destroy);
-    this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
-    this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });
+    this.router.post('/:id/upvote', middleware.auth, middleware.canUpvote, this.upvote);
+    this.router.post('/:id/downvote', middleware.auth, middleware.canDownvote, this.downvote);
   }
 }

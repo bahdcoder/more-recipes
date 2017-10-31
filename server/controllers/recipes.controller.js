@@ -135,7 +135,7 @@ export default class RecipesController {
   defineRoutes() {
     this.router.get('/', this.index);
     this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
-    this.router.put('/:id', middleware.auth, middleware.createRecipeValidator, this.update);
+    this.router.put('/:id', middleware.auth, middleware.authorize, middleware.createRecipeValidator, this.update);
     this.router.delete('/:id', (req, res) => { this.delete(req, res); });
     this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
     this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });

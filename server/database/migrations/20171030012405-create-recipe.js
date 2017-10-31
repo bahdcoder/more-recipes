@@ -6,9 +6,8 @@ module.exports = {
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4
     },
-    UserId: {
+    userId: {
       type: Sequelize.UUID,
-      onDelete: 'CASCADE',
       references: {
         model: 'Users',
         key: 'id'
@@ -27,18 +26,16 @@ module.exports = {
       type: Sequelize.INTEGER
     },
     ingredients: {
-      type: Sequelize.ARRAY(Sequelize.STRING)
+      type: Sequelize.TEXT
     },
     procedure: {
-      type: Sequelize.ARRAY(Sequelize.STRING)
+      type: Sequelize.TEXT
     },
     upvoters: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      defaultValue: []
+      type: Sequelize.TEXT
     },
     downvoters: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      defaultValue: []
+      type: Sequelize.TEXT
     },
     createdAt: {
       allowNull: false,

@@ -39,6 +39,8 @@ export default class AuthController {
 
         throw new Error('The passwords did not match.');
       }
+
+      throw new Error('No user was found.');
     } catch (e) {
       return res.sendFailureResponse({ message: 'These credentials do not match our records.' }, 422);
     }

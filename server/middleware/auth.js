@@ -14,7 +14,7 @@ export default async (req, res, next) => {
     const userData = jwt.verify(accessToken, 'secret');
     const user = await models.User.findOne({ where: { email: userData.email } });
     if (user) {
-      req.authUser = user;
+      req.authUser = user.get();
       return next();
     }
 

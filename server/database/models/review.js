@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate(models) {
         Review.belongsTo(models.User, {
-          foreignKey: 'UserId',
+          foreignKey: 'userId',
           onDelete: 'CASCADE'
         });
         Review.belongsTo(models.Recipe, {
-          foreignKey: 'RecipeId',
+          foreignKey: 'recipeId',
           onDelete: 'CASCADE'
         });
       }

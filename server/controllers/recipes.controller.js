@@ -137,6 +137,24 @@ export default class RecipesController {
     }
   }
   /**
+   * Favorite a recipe
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json
+   * @memberof RecipesController
+   */
+  async favorite(req, res) {
+    try {
+      const recipe = req.currentRecipe;
+
+      await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
+
+      return res.sendSuccessResponse({ message: 'Recipe favorited!' });
+    } catch (e) {
+      return res.sendFailureResponse(e.message, 500);
+    }
+  }
+  /**
    * Define routes for this controller
    * @returns {null} null
    */
@@ -147,5 +165,6 @@ export default class RecipesController {
     this.router.delete('/:id', middleware.auth, middleware.authorize, this.destroy);
     this.router.post('/:id/upvote', middleware.auth, middleware.canUpvote, this.upvote);
     this.router.post('/:id/downvote', middleware.auth, middleware.canDownvote, this.downvote);
+    this.router.post('/:id/favorite', middleware.auth, middleware.canFavorite, this.favorite);
   }
 }

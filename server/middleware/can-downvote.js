@@ -14,7 +14,7 @@ export default async (req, res, next) => {
     return res.sendFailureResponse('Recipe not found.', 404);
   }
 
-  if (parseInt(recipe.userId, 10) === parseInt(req.authUser.id, 10)) {
+  if (recipe.userId === req.authUser.id) {
     return res.sendFailureResponse('Unauthorized.', 401);
   }
 

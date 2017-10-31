@@ -58,6 +58,7 @@ describe('/recipes', () => {
 
   describe('/recipes POST endpoint', () => {
     it('Should return the newly created recipe', (done) => {
+      
       chai.request(application)
         .post('/api/v1/recipes')
         .send({
@@ -104,6 +105,24 @@ describe('/recipes', () => {
           ]);
           done();
         });
+    });
+
+    it.only('Should return unauthenticated if there is no valid access_token', (done) => {
+      chai.request(application)
+          .post('/api/v1/recipes')
+          .send({
+            title: 'Vegetable Salad',
+            description: 'this stuff is not nice, really. am just building my api.',
+            image_url: 'https://i.imgur.com/av7fjeA.jpg',
+            time_to_cook: 205,
+            ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces","1 sized Cucumber","1/2 medium sized Cabbage","1 tin sweet corn","1 big tin Heinz baked beans","1 tbsp mayonaise","1 tin green peas","2 cksp Salad cream","2 boiled eggs"]),
+            procedure: JSON.stringify(["Wash all the vegetables with enough water and salt.","Slice nicely cabbage, lettuce and dice the cucumber and carrot and set aside.","Dice boiled eggs, sieve water off the sweet corn and green pea and set aside","Arrange all the vegetables in a plate.","Pour salad cream and mayonnaise in a small bowl and add a dash of black pepper if you wish for a nice zing then mix with the salad and serve"])
+          }).end((error, response) => {
+            expect(response).to.have.status(401);
+            expect(response.body.data.message).to.equal('Unauthenticated.');
+
+            done();
+          });
     });
   });
 

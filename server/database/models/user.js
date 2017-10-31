@@ -24,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate(models) {
-        User.hasMany(models.Recipe);
+        User.hasMany(models.Recipe, {
+          foreignKey: 'userId',
+          as: 'Recipes'
+        });
       }
     }
   });

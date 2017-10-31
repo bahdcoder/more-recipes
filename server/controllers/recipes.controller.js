@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import Database from './../database';
-
+import models from '../database/models';
+import middleware from '../middleware/index';
 /**
  * Controller to handle all recipe endpoint routes
  */
@@ -10,7 +10,6 @@ export default class RecipesController {
    */
   constructor() {
     this.router = new Router();
-    this.database = new Database();
 
     this.defineRoutes();
   }
@@ -21,16 +20,10 @@ export default class RecipesController {
    * @returns {json} json
    * @memberof RecipesController
    */
-  index(req, res) {
-    const { recipes } = this.database;
-
-    if (req.query.sort === 'upvotes') {
-      if (req.query.order === 'desc') {
-        recipes.sort((recipe1, recipe2) => recipe1.upvotes < recipe2.upvotes);
-      } else {
-        recipes.sort((recipe1, recipe2) => recipe1.upvotes > recipe2.upvotes);
-      }
-    }
+  async index(req, res) {
+    const recipes = await models.Recipe.findAll({
+      include: { model: models.User, exclude: ['password'] },
+    });
 
     return res.sendSuccessResponse({ recipes }, 200);
   }
@@ -41,10 +34,25 @@ export default class RecipesController {
    * @returns {json} json of newly created recipe
    * @memberof RecipesController
    */
-  async store(req, res) {
-    const recipe = await this.database.save(req.body);
+  async create(req, res) {
+    try {
+      const reqBody = req.body;
+      const recipe = await models.Recipe.create({
+        title: reqBody.title,
+        description: reqBody.description,
+        imageUrl: reqBody.imageUrl,
+        timeToCook: reqBody.time_to_cook,
+        ingredients: reqBody.ingredients,
+        procedure: reqBody.procedure,
+        upvoters: JSON.stringify([]),
+        downvoters: JSON.stringify([]),
+        userId: req.authUser.id
+      });
 
-    return res.sendSuccessResponse(recipe, 201);
+      return res.sendSuccessResponse({ recipe }, 201);
+    } catch (e) {
+      return res.sendFailureResponse({ message: e.message });
+    }
   }
   /**
    * Update a recipe in storage
@@ -55,7 +63,18 @@ export default class RecipesController {
    */
   async update(req, res) {
     try {
-      const recipe = await this.database.update(req.params.id, req.body);
+      const recipe = await models.Recipe.findById(req.params.id);
+      const reqBody = req.body;
+
+      await recipe.update({
+        title: reqBody.title,
+        description: reqBody.description,
+        imageUrl: reqBody.imageUrl,
+        timeToCook: reqBody.time_to_cook,
+        ingredients: reqBody.ingredients,
+        procedure: reqBody.procedure
+      });
+
       return res.sendSuccessResponse(recipe, 200);
     } catch (error) {
       return res.sendFailureResponse(error.message, 404);
@@ -114,9 +133,9 @@ export default class RecipesController {
    * @returns {null} null
    */
   defineRoutes() {
-    this.router.get('/', (req, res) => { this.index(req, res); });
-    this.router.post('/', (req, res) => { this.store(req, res); });
-    this.router.put('/:id', (req, res) => { this.update(req, res); });
+    this.router.get('/', this.index);
+    this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
+    this.router.put('/:id', middleware.auth, middleware.createRecipeValidator, this.update);
     this.router.delete('/:id', (req, res) => { this.delete(req, res); });
     this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
     this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });

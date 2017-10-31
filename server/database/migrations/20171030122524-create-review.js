@@ -10,14 +10,14 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false
     },
-    UserId: {
+    userId: {
       type: Sequelize.UUID,
       references: {
         model: 'Users',
         key: 'id'
       }
     },
-    RecipeId: {
+    recipeId: {
       type: Sequelize.UUID,
       onDelete: 'CASCADE',
       references: {

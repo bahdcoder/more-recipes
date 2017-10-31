@@ -1,5 +1,5 @@
-import redis from 'redis';
+import { createClient } from 'then-redis';
 /**
  * Create a new client redis
  */
-export default redis.createClient();
+export default createClient();

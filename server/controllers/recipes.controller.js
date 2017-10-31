@@ -155,11 +155,29 @@ export default class RecipesController {
     }
   }
   /**
+   * Get all the user recipes
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json
+   * @memberof RecipesController
+   */
+  async getFavorites(req, res) {
+    const favoritesIds = await client.smembers(`user:${req.authUser.id}:favorites`);
+
+    const favorites = await Promise.all(favoritesIds.map(async (id) => {
+      const recipe = await models.Recipe.findById(id);
+      return recipe;
+    }));
+
+    return res.sendSuccessResponse({ favorites });
+  }
+  /**
    * Define routes for this controller
    * @returns {null} null
    */
   defineRoutes() {
     this.router.get('/', this.index);
+    this.router.get('/favorites', middleware.auth, this.getFavorites);
     this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
     this.router.put('/:id', middleware.auth, middleware.authorize, middleware.createRecipeValidator, this.update);
     this.router.delete('/:id', middleware.auth, middleware.authorize, this.destroy);

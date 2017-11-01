@@ -7,11 +7,22 @@ import models from '../database/models';
  */
 export default class ReviewsController {
   /**
-   * Creates an instance of ReviewsController.
+   * Get all reviews for a recipe
+   * @param {any} req express request object
+   * @param {any} res express response object
    * @memberof ReviewsController
+   * @returns {array} array of recipes
    */
-  constructor() {
-    this.router = new Router();
+  async index(req, res) {
+    const recipe = await models.Recipe.findById(
+      req.params.id,
+      { include: { model: models.Review } }
+    );
+
+    if (!recipe) {
+      return res.sendFailureResponse('Recipe not found.', 404);
+    }
+    return res.sendSuccessResponse({ recipe });
   }
 
   /**

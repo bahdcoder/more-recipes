@@ -145,7 +145,7 @@ export default class RecipesController {
     }
   }
   /**
-   * Get all the user recipes
+   * Get all the user favorite recipes
    * @param {object} req express request object
    * @param {object} res express response object
    * @returns {json} json

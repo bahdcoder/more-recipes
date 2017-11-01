@@ -30,12 +30,8 @@ body {
     width: 180px;
     height: 180px;
 }
-
 .jumbotron {
-    background-image: url('./../img/banner.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 100vh;
 }
 .jumbotron-title {
     color: white;
@@ -45,8 +41,11 @@ body {
 .navbar .navbar-nav .nav-item .create-recipe-link {
     color: white;
     font-weight: 700;
-    padding: 10px;
-    background-color: #8bad00;
+}
+
+.navbar .navbar-nav .nav-item .nav-link{
+    color: white;
+    font-weight: 700;
 }
 
 .navbar-avatar-img {
@@ -66,7 +65,9 @@ body {
 .card-title {
     color: #8bad00;
     font-weight: bolder;
+    cursor: pointer;
 }
+
 
 .card-title a {
     text-decoration: none;
@@ -118,4 +119,94 @@ body {
 .pagination > li.active .page-link{
     background-color: #8bad00;
     border-color: #8bad00;
+}
+
+.img-zoom {
+    position: relative;
+    overflow: hidden;
+}
+.img-zoom:hover img {
+    transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+}
+.img-zoom img {
+    transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+.footer {
+    padding: 40px 0;
+    color: #ffffff;
+    text-align: center;
+    background-color: #E27C3E;
+  }
+.footer a {
+    text-decoration: none;
+    color: white;
+}
+.footer p:last-child {
+    margin-bottom: 0;
+}
+
+
+.hovereffect {
+    width: 100%;
+    height: 100%;
+    float: left;
+    max-height: 180px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+    background: #E27C3E;
+}
+
+.hovereffect .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    padding: 50px 20px;
+}
+
+.hovereffect img {
+    display: block;
+    position: relative;
+    max-width: none;
+    width: calc(100% + 20px);
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(-10px,0,0);
+    transform: translate3d(-10px,0,0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.hovereffect:hover img {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.hovereffect a, .hovereffect p {
+    color: #FFF;
+    opacity: 0;
+    font-weight: 700;
+    filter: alpha(opacity=0);
+    text-decoration: none;
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0);
+}
+
+.hovereffect:hover a, .hovereffect:hover p {
+    opacity: 1;
+    filter: alpha(opacity=100);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
 }

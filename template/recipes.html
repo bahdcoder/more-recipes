@@ -16,45 +16,44 @@
     
 
     <!-- The navigation bar begin -->
-    <section class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.html">
-                    <img src="img/logo.png" class="navbar-logo-img mr-2" alt="">
-                    More-recipes
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <a class="navbar-brand" href="index.html">
+            <img src="img/logo.png" class="navbar-logo-img mr-2" alt="">
+            More-recipes
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                
+            </ul>
             
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="recipes.html">Recipes <span class="sr-only">(current)</span></a>
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-primary my-2 my-sm-0" type="button">Search</button>
-                    </form>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="create-recipe.html" class="nav-link create-recipe-link">Create recipe <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <img class="mr-2 navbar-avatar-img" src="http://i.pravatar.cc/300" alt="Recipe author avatar">
-                                    Hey, Kati Frantz
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                              <a class="dropdown-item" href="profile.html">My profile</a>
-                              <a class="dropdown-item" href="favorites.html">My favorites</a>
-                              <a class="dropdown-item" href="settings.html">Notification settings</a>
-                            </div>
-                          </li>
-                    </ul>
-                </div>
-            </nav>
-    </section>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="create-recipe.html" class="nav-link create-recipe-link">Create recipe <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="recipes.html">Recipes <span class="sr-only">(current)</span></a>
+                </li>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                </form>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <img class="mr-2 navbar-avatar-img" src="http://i.pravatar.cc/300" alt="Recipe author avatar">
+                                Hey, Kati Frantz
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="profile.html">My profile</a>
+                            <a class="dropdown-item" href="favorites.html">My favorites</a>
+                            <a class="dropdown-item" href="settings.html">Notification settings</a>
+                        </div>
+                    </li>
+            </ul>
+        </div>
+    </nav>
     <!-- The navigation bar ending -->
 
     <!-- The recipes page body -->
@@ -62,37 +61,47 @@
         <!-- Header -->
         <h1 class="text-center display-3 my-5">All Recipes</h1>
         <!-- End Header -->
+        <div class="container-fluid px-5">
+                <div class="row">
+                    <div class="col-lg-4">
+                            <input type="text" placeholder="Keywords..." class="form-control mb-3">
+                    </div>
+                    <div class="col-lg-4">
+                            <select class="form-control mb-3">
+                                <option> Sort By</option>
+                                <option>Date</option>
+                                <option>Popularity</option>
+                                <option>Most Favorited</option>
+                                <option>Up votes</option>
+                            </select>
+                    </div>
+                    <div class="col-lg-4">
+                            <select class="form-control mb-5">
+                                <option> Categories</option>
+                                <option>Fufus</option>
+                                <option>Soups</option>
+                                <option>Yoruba</option>
+                                <option>Salads</option>
+                            </select>
+                    </div>
+                </div>
+        </div>
 
-        <div class="row mt-3">
+        <div class="row justify-content-center mt-3">
 
             <!-- Search filters section -->
-            <div class="col-lg-3">
-                <input type="text" placeholder="Keywords..." class="form-control mb-3">
-                <select class="form-control mb-3">
-                    <option> Sort By</option>
-                    <option>Date</option>
-                    <option>Popularity</option>
-                    <option>Most Favorited</option>
-                    <option>Up votes</option>
-                </select>
-                <select class="form-control mb-5">
-                    <option> Categories</option>
-                    <option>Fufus</option>
-                    <option>Soups</option>
-                    <option>Yoruba</option>
-                    <option>Salads</option>
-                </select>
-            </div>
 
             <!-- End of search filters section -->
 
             
-            <div class="col-lg-9 mb-5">
+            <div class="col-lg-10 mb-5">
 
                 <!-- List of filtered recipes -->
-                <div class="card-deck">
+                <div class="card-deck wow fadeIn" data-wow-duration="4s">
                         <div class="card mb-3">
-                            <img class="card-img-top" style="height: 250px;" src="https://i.imgur.com/KH1os7I.jpg" alt="Card image cap">
+                            <div class="img-zoom">
+                                <img class="card-img-top" style="height: 250px;" src="/img/meal-4.jpg" alt="Card image cap">                
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center">
                                     <a href="single-recipe.html">Pressurized African Cassava Golden Grains ( Garri )</a>
@@ -113,7 +122,9 @@
                             </div>
                         </div>
                         <div class="card mb-3">
-                            <img class="card-img-top" style="height: 250px;" src="https://i.imgur.com/fU1OmUo.jpg" alt="Card image cap">
+                            <div class="img-zoom">
+                                <img class="card-img-top" style="height: 250px;" src="/img/meal-5.jpg" alt="Card image cap">                
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center">
                                     <a href="single-recipe.html">Emergency Jollof and coconut stew</a>
@@ -133,7 +144,9 @@
                             </div>
                         </div>
                         <div class="card mb-3">
-                            <img class="card-img-top" style="height: 250px;" src="https://i.imgur.com/av7fjeA.jpg" alt="Card image cap">
+                            <div class="img-zoom">
+                                <img class="card-img-top" style="height: 250px;" src="/img/meal-6.jpg" alt="Card image cap">                
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center">
                                     <a href="single-recipe.html">Advanced Abacha and Egg sauce</a>
@@ -154,9 +167,10 @@
                         </div>
                     </div>
                 <!-- End List of filtered recipes -->
-
+                    <br>
+                    
                 <!-- Pagination links  -->
-                <nav class="row mt-3 justify-content-center">
+                <nav class="row mt-5 justify-content-center">
                     <ul class="pagination pagination-lg">
                         <li class="page-item disabled">
                             <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -176,6 +190,12 @@
 
     </div>
     <!-- End of The recipes page body -->
+
+    <!--Begin page footer -->
+    <footer class="footer">
+        <p>More-recipes app by bahdcoder @andela</p>
+    </footer>
+    <!-- End page footer -->
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

@@ -88,44 +88,6 @@ export default class RecipesController {
       return res.sendFailureResponse(e.message);
     }
   }
-
-  /**
-   * Upvote a recipe
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @returns {json} json
-   * @memberof RecipesController
-   */
-  async upvote(req, res) {
-    try {
-      const recipe = req.currentRecipe;
-
-      await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
-
-      return res.sendSuccessResponse({ message: 'Recipe upvoted!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
-    }
-  }
-
-  /**
-   * Upvote a recipe
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @returns {json} json
-   * @memberof RecipesController
-   */
-  async downvote(req, res) {
-    try {
-      const recipe = req.currentRecipe;
-
-      await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
-
-      return res.sendSuccessResponse({ message: 'Recipe downvoted!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
-    }
-  }
   /**
    * Favorite a recipe
    * @param {object} req express request object

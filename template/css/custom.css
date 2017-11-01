@@ -1,3 +1,26 @@
+body {
+    background-image: url('./../img/bg.png');
+}
+/* change the background color */
+.navbar-custom {
+    background-color: #E27C3E;
+    opacity: 0.8;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color: rgba(255,255,255,.8);
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color: rgba(255,255,255,.5);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+    font-weight: 700;
+}
 .navbar-logo-img {
     width: 30px;
     height: 30px;
@@ -20,8 +43,10 @@
 }
 
 .navbar .navbar-nav .nav-item .create-recipe-link {
-    color: #8bad00;
+    color: white;
     font-weight: 700;
+    padding: 10px;
+    background-color: #8bad00;
 }
 
 .navbar-avatar-img {

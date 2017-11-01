@@ -1,4 +1,6 @@
 import models from '../database/models';
+import client from '../helpers/redis-client';
+
 /**
  * Express middleware to verify if request has jwt auth token
  * @param {object} req express request object
@@ -13,9 +15,10 @@ export default async (req, res, next) => {
     return res.sendFailureResponse('Recipe not found.', 404);
   }
 
-  if (parseInt(recipe.userId, 10) !== parseInt(req.authUser.id, 10)) {
+  if (recipe.userId === req.authUser.id) {
     return res.sendFailureResponse('Unauthorized.', 401);
   }
+
   req.currentRecipe = recipe;
   next();
 };

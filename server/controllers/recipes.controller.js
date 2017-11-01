@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import models from '../database/models';
+import client from '../helpers/redis-client';
 import middleware from '../middleware/index';
 /**
  * Controller to handle all recipe endpoint routes
@@ -63,7 +64,7 @@ export default class RecipesController {
    */
   async update(req, res) {
     try {
-      const recipe = await models.Recipe.findById(req.params.id);
+      const recipe = req.currentRecipe;
       const reqBody = req.body;
 
       await recipe.update({
@@ -90,7 +91,7 @@ export default class RecipesController {
    */
   async destroy(req, res) {
     try {
-      const recipe = await models.Recipe.findById(req.params.id);
+      const recipe = req.currentRecipe;
       await recipe.destroy();
       return res.sendSuccessResponse({ message: 'Recipe deleted.' });
     } catch (e) {
@@ -107,10 +108,13 @@ export default class RecipesController {
    */
   async upvote(req, res) {
     try {
-      const recipe = await this.database.upvote(req.params.id);
-      return res.sendSuccessResponse(recipe);
+      const recipe = req.currentRecipe;
+
+      await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+
+      return res.sendSuccessResponse({ message: 'Recipe upvoted!' });
     } catch (e) {
-      return res.sendFailureResponse(e.message, 404);
+      return res.sendFailureResponse(e.message, 500);
     }
   }
 
@@ -123,11 +127,49 @@ export default class RecipesController {
    */
   async downvote(req, res) {
     try {
-      const recipe = await this.database.downvote(req.params.id);
-      return res.sendSuccessResponse(recipe);
+      const recipe = req.currentRecipe;
+
+      await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
+
+      return res.sendSuccessResponse({ message: 'Recipe downvoted!' });
     } catch (e) {
-      return res.sendFailureResponse(e.message, 404);
+      return res.sendFailureResponse(e.message, 500);
     }
+  }
+  /**
+   * Favorite a recipe
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json
+   * @memberof RecipesController
+   */
+  async favorite(req, res) {
+    try {
+      const recipe = req.currentRecipe;
+
+      await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
+
+      return res.sendSuccessResponse({ message: 'Recipe favorited!' });
+    } catch (e) {
+      return res.sendFailureResponse(e.message, 500);
+    }
+  }
+  /**
+   * Get all the user recipes
+   * @param {object} req express request object
+   * @param {object} res express response object
+   * @returns {json} json
+   * @memberof RecipesController
+   */
+  async getFavorites(req, res) {
+    const favoritesIds = await client.smembers(`user:${req.authUser.id}:favorites`);
+
+    const favorites = await Promise.all(favoritesIds.map(async (id) => {
+      const recipe = await models.Recipe.findById(id);
+      return recipe;
+    }));
+
+    return res.sendSuccessResponse({ favorites });
   }
   /**
    * Define routes for this controller
@@ -135,10 +177,12 @@ export default class RecipesController {
    */
   defineRoutes() {
     this.router.get('/', this.index);
+    this.router.get('/favorites', middleware.auth, this.getFavorites);
     this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
     this.router.put('/:id', middleware.auth, middleware.authorize, middleware.createRecipeValidator, this.update);
     this.router.delete('/:id', middleware.auth, middleware.authorize, this.destroy);
-    this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
-    this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });
+    this.router.post('/:id/upvote', middleware.auth, middleware.canUpvote, this.upvote);
+    this.router.post('/:id/downvote', middleware.auth, middleware.canDownvote, this.downvote);
+    this.router.post('/:id/favorite', middleware.auth, middleware.canFavorite, this.favorite);
   }
 }

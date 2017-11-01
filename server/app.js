@@ -1,3 +1,4 @@
+import redis from 'redis';
 import express from 'express';
 import bodyParser from 'body-parser';
 

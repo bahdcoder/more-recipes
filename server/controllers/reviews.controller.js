@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import Database from './../database';
-import validators from './../validators';
+import models from '../database/models';
 /**
  * Controller to handle all reviews for recipes
  * @export ReviewsController
@@ -13,10 +12,6 @@ export default class ReviewsController {
    */
   constructor() {
     this.router = new Router();
-    this.database = new Database();
-
-    //  To be revisited. The naming convension is kinda cliche :(
-    this.router.post('/recipes/:recipeId/reviews', (req, res) => { this.store(req, res); });
   }
 
   /**
@@ -26,16 +21,14 @@ export default class ReviewsController {
    * @returns {json} json of newly saved review
    * @memberof ReviewsController
    */
-  async store(req, res) {
-    const validator = new validators.StoreReviewValidator(req.body.review);
-
-    if (!validator.isValid()) {
-      return res.sendFailureResponse(validator.errors, 422);
-    }
-
+  async create(req, res) {
     try {
-      const recipe = await this.database.saveReview(req.params.recipeId, req.body.review);
-      return res.sendSuccessResponse(recipe);
+      const review = await models.Review.create({
+        review: req.body.review,
+        recipeId: req.currentRecipe.id,
+        userId: req.authUser.id
+      });
+      return res.sendSuccessResponse({ review, message: 'Recipe reviewed successfully.' });
     } catch (e) {
       return res.sendFailureResponse(e.message);
     }

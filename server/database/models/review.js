@@ -6,7 +6,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    review: DataTypes.STRING
+    review: DataTypes.TEXT,
+    userId: {
+      type: DataTypes.UUID,
+      references: {
+        model: 'Users',
+        key: 'id'
+      }
+    },
+    recipeId: {
+      type: DataTypes.UUID,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Recipes',
+        key: 'id'
+      }
+    }
   }, {
     classMethods: {
       associate(models) {

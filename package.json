@@ -10,7 +10,7 @@
     "dist": "./node_modules/.bin/babel server/app.js -d dist --presets=babili",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "test": "./node_modules/.bin/mocha test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec"
+    "test": "./node_modules/.bin/mocha server/test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec"
   },
   "repository": {
     "type": "git",

@@ -8,6 +8,7 @@ import middleware from './middleware';
 
 const app = new express();
 
+const port = process.env.PORT || 8080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -22,7 +23,7 @@ app.use('/api/v1/users', routes.userRoutes);
 app.use('/api/v1/recipes', routes.recipesRoutes);
 
 db.sequelize.sync().then(() => {
-  app.listen(8000, () => {
+  app.listen(port, () => {
       console.log(process.env.NODE_ENV);
   });
 }).catch(e => { console.log(e.message); });

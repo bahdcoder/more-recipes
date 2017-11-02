@@ -1,4 +1,6 @@
 import models from '../database/models';
+import client from '../helpers/redis-client';
+
 
 /**
  * Controller to handle all recipe endpoint routes
@@ -16,6 +18,15 @@ export default class RecipesController {
       include: { model: models.User, exclude: ['password'] },
     });
 
+    if (req.query.sort === 'upvotes') {
+      const upvotes = await client.smembers('recipe:*:upvotes');
+
+      if (req.query.order === 'des') {
+        recipes.sort((recipeA, recipeB) => upvotes[`recipe:${recipeA}:upvotes`].length > upvotes[`recipe:${recipeB}:upvotes`]);
+      } else {
+        recipes.sort((recipeA, recipeB) => upvotes[`recipe:${recipeA}:upvotes`].length < upvotes[`recipe:${recipeB}:upvotes`]);
+      }
+    }
 
     return res.sendSuccessResponse({ recipes }, 200);
   }

@@ -24,10 +24,12 @@ app.use(middleware.api);
 app.use('/api/v1/users', routes.userRoutes);
 app.use('/api/v1/recipes', routes.recipesRoutes);
 
+app.use((req, res) => res.render('index'));
+
 db.sequelize.sync().then(() => {
   app.listen(port, () => {
       console.log(process.env.NODE_ENV);
   });
-}).catch(e => { console.log(e.message); });
+}).catch(error => console.log(error.message));
 
 export default app;

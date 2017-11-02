@@ -18,9 +18,9 @@ const config = {
     dialect: 'mysql'
   },
   production: {
-    username: 'bqjpeeca',
-    password: 'RSjTU1TvgCmX34JnLboYYNiKSstDr0WQ',
-    database: 'bqjpeeca',
+    username: 'dtxgpqzl',
+    password: '05bMGgYSpS3E_JQv47i8CDnwzLrCgdYQ',
+    database: 'dtxgpqzl',
     host: 'stampy.db.elephantsql.com',
     dialect: 'postgres',
     logging: false

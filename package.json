@@ -7,7 +7,7 @@
     "start:dev": "cross-env NODE_ENV=development ./node_modules/.bin/babel-watch server/index.js",
     "start": "cross-env NODE_ENV=production node build/index.js",
     "babel-node": "babel-node --",
-    "build": "./node_modules/.bin/babel server/ -d build",
+    "build": "./node_modules/.bin/babel server/ -d build --copy-files",
     "dist": "./node_modules/.bin/babel server/ -d dist --presets=babili",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",

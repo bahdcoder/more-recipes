@@ -19,8 +19,8 @@ app.use('/api/v1/recipes', routes.recipesRoutes);
 
 db.sequelize.sync().then(() => {
   app.listen(7044, () => {
-      console.log('The database is in sync now. start making requests !');
+      console.log(process.env.NODE_ENV);
   });
-});
+}).catch(e => { console.log(e.message); });
 
 export default app;

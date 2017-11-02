@@ -22,7 +22,7 @@ app.use('/api/v1/users', routes.userRoutes);
 app.use('/api/v1/recipes', routes.recipesRoutes);
 
 db.sequelize.sync().then(() => {
-  app.listen(7044, () => {
+  app.listen(8000, () => {
       console.log(process.env.NODE_ENV);
   });
 }).catch(e => { console.log(e.message); });

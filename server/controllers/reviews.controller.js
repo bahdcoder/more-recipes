@@ -1,4 +1,3 @@
-import { Router } from 'express';
 import models from '../database/models';
 /**
  * Controller to handle all reviews for recipes

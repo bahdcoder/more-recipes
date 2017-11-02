@@ -101,8 +101,8 @@ export default class RecipesController {
       const recipe = req.currentRecipe;
       await recipe.destroy();
       return res.sendSuccessResponse({ message: 'Recipe deleted.' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message);
+    } catch (error) {
+      return res.sendFailureResponse(error.message);
     }
   }
 }

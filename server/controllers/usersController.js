@@ -22,8 +22,8 @@ export default class UsersController {
       await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
 
       return res.sendSuccessResponse({ message: 'Recipe favorited!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
+    } catch (error) {
+      return res.sendFailureResponse(error.message, 500);
     }
   }
 

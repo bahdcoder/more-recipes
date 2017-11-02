@@ -30,7 +30,7 @@ export default async (req, res, next) => {
 
     req.currentRecipe = recipe;
     next();
-  } catch (e) {
-    return res.sendFailureResponse({ message: e.message }, 400);
+  } catch (error) {
+    return res.sendFailureResponse({ message: error.message }, 400);
   }
 };

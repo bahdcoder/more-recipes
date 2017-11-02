@@ -44,8 +44,8 @@ export default class ReviewsController {
         userId: req.authUser.id
       });
       return res.sendSuccessResponse({ review, message: 'Recipe reviewed successfully.' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message);
+    } catch (error) {
+      return res.sendFailureResponse(error.message);
     }
   }
 }

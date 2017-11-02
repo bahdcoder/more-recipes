@@ -21,7 +21,7 @@ export default async (req, res, next) => {
     }
 
     throw new Error('Invalid token.');
-  } catch (e) {
+  } catch (error) {
     return res.sendFailureResponse({ message: 'Unauthenticated.' }, 401);
   }
 };

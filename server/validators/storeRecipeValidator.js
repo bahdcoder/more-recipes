@@ -92,7 +92,7 @@ export default class StoreRecipeValidator {
     if (ingredients) {
       try {
         ingredients = JSON.parse(ingredients);
-      } catch (e) {
+      } catch (error) {
         this.errors.push('The ingredients must be a json list of ingredients.');
         return;
       }
@@ -122,7 +122,7 @@ export default class StoreRecipeValidator {
     if (procedure) {
       try {
         procedure = JSON.parse(procedure);
-      } catch (e) {
+      } catch (error) {
         this.errors.push('The procedure must be a json of procedural steps.');
         return;
       }

@@ -1,5 +1,7 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
+
+
 /**
  * Class VotesCorntroller to take care of all votes
  */
@@ -37,7 +39,8 @@ export default class VotesController {
       return res.sendFailureResponse({ message: e.message }, 500);
     }
   }
-  
+
+
   /**
    * Upvote a recipe
    * @param {object} req express request object
@@ -56,6 +59,7 @@ export default class VotesController {
       return res.sendFailureResponse(e.message, 500);
     }
   }
+
 
   /**
    * Upvote a recipe

@@ -1,3 +1,6 @@
+/**
+ * The different database configurations for different environments.
+ */
 const config = {
   development: {
     username: 'postgres',

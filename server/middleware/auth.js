@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import models from '../database/models';
+
+
 /**
  * Express middleware to verify if request has jwt auth token
  * @param {object} req express request object

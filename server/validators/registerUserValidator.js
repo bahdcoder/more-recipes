@@ -1,5 +1,7 @@
 import models from '../database/models';
 import isValidEmail from './../helpers/index';
+
+
 /**
  * Validate request for registering a new user
  */
@@ -13,6 +15,8 @@ export default class RegisterUserValidator {
 
     this.errors = [];
   }
+
+
   /**
    * Call validations, and check if it passed or not
    * @returns {bool} validation passed or failed
@@ -28,6 +32,7 @@ export default class RegisterUserValidator {
     return true;
   }
 
+
   /**
    * Validate the user's name
    * @returns {null} null
@@ -41,6 +46,8 @@ export default class RegisterUserValidator {
       this.errors.push('The name is required.');
     }
   }
+
+
   /**
    * Validate password
    * @returns {null} null
@@ -54,6 +61,8 @@ export default class RegisterUserValidator {
       this.errors.push('The password is required.');
     }
   }
+
+
   /**
    * Validate user email
    * @returns {null} null

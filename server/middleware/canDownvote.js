@@ -1,5 +1,7 @@
-import validators from '../validators';
 import models from '../database/models';
+import client from '../helpers/redis-client';
+
+
 /**
  * Express middleware to verify if request has jwt auth token
  * @param {object} req express request object
@@ -14,12 +16,20 @@ export default async (req, res, next) => {
     return res.sendFailureResponse('Recipe not found.', 404);
   }
 
-  const validator = new validators.StoreReviewValidator(req.body.review);
-
-  if (!validator.isValid()) {
-    return res.sendFailureResponse(validator.errors, 422);
+  if (recipe.userId === req.authUser.id) {
+    return res.sendFailureResponse('Unauthorized.', 401);
   }
 
-  req.currentRecipe = recipe;
-  next();
+  client.smembers(`recipe:${recipe.id}:upvotes`, (error, upvotes) => {
+    if (error) {
+      return res.sendFailureResponse('Server error.', 500);
+    }
+
+    if (upvotes.indexOf(req.authUser.id) !== -1) {
+      return res.sendFailureResponse("Can't downvote.", 400);
+    }
+
+    req.currentRecipe = recipe;
+    next();
+  });
 };

@@ -1,10 +1,14 @@
 import models from '../database/models';
+
+
 /**
  * Controller to handle all reviews for recipes
  * @export ReviewsController
  * @class ReviewsController
  */
 export default class ReviewsController {
+
+
   /**
    * Get all reviews for a recipe
    * @param {any} req express request object
@@ -23,6 +27,7 @@ export default class ReviewsController {
     }
     return res.sendSuccessResponse({ recipe });
   }
+
 
   /**
    * Store a new review to the database

@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import models from '../database/models';
+
+
 /**
  * Controls endpoints for authentication
  * @class AuthController
@@ -21,6 +23,8 @@ export default class AuthController {
     const accessToken = jwt.sign({ email: user.email }, 'secret');
     return res.sendSuccessResponse({ user, access_token: accessToken });
   }
+
+
   /**
    * Sign in a user
    * @param {obj} req express request object

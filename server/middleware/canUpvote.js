@@ -1,6 +1,7 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
 
+
 /**
  * Express middleware to verify if request has jwt auth token
  * @param {object} req express request object

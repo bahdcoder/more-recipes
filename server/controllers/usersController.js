@@ -1,5 +1,7 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
+
+
 /**
  * Controller for all `users` endpoints
  * @export
@@ -24,6 +26,8 @@ export default class UsersController {
       return res.sendFailureResponse(e.message, 500);
     }
   }
+
+
   /**
    * Get all the user favorite recipes
    * @param {object} req express request object

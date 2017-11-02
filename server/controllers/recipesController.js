@@ -1,4 +1,5 @@
 import models from '../database/models';
+
 /**
  * Controller to handle all recipe endpoint routes
  */
@@ -15,8 +16,11 @@ export default class RecipesController {
       include: { model: models.User, exclude: ['password'] },
     });
 
+
     return res.sendSuccessResponse({ recipes }, 200);
   }
+
+
   /**
    * Store a new recipe into the database
    * @param {object} req express request object
@@ -44,6 +48,8 @@ export default class RecipesController {
       return res.sendFailureResponse({ message: e.message });
     }
   }
+
+
   /**
    * Update a recipe in storage
    * @param {object} req express request object
@@ -70,6 +76,7 @@ export default class RecipesController {
       return res.sendFailureResponse(error.message, 404);
     }
   }
+
 
   /**
    * Delete a recipe from the database

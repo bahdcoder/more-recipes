@@ -10,6 +10,8 @@ export default class StoreRecipeValidator {
     this.recipe = recipe;
     this.errors = [];
   }
+
+
   /**
    * Validate the recipe
    * @returns {boolean} true or false
@@ -31,6 +33,8 @@ export default class StoreRecipeValidator {
 
     return true;
   }
+
+
   /**
    * Validate the name field of the request
    * It must be found in request, and it must not be an empty string
@@ -45,6 +49,8 @@ export default class StoreRecipeValidator {
       this.errors.push('The title is required.');
     }
   }
+
+
   /**
    * Validate the name field of the request
    * It must be found in request, and it must
@@ -59,6 +65,8 @@ export default class StoreRecipeValidator {
       this.errors.push('The description is required.');
     }
   }
+
+
   /**
    * Validate the time to cook field
    * @returns {null} null
@@ -72,6 +80,8 @@ export default class StoreRecipeValidator {
       this.errors.push('The time to cook is required.');
     }
   }
+
+
   /**
    * Validate the ingredients field
    * @returns {null} no return
@@ -100,6 +110,8 @@ export default class StoreRecipeValidator {
       this.errors.push('The ingredients are required.');
     }
   }
+
+
   /**
    * Validate the procedure field
    * @returns {null} no return

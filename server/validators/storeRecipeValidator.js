@@ -1,3 +1,5 @@
+import { reWebUrl } from '../helpers/index';
+
 /**
  * Validate the data for storing a new recipe
  */
@@ -21,6 +23,7 @@ export default class StoreRecipeValidator {
       this.validateTitle();
       this.validateDescription();
       this.validateTimeToCook();
+      this.validateImageUrl();
       this.validateIngredients();
       this.validateProcedure();
     } else {
@@ -108,6 +111,20 @@ export default class StoreRecipeValidator {
       }
     } else {
       this.errors.push('The ingredients are required.');
+    }
+  }
+
+  /**
+   * Validate user email
+   * @returns {null} null
+   */
+  validateImageUrl() {
+    if (this.user.imageUrl) {
+      if (!reWebUrl.test(this.user.imageUrl)) {
+        this.errors.push('The image url must be a valid web url');
+      }
+    } else {
+      this.errors.push('The image url is required.');
     }
   }
 

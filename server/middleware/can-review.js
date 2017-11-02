@@ -1,3 +1,4 @@
+import validators from '../validators';
 import models from '../database/models';
 /**
  * Express middleware to verify if request has jwt auth token
@@ -13,9 +14,12 @@ export default async (req, res, next) => {
     return res.sendFailureResponse('Recipe not found.', 404);
   }
 
-  if (parseInt(recipe.userId, 10) !== parseInt(req.authUser.id, 10)) {
-    return res.sendFailureResponse('Unauthorized.', 401);
+  const validator = new validators.StoreReviewValidator(req.body.review);
+
+  if (!validator.isValid()) {
+    return res.sendFailureResponse(validator.errors, 422);
   }
+
   req.currentRecipe = recipe;
   next();
 };

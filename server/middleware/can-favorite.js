@@ -1,4 +1,5 @@
 import models from '../database/models';
+
 /**
  * Express middleware to verify if request has jwt auth token
  * @param {object} req express request object
@@ -7,15 +8,16 @@ import models from '../database/models';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  const recipe = await models.Recipe.findById(req.params.id);
+  const recipe = await models.Recipe.findById(req.params.recipeId);
 
   if (!recipe) {
     return res.sendFailureResponse('Recipe not found.', 404);
   }
 
-  if (parseInt(recipe.userId, 10) !== parseInt(req.authUser.id, 10)) {
+  if (recipe.userId === req.authUser.id) {
     return res.sendFailureResponse('Unauthorized.', 401);
   }
+
   req.currentRecipe = recipe;
   next();
 };

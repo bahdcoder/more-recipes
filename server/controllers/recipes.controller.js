@@ -1,18 +1,8 @@
-import { Router } from 'express';
 import models from '../database/models';
-import middleware from '../middleware/index';
 /**
  * Controller to handle all recipe endpoint routes
  */
 export default class RecipesController {
-  /**
-   * Initialize the class
-   */
-  constructor() {
-    this.router = new Router();
-
-    this.defineRoutes();
-  }
   /**
    * Return a list of all recipes
    * @param {object} req express request object
@@ -63,7 +53,7 @@ export default class RecipesController {
    */
   async update(req, res) {
     try {
-      const recipe = await models.Recipe.findById(req.params.id);
+      const recipe = req.currentRecipe;
       const reqBody = req.body;
 
       await recipe.update({
@@ -88,56 +78,13 @@ export default class RecipesController {
    * @returns {json} confirmation message
    * @memberof RecipesController
    */
-  async delete(req, res) {
+  async destroy(req, res) {
     try {
-      await this.database.delete(req.params.id);
+      const recipe = req.currentRecipe;
+      await recipe.destroy();
       return res.sendSuccessResponse({ message: 'Recipe deleted.' });
     } catch (e) {
       return res.sendFailureResponse(e.message);
     }
-  }
-
-  /**
-   * Upvote a recipe
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @returns {json} json
-   * @memberof RecipesController
-   */
-  async upvote(req, res) {
-    try {
-      const recipe = await this.database.upvote(req.params.id);
-      return res.sendSuccessResponse(recipe);
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 404);
-    }
-  }
-
-  /**
-   * Upvote a recipe
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @returns {json} json
-   * @memberof RecipesController
-   */
-  async downvote(req, res) {
-    try {
-      const recipe = await this.database.downvote(req.params.id);
-      return res.sendSuccessResponse(recipe);
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 404);
-    }
-  }
-  /**
-   * Define routes for this controller
-   * @returns {null} null
-   */
-  defineRoutes() {
-    this.router.get('/', this.index);
-    this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
-    this.router.put('/:id', middleware.auth, middleware.authorize, middleware.createRecipeValidator, this.update);
-    this.router.delete('/:id', (req, res) => { this.delete(req, res); });
-    this.router.post('/:id/upvote', (req, res) => { this.upvote(req, res); });
-    this.router.post('/:id/downvote', (req, res) => { this.downvote(req, res); });
   }
 }

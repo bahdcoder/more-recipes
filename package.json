@@ -2,15 +2,17 @@
   "name": "more-recipes",
   "version": "1.0.0",
   "description": "Bahdcoder Andela Cycle 28 Boot-camp Project",
-  "main": "server/app.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-watch server/app.js",
+    "start:dev": "cross-env NODE_ENV=development ./node_modules/.bin/babel-watch server/index.js",
+    "start": "cross-env NODE_ENV=production node build/index.js",
     "babel-node": "babel-node --",
-    "build": "./node_modules/.bin/babel server/app.js -d build",
-    "dist": "./node_modules/.bin/babel server/app.js -d dist --presets=babili",
+    "build": "./node_modules/.bin/babel server/ -d build",
+    "dist": "./node_modules/.bin/babel server/ -d dist --presets=babili",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
-    "test": "./node_modules/.bin/mocha test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec"
+    "test": "./node_modules/.bin/mocha server/test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,8 @@
     "url": "https://github.com/kati-frantz/more-recipes/issues"
   },
   "homepage": "https://github.com/kati-frantz/more-recipes#readme",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
@@ -32,26 +35,31 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2015-node": "^6.1.1",
     "babel-watch": "^2.0.7",
+    "bcrypt": "^1.0.3",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "coveralls": "^3.0.0",
+    "cross-env": "^5.1.1",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
     "mocha": "^4.0.1",
     "mocha-lcov-reporter": "^1.3.0",
-    "nyc": "^11.2.1"
-  },
-  "dependencies": {
-    "bcrypt": "^1.0.3",
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "jsonfile": "^4.0.0",
-    "jsonwebtoken": "^8.1.0",
     "mysql2": "^1.4.2",
+    "nyc": "^11.2.1",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
+    "redis": "^2.8.0",
+    "redis-commands": "^1.3.1",
     "sequelize": "^4.19.0",
-    "sequelize-cli": "^3.0.0"
+    "sequelize-cli": "^3.0.0",
+    "then-redis": "^2.0.1"
+  },
+  "engines": {
+    "node": "8.4.0"
   }
 }

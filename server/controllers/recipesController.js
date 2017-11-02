@@ -49,8 +49,6 @@ export default class RecipesController {
         timeToCook: reqBody.time_to_cook,
         ingredients: reqBody.ingredients,
         procedure: reqBody.procedure,
-        upvoters: JSON.stringify([]),
-        downvoters: JSON.stringify([]),
         userId: req.authUser.id
       });
 

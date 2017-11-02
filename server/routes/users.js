@@ -1,11 +1,14 @@
 import { Router } from 'express';
 import middleware from '../middleware';
-import AuthController from './../controllers/auth.controller';
+import controllers from './../controllers';
 
 const userRoutes = new Router();
-const authController = new AuthController();
+const authController = new controllers.AuthController();
+const usersController = new controllers.UsersController();
 
-userRoutes.post('/signup', middleware.registerUserValidator, authController.signup);
+userRoutes.get('/recipes', middleware.auth, usersController.getFavorites);
 userRoutes.post('/signin', middleware.signinUserValidator, authController.signin);
+userRoutes.post('/signup', middleware.registerUserValidator, authController.signup);
+userRoutes.post('/:recipeId/favorite', middleware.auth, middleware.canFavorite, usersController.favorite);
 
 export default userRoutes;

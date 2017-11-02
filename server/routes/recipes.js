@@ -14,10 +14,8 @@ recipesRoutes.delete('/:id', middleware.auth, middleware.authorize, recipesContr
 
 recipesRoutes.get('/:id/reviews', middleware.auth, reviewsController.index);
 recipesRoutes.get('/:id/voters', middleware.auth, votesController.getVoters);
-recipesRoutes.get('/favorites', middleware.auth, recipesController.getFavorites);
 recipesRoutes.post('/:id/upvote', middleware.auth, middleware.canUpvote, votesController.upvote);
 recipesRoutes.post('/:id/downvote', middleware.auth, middleware.canDownvote, votesController.downvote);
-recipesRoutes.post('/:id/favorite', middleware.auth, middleware.canFavorite, recipesController.favorite);
 recipesRoutes.post('/:id/review', middleware.auth, middleware.canReview, reviewsController.create);
 
 export default recipesRoutes;

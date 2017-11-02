@@ -1,5 +1,4 @@
 import models from '../database/models';
-import client from '../helpers/redis-client';
 
 /**
  * Express middleware to verify if request has jwt auth token
@@ -9,7 +8,7 @@ import client from '../helpers/redis-client';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  const recipe = await models.Recipe.findById(req.params.id);
+  const recipe = await models.Recipe.findById(req.params.recipeId);
 
   if (!recipe) {
     return res.sendFailureResponse('Recipe not found.', 404);

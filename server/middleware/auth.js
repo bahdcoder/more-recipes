@@ -10,7 +10,7 @@ import models from '../database/models';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  const accessToken = req.body.access_token || req.query.access_token || req.headers['x-access-token'];
+  const accessToken = req.body.access_token || req.query.access_token || req.headers['x-access-token'] || req.headers('Authorization');
 
   try {
     const userData = jwt.verify(accessToken, 'secret');

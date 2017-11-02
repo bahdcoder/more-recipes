@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import Database from './../database';
-import validators from './../validators';
+import models from '../database/models';
 /**
  * Controller to handle all reviews for recipes
  * @export ReviewsController
@@ -8,15 +7,22 @@ import validators from './../validators';
  */
 export default class ReviewsController {
   /**
-   * Creates an instance of ReviewsController.
+   * Get all reviews for a recipe
+   * @param {any} req express request object
+   * @param {any} res express response object
    * @memberof ReviewsController
+   * @returns {array} array of recipes
    */
-  constructor() {
-    this.router = new Router();
-    this.database = new Database();
+  async index(req, res) {
+    const recipe = await models.Recipe.findById(
+      req.params.id,
+      { include: { model: models.Review } }
+    );
 
-    //  To be revisited. The naming convension is kinda cliche :(
-    this.router.post('/recipes/:recipeId/reviews', (req, res) => { this.store(req, res); });
+    if (!recipe) {
+      return res.sendFailureResponse('Recipe not found.', 404);
+    }
+    return res.sendSuccessResponse({ recipe });
   }
 
   /**
@@ -26,16 +32,14 @@ export default class ReviewsController {
    * @returns {json} json of newly saved review
    * @memberof ReviewsController
    */
-  async store(req, res) {
-    const validator = new validators.StoreReviewValidator(req.body.review);
-
-    if (!validator.isValid()) {
-      return res.sendFailureResponse(validator.errors, 422);
-    }
-
+  async create(req, res) {
     try {
-      const recipe = await this.database.saveReview(req.params.recipeId, req.body.review);
-      return res.sendSuccessResponse(recipe);
+      const review = await models.Review.create({
+        review: req.body.review,
+        recipeId: req.currentRecipe.id,
+        userId: req.authUser.id
+      });
+      return res.sendSuccessResponse({ review, message: 'Recipe reviewed successfully.' });
     } catch (e) {
       return res.sendFailureResponse(e.message);
     }

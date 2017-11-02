@@ -9,25 +9,27 @@ import client from '../helpers/redis-client';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  const recipe = await models.Recipe.findById(req.params.id);
+  try {
+    const recipe = await models.Recipe.findById(req.params.id);
 
-  if (!recipe) {
-    return res.sendFailureResponse('Recipe not found.', 404);
-  }
-
-
-  if (recipe.userId === req.authUser.id) {
-    return res.sendFailureResponse('Unauthorized.', 401);
-  }
-  client.smembers(`recipe:${recipe.id}:downvotes`, (error, downvotes) => {
-    if (error) {
-      return res.sendFailureResponse('Server error.', 500);
+    if (!recipe) {
+      return res.sendFailureResponse('Recipe not found.', 404);
     }
-    if (downvotes.indexOf(req.authUser.id) !== -1) {
-      return res.sendFailureResponse("Can't downvote.", 400);
+
+
+    if (recipe.userId === req.authUser.id) {
+      return res.sendFailureResponse('Unauthorized.', 401);
+    }
+
+    const downvoters = await client.smembers(`recipe:${recipe.id}:downvotes`);
+
+    if (downvoters.indexOf(req.authUser.id) !== -1) {
+      return res.sendFailureResponse("Can't upvote.", 400);
     }
 
     req.currentRecipe = recipe;
     next();
-  });
+  } catch (e) {
+    return res.sendFailureResponse({ message: e.message }, 400);
+  }
 };

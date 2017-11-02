@@ -31,12 +31,6 @@ module.exports = {
     procedure: {
       type: Sequelize.TEXT
     },
-    upvoters: {
-      type: Sequelize.TEXT
-    },
-    downvoters: {
-      type: Sequelize.TEXT
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE

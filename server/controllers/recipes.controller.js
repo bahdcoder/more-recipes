@@ -1,19 +1,9 @@
-import { Router } from 'express';
 import models from '../database/models';
 import client from '../helpers/redis-client';
-import middleware from '../middleware/index';
 /**
  * Controller to handle all recipe endpoint routes
  */
 export default class RecipesController {
-  /**
-   * Initialize the class
-   */
-  constructor() {
-    this.router = new Router();
-
-    this.defineRoutes();
-  }
   /**
    * Return a list of all recipes
    * @param {object} req express request object
@@ -98,44 +88,6 @@ export default class RecipesController {
       return res.sendFailureResponse(e.message);
     }
   }
-
-  /**
-   * Upvote a recipe
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @returns {json} json
-   * @memberof RecipesController
-   */
-  async upvote(req, res) {
-    try {
-      const recipe = req.currentRecipe;
-
-      await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
-
-      return res.sendSuccessResponse({ message: 'Recipe upvoted!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
-    }
-  }
-
-  /**
-   * Upvote a recipe
-   * @param {object} req express request object
-   * @param {object} res express response object
-   * @returns {json} json
-   * @memberof RecipesController
-   */
-  async downvote(req, res) {
-    try {
-      const recipe = req.currentRecipe;
-
-      await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
-
-      return res.sendSuccessResponse({ message: 'Recipe downvoted!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
-    }
-  }
   /**
    * Favorite a recipe
    * @param {object} req express request object
@@ -155,7 +107,7 @@ export default class RecipesController {
     }
   }
   /**
-   * Get all the user recipes
+   * Get all the user favorite recipes
    * @param {object} req express request object
    * @param {object} res express response object
    * @returns {json} json
@@ -170,19 +122,5 @@ export default class RecipesController {
     }));
 
     return res.sendSuccessResponse({ favorites });
-  }
-  /**
-   * Define routes for this controller
-   * @returns {null} null
-   */
-  defineRoutes() {
-    this.router.get('/', this.index);
-    this.router.get('/favorites', middleware.auth, this.getFavorites);
-    this.router.post('/', middleware.auth, middleware.createRecipeValidator, this.create);
-    this.router.put('/:id', middleware.auth, middleware.authorize, middleware.createRecipeValidator, this.update);
-    this.router.delete('/:id', middleware.auth, middleware.authorize, this.destroy);
-    this.router.post('/:id/upvote', middleware.auth, middleware.canUpvote, this.upvote);
-    this.router.post('/:id/downvote', middleware.auth, middleware.canDownvote, this.downvote);
-    this.router.post('/:id/favorite', middleware.auth, middleware.canFavorite, this.favorite);
   }
 }

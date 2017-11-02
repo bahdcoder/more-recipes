@@ -21,7 +21,7 @@ const config = {
     username: 'dtxgpqzl',
     password: '05bMGgYSpS3E_JQv47i8CDnwzLrCgdYQ',
     database: 'dtxgpqzl',
-    host: 'stampy.db.elephantsql.com',
+    host: 'elmer.db.elephantsql.com',
     dialect: 'postgres',
     logging: false
   }

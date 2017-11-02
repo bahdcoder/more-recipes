@@ -1,7 +1,7 @@
 /* eslint-disable */
 import chaiHttp from 'chai-http';
 import chai, { expect } from 'chai';
-import application from './../../server/app.js';
+import application from './../../server/index.js';
 import RecipesController from './../../server/controllers/recipes.controller';
 
 chai.use(chaiHttp);

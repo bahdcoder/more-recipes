@@ -1,5 +1,7 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
+
+
 /**
  * Controller for all `users` endpoints
  * @export
@@ -20,10 +22,12 @@ export default class UsersController {
       await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
 
       return res.sendSuccessResponse({ message: 'Recipe favorited!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
+    } catch (error) {
+      return res.sendFailureResponse(error.message, 500);
     }
   }
+
+
   /**
    * Get all the user favorite recipes
    * @param {object} req express request object

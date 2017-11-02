@@ -1,4 +1,7 @@
 import models from '../database/models';
+import client from '../helpers/redis-client';
+
+
 /**
  * Controller to handle all recipe endpoint routes
  */
@@ -15,8 +18,20 @@ export default class RecipesController {
       include: { model: models.User, exclude: ['password'] },
     });
 
+    if (req.query.sort === 'upvotes') {
+      const upvotes = await client.smembers('recipe:*:upvotes');
+
+      if (req.query.order === 'des') {
+        recipes.sort((recipeA, recipeB) => upvotes[`recipe:${recipeA}:upvotes`].length > upvotes[`recipe:${recipeB}:upvotes`]);
+      } else {
+        recipes.sort((recipeA, recipeB) => upvotes[`recipe:${recipeA}:upvotes`].length < upvotes[`recipe:${recipeB}:upvotes`]);
+      }
+    }
+
     return res.sendSuccessResponse({ recipes }, 200);
   }
+
+
   /**
    * Store a new recipe into the database
    * @param {object} req express request object
@@ -44,6 +59,8 @@ export default class RecipesController {
       return res.sendFailureResponse({ message: e.message });
     }
   }
+
+
   /**
    * Update a recipe in storage
    * @param {object} req express request object
@@ -71,6 +88,7 @@ export default class RecipesController {
     }
   }
 
+
   /**
    * Delete a recipe from the database
    * @param {any} req express request object
@@ -83,8 +101,8 @@ export default class RecipesController {
       const recipe = req.currentRecipe;
       await recipe.destroy();
       return res.sendSuccessResponse({ message: 'Recipe deleted.' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message);
+    } catch (error) {
+      return res.sendFailureResponse(error.message);
     }
   }
 }

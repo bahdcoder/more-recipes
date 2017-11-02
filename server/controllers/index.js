@@ -1,8 +1,8 @@
-import ReviewsController from './reviews.controller';
-import RecipesController from './recipes.controller';
-import VotesController from './votes.controller';
-import AuthController from './auth.controller';
-import UsersController from './users.controller';
+import ReviewsController from './reviewsController';
+import RecipesController from './recipesController';
+import VotesController from './votesController';
+import AuthController from './authController';
+import UsersController from './usersController';
 
 export default {
   RecipesController,

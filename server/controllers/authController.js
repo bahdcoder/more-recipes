@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import models from '../database/models';
+
+
 /**
  * Controls endpoints for authentication
  * @class AuthController
@@ -21,6 +23,8 @@ export default class AuthController {
     const accessToken = jwt.sign({ email: user.email }, 'secret');
     return res.sendSuccessResponse({ user, access_token: accessToken });
   }
+
+
   /**
    * Sign in a user
    * @param {obj} req express request object
@@ -41,7 +45,7 @@ export default class AuthController {
       }
 
       throw new Error('No user was found.');
-    } catch (e) {
+    } catch (error) {
       return res.sendFailureResponse({ message: 'These credentials do not match our records.' }, 422);
     }
   }

@@ -1,6 +1,7 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
 
+
 /**
  * Express middleware to verify if request has jwt auth token
  * @param {object} req express request object
@@ -29,7 +30,7 @@ export default async (req, res, next) => {
 
     req.currentRecipe = recipe;
     next();
-  } catch (e) {
-    return res.sendFailureResponse({ message: e.message }, 400);
+  } catch (error) {
+    return res.sendFailureResponse({ message: error.message }, 400);
   }
 };

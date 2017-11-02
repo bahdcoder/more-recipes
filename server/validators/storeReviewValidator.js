@@ -16,6 +16,7 @@ export default class StoreReviewValidator {
     this.errors = [];
   }
 
+
   /**
    * Check if request data is valid
    * @returns {boolean} true or false
@@ -30,6 +31,7 @@ export default class StoreReviewValidator {
 
     return true;
   }
+
 
   /**
    * Validate the review from request

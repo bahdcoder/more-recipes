@@ -1,3 +1,5 @@
+import { reWebUrl } from '../helpers/index';
+
 /**
  * Validate the data for storing a new recipe
  */
@@ -10,6 +12,8 @@ export default class StoreRecipeValidator {
     this.recipe = recipe;
     this.errors = [];
   }
+
+
   /**
    * Validate the recipe
    * @returns {boolean} true or false
@@ -19,6 +23,7 @@ export default class StoreRecipeValidator {
       this.validateTitle();
       this.validateDescription();
       this.validateTimeToCook();
+      this.validateImageUrl();
       this.validateIngredients();
       this.validateProcedure();
     } else {
@@ -31,6 +36,8 @@ export default class StoreRecipeValidator {
 
     return true;
   }
+
+
   /**
    * Validate the name field of the request
    * It must be found in request, and it must not be an empty string
@@ -45,6 +52,8 @@ export default class StoreRecipeValidator {
       this.errors.push('The title is required.');
     }
   }
+
+
   /**
    * Validate the name field of the request
    * It must be found in request, and it must
@@ -59,6 +68,8 @@ export default class StoreRecipeValidator {
       this.errors.push('The description is required.');
     }
   }
+
+
   /**
    * Validate the time to cook field
    * @returns {null} null
@@ -72,6 +83,8 @@ export default class StoreRecipeValidator {
       this.errors.push('The time to cook is required.');
     }
   }
+
+
   /**
    * Validate the ingredients field
    * @returns {null} no return
@@ -82,7 +95,7 @@ export default class StoreRecipeValidator {
     if (ingredients) {
       try {
         ingredients = JSON.parse(ingredients);
-      } catch (e) {
+      } catch (error) {
         this.errors.push('The ingredients must be a json list of ingredients.');
         return;
       }
@@ -100,6 +113,22 @@ export default class StoreRecipeValidator {
       this.errors.push('The ingredients are required.');
     }
   }
+
+  /**
+   * Validate user email
+   * @returns {null} null
+   */
+  validateImageUrl() {
+    if (this.user.imageUrl) {
+      if (!reWebUrl.test(this.user.imageUrl)) {
+        this.errors.push('The image url must be a valid web url');
+      }
+    } else {
+      this.errors.push('The image url is required.');
+    }
+  }
+
+
   /**
    * Validate the procedure field
    * @returns {null} no return
@@ -110,7 +139,7 @@ export default class StoreRecipeValidator {
     if (procedure) {
       try {
         procedure = JSON.parse(procedure);
-      } catch (e) {
+      } catch (error) {
         this.errors.push('The procedure must be a json of procedural steps.');
         return;
       }

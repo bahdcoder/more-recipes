@@ -7,7 +7,7 @@
     "start:dev": "cross-env NODE_ENV=development ./node_modules/.bin/babel-watch server/index.js",
     "start": "cross-env NODE_ENV=production node build/index.js",
     "babel-node": "babel-node --",
-    "build": "./node_modules/.bin/babel server/ -d build",
+    "build": "./node_modules/.bin/babel server/ -d build --copy-files",
     "dist": "./node_modules/.bin/babel server/ -d dist --presets=babili",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
@@ -42,6 +42,7 @@
     "chai-http": "^3.0.0",
     "coveralls": "^3.0.0",
     "cross-env": "^5.1.1",
+    "ejs": "^2.5.7",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
@@ -57,7 +58,9 @@
     "redis-commands": "^1.3.1",
     "sequelize": "^4.19.0",
     "sequelize-cli": "^3.0.0",
-    "then-redis": "^2.0.1"
+    "then-redis": "^2.0.1",
+    "validate.js": "^0.12.0",
+    "validator.js": "^2.0.3"
   },
   "engines": {
     "node": "8.4.0"

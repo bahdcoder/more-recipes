@@ -35,6 +35,7 @@ export default class SignInUserValidator {
       this.errors.push('The password is required.');
     }
   }
+
   /**
    * Validate user email
    * @returns {null} null

@@ -1,11 +1,14 @@
-import { Router } from 'express';
 import models from '../database/models';
+
+
 /**
  * Controller to handle all reviews for recipes
  * @export ReviewsController
  * @class ReviewsController
  */
 export default class ReviewsController {
+
+
   /**
    * Get all reviews for a recipe
    * @param {any} req express request object
@@ -25,6 +28,7 @@ export default class ReviewsController {
     return res.sendSuccessResponse({ recipe });
   }
 
+
   /**
    * Store a new review to the database
    * @param {any} req express request object
@@ -40,8 +44,8 @@ export default class ReviewsController {
         userId: req.authUser.id
       });
       return res.sendSuccessResponse({ review, message: 'Recipe reviewed successfully.' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message);
+    } catch (error) {
+      return res.sendFailureResponse(error.message);
     }
   }
 }

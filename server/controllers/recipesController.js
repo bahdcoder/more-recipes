@@ -46,7 +46,7 @@ export default class RecipesController {
         title: reqBody.title,
         description: reqBody.description,
         imageUrl: reqBody.imageUrl,
-        timeToCook: reqBody.time_to_cook,
+        timeToCook: reqBody.timeToCook,
         ingredients: reqBody.ingredients,
         procedure: reqBody.procedure,
         userId: req.authUser.id
@@ -72,12 +72,12 @@ export default class RecipesController {
       const reqBody = req.body;
 
       await recipe.update({
-        title: reqBody.title,
-        description: reqBody.description,
-        imageUrl: reqBody.imageUrl,
-        timeToCook: reqBody.time_to_cook,
-        ingredients: reqBody.ingredients,
-        procedure: reqBody.procedure
+        title: reqBody.title || recipe.title,
+        description: reqBody.description || recipe.description,
+        imageUrl: reqBody.imageUrl || recipe.imageUrl,
+        timeToCook: reqBody.timeToCook || recipe.timeToCook,
+        ingredients: reqBody.ingredients || recipe.ingredients,
+        procedure: reqBody.procedure || recipe.procedure
       });
 
       return res.sendSuccessResponse(recipe, 200);

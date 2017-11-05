@@ -9,15 +9,15 @@
     "babel-node": "babel-node --",
     "build": "./node_modules/.bin/babel server/ -d build --copy-files",
     "dist": "./node_modules/.bin/babel server/ -d dist --presets=babili",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
+    "coverage": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
     "migrate:refresh": "./node_modules/.bin/sequelize db:migrate:undo:all && ./node_modules/.bin/sequelize db:migrate",
-    "test": "./node_modules/.bin/mocha server/test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha server/test/**/**.spec.js --exit  --compilers js:babel-core/register --reporter spec",
     "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kati-frantz/more-recipes.git"
+    "url": "https://github.com/kati-frantz/more-recipes.git"
   },
   "keywords": [],
   "author": "",
@@ -59,6 +59,7 @@
     "redis-commands": "^1.3.1",
     "sequelize": "^4.19.0",
     "sequelize-cli": "^3.0.0",
+    "sqlite3": "^3.1.13",
     "then-redis": "^2.0.1",
     "validate.js": "^0.12.0",
     "validator.js": "^2.0.3"

@@ -1,12 +1,12 @@
 /* eslint-disable */
 import { expect } from 'chai';
-import models from '../../server/database/models';
-import RegisterUserValidator from './../../server/validators/register-user.validator';
+import validators from '../../validators';
+import models from '../../database/models';
 
 describe('RegisterUserValidation', () => {
   describe('validateEmail', () => {
     it('Should return the `The email is required` if there is no email provided', async () => {
-      const validator = new RegisterUserValidator({
+      const validator = new validators.RegisterUserValidator({
         name: 'kati frantz',
         password: 'password'
       });
@@ -17,7 +17,7 @@ describe('RegisterUserValidation', () => {
     });
 
     it('Should return the `The email must be a valid email address.` if the email provided is not valid', async () => {
-      const validator = new RegisterUserValidator({
+      const validator = new validators.RegisterUserValidator({
         email: 'kati@frantz',
       });
   
@@ -26,14 +26,14 @@ describe('RegisterUserValidation', () => {
       expect(validator.errors).to.include('The email must be a valid email address.');
     });
 
-    it.skip('Should return the `A user with this email already exists.` if the email provided is already taken valid', async () => {
+    it('Should return the `A user with this email already exists.` if the email provided is already taken valid', async () => {
       await models.User.create({ 
         name: 'kati frantz',
-        email: 'kati@frantz.com', 
+        email: 'john@kenedy.com', 
         password: 'password'
        });
       
-      const validator = new RegisterUserValidator({
+      const validator = new validators.RegisterUserValidator({
         email: 'kati@frantz.com',
       });
   

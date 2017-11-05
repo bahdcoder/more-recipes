@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { expect } from 'chai';
-import Validators from './../../server/validators'
+import Validators from './../../validators'
 
 describe('StoreReviewValidator', () => {
   describe('validateReview', () => {

@@ -3,7 +3,7 @@ import { reWebUrl } from '../helpers/index';
 /**
  * Validate the data for storing a new recipe
  */
-export default class StoreRecipeValidator {
+export default class UpdateRecipeValidator {
   /**
    * Initialize the data to be validated
    * @param {object} recipe the recipe to be validated
@@ -48,8 +48,6 @@ export default class StoreRecipeValidator {
       if (this.recipe.title.length < 5) {
         this.errors.push('The title must be longer than 5 characters.');
       }
-    } else {
-      this.errors.push('The title is required.');
     }
   }
 
@@ -64,8 +62,6 @@ export default class StoreRecipeValidator {
       if (this.recipe.description.length < 5) {
         this.errors.push('The description must be longer than 5 characters.');
       }
-    } else {
-      this.errors.push('The description is required.');
     }
   }
 
@@ -79,8 +75,6 @@ export default class StoreRecipeValidator {
       if (Number.isNaN(parseInt(this.recipe.timeToCook, 10))) {
         this.errors.push('The time to cook must be a number in minutes.');
       }
-    } else {
-      this.errors.push('The time to cook is required.');
     }
   }
 
@@ -109,8 +103,6 @@ export default class StoreRecipeValidator {
           this.errors.push('There must be at least one ingredient.');
         }
       }
-    } else {
-      this.errors.push('The ingredients are required.');
     }
   }
 
@@ -123,8 +115,6 @@ export default class StoreRecipeValidator {
       if (!reWebUrl.test(this.recipe.imageUrl)) {
         this.errors.push('The image url must be a valid web url');
       }
-    } else {
-      this.errors.push('The image url is required.');
     }
   }
 
@@ -152,8 +142,6 @@ export default class StoreRecipeValidator {
           this.errors.push('There must be at least one procedure step.');
         }
       }
-    } else {
-      this.errors.push('The procedure is required.');
     }
   }
 }

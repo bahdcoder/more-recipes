@@ -34,11 +34,9 @@ describe('/users', () => {
       });
     });
   });
-
+  
   describe('/signin', () => {
     beforeEach(async () => {
-      
-      await db.User.destroy({ where: {}, truncate: true });
   
       globalMock.user1 = await db.User.create({
         name: 'kati frantz',
@@ -78,7 +76,6 @@ describe('/users', () => {
         done();
       });
     });
-
     it('Should return `These credentials do not match our records.` if the user password is not correct', (done) => {
       chai.request(application)
       .post('/api/v1/users/signin')

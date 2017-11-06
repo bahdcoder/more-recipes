@@ -49,18 +49,28 @@ describe('/votes', () => {
   });
 
   describe('/upvote', () => {
-    it.skip('Should upvote a recipe for a user', (done) => {
+    it('Should upvote a recipe for a user', (done) => {
       chai.request(application)
-          .post(`api/v1/recipes/${globalMock.recipe1.id}/upvote`)
-          .set('x-access-token', globalMock.user2.authToken)
-          .end((error, response) => {
-            console.log(error);
-            //  expect(response).to.have.status(200);
-            console.log(response);
-            //  expect(response.body.data.message).to.equal('Recipe upvoted.');
+        .post(`/api/v1/recipes/${globalMock.recipe1.id}/upvote`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
+          console.log(error, response);
+          expect(response).to.have.status(200);
+          expect(response.body.data.message).to.equal('Recipe upvoted.');
 
-            done();
-          });
+          done();
+        });
+    });
+    it.only('Should only permit other users to upvote recipes and not the creator', (done) => {
+      chai.request(application)
+        .post(`/api/v1/recipes/${globalMock.recipe1.id}/upvote`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          expect(response.body.data.message).to.equal('Recipe upvoted.');
+
+          done();
+      });
     });
   });
 

@@ -54,7 +54,7 @@ export default class VotesController {
 
       await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
 
-      return res.sendSuccessResponse({ message: 'Recipe upvoted!' });
+      return res.sendSuccessResponse({ message: 'Recipe upvoted.' });
     } catch (e) {
       return res.sendFailureResponse(e.message, 500);
     }

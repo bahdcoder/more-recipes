@@ -40,8 +40,15 @@ describe('/votes', () => {
       password: await bcrypt.hash('secret', 10)
     });
 
+    globalMock.user3 = await db.User.create({
+      name: 'Myers Duraine',
+      email: 'myers@duraine.com',
+      password: await bcrypt.hash('secret', 10)
+    });
+
     globalMock.user1.authToken = jwt.sign({ email: globalMock.user1.email }, config.JWT_SECRET);
     globalMock.user2.authToken = jwt.sign({ email: globalMock.user2.email }, config.JWT_SECRET);
+    globalMock.user3.authToken = jwt.sign({ email: globalMock.user3.email }, config.JWT_SECRET);
 
     globalMock.recipe1 = await db.Recipe.create(recipe);
     globalMock.recipe2 = await db.Recipe.create(recipe);
@@ -49,18 +56,96 @@ describe('/votes', () => {
   });
 
   describe('/upvote', () => {
-    it.skip('Should upvote a recipe for a user', (done) => {
+    it('Should upvote a recipe for a user', (done) => {
       chai.request(application)
-          .post(`api/v1/recipes/${globalMock.recipe1.id}/upvote`)
-          .set('x-access-token', globalMock.user2.authToken)
-          .end((error, response) => {
-            console.log(error);
-            //  expect(response).to.have.status(200);
-            console.log(response);
-            //  expect(response.body.data.message).to.equal('Recipe upvoted.');
+        .post(`/api/v1/recipes/${globalMock.recipe1.id}/upvote`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
 
-            done();
+          expect(response).to.have.status(200);
+          expect(response.body.data.message).to.equal('Recipe upvoted.');
+
+          done();
+        });
+    });
+    it('Should only permit other users to upvote recipes and not the creator', (done) => {
+      chai.request(application)
+        .post(`/api/v1/recipes/${globalMock.recipe1.id}/upvote`)
+        .set('x-access-token', globalMock.user1.authToken)
+        .end((error, response) => {
+          expect(response).to.have.status(401);
+          expect(response.body.data.message).to.equal('Unauthorized.');
+
+          done();
+      });
+    });
+  });
+
+  describe('/downvote', () => {
+    it('Should downvote a recipe for a user', (done) => {
+      chai.request(application)
+        .post(`/api/v1/recipes/${globalMock.recipe1.id}/downvote`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
+
+          expect(response).to.have.status(200);
+          expect(response.body.data.message).to.equal('Recipe downvoted.');
+
+          done();
+        });
+    });
+    it('Should only permit other users to downvote recipes and not the creator', (done) => {
+      chai.request(application)
+        .post(`/api/v1/recipes/${globalMock.recipe1.id}/downvote`)
+        .set('x-access-token', globalMock.user1.authToken)
+        .end((error, response) => {
+          expect(response).to.have.status(401);
+          expect(response.body.data.message).to.equal('Unauthorized.');
+
+          done();
+      });
+    });
+  });
+
+  describe('/voters', () => {
+    it('Should get upvoters and downvoters for a recipe', (done) => {
+      chai.request(application)
+        .post(`/api/v1/recipes/${globalMock.recipe1.id}/downvote`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
+
+          chai.request(application)
+          .post(`/api/v1/recipes/${globalMock.recipe1.id}/upvote`)
+          .set('x-access-token', globalMock.user3.authToken)
+          .end((error, response) => {
+              chai.request(application)
+              .get(`/api/v1/recipes/${globalMock.recipe1.id}/voters`)
+              .set('x-access-token', globalMock.user1.authToken)
+              .end((error, response) => {
+                const { upvoters } = response.body.data;
+                const { downvoters } = response.body.data;
+
+                expect(Array.isArray(upvoters)).to.be.true;
+                expect(Array.isArray(downvoters)).to.be.true;
+                expect(upvoters[0].id).to.equal(globalMock.user3.id);
+                expect(downvoters[0].id).to.equal(globalMock.user2.id);
+                done();
+              });
           });
+      });
+      
+    });
+    it('Should return a 404 if the recipe is not found', (done) => {
+      const invalidRecipeId = '630de7cc-e5cb-413e-a3b9-809c98b6c08q';
+      chai.request(application)
+        .get(`/api/v1/recipes/${invalidRecipeId}/voters`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+
+          expect(response.body.data.message).to.equal('Recipe not found.');
+          done();
+        });
     });
   });
 

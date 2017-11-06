@@ -25,7 +25,9 @@
     "url": "https://github.com/kati-frantz/more-recipes/issues"
   },
   "homepage": "https://github.com/kati-frantz/more-recipes#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "chai-as-promised": "^7.1.1"
+  },
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

@@ -17,19 +17,11 @@ export default async (req, res, next) => {
   }
 
   if (recipe.userId === req.authUser.id) {
-    return res.sendFailureResponse('Unauthorized.', 401);
+    return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
   }
 
-  client.smembers(`recipe:${recipe.id}:upvotes`, (error, upvotes) => {
-    if (error) {
-      return res.sendFailureResponse('Server error.', 500);
-    }
+  await client.srem(`recipe:${recipe.id}:upvotes`, req.authUser.id);
 
-    if (upvotes.indexOf(req.authUser.id) !== -1) {
-      return res.sendFailureResponse("Can't downvote.", 400);
-    }
-
-    req.currentRecipe = recipe;
-    next();
-  });
+  req.currentRecipe = recipe;
+  next();
 };

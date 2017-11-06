@@ -14,30 +14,26 @@ export default class VotesController {
    * @memberof VotesController
    */
   async getVoters(req, res) {
-    try {
-      const recipe = await models.Recipe.findById(req.params.id);
+    const recipe = await models.Recipe.findById(req.params.id);
 
-      if (!recipe) {
-        return res.sendFailureResponse('Recipe not found.', 404);
-      }
-
-      const upvotersUserIds = await client.smembers(`recipe:${recipe.id}:upvotes`);
-      const downvotersUserIds = await client.smembers(`recipe:${recipe.id}:downvotes`);
-
-      const upVoters = await Promise.all(upvotersUserIds.map(async (id) => {
-        const user = await models.User.findById(id);
-        return user;
-      }));
-
-      const downVoters = await Promise.all(downvotersUserIds.map(async (id) => {
-        const user = await models.User.findById(id);
-        return user;
-      }));
-
-      return res.sendSuccessResponse({ voters: { upVoters, downVoters } });
-    } catch (error) {
-      return res.sendFailureResponse({ message: error.message }, 500);
+    if (!recipe) {
+      return res.sendFailureResponse({ message: 'Recipe not found.' });
     }
+
+    const upvotersUserIds = await client.smembers(`recipe:${recipe.id}:upvotes`);
+    const downvotersUserIds = await client.smembers(`recipe:${recipe.id}:downvotes`);
+
+    const upvoters = await Promise.all(upvotersUserIds.map(async (id) => {
+      const user = await models.User.findById(id);
+      return user;
+    }));
+
+    const downvoters = await Promise.all(downvotersUserIds.map(async (id) => {
+      const user = await models.User.findById(id);
+      return user;
+    }));
+
+    return res.sendSuccessResponse({ upvoters, downvoters });
   }
 
 
@@ -49,17 +45,12 @@ export default class VotesController {
    * @memberof RecipesController
    */
   async upvote(req, res) {
-    try {
-      const recipe = req.currentRecipe;
+    const recipe = req.currentRecipe;
 
-      await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+    await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
 
-      return res.sendSuccessResponse({ message: 'Recipe upvoted!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
-    }
+    return res.sendSuccessResponse({ message: 'Recipe upvoted.' });
   }
-
 
   /**
    * Upvote a recipe
@@ -69,14 +60,10 @@ export default class VotesController {
    * @memberof RecipesController
    */
   async downvote(req, res) {
-    try {
-      const recipe = req.currentRecipe;
+    const recipe = req.currentRecipe;
 
-      await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
+    await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
 
-      return res.sendSuccessResponse({ message: 'Recipe downvoted!' });
-    } catch (e) {
-      return res.sendFailureResponse(e.message, 500);
-    }
+    return res.sendSuccessResponse({ message: 'Recipe downvoted.' });
   }
 }

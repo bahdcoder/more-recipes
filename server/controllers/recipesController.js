@@ -40,22 +40,18 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async create(req, res) {
-    try {
-      const reqBody = req.body;
-      const recipe = await models.Recipe.create({
-        title: reqBody.title,
-        description: reqBody.description,
-        imageUrl: reqBody.imageUrl,
-        timeToCook: reqBody.time_to_cook,
-        ingredients: reqBody.ingredients,
-        procedure: reqBody.procedure,
-        userId: req.authUser.id
-      });
+    const reqBody = req.body;
+    const recipe = await models.Recipe.create({
+      title: reqBody.title,
+      description: reqBody.description,
+      imageUrl: reqBody.imageUrl,
+      timeToCook: reqBody.timeToCook,
+      ingredients: reqBody.ingredients,
+      procedure: reqBody.procedure,
+      userId: req.authUser.id
+    });
 
-      return res.sendSuccessResponse({ recipe }, 201);
-    } catch (e) {
-      return res.sendFailureResponse({ message: e.message });
-    }
+    return res.sendSuccessResponse({ recipe }, 201);
   }
 
 
@@ -67,23 +63,19 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async update(req, res) {
-    try {
-      const recipe = req.currentRecipe;
-      const reqBody = req.body;
+    const recipe = req.currentRecipe;
+    const reqBody = req.body;
 
-      await recipe.update({
-        title: reqBody.title,
-        description: reqBody.description,
-        imageUrl: reqBody.imageUrl,
-        timeToCook: reqBody.time_to_cook,
-        ingredients: reqBody.ingredients,
-        procedure: reqBody.procedure
-      });
+    await recipe.update({
+      title: reqBody.title || recipe.title,
+      description: reqBody.description || recipe.description,
+      imageUrl: reqBody.imageUrl || recipe.imageUrl,
+      timeToCook: reqBody.timeToCook || recipe.timeToCook,
+      ingredients: reqBody.ingredients || recipe.ingredients,
+      procedure: reqBody.procedure || recipe.procedure
+    });
 
-      return res.sendSuccessResponse(recipe, 200);
-    } catch (error) {
-      return res.sendFailureResponse(error.message, 404);
-    }
+    return res.sendSuccessResponse(recipe, 200);
   }
 
 
@@ -95,12 +87,7 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async destroy(req, res) {
-    try {
-      const recipe = req.currentRecipe;
-      await recipe.destroy();
-      return res.sendSuccessResponse({ message: 'Recipe deleted.' });
-    } catch (error) {
-      return res.sendFailureResponse(error.message);
-    }
+    await req.currentRecipe.destroy();
+    return res.sendSuccessResponse({ message: 'Recipe deleted.' });
   }
 }

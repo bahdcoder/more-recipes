@@ -13,7 +13,7 @@ export default async (req, res, next) => {
   const recipe = await models.Recipe.findById(req.params.id);
 
   if (!recipe) {
-    return res.sendFailureResponse('Recipe not found.', 404);
+    return res.sendFailureResponse({ message: 'Recipe not found.' }, 404);
   }
 
   const validator = new validators.StoreReviewValidator(req.body.review);

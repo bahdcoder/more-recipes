@@ -8,6 +8,7 @@ import canFavorite from './canFavorite';
 import signinUserValidator from './signinUserValidator';
 import createRecipeValidator from './createRecipeValidator';
 import registerUserValidator from './registerUserValidator';
+import updateRecipeValidator from './updateRecipeValidator';
 
 export default {
   api,
@@ -19,5 +20,6 @@ export default {
   canFavorite,
   createRecipeValidator,
   registerUserValidator,
+  updateRecipeValidator,
   signinUserValidator
 };

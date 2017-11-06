@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import config from '../config';
 import models from '../database/models';
 
 
@@ -20,7 +21,7 @@ export default class AuthController {
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, 10)
     });
-    const accessToken = jwt.sign({ email: user.email }, 'secret');
+    const accessToken = jwt.sign({ email: user.email }, config.JWT_SECRET);
     return res.sendSuccessResponse({ user, access_token: accessToken });
   }
 
@@ -37,7 +38,7 @@ export default class AuthController {
       if (user) {
         const isCorrectPassword = await bcrypt.compare(req.body.password, user.password);
         if (isCorrectPassword) {
-          const accessToken = jwt.sign({ email: user.email }, 'secret');
+          const accessToken = jwt.sign({ email: user.email }, config.JWT_SECRET);
           return res.sendSuccessResponse({ user, access_token: accessToken });
         }
 

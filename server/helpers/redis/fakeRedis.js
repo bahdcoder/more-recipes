@@ -79,4 +79,27 @@ export default class FakeRedis {
       return resolve([]);
     });
   }
+
+
+  /**
+   * Removes an item from a redis set
+   *
+   * @param {string} key key of set
+   * @param {string} value item to remove from set
+   * @returns {integer} number of elements removed
+   * @memberof FakeRedis
+   */
+  srem(key, value) {
+    return new Promise((resolve) => {
+      let lengthOfSet = 0;
+      const set = this.database[key];
+      if (set) {
+        lengthOfSet = set.size;
+        set.delete(value);
+        return resolve(lengthOfSet - set.size);
+      }
+
+      return resolve(0);
+    });
+  }
 }

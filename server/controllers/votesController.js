@@ -24,17 +24,17 @@ export default class VotesController {
       const upvotersUserIds = await client.smembers(`recipe:${recipe.id}:upvotes`);
       const downvotersUserIds = await client.smembers(`recipe:${recipe.id}:downvotes`);
 
-      const upVoters = await Promise.all(upvotersUserIds.map(async (id) => {
+      const upvoters = await Promise.all(upvotersUserIds.map(async (id) => {
         const user = await models.User.findById(id);
         return user;
       }));
 
-      const downVoters = await Promise.all(downvotersUserIds.map(async (id) => {
+      const downvoters = await Promise.all(downvotersUserIds.map(async (id) => {
         const user = await models.User.findById(id);
         return user;
       }));
 
-      return res.sendSuccessResponse({ voters: { upVoters, downVoters } });
+      return res.sendSuccessResponse({ upvoters, downvoters });
     } catch (error) {
       return res.sendFailureResponse({ message: error.message }, 500);
     }
@@ -74,7 +74,7 @@ export default class VotesController {
 
       await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
 
-      return res.sendSuccessResponse({ message: 'Recipe downvoted!' });
+      return res.sendSuccessResponse({ message: 'Recipe downvoted.' });
     } catch (e) {
       return res.sendFailureResponse(e.message, 500);
     }

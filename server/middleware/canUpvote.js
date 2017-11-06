@@ -19,14 +19,10 @@ export default async (req, res, next) => {
 
 
     if (recipe.userId === req.authUser.id) {
-      return res.sendFailureResponse('Unauthorized.', 401);
+      return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
     }
 
-    const downvoters = await client.smembers(`recipe:${recipe.id}:downvotes`);
-
-    if (downvoters.indexOf(req.authUser.id) !== -1) {
-      return res.sendFailureResponse("Can't upvote.", 400);
-    }
+    await client.srem(`recipe:${recipe.id}:downvotes`, req.authUser.id);
 
     req.currentRecipe = recipe;
     next();

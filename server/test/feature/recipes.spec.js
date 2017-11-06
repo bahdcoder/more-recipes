@@ -14,8 +14,8 @@ const globalMock = {};
 describe('/recipes', () => {
   beforeEach(async () => {
 
-    await db.User.destroy({ where: {}, truncate: true })
-    await db.Recipe.destroy({ where: {}, truncate: true })
+    await db.User.destroy({ where: {}, truncate: true });
+    await db.Recipe.destroy({ where: {}, truncate: true });
 
     globalMock.user1 = await db.User.create({
       name: 'kati frantz',

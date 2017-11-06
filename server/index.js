@@ -28,8 +28,8 @@ app.use('/api/v1/recipes', routes.recipesRoutes);
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {
-      console.log(process.env.NODE_ENV);
+    //  console.log(process.env.NODE_ENV);
   });
-}).catch(error => console.log(error.message));
+});
 
 export default app;

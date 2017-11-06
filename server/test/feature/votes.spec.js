@@ -135,6 +135,18 @@ describe('/votes', () => {
       });
       
     });
+    it('Should return a 404 if the recipe is not found', (done) => {
+      const invalidRecipeId = '630de7cc-e5cb-413e-a3b9-809c98b6c08q';
+      chai.request(application)
+        .get(`/api/v1/recipes/${invalidRecipeId}/voters`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
+          expect(response).to.have.status(404);
+
+          expect(response.body.data.message).to.equal('Recipe not found.');
+          done();
+        });
+    });
   });
 
 });

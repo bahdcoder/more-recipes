@@ -70,6 +70,7 @@
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "react": "^16.0.0",
+    "react-background-slideshow": "^1.0.1",
     "react-dom": "^16.0.0",
     "react-router": "^4.2.0",
     "redis": "^2.8.0",

@@ -5,8 +5,8 @@ import '../css/bootstrap.min.css';
 import '../css/animate.min.css';
 import '../css/styles.css';
 
-import Home from './pages/Home';
+import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Home />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
 registerServiceWorker();

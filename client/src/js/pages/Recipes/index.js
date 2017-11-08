@@ -55,7 +55,7 @@ export default class Recipes extends React.Component {
             <nav className="row mt-5 justify-content-center">
               <ul className="pagination pagination-lg">
                 <li className="page-item disabled">
-                  <a className="page-link" href="#" tabIndex={-1}>Previous</a>
+                  <a className="page-link" href="#">Previous</a>
                 </li>
                 <li className="page-item"><a className="page-link" href="#">1</a></li>
                 <li className="page-item"><a className="page-link" href="#">2</a></li>

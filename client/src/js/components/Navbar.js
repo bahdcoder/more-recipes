@@ -6,7 +6,7 @@ export default class NavBar extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-custom">
         <NavLink className="navbar-brand" to="/">
-          <img src="../../../assets/img/logo.png" className="navbar-logo-img mr-2" alt />
+          <img src="../../../assets/img/logo.png" className="navbar-logo-img mr-2" />
           More-recipes
         </NavLink>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

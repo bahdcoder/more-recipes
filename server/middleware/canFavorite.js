@@ -15,7 +15,7 @@ export default async (req, res, next) => {
   }
 
   if (recipe.userId === req.authUser.id) {
-    return res.sendFailureResponse('Unauthorized.', 401);
+    return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
   }
 
   req.currentRecipe = recipe;

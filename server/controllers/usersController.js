@@ -16,15 +16,11 @@ export default class UsersController {
    * @memberof RecipesController
    */
   async favorite(req, res) {
-    try {
-      const recipe = req.currentRecipe;
+    const recipe = req.currentRecipe;
 
-      await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
+    await models.Favorite.findOrCreate({ where: { userId: req.authUser.id, recipeId: recipe.id } });
 
-      return res.sendSuccessResponse({ message: 'Recipe favorited!' });
-    } catch (error) {
-      return res.sendFailureResponse(error.message, 500);
-    }
+    return res.sendSuccessResponse({ message: 'Recipe favorited.' });
   }
 
 
@@ -36,12 +32,19 @@ export default class UsersController {
    * @memberof RecipesController
    */
   async getFavorites(req, res) {
-    const favoritesIds = await client.smembers(`user:${req.authUser.id}:favorites`);
+    const favoritesInstances = await models.Favorite.findAll({
+      where: { userId: req.authUser.id }
+    });
 
-    const favorites = await Promise.all(favoritesIds.map(async (id) => {
-      const recipe = await models.Recipe.findById(id);
-      return recipe;
-    }));
+    const favoritesIds = favoritesInstances.map(favorite => favorite.recipeId);
+
+    const favorites = await models.Recipe.findAll({
+      where: {
+        id: {
+          [models.Sequelize.Op.in]: favoritesIds
+        }
+      }
+    });
 
     return res.sendSuccessResponse({ favorites });
   }

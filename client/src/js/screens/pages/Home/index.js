@@ -3,9 +3,7 @@ import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import RecipeCard from '../../components/RecipeCard';
 
-import bannerImage1 from '../../../assets/img/banner-1.jpg';
-import bannerImage2 from '../../../assets/img/banner-2.jpg';
-import bannerImage3 from '../../../assets/img/banner-3.jpg';
+import bannerImage1 from '../../../../assets/img/banner-1.jpg';
 
 export default class Home extends React.Component {
   render() {
@@ -17,16 +15,16 @@ export default class Home extends React.Component {
         {/* The Jumbotron Area */}
         <div id="jumbotron" className="jumbotron text-center">
           <h1 className="display-3 mb-5">
-            <img src="../../../assets/img/logo.png" className="jumbotron-logo-img mr-2" alt />
+            <img src="../../../assets/img/logo.png" className="jumbotron-logo-img mr-2" />
           </h1>
-          <p className="lead jumbotron-title display-4 wow bounceInUp" data-wow-duration="2s" style={{color: 'white'}}>Making everyday cooking fun !</p>
+          <p className="lead jumbotron-title display-4 wow bounceInUp" style={{color: 'white'}}>Making everyday cooking fun !</p>
           <br />
           <p className="lead">
             {/* The home button 
                     If the user is authenticated, let him rather see a create recipe button
                 */}
-            <a href="login.html" className="btn btn-primary btn-lg mr-2" role="button" data-toggle="modal" data-target="#exampleModal">Sign in</a>                        
-            <a href="login.html" className="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#registerModal">Join now</a>
+            <a className="btn btn-primary btn-lg mr-2" role="button" data-toggle="modal" data-target="#exampleModal">Sign in</a>                        
+            <a className="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#registerModal">Join now</a>
             {/* End of the home button */}
           </p>
         </div>
@@ -37,7 +35,7 @@ export default class Home extends React.Component {
             <i className="ion ion-star mr-3" />
             Top Rated Recipes</h1>
           <br />
-          <div className="card-deck wow fadeIn" data-wow-duration="4s">
+          <div className="card-deck wow fadeIn">
             <RecipeCard/>
             <RecipeCard/>
             <RecipeCard/>            
@@ -50,43 +48,43 @@ export default class Home extends React.Component {
             <i className="ion ion-person-stalker mr-3" />
             Most Popular Chefs</h1>
           <br />
-          <div className="row wow fadeIn" data-wow-duration="4s">
+          <div className="row wow fadeIn">
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" alt />
+                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
                 <div className="overlay">
                   <p className="my-auto">
-                    <a href="profile.html">KATI FRANTZ</a>
+                    <a>KATI FRANTZ</a>
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" alt />
+                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300"/>
                 <div className="overlay">
                   <p className="my-auto">
-                    <a href="profile.html">SELINA RYANS</a>
+                    <a >SELINA RYANS</a>
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" alt />
+                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
                 <div className="overlay">
                   <p className="my-auto">
-                    <a href="profile.html">ELLEN MICHEALS</a>
+                    <a>ELLEN MICHEALS</a>
                   </p>
                 </div>
               </div>
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" alt />
+                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
                 <div className="overlay">
                   <p className="my-auto">
-                    <a href="profile.html">CLAUS LEBRONE</a>
+                    <a>CLAUS LEBRONE</a>
                   </p>
                 </div>
               </div>
@@ -100,7 +98,7 @@ export default class Home extends React.Component {
             <i className="ion ion-heart mr-4" />
             Most favorited Recipes</h1>
           <br />
-          <div className="card-deck wow fadeIn" data-wow-duration="4s">
+          <div className="card-deck wow fadeIn">
             <RecipeCard/>
             <RecipeCard/>
             <RecipeCard/>            
@@ -123,8 +121,8 @@ export default class Home extends React.Component {
                       </div>
                       <div className="form-group">
                         <button className="btn mb-3 btn-primary form-control" type="submit">Login</button>   
-                        <span className="mt-5 h6 mr-3"><a href role="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">No account ? Register</a></span>    
-                        <span className="mt-5 ml-2 h6"><a href>Forgot your password?</a></span>                                 
+                        <span className="mt-5 h6 mr-3"><a role="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">No account ? Register</a></span>    
+                        <span className="mt-5 ml-2 h6"><a>Forgot your password?</a></span>                                 
                       </div>
                     </form>
                   </div>
@@ -161,7 +159,7 @@ export default class Home extends React.Component {
                       </div>
                       <div className="form-group text-center">
                         <button className="btn mb-3 btn-primary form-control" type="submit">Register</button>   
-                        <span className="mt-5 h6 mr-3"><a href role="button" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Have an account? Login</a></span>                              
+                        <span className="mt-5 h6 mr-3"><a role="button" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Have an account? Login</a></span>                              
                       </div>
                     </form>
                   </div>

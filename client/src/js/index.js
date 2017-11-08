@@ -1,12 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { Router, Route, IndexRoute, browserHistory  } from 'react-router';
+
+import store from './store';
+
+import Home from './screens/pages/Home';
+import Recipes from './screens/pages/Recipes';
 
 import '../css/bootstrap.min.css';
 import '../css/animate.min.css';
 import '../css/styles.css';
 
-import App from './App';
+import Main from './containers/Main';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render((
+  <Provider store={store}>
+    <Router history={syncHistoryWithStore(browserHistory, store)}>
+      <Route path="/" component={Main}>
+        <IndexRoute component={Home}></IndexRoute>
+        <Route path="/recipes" component={Recipes}></Route>
+      </Route>
+    </Router>
+  </Provider>
+), document.getElementById('app'));
 registerServiceWorker();

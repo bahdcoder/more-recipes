@@ -3,9 +3,7 @@ import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import RecipeCard from '../../components/RecipeCard';
 
-import bannerImage1 from '../../../assets/img/banner-1.jpg';
-import bannerImage2 from '../../../assets/img/banner-2.jpg';
-import bannerImage3 from '../../../assets/img/banner-3.jpg';
+import bannerImage1 from '../../../../assets/img/banner-1.jpg';
 
 export default class Home extends React.Component {
   render() {
@@ -19,7 +17,7 @@ export default class Home extends React.Component {
           <h1 className="display-3 mb-5">
             <img src="../../../assets/img/logo.png" className="jumbotron-logo-img mr-2" />
           </h1>
-          <p className="lead jumbotron-title display-4 wow bounceInUp" data-wow-duration="2s" style={{color: 'white'}}>Making everyday cooking fun !</p>
+          <p className="lead jumbotron-title display-4 wow bounceInUp" style={{color: 'white'}}>Making everyday cooking fun !</p>
           <br />
           <p className="lead">
             {/* The home button 
@@ -37,7 +35,7 @@ export default class Home extends React.Component {
             <i className="ion ion-star mr-3" />
             Top Rated Recipes</h1>
           <br />
-          <div className="card-deck wow fadeIn" data-wow-duration="4s">
+          <div className="card-deck wow fadeIn">
             <RecipeCard/>
             <RecipeCard/>
             <RecipeCard/>            
@@ -50,7 +48,7 @@ export default class Home extends React.Component {
             <i className="ion ion-person-stalker mr-3" />
             Most Popular Chefs</h1>
           <br />
-          <div className="row wow fadeIn" data-wow-duration="4s">
+          <div className="row wow fadeIn">
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
                 <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
@@ -100,7 +98,7 @@ export default class Home extends React.Component {
             <i className="ion ion-heart mr-4" />
             Most favorited Recipes</h1>
           <br />
-          <div className="card-deck wow fadeIn" data-wow-duration="4s">
+          <div className="card-deck wow fadeIn">
             <RecipeCard/>
             <RecipeCard/>
             <RecipeCard/>            

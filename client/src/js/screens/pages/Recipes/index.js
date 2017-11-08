@@ -44,7 +44,7 @@ export default class Recipes extends React.Component {
           {/* End of search filters section */}
           <div className="col-lg-10 mb-5">
             {/* List of filtered recipes */}
-            <div className="card-deck wow fadeIn" data-wow-duration="4s">
+            <div className="card-deck wow fadeIn">
               <RecipeCard/>
               <RecipeCard/>
               <RecipeCard/>

@@ -1,5 +1,4 @@
 import models from '../database/models';
-import client from '../helpers/redis-client';
 
 
 /**
@@ -14,24 +13,36 @@ export default class VotesController {
    * @memberof VotesController
    */
   async getVoters(req, res) {
+    //  Attempt to find the recipe in the database
     const recipe = await models.Recipe.findById(req.params.id);
-
+    //  Return a 404 if the recipe was not found
     if (!recipe) {
       return res.sendFailureResponse({ message: 'Recipe not found.' });
     }
+    //  Find all the rows in the upvotes table that match this recipe
+    const upvotes = await models.Upvote.findAll({ where: { recipeId: recipe.id } });
+    //  Find all the rows in the downvotes table that match this recipe
+    const downvotes = await models.Downvote.findAll({ where: { recipeId: recipe.id } });
+    //  Map through upvote results, and get only user ids
+    const upvotersUserIds = upvotes.map(upvote => upvote.userId);
+    //  Map through downvote results, and get only user ids
+    const downvotersUserIds = downvotes.map(downvote => downvote.userId);
 
-    const upvotersUserIds = await client.smembers(`recipe:${recipe.id}:upvotes`);
-    const downvotersUserIds = await client.smembers(`recipe:${recipe.id}:downvotes`);
+    const upvoters = await models.User.findAll({
+      where: {
+        id: {
+          [models.Sequelize.Op.in]: upvotersUserIds
+        }
+      }
+    });
 
-    const upvoters = await Promise.all(upvotersUserIds.map(async (id) => {
-      const user = await models.User.findById(id);
-      return user;
-    }));
-
-    const downvoters = await Promise.all(downvotersUserIds.map(async (id) => {
-      const user = await models.User.findById(id);
-      return user;
-    }));
+    const downvoters = await models.User.findAll({
+      where: {
+        id: {
+          [models.Sequelize.Op.in]: downvotersUserIds
+        }
+      }
+    });
 
     return res.sendSuccessResponse({ upvoters, downvoters });
   }
@@ -47,7 +58,7 @@ export default class VotesController {
   async upvote(req, res) {
     const recipe = req.currentRecipe;
 
-    await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+    await models.Upvote.create({ recipeId: recipe.id, userId: req.authUser.id });
 
     return res.sendSuccessResponse({ message: 'Recipe upvoted.' });
   }
@@ -62,7 +73,7 @@ export default class VotesController {
   async downvote(req, res) {
     const recipe = req.currentRecipe;
 
-    await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
+    await models.Downvote.create({ recipeId: recipe.id, userId: req.authUser.id });
 
     return res.sendSuccessResponse({ message: 'Recipe downvoted.' });
   }

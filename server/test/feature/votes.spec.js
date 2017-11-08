@@ -108,7 +108,7 @@ describe('/votes', () => {
   });
 
   describe('/voters', () => {
-    it('Should get upvoters and downvoters for a recipe', (done) => {
+    it.only('Should get upvoters and downvoters for a recipe', (done) => {
       chai.request(application)
         .post(`/api/v1/recipes/${globalMock.recipe1.id}/downvote`)
         .set('x-access-token', globalMock.user2.authToken)

@@ -1,5 +1,4 @@
 import models from '../database/models';
-import client from '../helpers/redis-client';
 
 
 /**
@@ -20,7 +19,7 @@ export default async (req, res, next) => {
     return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
   }
 
-  await client.srem(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+  //  await client.srem(`recipe:${recipe.id}:upvotes`, req.authUser.id);
 
   req.currentRecipe = recipe;
   next();

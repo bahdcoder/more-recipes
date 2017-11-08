@@ -22,8 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate(models) {
         User.hasMany(models.Recipe, {
-          foreignKey: 'userId',
-          as: 'Recipes'
+          foreignKey: 'userId'
+        });
+        User.hasMany(models.Upvote, {
+          foreignKey: 'userId'
         });
       }
     }

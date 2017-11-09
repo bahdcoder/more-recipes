@@ -18,7 +18,7 @@ export default class UsersController {
   async favorite(req, res) {
     const recipe = req.currentRecipe;
 
-    await models.Favorite.findOrCreate({ where: { userId: req.authUser.id, recipeId: recipe.id } });
+    await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
 
     return res.sendSuccessResponse({ message: 'Recipe favorited.' });
   }
@@ -32,11 +32,7 @@ export default class UsersController {
    * @memberof RecipesController
    */
   async getFavorites(req, res) {
-    const favoritesInstances = await models.Favorite.findAll({
-      where: { userId: req.authUser.id }
-    });
-
-    const favoritesIds = favoritesInstances.map(favorite => favorite.recipeId);
+    const favoritesIds = await client.smembers(`user:${req.authUser.id}:favorites`);
 
     const favorites = await models.Recipe.findAll({
       where: {

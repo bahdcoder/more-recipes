@@ -210,3 +210,7 @@ body {
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
+.miniError {
+    color: #E27C3E !important;
+    font-weight: '700' !important;
+}

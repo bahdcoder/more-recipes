@@ -8,6 +8,7 @@ import store from './store';
 
 import Home from './screens/pages/Home';
 import Recipes from './screens/pages/Recipes';
+import CreateRecipe from './screens/pages/CreateRecipe/createRecipe';
 
 import '../css/bootstrap.min.css';
 import '../css/animate.min.css';
@@ -22,6 +23,7 @@ ReactDOM.render((
       <Route path="/" component={Main}>
         <IndexRoute component={Home}></IndexRoute>
         <Route path="/recipes" component={Recipes}></Route>
+        <Route path="/recipes/create" component={CreateRecipe}></Route>
       </Route>
     </Router>
   </Provider>

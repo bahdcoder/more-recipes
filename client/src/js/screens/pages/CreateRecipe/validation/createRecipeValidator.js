@@ -16,6 +16,8 @@ export default class CreateRecipeValidator {
     this.errors.title = [];
     this.errors.description = [];
     this.errors.timeToCook = [];
+    this.errors.ingredients = [];
+    this.errors.procedure = [];
   }
 
   /**
@@ -28,10 +30,14 @@ export default class CreateRecipeValidator {
     this.validateTitle();
     this.validateDescription();
     this.validateTimeToCook();
+    this.validateIngredients();
+    this.validateProcedure();
 
     if (this.errors.title.length > 0 || 
       this.errors.description.length > 0 || 
-      this.errors.timeToCook.length > 0
+      this.errors.timeToCook.length > 0 ||
+      this.errors.ingredients.length > 0 ||
+      this.errors.procedure.length > 0
     ) {
       return false;
     }
@@ -81,5 +87,33 @@ export default class CreateRecipeValidator {
     } else {
       this.errors.timeToCook.push('The time to cook is required.');
     }
+  }
+
+  
+  /**
+   * Validate the ingredients field
+   * @returns {null} no return
+   */
+  validateIngredients() {
+    let { ingredients } = this.recipe;
+
+    ingredients.forEach(ingredient => {
+      if (ingredient.length < 3) {
+        this.errors['ingredients'].push('Oops ! Please make sure you actually typed in all ingredients.');
+      }
+    });
+  }
+   /**
+   * Validate the ingredients field
+   * @returns {null} no return
+   */
+  validateProcedure() {
+    let { procedure } = this.recipe;
+
+    procedure.forEach(step => {
+      if (step.length < 3) {
+        this.errors['procedure'].push('Oops ! Please make sure you actually typed in all procedure steps.');
+      }
+    });
   }
 }

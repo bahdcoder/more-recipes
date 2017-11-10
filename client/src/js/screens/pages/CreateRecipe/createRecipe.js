@@ -29,7 +29,7 @@ export default class CreateRecipe extends React.Component {
     this.state = {
       title: '',
       description: '',
-      imageUrl: '',
+      image: null,
       timeToCook: '',
       ingredients: [''],
       procedure: ['Mix the fufu with ...'],
@@ -61,7 +61,7 @@ export default class CreateRecipe extends React.Component {
    * @memberof CreateRecipe
    */
   handleDrop(file) {
-    console.log(file);
+    this.setState({ image: file[0] });
   }
   /**
    * Handle the recipe creation process
@@ -207,6 +207,41 @@ export default class CreateRecipe extends React.Component {
    * @memberof CreateRecipe
    */
   render() {
+
+
+    let recipeImage = ( 
+        <Dropzone 
+          onDrop={this.handleDrop}  
+          accept="image/*"
+          multiple={false}
+          style={dropZoneStyles}
+        >
+        <div className="upload-recipe-img">
+          <div className="row justify-content-center">
+            <div className="col-12">
+              <p className="text-center">
+                <span className="h2"><i className="ion ion-camera" /></span>
+                <br />
+                Click to upload image
+              </p>
+            </div>
+          </div>
+        </div>
+      </Dropzone>
+    );
+
+    if (this.state.image) {
+      recipeImage = (
+          <Dropzone 
+            onDrop={this.handleDrop}  
+            accept="image/*"
+            multiple={false}
+            style={dropZoneStyles}>
+            <img className="card-img-top" style={{ height: '450px' }} src={this.state.image.preview}/>          
+          </Dropzone>
+      ); 
+    }
+
     // create an ingredients array
     const ingredientList = this.state.ingredients.map((ingredient, index) => {
             return (  <li key={index} className="list-group-item">
@@ -278,30 +313,13 @@ export default class CreateRecipe extends React.Component {
         <Navbar/>
         <div className="container my-5">
           <div className="row justify-content-center">
-            <h1 className="text-center my-5 header-color">Create a recipe</h1>
+            <h1 className="text-center my-5 display-3 header-color">Create a recipe</h1>
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-10 col-md-10">
-              <div className="card">
+              <div className="card wow fadeInUp">
                 {/* Upload recipe image */}
-                <Dropzone 
-                    onDrop={this.handleDrop}  
-                    accept="image/*"
-                    multiple={false}
-                    style={dropZoneStyles}
-                  >
-                  <div className="upload-recipe-img">
-                    <div className="row justify-content-center">
-                      <div className="col-12">
-                        <p className="text-center">
-                          <span className="h2"><i className="ion ion-camera" /></span>
-                          <br />
-                          Click to upload image
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </Dropzone>
+                {recipeImage}
                 
                 {/* End upload recipe image */}
                 <hr />

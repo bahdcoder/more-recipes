@@ -18,6 +18,7 @@ export default class CreateRecipeValidator {
     this.errors.timeToCook = [];
     this.errors.ingredients = [];
     this.errors.procedure = [];
+    this.errors.image = [];
   }
 
   /**
@@ -32,12 +33,14 @@ export default class CreateRecipeValidator {
     this.validateTimeToCook();
     this.validateIngredients();
     this.validateProcedure();
+    this.validateImage();
 
     if (this.errors.title.length > 0 || 
       this.errors.description.length > 0 || 
       this.errors.timeToCook.length > 0 ||
       this.errors.ingredients.length > 0 ||
-      this.errors.procedure.length > 0
+      this.errors.procedure.length > 0 ||
+      this.errors.image.length > 0
     ) {
       return false;
     }
@@ -115,5 +118,15 @@ export default class CreateRecipeValidator {
         this.errors['procedure'].push('Oops ! Please make sure you actually typed in all procedure steps.');
       }
     });
+  }
+  /**
+   * Validate the image is provided.
+   * 
+   * @memberof CreateRecipeValidator
+   */
+  validateImage() {
+    if (!this.recipe.image) {
+      this.errors.image.push('The recipe image is required.');
+    }
   }
 }

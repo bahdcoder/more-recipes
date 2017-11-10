@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
+
 
 import CreateRecipeValidator from './validation/createRecipeValidator';
 
@@ -29,8 +31,8 @@ export default class CreateRecipe extends React.Component {
       description: '',
       imageUrl: '',
       timeToCook: '',
-      ingredients: [],
-      procedure: [],
+      ingredients: [''],
+      procedure: [''],
       errors: {
         title: [],
         description: [],
@@ -41,7 +43,11 @@ export default class CreateRecipe extends React.Component {
     // Method bindings 
     this.handleDrop = this.handleDrop.bind(this);
     this.validateInput = this.validateInput.bind(this);
+    this.addNewIngredient = this.addNewIngredient.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.addNewProcedureStep = this.addNewProcedureStep.bind(this);
+    this.handleProcedureChange = this.handleProcedureChange.bind(this);
+    this.handleIngredientChange = this.handleIngredientChange.bind(this);
   }
   /**
    * Handle a new file upload event
@@ -94,8 +100,51 @@ export default class CreateRecipe extends React.Component {
     }
   }
 
+  addNewIngredient() {
+    const ingredients = this.state.ingredients;
+    ingredients.push('');
+    this.setState({ ingredients });
+  }
+
+  addNewProcedureStep() {
+    const procedure = this.state.procedure;
+    procedure.push('');
+    this.setState({ procedure });
+  }
+
+  handleIngredientChange(event, index) {
+    const ingredients = this.state.ingredients;
+    ingredients[index] = event.target.value;
+    this.setState({ ingredients });
+  }
+
+  handleProcedureChange(event, index) {
+    const procedure = this.state.procedure;
+    procedure[index] = event.target.value;
+    this.setState({ procedure });
+  }
+
   render() {
     // create an ingredients array
+    const ingredientList = this.state.ingredients.map((ingredient, index) => {
+            return (  <li key={index} className="list-group-item">
+                <input className="form-control" placeholder="50 Naira Garri" type="text" onChange={event => { this.handleIngredientChange(event, index) }}  value={this.state.ingredients[index]} />
+              </li>
+            );
+    });
+    const procedureList = this.state.procedure.map((step, index) => {
+          return (  <li className="list-group-item" key={index}>
+                      <div className="row">
+                        <div className="col-1 h3">
+                          <span className="badge badge-primary">{index + 1}</span>
+                        </div>
+                        <div className="col-11">
+                          <input className="form-control" value={this.state.procedure[index]} onChange={event => { this.handleProcedureChange(event, index) }}  type="text" />
+                        </div>
+                      </div>
+                    </li>
+                  );
+    });
     // create a procedure array, this one is ordered
     // use react-sortable-hoc plugin for the sorting of the ingredients and procedure arrays
     let titleErrors = <small></small>;
@@ -166,31 +215,20 @@ export default class CreateRecipe extends React.Component {
                   <h3 className="text-muted mb-3 mt-3">
                     <span className="mr-2">Ingredients</span>
                     <span className="text-muted h4"> 
-                      <i className="ion ion-plus" /> 
+                      <i className="ion ion-plus" onClick={this.addNewIngredient} /> 
                     </span>
                   </h3>
                   <ul className="list-group">
-                    <li className="list-group-item">
-                      <input className="form-control" placeholder="50 Naira Garri" type="text" />
-                    </li>
+                    {ingredientList}
                   </ul>
                   <h3 className="text-muted mb-3 mt-3">
                     <span className="mr-2">Procedure</span>
                     <span className="text-muted h4"> 
-                      <i className="ion ion-plus" /> 
+                      <i className="ion ion-plus" onClick={this.addNewProcedureStep}/> 
                     </span>
                   </h3>
                   <ul className="list-group">
-                    <li className="list-group-item">
-                      <div className="row">
-                        <div className="col-1 h3">
-                          <span className="badge badge-primary">1</span>
-                        </div>
-                        <div className="col-11">
-                          <input className="form-control" placeholder="Pour the garri inside the cup..." type="text" />
-                        </div>
-                      </div>
-                    </li>
+                    {procedureList}
                   </ul>
                   <br />
                   <br />

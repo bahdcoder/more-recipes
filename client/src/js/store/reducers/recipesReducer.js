@@ -6,6 +6,6 @@
  * @returns {object} the next state of the store tree
  */
 export default function recipes(state = [], action) {
-  console.log(state, action);
+  //  console.log(state, action);
   return state;
 }

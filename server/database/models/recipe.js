@@ -19,8 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     timeToCook: DataTypes.INTEGER,
     ingredients: DataTypes.TEXT,
     procedure: DataTypes.TEXT,
-    upvoters: DataTypes.TEXT,
-    downvoters: DataTypes.TEXT
   });
 
   Recipe.associate = (models) => {

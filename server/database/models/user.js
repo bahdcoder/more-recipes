@@ -17,17 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    favorites: {
-      type: DataTypes.ARRAY(DataTypes.STRING)
-    },
+    }
   }, {
     classMethods: {
       associate(models) {
-        User.hasMany(models.Recipe, {
-          foreignKey: 'userId',
-          as: 'Recipes'
-        });
+        /* User.hasMany(models.Recipe, {
+          foreignKey: 'userId'
+        }); */
       }
     }
   });

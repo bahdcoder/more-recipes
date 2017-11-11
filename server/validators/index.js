@@ -1,11 +1,13 @@
-import SignInUserValidator from './signin-user.validator';
-import StoreRecipeValidator from './store-recipe.validator';
-import StoreReviewValidator from './store-review.validator';
-import RegisterUserValidator from './register-user.validator';
+import SignInUserValidator from './signinUserValidator';
+import StoreRecipeValidator from './storeRecipeValidator';
+import StoreReviewValidator from './storeReviewValidator';
+import RegisterUserValidator from './registerUserValidator';
+import UpdateRecipeValidator from './updateRecipeValidator';
 
 export default {
   StoreRecipeValidator,
   StoreReviewValidator,
   RegisterUserValidator,
-  SignInUserValidator
+  SignInUserValidator,
+  UpdateRecipeValidator
 };

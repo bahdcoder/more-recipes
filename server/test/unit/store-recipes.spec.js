@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { expect } from 'chai';
-import Validators from './../../server/validators'
+import Validators from './../../validators'
 
 describe('StoreRecipesValidator', () => {
   describe('validateTitle', () => {
@@ -52,8 +52,8 @@ describe('StoreRecipesValidator', () => {
       expect(validator.isValid()).to.be.false;
       expect(validator.errors).to.include.members(['The time to cook is required.']);
     });
-    it('Should return `The time to cook must be a number in minutes.` if the time to cook is not provided', () => {
-      const validator = new Validators.StoreRecipeValidator({ time_to_cook: 'NOT_A_NUMBER' });
+    it('Should return `The time to cook must be a number in minutes.` if the time to cook is not a number', () => {
+      const validator = new Validators.StoreRecipeValidator({ timeToCook: 'NOT_A_NUMBER' });
       
       expect(validator.isValid()).to.be.false;
       expect(validator.errors).to.include.members(['The time to cook must be a number in minutes.']);

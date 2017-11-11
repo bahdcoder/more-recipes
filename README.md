@@ -1,10 +1,9 @@
-[![Build Status](https://travis-ci.org/kati-frantz/more-recipes.svg?branch=server-side)](https://travis-ci.org/kati-frantz/more-recipes)
-[![Coverage Status](https://coveralls.io/repos/github/kati-frantz/more-recipes/badge.svg?branch=server-side)](https://coveralls.io/github/kati-frantz/more-recipes?branch=server-side)
+[![Build Status](https://travis-ci.org/kati-frantz/more-recipes.svg?branch=server-side)](https://travis-ci.org/kati-frantz/more-recipes) [![Coverage Status](https://coveralls.io/repos/github/kati-frantz/more-recipes/badge.svg?branch=develop)](https://coveralls.io/github/kati-frantz/more-recipes?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/d86c0fb140d38e863e99/maintainability)](https://codeclimate.com/github/kati-frantz/more-recipes/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/d86c0fb140d38e863e99/test_coverage)](https://codeclimate.com/github/kati-frantz/more-recipes/test_coverage)
 
 # MORE-RECIPES
 
 Bahdcoder Andela Cycle 28 Boot-camp Project
-
+****
 ## THE TEMPLATE
 
 ### How to run project template locally

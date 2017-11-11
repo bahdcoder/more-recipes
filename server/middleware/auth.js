@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import models from '../database/models';
+
+
 /**
  * Express middleware to verify if request has jwt auth token
  * @param {object} req express request object
@@ -17,9 +19,7 @@ export default async (req, res, next) => {
       req.authUser = user.get();
       return next();
     }
-
-    throw new Error('Invalid token.');
-  } catch (e) {
+  } catch (error) {
     return res.sendFailureResponse({ message: 'Unauthenticated.' }, 401);
   }
 };

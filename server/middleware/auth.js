@@ -19,8 +19,6 @@ export default async (req, res, next) => {
       req.authUser = user.get();
       return next();
     }
-
-    throw new Error('Invalid token.');
   } catch (error) {
     return res.sendFailureResponse({ message: 'Unauthenticated.' }, 401);
   }

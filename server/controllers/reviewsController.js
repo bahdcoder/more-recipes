@@ -17,15 +17,14 @@ export default class ReviewsController {
    * @returns {array} array of recipes
    */
   async index(req, res) {
-    const recipe = await models.Recipe.findById(
-      req.params.id,
-      { include: { model: models.Review } }
-    );
+    const recipe = req.currentRecipe;
+    const reviews = await models.Review.findAll({
+      where: {
+        recipeId: recipe.id
+      }
+    });
 
-    if (!recipe) {
-      return res.sendFailureResponse('Recipe not found.', 404);
-    }
-    return res.sendSuccessResponse({ recipe });
+    return res.sendSuccessResponse({ reviews });
   }
 
 
@@ -37,15 +36,11 @@ export default class ReviewsController {
    * @memberof ReviewsController
    */
   async create(req, res) {
-    try {
-      const review = await models.Review.create({
-        review: req.body.review,
-        recipeId: req.currentRecipe.id,
-        userId: req.authUser.id
-      });
-      return res.sendSuccessResponse({ review, message: 'Recipe reviewed successfully.' });
-    } catch (error) {
-      return res.sendFailureResponse(error.message);
-    }
+    const review = await models.Review.create({
+      review: req.body.review,
+      recipeId: req.currentRecipe.id,
+      userId: req.authUser.id
+    });
+    return res.sendSuccessResponse({ review, message: 'Recipe reviewed successfully.' });
   }
 }

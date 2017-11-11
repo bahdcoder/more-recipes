@@ -40,7 +40,7 @@ export default class FakeRedis {
    *
    * @param {any} key key to set
    * @param {any} value value to push to set
-   * @returns {array} array of all set elements
+   * @returns {array} arrz
    * @memberof FakeRedis
    */
   sadd(key, value) {

@@ -40,6 +40,12 @@ describe('/recipes/:id/reviews', () => {
           procedure: JSON.stringify(["Wash all the vegetables with enough water and salt."]),
           userId: globalMock.user1.id
         });
+
+        globalMock.review1 = await db.Review.create({
+          review: 'REVIEW_BODY',
+          recipeId: globalMock.recipe1.id,
+          userId: globalMock.user2.id
+        });
     
   });
 
@@ -100,6 +106,23 @@ describe('/recipes/:id/reviews', () => {
         expect(response.body.data.message).to.equal('Unauthenticated.');
 
         done();
+      });
+    });
+  });
+
+  describe('/recipes/:id/reviews GET endpoint', () => {
+    it('Should return all the reviews for the recipe', (done) => {
+      chai.request(application)
+        .get(`/api/v1/recipes/${globalMock.recipe1.id}/reviews`)
+        .set('x-access-token', globalMock.user2.authToken)
+        .end((error, response) => {
+          expect(response).to.have.status(200);
+          const reviews = response.body.data.reviews;
+          
+          expect(reviews).to.be.an('array');
+          expect(reviews[0].id).to.equal(globalMock.review1.id);
+
+          done();
       });
     });
   });

@@ -1,5 +1,6 @@
 import api from './api';
 import auth from './auth';
+import hasRecipe from './hasRecipe';
 import authorize from './authorize';
 import canReview from './canReview';
 import canUpvote from './canUpvote';
@@ -16,6 +17,7 @@ export default {
   canUpvote,
   authorize,
   canReview,
+  hasRecipe,
   canDownvote,
   canFavorite,
   createRecipeValidator,

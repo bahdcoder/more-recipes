@@ -107,8 +107,7 @@ describe('/recipes', () => {
           
           const res = response.body;
           expect(res.data.errors).to.have.members([ 
-                'The title is required.',
-                'The image url is required.',                
+                'The title is required.',            
                 'The description is required.',
                 'The time to cook is required.',
                 'The image url must be a valid web url.'

@@ -19,16 +19,12 @@ export default class UpdateRecipeValidator {
    * @returns {boolean} true or false
    */
   isValid() {
-    if (this.recipe) {
-      this.validateTitle();
-      this.validateDescription();
-      this.validateTimeToCook();
-      this.validateImageUrl();
-      this.validateIngredients();
-      this.validateProcedure();
-    } else {
-      this.errors.push('No recipe was provided.');
-    }
+    this.validateTitle();
+    this.validateDescription();
+    this.validateTimeToCook();
+    this.validateImageUrl();
+    this.validateIngredients();
+    this.validateProcedure();
 
     if (this.errors.length > 0) {
       return false;
@@ -113,7 +109,7 @@ export default class UpdateRecipeValidator {
   validateImageUrl() {
     if (this.recipe.imageUrl) {
       if (!reWebUrl.test(this.recipe.imageUrl)) {
-        this.errors.push('The image url must be a valid web url');
+        this.errors.push('The image url must be a valid web url.');
       }
     }
   }

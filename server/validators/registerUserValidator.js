@@ -54,7 +54,7 @@ export default class RegisterUserValidator {
    */
   validatePassword() {
     if (this.user.password) {
-      if (this.user.password < 6) {
+      if (this.user.password.length < 6) {
         this.errors.push('The password must be longer than 5 characters.');
       }
     } else {

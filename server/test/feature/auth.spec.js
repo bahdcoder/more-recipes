@@ -33,6 +33,23 @@ describe('/users', () => {
         done();
       });
     });
+    it('Should return correct validator errors if there are any', (done) => {
+      chai.request(application)
+      .post('/api/v1/users/signup')
+      .send({
+        email: 'brand-new@user.com',
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(422);
+        const responseData = response.body.data;
+
+        expect(responseData.errors).to.have.members([
+          'The name is required.',
+          'The password is required.'
+        ]);
+        done();
+      });
+    });
   });
   
   describe('/signin', () => {
@@ -88,6 +105,34 @@ describe('/users', () => {
         const responseData = response.body.data;
 
         expect(responseData.message).to.equal('These credentials do not match our records.');
+        done();
+      });
+    });
+    it('Should return `The password is required.` and `The email is required.` if the user password and email were not provided', (done) => {
+      chai.request(application)
+      .post('/api/v1/users/signin')
+      .send({})
+      .end((error, response) => {
+        expect(response).to.have.status(422);
+        const responseData = response.body.data;
+
+        expect(responseData.errors).to.include('The email is required.');
+        expect(responseData.errors).to.include('The password is required.');
+        done();
+      });
+    });
+    it('Should return `The email must be a valid email address.` if the user email is not valid', (done) => {
+      chai.request(application)
+      .post('/api/v1/users/signin')
+      .send({
+        email: 'SOME_INVALID_EMAIL',
+        password: 'SOME_PASSWORD'
+      })
+      .end((error, response) => {
+        expect(response).to.have.status(422);
+        const responseData = response.body.data;
+
+        expect(responseData.errors).to.include('The email must be a valid email address.');
         done();
       });
     });

@@ -12,12 +12,11 @@ import '../css/styles.css';
 
 export default class App extends Component {
   /**
-   * When component is mounted, get stuff from localStorage
+   * When component is about to be mounted, get stuff from localStorage
    * 
    * @memberof App
    */
-  componentDidMount() {
-    console.log('THIS MOUNTED');
+  componentWillMount() {
     try {
       const user = JSON.parse(localStorage.getItem('authUser'));
       console.log(user);

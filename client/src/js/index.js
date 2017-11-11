@@ -8,7 +8,9 @@ import { Router, Route, IndexRoute, browserHistory  } from 'react-router';
 import store from './store';
 
 import Home from './screens/pages/Home';
+import Login from './screens/pages/Login';
 import Recipes from './screens/pages/Recipes';
+import Register from './screens/pages/Register';
 import CreateRecipe from './screens/pages/CreateRecipe/createRecipe';
 
 import '../css/bootstrap.min.css';
@@ -31,8 +33,26 @@ function checkIfAuth (nextState, replace) {
   }
   
   replace({
-    pathname: '/'
+    pathname: '/auth/login'
   });
+}
+
+
+/**
+ * Redirect to home if the user is authenticated
+ * 
+ * @param {any} nextState Next router destination
+ * @param {any} replace replace the next route 
+ * @returns 
+ */
+function redirectIfAuth(nextState, replace) {
+  const authUser = localStorage.getItem('authUser');
+  if (authUser) {
+    replace({
+      pathname: '/'
+    });
+  }
+  
 }
 
 
@@ -41,13 +61,26 @@ ReactDOM.render((
     <Router history={ syncHistoryWithStore(browserHistory, store) }>
       <Route path="/" component={ Main }>
         <IndexRoute component={ Home }></IndexRoute>
+
         <Route path="/recipes" 
                component={ Recipes }
         ></Route>
+        
         <Route path="/recipes/create" 
                component={ CreateRecipe }
                onEnter={ checkIfAuth }
         ></Route>
+
+        <Route path="/auth/login"
+               component={ Login }
+               onEnter={ redirectIfAuth }
+        ></Route>
+
+        <Route path="/auth/register"
+               component={ Register }
+               onEnter={ redirectIfAuth }
+        ></Route>
+
       </Route>
     </Router>
   </Provider>

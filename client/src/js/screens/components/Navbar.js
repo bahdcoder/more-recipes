@@ -21,6 +21,7 @@ export default class NavBar extends React.Component {
                  href="javascript:;" 
                  onClick={async () => {
                    await this.props.data.signOut();
+                   this.props.data.router.push('/');
                  }}>Sign out</a>
           </div>
       </li>

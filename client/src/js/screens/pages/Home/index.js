@@ -11,8 +11,8 @@ export default class Home extends React.Component {
   render() {
     let homeButtons = (
       <span>
-        <a className="btn btn-primary btn-lg mr-2" role="button" data-toggle="modal" data-target="#loginModal">Sign in</a>                        
-        <a className="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#registerModal">Join now</a>
+        <Link to="/auth/login" className="btn btn-primary btn-lg mr-2" role="button">Sign in</Link>                        
+        <Link to="/auth/register" className="btn btn-primary btn-lg" role="button" >Join now </Link>
       </span>  
     );
 

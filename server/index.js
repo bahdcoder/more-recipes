@@ -1,4 +1,6 @@
 import path from 'path';
+import cors from 'cors';
+import morgan from 'morgan';
 import express from 'express';
 import bodyParser from 'body-parser';
 
@@ -9,7 +11,14 @@ import middleware from './middleware';
 
 const app = new express();
 
-const port = process.env.PORT || 8080;
+//  Enable CORS for the express server
+app.use(cors());
+app.options('*', cors());
+
+// Enable HTTP REQUEST logging 
+app.use(morgan('combined'));
+
+const port = process.env.PORT || 4080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

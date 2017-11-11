@@ -36,9 +36,9 @@ export default class Home extends React.Component {
             Top Rated Recipes</h1>
           <br />
           <div className="card-deck wow fadeIn">
-            <RecipeCard/>
-            <RecipeCard/>
-            <RecipeCard/>            
+            <RecipeCard/>     
+            <RecipeCard/>     
+            <RecipeCard/>                        
           </div>
         </div>
         {/* End of top rated recipes section */}
@@ -111,7 +111,6 @@ export default class Home extends React.Component {
               <div className="modal-body text-center">
                 <div className="row justify-content-center">
                   <div className="col-10">
-                    <form>
                       <h3 className="text-center mb-3 mt-3">Login</h3>
                       <div className="form-group">
                         <input type="text" className="form-control" id="staticEmail" placeholder="email@example.com" />                                    
@@ -120,11 +119,10 @@ export default class Home extends React.Component {
                         <input type="password" className="form-control" id="inputPassword" placeholder="Password" />                                    
                       </div>
                       <div className="form-group">
-                        <button className="btn mb-3 btn-primary form-control" type="submit">Login</button>   
+                        <button className="btn mb-3 btn-primary form-control" onClick={(event) => { console.log('SIGNING IN USER'); this.props.signIn({ email: 'kati@frantz.com', password: 'password' }); }} type="submit">Login</button>   
                         <span className="mt-5 h6 mr-3"><a role="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">No account ? Register</a></span>    
                         <span className="mt-5 ml-2 h6"><a>Forgot your password?</a></span>                                 
                       </div>
-                    </form>
                   </div>
                 </div>
               </div>

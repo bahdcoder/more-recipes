@@ -13,11 +13,10 @@ export default class Register extends Component {
 
     this.state = {
       error: null,
-      email: 'kati@frantz.com',
-      password: 'password',
+      email: '',
+      password: '',
       confirmPassword: '',
-      firstName: 'kati frantz',
-      lastName: 'vallie mbiyekeh',
+      name: '',
       errors: [],
       canSubmit: false
     };
@@ -34,7 +33,7 @@ export default class Register extends Component {
    * @param {any} event change event
    * @memberof CreateRecipe
    */
-  handleInputChange(event) {
+  async handleInputChange(event) {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -42,7 +41,7 @@ export default class Register extends Component {
     this.setState({
       [name]: value
     });
-    this.validateData();
+    await this.validateData();
   }
 
   /**
@@ -63,11 +62,8 @@ export default class Register extends Component {
     } else {
       errors.push('The password must be longer than six characters.');
     }
-    if (this.state.firstName.length < 1) {
+    if (this.state.name < 1) {
       errors.push('The first name is required.');
-    }
-    if (this.state.lastName.length < 1) {
-      errors.push('The last name is required.');
     }
 
     this.setState({ errors }, () => {
@@ -89,7 +85,7 @@ export default class Register extends Component {
     try {
 
       const response = await this.props.signUp({
-        name: `${this.state.firstName} ${this.state.lastName}`,
+        name: this.state.name,
         email: this.state.email,
         password: this.state.password
       });
@@ -100,7 +96,6 @@ export default class Register extends Component {
       let error = error.response;
 
       if (error.status === 422) {
-        console.log(error);
         this.setState({ errors: error.data.data.errors });
       } else {
         this.setState({
@@ -141,20 +136,9 @@ export default class Register extends Component {
                                     <div className="form-group">
                                         <input type="text" 
                                               className="form-control" 
-                                              placeholder="First name"
-                                              name="firstName"
-                                              value={this.state.firstName}
-                                              onChange={(event) => {
-                                                this.handleInputChange(event);
-                                              }}
-                                              onBlur={this.validateData} />                               
-                                    </div>  
-                                    <div className="form-group">
-                                        <input type="text" 
-                                              className="form-control" 
-                                              placeholder="Last name"
-                                              name="lastName"
-                                              value={this.state.lastName}
+                                              placeholder="Name"
+                                              name="name"
+                                              value={this.state.name}
                                               onChange={(event) => {
                                                 this.handleInputChange(event);
                                               }}
@@ -196,10 +180,11 @@ export default class Register extends Component {
                                               onBlur={this.validateData}/>                                    
                                     </div>
                                     <div className="form-group">
-                                      <button className="btn mb-3 btn-primary form-control" 
+                                      <button className="btn mb-3 btn-primary btn-lg" 
                                               onClick={this.handleSignUp} 
                                               type="button"
-                                              > Register </button>     
+                                              > Register </button> 
+                                              <br />    
                                       <span className="mt-5 ml-2 h6">
                                       Have an account already ?  
                                         <Link to="/auth/login">    Login Here</Link>

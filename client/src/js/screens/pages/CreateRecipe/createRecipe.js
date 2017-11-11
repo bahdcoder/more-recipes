@@ -254,7 +254,7 @@ export default class CreateRecipe extends React.Component {
                   </span>
                 </div>
               </li>
-            );
+            );  
     });
     const procedureList = this.state.procedure.map((step, index) => {
           return (  <li className="list-group-item" key={index}>

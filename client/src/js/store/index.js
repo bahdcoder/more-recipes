@@ -6,7 +6,7 @@ import rootReducer from './reducers';
 
 const defaultState = {
   recipes,
-  authUser: {}
+  authUser: null
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

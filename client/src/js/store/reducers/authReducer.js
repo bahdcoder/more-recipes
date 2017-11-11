@@ -6,16 +6,19 @@
  * @returns {object} the next state of the store tree
  */
 export default function authReducer(state = [], action) {
-  //  console.log(AUTH_USER);
   switch (action.type) {
     case 'SIGN_IN_USER':
         let newState = state;
         newState = action.authUser;
         return newState;
-      break;
+    break;
+    case 'SIGN_OUT_USER': 
+        let newState2 = state;
+        newState2 = null;
+        return newState2;
+    break;
     default:
       return state;
-      break;
+    break;
   }
-  return state;
 };

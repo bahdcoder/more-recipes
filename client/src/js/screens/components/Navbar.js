@@ -1,8 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Gravatar from 'react-gravatar';
 
 export default class NavBar extends React.Component {
   render() {
+    let authUser = this.props.data.authUser;
+    let navbarUser = '';
+    if (authUser) {
+      navbarUser = (
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <Gravatar className="mr-2 navbar-avatar-img" email={this.props.data.authUser.user.email}/>
+                  Hey, {this.props.data.authUser.user.name}
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a className="dropdown-item" href="profile.html">My profile</a>
+              <a className="dropdown-item" href="favorites.html">My favorites</a>
+              <a className="dropdown-item" href="settings.html">Notification settings</a>
+              <a className="dropdown-item" 
+                 href="javascript:;" 
+                 onClick={async () => {
+                   await this.props.data.signOut();
+                 }}>Sign out</a>
+          </div>
+      </li>
+      );
+    }
     return (
       <nav className="navbar navbar-expand-lg navbar-custom">
         <Link className="navbar-brand" to="/">
@@ -23,6 +46,7 @@ export default class NavBar extends React.Component {
             <form className="form-inline my-2 my-lg-0">
               <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
             </form>
+            {navbarUser}
           </ul>
         </div>
       </nav>

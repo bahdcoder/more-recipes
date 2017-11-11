@@ -34,21 +34,40 @@ export function downvote(recipeId) {
  * @returns 
  */
 export function signIn({ email, password }) {
-  // SIGN_IN_USER if auth was successful
-  // SIGN_IN_FAILURE if auth was not successful
-  // maybe !!! ASYNC_OPERATION_PENDING at beginning of API call
   return async (dispatch, getState) => {
     try {
       const response = await axios.post('http://localhost:4080/api/v1/users/signin', {
         email, password
       });
 
+      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+
       dispatch({
         type: 'SIGN_IN_USER',
         authUser: response.data.data
       });
+
+      return Promise.resolve(response);
     } catch (error) {
       console.log(error);
+      return Promise.reject(error);
     }
   };
+}
+/**
+ * Dispatch the action to sign a user out
+ * 
+ * @export
+ * @returns {Promise} resolved promise
+ */
+export function signOut() {
+  return async (dispatch, getState) => {
+    localStorage.removeItem('authUser');
+
+    dispatch({
+      type: 'SIGN_OUT_USER'
+    });
+
+    return Promise.resolve();
+  }
 }

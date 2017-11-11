@@ -12,7 +12,7 @@ import App from './../App';
  * @returns {object} the props format
  */
 function mapStateToProps(state) {
-  return { recipes: state.recipes };
+  return { ...state };
 }
 /**
  * Map store dispatch method to App component props

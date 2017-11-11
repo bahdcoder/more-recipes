@@ -310,7 +310,7 @@ export default class CreateRecipe extends React.Component {
     } 
     return (
       <div>
-        <Navbar/>
+        <Navbar data={this.props}/>
         <div className="container my-5">
           <div className="row justify-content-center">
             <h1 className="text-center my-5 display-3 header-color">Create a recipe</h1>

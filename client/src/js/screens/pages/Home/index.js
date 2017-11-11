@@ -1,16 +1,34 @@
 import React from 'react';
+import { Link } from 'react-router';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
+import SignIn from '../../components/auth/SignIn';
 import RecipeCard from '../../components/RecipeCard';
 
 import bannerImage1 from '../../../../assets/img/banner-1.jpg';
 
 export default class Home extends React.Component {
   render() {
+    let homeButtons = (
+      <span>
+        <a className="btn btn-primary btn-lg mr-2" role="button" data-toggle="modal" data-target="#loginModal">Sign in</a>                        
+        <a className="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#registerModal">Join now</a>
+      </span>  
+    );
+
+    if (this.props.authUser) {
+      homeButtons = (
+        <span>
+          <Link to="/recipes/create" className="btn btn-primary btn-lg mr-2"> Create recipe </Link>                        
+          <Link to="/" className="btn btn-primary btn-lg" role="button"> View your recipes </Link>
+        </span>  
+      );
+    } 
+    
     return (
       <div>
         {/* The navigation bar begin */}
-        <Navbar/>
+        <Navbar data={this.props}/>
         {/* The navigation bar ending */}
         {/* The Jumbotron Area */}
         <div id="jumbotron" className="jumbotron text-center">
@@ -23,8 +41,7 @@ export default class Home extends React.Component {
             {/* The home button 
                     If the user is authenticated, let him rather see a create recipe button
                 */}
-            <a className="btn btn-primary btn-lg mr-2" role="button" data-toggle="modal" data-target="#exampleModal">Sign in</a>                        
-            <a className="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#registerModal">Join now</a>
+            {homeButtons}
             {/* End of the home button */}
           </p>
         </div>
@@ -105,30 +122,7 @@ export default class Home extends React.Component {
           </div>
         </div>
         {/* End of top rated recipes section */}
-        <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div className="modal-dialog" role="document" style={{paddingTop: 130}}>
-            <div className="modal-content">
-              <div className="modal-body text-center">
-                <div className="row justify-content-center">
-                  <div className="col-10">
-                      <h3 className="text-center mb-3 mt-3">Login</h3>
-                      <div className="form-group">
-                        <input type="text" className="form-control" id="staticEmail" placeholder="email@example.com" />                                    
-                      </div>  
-                      <div className="form-group">
-                        <input type="password" className="form-control" id="inputPassword" placeholder="Password" />                                    
-                      </div>
-                      <div className="form-group">
-                        <button className="btn mb-3 btn-primary form-control" onClick={(event) => { console.log('SIGNING IN USER'); this.props.signIn({ email: 'kati@frantz.com', password: 'password' }); }} type="submit">Login</button>   
-                        <span className="mt-5 h6 mr-3"><a role="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">No account ? Register</a></span>    
-                        <span className="mt-5 ml-2 h6"><a>Forgot your password?</a></span>                                 
-                      </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SignIn data={this.props}/>
         {/*Begin page footer */}
         <Footer/>
         {/* End page footer */}

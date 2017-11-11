@@ -121,7 +121,7 @@ export default class StoreRecipeValidator {
   validateImageUrl() {
     if (this.recipe.imageUrl) {
       if (!reWebUrl.test(this.recipe.imageUrl)) {
-        this.errors.push('The image url must be a valid web url');
+        this.errors.push('The image url must be a valid web url.');
       }
     } else {
       this.errors.push('The image url is required.');

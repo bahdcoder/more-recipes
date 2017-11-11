@@ -98,6 +98,7 @@ describe('/recipes', () => {
         .post('/api/v1/recipes')
         .set('x-access-token', globalMock.user1.authToken)
         .send({
+          imageUrl: 'SOME_INVALID_IMAGE_URL',
           ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces","1 sized Cucumber","1/2 medium sized Cabbage","1 tin sweet corn","1 big tin Heinz baked beans","1 tbsp mayonaise","1 tin green peas","2 cksp Salad cream","2 boiled eggs"]),
           procedure: JSON.stringify(["Wash all the vegetables with enough water and salt.","Slice nicely cabbage, lettuce and dice the cucumber and carrot and set aside.","Dice boiled eggs, sieve water off the sweet corn and green pea and set aside","Arrange all the vegetables in a plate.","Pour salad cream and mayonnaise in a small bowl and add a dash of black pepper if you wish for a nice zing then mix with the salad and serve"])
         })
@@ -106,10 +107,10 @@ describe('/recipes', () => {
           
           const res = response.body;
           expect(res.data.errors).to.have.members([ 
-                'The title is required.',
+                'The title is required.',            
                 'The description is required.',
                 'The time to cook is required.',
-                'The image url is required.'
+                'The image url must be a valid web url.'
           ]);
           done();
         });
@@ -166,6 +167,50 @@ describe('/recipes', () => {
             'The description must be longer than 5 characters.',
             'There must be at least one ingredient.',
             'The procedure must be a json of procedural steps.'
+          ]);
+          done();
+        });
+    });
+    it('Should return correct validation errors if there are any', (done) => {
+      chai.request(application)
+        .put(`/api/v1/recipes/${globalMock.recipe1.id}`)
+        .set('x-access-token', globalMock.user1.authToken)
+        .send({
+          imageUrl: 'SOME_INVALID_IMAGE_URL',
+          ingredients: ['eggs', 'milk'],
+          procedure: JSON.stringify([])
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          const resp = response.body;
+          
+          expect(resp.data.errors).to.have.members([ 
+            'The image url must be a valid web url.',
+            'There must be at least one procedure step.',
+            'The ingredients must be a json list of ingredients.'
+          ]);
+          done();
+        });
+    });
+    it('Should return correct validation errors if there are any', (done) => {
+      chai.request(application)
+        .put(`/api/v1/recipes/${globalMock.recipe1.id}`)
+        .set('x-access-token', globalMock.user1.authToken)
+        .send({
+          title: 'ERR',
+          timeToCook: 'SOME_INVALID_TIME_TO_COOK',
+          ingredients: JSON.stringify('SOME INVALID JSON INGREDIENTS'),
+          procedure: JSON.stringify('SOME INVALID JSON PROCEDURE')
+        })
+        .end((error, response) => {
+          expect(response).to.have.status(422);
+          const resp = response.body;
+          
+          expect(resp.data.errors).to.have.members([ 
+            'There must be a list of ingredients.',
+            'There must be a list of procedure steps.',
+            'The title must be longer than 5 characters.',
+            'The time to cook must be a number in minutes.'
           ]);
           done();
         });

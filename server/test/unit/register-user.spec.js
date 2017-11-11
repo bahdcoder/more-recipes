@@ -26,6 +26,21 @@ describe('RegisterUserValidation', () => {
       expect(validator.errors).to.include('The email must be a valid email address.');
     });
 
+    it('Should return make sure name and password are at least 5 characters long', async () => {
+      const validator = new validators.RegisterUserValidator({
+        name: 'kati',        
+        email: 'valid@email-address.com',
+        password: 'pass'
+      });
+  
+      const isValid = await validator.isValid();
+      expect(isValid).to.be.false;
+      expect(validator.errors).to.have.members([
+        'The name must be longer than 5 characters.',
+        'The password must be longer than 5 characters.'
+      ]);
+    });
+
     it('Should return the `A user with this email already exists.` if the email provided is already taken valid', async () => {
       await models.User.create({ 
         name: 'kati frantz',

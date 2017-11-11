@@ -2,7 +2,7 @@ import models from '../database/models';
 
 
 /**
- * Express middleware to verify if request has jwt auth token
+ * Express middleware to verify if request has a valid recipe
  * @param {object} req express request object
  * @param {object} res express response object
  * @param {function} next express middleware next() function

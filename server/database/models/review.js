@@ -25,14 +25,14 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate(models) {
-        Review.belongsTo(models.User, {
+        /*  Review.belongsTo(models.User, {
           foreignKey: 'userId',
           onDelete: 'CASCADE'
         });
         Review.belongsTo(models.Recipe, {
           foreignKey: 'recipeId',
           onDelete: 'CASCADE'
-        });
+        }); */
       }
     }
   });

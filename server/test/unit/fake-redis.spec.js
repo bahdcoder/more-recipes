@@ -1,7 +1,6 @@
 /* eslint-disable */
 import chai, { expect } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
-
 import Redis from '../../helpers/redis/fakeRedis';
 
 chai.use(chaiAsPromised);
@@ -54,8 +53,10 @@ describe('Redis', () => {
       const redis = new Redis();
 
       const result = await redis.sadd('new-key-value-set', 'new-set-value');
+      const result2 = await redis.sadd('new-key-value-set', 'new-set-value-2');
 
       expect(result).to.equal(1);
+      expect(result2).to.equal(1);
     });
   });
 

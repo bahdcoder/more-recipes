@@ -13,7 +13,8 @@ module.exports = {
   entry: path.join(paths.JS, 'index.js'),
   output: {
     path: paths.DIST,
-    filename: 'app.bundle.js'
+    filename: 'app.bundle.js',
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -49,5 +50,6 @@ module.exports = {
   },
   devServer: {
     contentBase: paths.SRC,
+    historyApiFallback: true
   },
 };

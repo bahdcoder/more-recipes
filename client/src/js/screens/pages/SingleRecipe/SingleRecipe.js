@@ -23,22 +23,31 @@ export default class SingleRecipe extends Component {
   async componentDidMount() {
 
     // Try to find the recipe in redux store.
-    // if its not there, fire an ajax request with axios. 
-    try {
-      const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
-      
-      this.setState({
-        recipe: response.data.data.recipe
-      });
-    } catch (error) {
-      if (error.status === 404) {
-        // if the recipe is not found from ajax request, redirect user to 404 page.
+    const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
+    // if its not there, fire an ajax request with axios.
+    if (indexOfRecipe === -1) {
+      try {
+        const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
         
-        console.log('recipe was not found.');
+        this.setState({
+          recipe: response.data.data.recipe
+        });
+      } catch (error) {
+        if (error.status === 404) {
+          // if the recipe is not found from ajax request, redirect user to 404 page.
+          
+          console.log('recipe was not found.');
+        }
+  
+        console.log(error.response);
       }
-
-      console.log(error.response);
+    } else {
+      const recipeFromRedux = this.props.recipes[indexOfRecipe];
+      this.setState({
+        recipe: recipeFromRedux
+      });
     }
+    
   }
   
 

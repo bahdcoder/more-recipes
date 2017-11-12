@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 
+import config from '../../../config';
 import CreateRecipeValidator from './validation/createRecipeValidator';
 
 import Footer from '../../components/Footer';
@@ -78,15 +79,35 @@ export default class CreateRecipe extends React.Component {
     }
     
     try { 
+
+      const imageUploadData = new FormData();
+      imageUploadData.append('file', this.state.image);
+      imageUploadData.append('tags', `recipe`);
+      imageUploadData.append('upload_preset', config.cloudinaryUploadPreset);
+      imageUploadData.append('api_key', config.cloudinaryApiKey);
+      imageUploadData.append('timestamp', (Date.now() / 1000) | 0);
+      
+      //  Delete x-access-token for acceptance by cloudinary api
+      delete axios.defaults.headers.common['x-access-token'];
+
+      const cloudinaryResponse = await axios.post(config.cloudinaryImageUploadUrl, imageUploadData, {
+        headers: { "X-Requested-With": "XMLHttpRequest" }
+      });
+
+      //  Configure header for subsequent axios calls
+      axios.defaults.headers.common['x-access-token'] = this.props.authUser.access_token;
+
       const response = await this.props.createRecipe({
         title: this.state.title,
         timeToCook: this.state.timeToCook,
         description: this.state.description,
         ingredients: JSON.stringify(this.state.ingredients),
         procedure: JSON.stringify(this.state.procedure),
-        imageUrl: 'https://google.com'
+        imageUrl: cloudinaryResponse.data.secure_url
       });
     } catch (error) {
+      console.log(error);
+      return;
       if (error.response.status === 422) {
         this.setState({
           ajaxErrors : error.response.data.data.errors

@@ -40,7 +40,8 @@ export default class CreateRecipe extends React.Component {
         description: [],
         timeToCook: [],
         ingredients: [],
-        procedure: []
+        procedure: [],
+        image: []
       }
     };
 
@@ -74,7 +75,10 @@ export default class CreateRecipe extends React.Component {
   async handleSubmit() {
     const validator = new CreateRecipeValidator(this.state);
     if (!validator.isValid()) {
-      console.log(validator.errors);
+      const errors = { ...this.state.errors };
+      errors['image'] = validator.errors['image'];
+
+      this.setState({ errors });
       return;
     }
     
@@ -103,11 +107,9 @@ export default class CreateRecipe extends React.Component {
         description: this.state.description,
         ingredients: JSON.stringify(this.state.ingredients),
         procedure: JSON.stringify(this.state.procedure),
-        imageUrl: cloudinaryResponse.data.secure_url
+        
       });
     } catch (error) {
-      console.log(error);
-      return;
       if (error.response.status === 422) {
         this.setState({
           ajaxErrors : error.response.data.data.errors
@@ -159,7 +161,8 @@ export default class CreateRecipe extends React.Component {
         description: [],
         timeToCook: [],
         ingredients: [],
-        procedure: []
+        procedure: [],
+        image: []
       }
       this.setState({ errors });
       return true;
@@ -330,12 +333,18 @@ export default class CreateRecipe extends React.Component {
     // create a procedure array, this one is ordered
     // use react-sortable-hoc plugin for the sorting of the ingredients and procedure arrays
     let titleErrors = <small></small>;
+    let imageErrors = <small></small>;
     let timeToCookErrors = <small></small>;
     let descriptionErrors = <small></small>;
     let ingredientsErrors = <small></small>;
     let procedureErrors = <small></small>;
     if (this.state.errors['title'].length > 0) {
       titleErrors = this.state.errors['title'].map((error, index) => {
+        return <small style={this.miniError} key={index}>{error}</small>;
+      });
+    }
+    if (this.state.errors['image'].length > 0) {
+      imageErrors = this.state.errors['image'].map((error, index) => {
         return <small style={this.miniError} key={index}>{error}</small>;
       });
     } 
@@ -374,7 +383,7 @@ export default class CreateRecipe extends React.Component {
                 
                 {/* End upload recipe image */}
                 <hr />
-                <p className="text-center">{ajaxErrors}  </p>                
+                <p className="text-center">{ajaxErrors}{imageErrors}  </p>                
                 {/* Create recipe form */}
                 <div className="card-body">
                   <div className="form-group row">

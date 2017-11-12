@@ -9,7 +9,7 @@ export default class RecipeCard extends React.Component {
         </div>
         <div className="card-body">
           <h5 className="card-title text-center">
-            <a href="">Pressurized African Cassava Golden Grains ( Garri )</a>
+            <a href="/recipe/1234">Pressurized African Cassava Golden Grains ( Garri )</a>
           </h5>
           <hr />
           <p className="text-sm mb-5">

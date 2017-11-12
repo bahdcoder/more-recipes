@@ -7,7 +7,7 @@ import recipesReducer from './recipesReducer';
 const rootReducer = combineReducers({
   recipes: recipesReducer,
   routing: routerReducer,
-  authUser: authReducer,
+  authUser: authReducer
 });
 
 export default rootReducer;

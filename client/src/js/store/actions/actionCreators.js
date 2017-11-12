@@ -34,9 +34,9 @@ export function downvote(recipeId) {
  * @returns 
  */
 export function signIn({ email, password }) {
-  return async (dispatch, getState) => {
+  return async (dispatch, getState, apiUrl) => {
     try {
-      const response = await axios.post('http://localhost:4080/api/v1/users/signin', {
+      const response = await axios.post(`${apiUrl}/users/signin`, {
         email, password
       });
 
@@ -80,10 +80,10 @@ export function signOut() {
  * @returns {Promise} resolved promise
  */
 export function signUp({ name, email, password }) {
-  return async (dispatch, getState) => {
+  return async (dispatch, getState, apiUrl) => {
     
     try {
-      const response = await axios.post('http://localhost:4080/api/v1/users/signup', {
+      const response = await axios.post(`${apiUrl}/users/signup`, {
         email, password, name
       });
 
@@ -101,4 +101,24 @@ export function signUp({ name, email, password }) {
 
   }
 }
+/**
+ * Dispatch the action to create a new recipe
+ * 
+ * @export {Promise} resolved promise
+ */
+export function createRecipe(recipe) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const accessToken = getState().authUser.access_token;
 
+      const response = await axios.post(`${apiUrl}/recipes`, recipe);
+
+      dispatch({
+        type: 'NEW_RECIPE_CREATED',
+        payload: response.data.data.recipe
+      });
+    } catch (errors) {
+      return Promise.reject(errors);
+    }
+  };
+}

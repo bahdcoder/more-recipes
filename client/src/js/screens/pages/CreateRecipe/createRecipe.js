@@ -33,6 +33,7 @@ export default class CreateRecipe extends React.Component {
       timeToCook: '',
       ingredients: [''],
       procedure: ['Mix the fufu with ...'],
+      ajaxErrors: [],
       errors: {
         title: [],
         description: [],
@@ -69,14 +70,33 @@ export default class CreateRecipe extends React.Component {
    * @returns 
    * @memberof CreateRecipe
    */
-  handleSubmit() {
+  async handleSubmit() {
     const validator = new CreateRecipeValidator(this.state);
     if (!validator.isValid()) {
       console.log(validator.errors);
       return;
     }
-    alert('yaaay ! you can now create a recipe');
-    //  TAKE CARE OF CREATING THE RECIPE
+    
+    try { 
+      const response = await this.props.createRecipe({
+        title: this.state.title,
+        timeToCook: this.state.timeToCook,
+        description: this.state.description,
+        ingredients: JSON.stringify(this.state.ingredients),
+        procedure: JSON.stringify(this.state.procedure),
+        imageUrl: 'https://google.com'
+      });
+    } catch (error) {
+      if (error.response.status === 422) {
+        this.setState({
+          ajaxErrors : error.response.data.data.errors
+        });
+      } else {
+        this.setState({
+          ajaxErrors : ['Something went wrong. Please refresh and try again later.']
+        });
+      }
+    }
   }
 
 
@@ -230,6 +250,16 @@ export default class CreateRecipe extends React.Component {
       </Dropzone>
     );
 
+    let ajaxErrors = (
+      <small></small>
+    );
+
+    if (this.state.ajaxErrors.length > 0) {
+      ajaxErrors = this.state.ajaxErrors.map((error, index) => {
+        return <small style={this.miniError} key={index}>{error}</small>;
+      });
+    }
+
     if (this.state.image) {
       recipeImage = (
           <Dropzone 
@@ -323,6 +353,7 @@ export default class CreateRecipe extends React.Component {
                 
                 {/* End upload recipe image */}
                 <hr />
+                <p className="text-center">{ajaxErrors}  </p>                
                 {/* Create recipe form */}
                 <div className="card-body">
                   <div className="form-group row">

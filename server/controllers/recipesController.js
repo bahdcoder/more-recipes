@@ -15,7 +15,10 @@ export default class RecipesController {
    */
   async index(req, res) {
     const recipes = await models.Recipe.findAll({
-      include: { model: models.User, exclude: ['password'] },
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
+      }
     });
 
     /* if (req.query.sort === 'upvotes') {

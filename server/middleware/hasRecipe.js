@@ -14,7 +14,12 @@ export default async (req, res, next) => {
     return res.sendFailureResponse('Recipe not found.', 404);
   }
 
-  const recipe = await models.Recipe.findById(req.params.id);
+  const recipe = await models.Recipe.findById(req.params.id, {
+    include: {
+      model: models.User,
+      attributes: { exclude: ['password'] }
+    }
+  });
   if (!recipe) {
     return res.sendFailureResponse('Recipe not found.', 404);
   }

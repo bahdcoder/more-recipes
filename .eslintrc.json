@@ -24,9 +24,6 @@
         "requireParamDescription": false,
         "requireReturnDescription": true
       }],
-      "ecmaFeatures": {
-        "jsx": true
-      },
       "require-jsdoc": ["error", {
           "require": {
               "FunctionDeclaration": true,

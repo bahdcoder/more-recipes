@@ -1,3 +1,5 @@
+import isUUID from 'validator/lib/isUUID';
+
 import validators from '../validators';
 import models from '../database/models';
 
@@ -10,6 +12,9 @@ import models from '../database/models';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
+  if (!isUUID(req.params.id)) {
+    return res.sendFailureResponse('Recipe not found.', 404);
+  }
   const recipe = await models.Recipe.findById(req.params.id);
 
   if (!recipe) {

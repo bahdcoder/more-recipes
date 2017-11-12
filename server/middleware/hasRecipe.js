@@ -1,5 +1,6 @@
-import models from '../database/models';
+import isUUID from 'validator/lib/isUUID';
 
+import models from '../database/models';
 
 /**
  * Express middleware to verify if request has a valid recipe
@@ -9,8 +10,11 @@ import models from '../database/models';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  const recipe = await models.Recipe.findById(req.params.id);
+  if (!isUUID(req.params.id)) {
+    return res.sendFailureResponse('Recipe not found.', 404);
+  }
 
+  const recipe = await models.Recipe.findById(req.params.id);
   if (!recipe) {
     return res.sendFailureResponse('Recipe not found.', 404);
   }

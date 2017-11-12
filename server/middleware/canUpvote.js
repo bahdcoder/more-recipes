@@ -1,3 +1,5 @@
+import isUUID from 'validator/lib/isUUID';
+
 import models from '../database/models';
 import client from '../helpers/redis-client';
 
@@ -11,6 +13,9 @@ import client from '../helpers/redis-client';
  */
 export default async (req, res, next) => {
   try {
+    if (!isUUID(req.params.id)) {
+      return res.sendFailureResponse('Recipe not found.', 404);
+    }
     const recipe = await models.Recipe.findById(req.params.id);
 
     if (!recipe) {

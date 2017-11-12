@@ -31,6 +31,19 @@ export default class RecipesController {
     return res.sendSuccessResponse({ recipes }, 200);
   }
 
+  /**
+   * Find a specific recipe
+   *
+   * @param {obj} req express request object
+   * @param {any} res express response object
+   * @returns {json} recipe
+   * @memberof RecipesController
+   */
+  async find(req, res) {
+    const recipe = req.currentRecipe;
+
+    return res.sendSuccessResponse({ recipe });
+  }
 
   /**
    * Store a new recipe into the database

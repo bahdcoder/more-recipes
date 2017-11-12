@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { isAuthenticated } from './helpers';
@@ -19,6 +20,19 @@ import '../css/styles.css';
 
 import Main from './containers/Main';
 import registerServiceWorker from './registerServiceWorker';
+
+
+/**
+ * Set default axios configurations
+ */
+function setAxios() {
+  const authUser = localStorage.getItem('authUser');
+  if (authUser) {
+    axios.defaults.headers.common['x-access-token'] = JSON.parse(authUser).access_token;  
+  }
+}
+
+setAxios();
 
 /**
  * Check if the user is authenticated

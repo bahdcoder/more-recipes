@@ -28,7 +28,7 @@ export default class Home extends React.Component {
     return (
       <div>
         {/* The navigation bar begin */}
-        <Navbar data={this.props}/>
+        <Navbar {...this.props}/>
         {/* The navigation bar ending */}
         {/* The Jumbotron Area */}
         <div id="jumbotron" className="jumbotron text-center">

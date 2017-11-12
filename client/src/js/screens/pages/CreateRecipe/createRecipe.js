@@ -107,7 +107,6 @@ export default class CreateRecipe extends React.Component {
         description: this.state.description,
         ingredients: JSON.stringify(this.state.ingredients),
         procedure: JSON.stringify(this.state.procedure),
-        
       });
     } catch (error) {
       if (error.response.status === 422) {

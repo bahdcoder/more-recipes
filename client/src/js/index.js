@@ -12,6 +12,7 @@ import Home from './screens/pages/Home';
 import Login from './screens/pages/Login';
 import Recipes from './screens/pages/Recipes';
 import Register from './screens/pages/Register';
+import SingleRecipe from './screens/pages/SingleRecipe/SingleRecipe';
 import CreateRecipe from './screens/pages/CreateRecipe/createRecipe';
 
 import '../css/bootstrap.min.css';
@@ -78,6 +79,10 @@ ReactDOM.render((
 
         <Route path="/recipes" 
                component={ Recipes }
+        ></Route>
+
+        <Route path="/recipe/:id" 
+               component={ SingleRecipe }
         ></Route>
         
         <Route path="/recipes/create" 

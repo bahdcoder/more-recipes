@@ -8,7 +8,7 @@ export default class Recipes extends React.Component {
     return (
       <div>
       {/* The navigation bar begin */}
-      <Navbar data={this.props}/>
+      <Navbar {...this.props}/>
       {/* The recipes page body */}
       <div className="container-fluid my-5">
         {/* Header */}

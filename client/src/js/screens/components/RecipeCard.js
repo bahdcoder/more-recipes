@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class RecipeCard extends React.Component {
   render() {
@@ -9,7 +10,7 @@ export default class RecipeCard extends React.Component {
         </div>
         <div className="card-body">
           <h5 className="card-title text-center">
-            <a href="">Pressurized African Cassava Golden Grains ( Garri )</a>
+            <Link to="/recipe/1234">Pressurized African Cassava Golden Grains ( Garri )</Link>
           </h5>
           <hr />
           <p className="text-sm mb-5">

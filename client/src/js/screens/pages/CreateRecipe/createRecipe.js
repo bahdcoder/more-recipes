@@ -103,7 +103,7 @@ export default class CreateRecipe extends React.Component {
         description: this.state.description,
         ingredients: JSON.stringify(this.state.ingredients),
         procedure: JSON.stringify(this.state.procedure),
-        imageUrl: cloudinaryResponse.data.secure_url
+
       });
     } catch (error) {
       console.log(error);

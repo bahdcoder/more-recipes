@@ -1,4 +1,5 @@
 import axios from 'axios';
+import numeral from 'numeral';
 import Gravatar from 'react-gravatar';
 import React, { Component } from 'react';
 
@@ -29,7 +30,8 @@ export default class SingleRecipe extends Component {
     if (indexOfRecipe === -1) {
       try {
         const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
-
+        
+        await this.props.updateRecipesInStore(response.data.data.recipe);
         this.setState({
           recipe: response.data.data.recipe
         });
@@ -44,6 +46,7 @@ export default class SingleRecipe extends Component {
       }
     } else {
       const recipeFromRedux = this.props.recipes[indexOfRecipe];
+
       this.setState({
         recipe: recipeFromRedux
       });
@@ -57,6 +60,24 @@ export default class SingleRecipe extends Component {
     let recipeCard = (
       <SingleRecipeLoader />
     );
+
+    let ingredients;
+
+    if (this.state.recipe) {
+      ingredients = JSON.parse(this.state.recipe.ingredients).map((ingredient, index) => {
+        return (<li key={index} className="list-group-item">{ingredient}</li>);
+      });
+    }
+
+    let procedure;
+
+    if (this.state.recipe) {
+      procedure = JSON.parse(this.state.recipe.procedure).map((step, index) => {
+        return (
+          <li key={index} className="list-group-item"><span className="badge badge-primary">{index + 1}</span>   {step}</li>
+        );
+      });
+    }
 
     if (this.state.recipe) {
       recipeCard = (
@@ -82,30 +103,24 @@ export default class SingleRecipe extends Component {
               </div>
             </div>
             <p className="text-muted h6 text-center my-4">
-              <span className="mr-3 h3"><i className="ion ion-happy-outline" /> 531,233 </span>
-              <span className="mr-3 h3"><i className="ion ion-sad-outline" /> 0</span>
-              <span className="mr-3 h3"><i className="ion ion-ios-heart" /> 33</span>
+              <span className="mr-3 h3"><i className="ion ion-happy-outline" /> {numeral(this.state.recipe.upvotersIds.length).format('0a')} </span>
+              <span className="mr-3 h3"><i className="ion ion-sad-outline" /> {numeral(this.state.recipe.downvotersIds.length).format('0a')} </span>
+              <span className="mr-3 h3"><i className="ion ion-ios-heart" /> {numeral(this.state.recipe.favoritersIds.length).format('0a')}</span>
             </p>
             <hr />
             {/* Begin ingredients section */}
-            <h3 className="mb-3 text-muted">Ingredients</h3>
+            <h3 className="mb-4 text-muted">Ingredients</h3>
             <ul className="list-group mt-3">
-              <li className="list-group-item">Cras justo odio</li>
-              <li className="list-group-item">Dapibus ac facilisis in</li>
-              <li className="list-group-item">Morbi leo risus</li>
-              <li className="list-group-item">Porta ac consectetur ac</li>
-              <li className="list-group-item">Vestibulum at eros</li>
+              {ingredients}
             </ul>
+            <br/>
             {/* End ingredients section */}
             {/* Begin procedures section */}
-            <h3 className="mb-3 mt-3 text-muted">Procedure</h3>
+            <h3 className="mb-4 mt-3 text-muted">Procedure</h3>
             <ul className="list-group my-3">
-              <li className="list-group-item"><span className="badge badge-primary">1</span>   Cras justo odio</li>
-              <li className="list-group-item"><span className="badge badge-primary">2</span> Dapibus ac facilisis in</li>
-              <li className="list-group-item"><span className="badge badge-primary">3</span> Morbi leo risus</li>
-              <li className="list-group-item"><span className="badge badge-primary">4</span> Porta ac consectetur ac</li>
-              <li className="list-group-item"><span className="badge badge-primary">5</span> Vestibulum at eros</li>
+              {procedure}
             </ul>
+            <br/>
             <h3 className="my-3 text-muted">Reviews</h3>
             {/* End procedures section */}
             {/* Reviews section */}

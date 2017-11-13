@@ -13,10 +13,8 @@ export default function recipesReducer(state = [], action) {
       newState.push(action.payload);
       return newState;
       break;
-  
+
     default:
       return state;
-      break;
   }
-  return state;
 }

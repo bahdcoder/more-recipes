@@ -28,10 +28,10 @@ export function downvote(recipeId) {
 
 /**
  * Dispatch the action to sign a user in
- * 
+ *
  * @export
- * @param {any} user 
- * @returns 
+ * @param {any} user user data for sign in
+ * @returns {Promise} resolves a promise
  */
 export function signIn({ email, password }) {
   return async (dispatch, getState, apiUrl) => {
@@ -56,12 +56,12 @@ export function signIn({ email, password }) {
 
 /**
  * Dispatch the action to sign a user out
- * 
+ *
  * @export
  * @returns {Promise} resolved promise
  */
 export function signOut() {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     localStorage.removeItem('authUser');
 
     dispatch({
@@ -69,13 +69,13 @@ export function signOut() {
     });
 
     return Promise.resolve();
-  }
+  };
 }
 
 
 /**
  * Dispatch the action to sign up a user
- * 
+ *
  * @export
  * @returns {Promise} resolved promise
  */
@@ -98,19 +98,18 @@ export function signUp({ name, email, password }) {
     } catch (error) {
       return Promise.reject(error);
     }
-
-  }
+  };
 }
 /**
  * Dispatch the action to create a new recipe
- * 
+ *
+ * @param {obj} recipe the recipe to be created
  * @export {Promise} resolved promise
+ * @returns {Promise} resolved promise
  */
 export function createRecipe(recipe) {
   return async (dispatch, getState, apiUrl) => {
     try {
-      const accessToken = getState().authUser.access_token;
-
       const response = await axios.post(`${apiUrl}/recipes`, recipe);
 
       dispatch({
@@ -120,5 +119,23 @@ export function createRecipe(recipe) {
     } catch (errors) {
       return Promise.reject(errors);
     }
+  };
+}
+
+/**
+ * Update the recipes in store
+ *
+ * @export {func} action creator
+ * @param {obj} recipe recipe to be added to store
+ * @returns {promise} Promise resolved
+ */
+export function updateRecipesInStore(recipe) {
+  return (dispatch) => {
+    dispatch({
+      type: 'NEW_RECIPE_CREATED',
+      payload: recipe
+    });
+
+    return Promise.resolve();
   };
 }

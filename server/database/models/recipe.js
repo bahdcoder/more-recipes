@@ -1,3 +1,5 @@
+import redisClient from '../../helpers/redis-client';
+
 module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
     id: {
@@ -18,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     imageUrl: DataTypes.STRING,
     timeToCook: DataTypes.INTEGER,
     ingredients: DataTypes.TEXT,
-    procedure: DataTypes.TEXT,
+    procedure: DataTypes.TEXT
   });
 
   Recipe.associate = (models) => {
@@ -30,6 +32,24 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'recipeId'
     });
   };
+
+  Recipe.addHook('afterFind', async (results) => {
+    if (Array.isArray(results)) {
+      await Promise.all(results.map(async (sequelizeRecipe) => {
+        const recipe = sequelizeRecipe.get();
+        recipe.upvotes = (await redisClient.smembers(`recipe:${recipe.id}:upvotes`)).length;
+        recipe.downvotes = (await redisClient.smembers(`recipe:${recipe.id}:downvotes`)).length;
+        recipe.favorites = (await redisClient.smembers(`recipe:${recipe.id}:favorites`)).length;
+        return recipe;
+      }));
+    } else {
+      const recipe = results.get();
+      recipe.upvotes = (await redisClient.smembers(`recipe:${recipe.id}:upvotes`)).length;
+      recipe.downvotes = (await redisClient.smembers(`recipe:${recipe.id}:downvotes`)).length;
+      recipe.favorites = (await redisClient.smembers(`recipe:${recipe.id}:favorites`)).length;
+      return recipe;
+    }
+  });
 
   return Recipe;
 };

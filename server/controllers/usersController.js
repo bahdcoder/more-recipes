@@ -19,6 +19,7 @@ export default class UsersController {
     const recipe = req.currentRecipe;
 
     await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
+    await client.sadd(`user:${recipe.id}:favorites`, req.authUser.id);
 
     return res.sendSuccessResponse({ message: 'Recipe favorited.' });
   }

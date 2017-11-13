@@ -1,5 +1,5 @@
 import models from '../database/models';
-import client from '../helpers/redis-client';
+import redisClient from './../helpers/redis-client';
 
 
 /**
@@ -20,6 +20,8 @@ export default class RecipesController {
         attributes: { exclude: ['password'] }
       }
     });
+
+    // Loop through the recipes and set the upvotes, downvotes and favorites
 
     /* if (req.query.sort === 'upvotes') {
       const upvotes = await client.smembers('recipe:*:upvotes');

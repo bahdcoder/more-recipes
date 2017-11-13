@@ -1,5 +1,3 @@
-import isUUID from 'validator/lib/isUUID';
-
 import models from '../database/models';
 import client from '../helpers/redis-client';
 
@@ -11,21 +9,11 @@ import client from '../helpers/redis-client';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  if (!isUUID(req.params.id)) {
-    return res.sendFailureResponse('Recipe not found.', 404);
-  }
-  const recipe = await models.Recipe.findById(req.params.id);
-
-  if (!recipe) {
-    return res.sendFailureResponse('Recipe not found.', 404);
-  }
-
-  if (recipe.userId === req.authUser.id) {
+  if (req.currentRecipe.userId === req.authUser.id) {
     return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
   }
 
-  await client.srem(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+  await client.srem(`recipe:${req.currentRecipe.id}:upvotes`, req.authUser.id);
 
-  req.currentRecipe = recipe;
   next();
 };

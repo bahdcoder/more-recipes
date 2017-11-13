@@ -52,7 +52,7 @@ describe('/favorites', () => {
 
     globalMock.recipe1 = await db.Recipe.create(recipe);
     globalMock.recipe2 = await db.Recipe.create(recipe);
-
+    
   });
 
   describe('/users/favorites POST', () => {

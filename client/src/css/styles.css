@@ -32,7 +32,8 @@ body {
 }
 .jumbotron {
   height: 100vh;
-  background-image: url('./../assets/img/banner-1.jpg');
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
 }
 .jumbotron-title {
   color: white;

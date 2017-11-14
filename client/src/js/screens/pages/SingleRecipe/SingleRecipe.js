@@ -4,6 +4,8 @@ import Gravatar from 'react-gravatar';
 import React, { Component } from 'react';
 
 import config from './../../../config';
+
+import Reviews from './components/Reviews';
 import NavBar from './../../components/Navbar';
 import Footer from './../../components/Footer';
 import SingleRecipeLoader from './../../components/SingleRecipeLoader';
@@ -14,15 +16,19 @@ export default class SingleRecipe extends Component {
     super(props);
 
     this.state = {
-      recipe: null
+      recipe: null,
+      reviews: [],
+      loading: true 
     };
+
+    this.loadReviews = this.loadReviews.bind(this);
   }
   /**
    * Fetch the recipe once the component is mounted.
    * 
    * @memberof SingleRecipe
    */
-  async componentDidMount() {
+  async componentWillMount() {
 
     // Try to find the recipe in redux store.
     const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
@@ -32,9 +38,8 @@ export default class SingleRecipe extends Component {
         const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
         
         await this.props.updateRecipesInStore(response.data.data.recipe);
-        this.setState({
-          recipe: response.data.data.recipe
-        });
+
+        this.loadReviews();
       } catch (error) {
         if (error.status === 404) {
           // if the recipe is not found from ajax request, redirect user to 404 page.
@@ -44,68 +49,84 @@ export default class SingleRecipe extends Component {
   
         console.log(error.response);
       }
-    } else {
-      const recipeFromRedux = this.props.recipes[indexOfRecipe];
-
-      this.setState({
-        recipe: recipeFromRedux
-      });
     }
-    
+  }
+  /**
+   * Get the paginated reviews for the recipe
+   * 
+   * @memberof SingleRecipe
+   */
+  async loadReviews() {
+    try {
+      const response = await this.props.getRecipeReviews(this.props.params.id); 
+    } catch (error) {
+      console.log('load reviews error:', error);
+    }
   }
   
 
   render() {
 
-    let recipeCard = (
-      <SingleRecipeLoader />
-    );
+    let recipeCard;
+    let recipe;
+
+    const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
+
+    if (indexOfRecipe === -1) {
+      recipeCard = (
+        <SingleRecipeLoader />
+      );
+    } else {
+      recipe = this.props.recipes[indexOfRecipe];
+    }
+
+    
 
     let ingredients;
 
-    if (this.state.recipe) {
-      ingredients = JSON.parse(this.state.recipe.ingredients).map((ingredient, index) => {
+    if (recipe) {
+      ingredients = JSON.parse(recipe.ingredients).map((ingredient, index) => {
         return (<li key={index} className="list-group-item">{ingredient}</li>);
       });
     }
 
     let procedure;
 
-    if (this.state.recipe) {
-      procedure = JSON.parse(this.state.recipe.procedure).map((step, index) => {
+    if (recipe) {
+      procedure = JSON.parse(recipe.procedure).map((step, index) => {
         return (
           <li key={index} className="list-group-item"><span className="badge badge-primary">{index + 1}</span>   {step}</li>
         );
       });
     }
 
-    if (this.state.recipe) {
+    if (recipe) {
       recipeCard = (
         <div className="wow fadeIn card">
-          <img className="card-img-top" style={{height: 450}} src={this.state.recipe.imageUrl} alt={this.state.recipe.title} />
+          <img className="card-img-top" style={{height: 450}} src={recipe.imageUrl} alt={recipe.title} />
           <div className="card-body">
-            <h1 className="card-title text-center h4 mb-4">{this.state.recipe.title}
+            <h1 className="card-title text-center h4 mb-4">{recipe.title}
               <small className="text-muted" style={{fontSize: 15}}>   
                 <i className="ion ion-clock ml-4 mr-1" />
-                {this.state.recipe.timeToCook}
+                {recipe.timeToCook}
               </small>
             </h1>
             <p className="text-center my-4">
-              {this.state.recipe.description}
+              {recipe.description}
             </p>
             <hr />
             <div className="media text-center mx-auto my-5" style={{width: 200}}>
               <Gravatar className="d-flex mr-3" 
-                        email={this.state.recipe.User.email}
+                        email={recipe.User.email}
                         style={{width: 60, height: 60, borderRadius: '100%'}}/>
               <div className="media-body">
-                <h5 className="mt-3">{this.state.recipe.User.name}</h5>
+                <h5 className="mt-3">{recipe.User.name}</h5>
               </div>
             </div>
             <p className="text-muted h6 text-center my-4">
-              <span className="mr-3 h3"><i className="ion ion-happy-outline" /> {numeral(this.state.recipe.upvotersIds.length).format('0a')} </span>
-              <span className="mr-3 h3"><i className="ion ion-sad-outline" /> {numeral(this.state.recipe.downvotersIds.length).format('0a')} </span>
-              <span className="mr-3 h3"><i className="ion ion-ios-heart" /> {numeral(this.state.recipe.favoritersIds.length).format('0a')}</span>
+              <span className="mr-3 h3"><i className="ion ion-happy-outline" /> {numeral(recipe.upvotersIds.length).format('0a')} </span>
+              <span className="mr-3 h3"><i className="ion ion-sad-outline" /> {numeral(recipe.downvotersIds.length).format('0a')} </span>
+              <span className="mr-3 h3"><i className="ion ion-ios-heart" /> {numeral(recipe.favoritersIds.length).format('0a')}</span>
             </p>
             <hr />
             {/* Begin ingredients section */}
@@ -124,30 +145,7 @@ export default class SingleRecipe extends Component {
             <h3 className="my-3 text-muted">Reviews</h3>
             {/* End procedures section */}
             {/* Reviews section */}
-            <div className="container my-4">
-              <div className="row justify-content-center">
-                <div className="col-10">
-                  <div className="media">
-                    <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
-                    <div className="media-body">
-                      I have just one thing to tell you. Please go to medical school, you have no hope in cooking.
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="media">
-                    <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
-                    <div className="media-body">
-                      If not that am a christian ehn, I would just pray juju for your head now. Wetin be this ???!😨😨 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* End reviews section */}
-            {/* Begin create reviews section */}
-            <h3 className="mb-3 mt-3 text-muted">Leave a review</h3>
-            <textarea cols={5} rows={5} className="form-control" placeholder="Leave a review for this recipe..." defaultValue={""} />
-            <button className="btn btn-primary btn-sm mt-3 float-right">Save review</button>
+            <Reviews {...this.props} recipeReviews={this.props.reviews[this.props.params.id]}/>
             {/* End create review section */}
           </div>
         </div>

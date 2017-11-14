@@ -7,17 +7,16 @@ import rootReducer from './reducers';
 
 const defaultState = {
   recipes: [],
-  authUser: null
+  authUser: null,
+  reviews: {}
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  rootReducer, 
+  rootReducer,
   defaultState,
-  composeEnhancers(
-    applyMiddleware(reduxThunk.withExtraArgument(config.apiUrl))
-  )
+  composeEnhancers(applyMiddleware(reduxThunk.withExtraArgument(config.apiUrl)))
 );
 
 export default store;

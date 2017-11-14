@@ -74,7 +74,6 @@ export default class RecipesController {
         attributes: { exclude: ['password'] }
       }
     });
-    console.log(recipe);
 
     return res.sendSuccessResponse({ recipe }, 201);
   }

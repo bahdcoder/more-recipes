@@ -8,12 +8,10 @@
 export default function recipesReducer(state = [], action) {
   switch (action.type) {
     case 'NEW_RECIPE_CREATED':
-      let newState = state;
-      console.log(state, action.payload);
-      newState.push(action.payload);
-      return newState;
-      break;
-
+      return [
+        ...state,
+        action.payload
+      ];
     default:
       return state;
   }

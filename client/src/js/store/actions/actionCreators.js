@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 /**
  *Create a reducer for the upvote action
@@ -82,7 +81,6 @@ export function signOut() {
  */
 export function signUp({ name, email, password }) {
   return async (dispatch, getState, apiUrl) => {
-    
     try {
       const response = await axios.post(`${apiUrl}/users/signup`, {
         email, password, name
@@ -141,3 +139,30 @@ export function updateRecipesInStore(recipe) {
     return Promise.resolve();
   };
 }
+/**
+ * Get the paginated reviews for the recipe
+ *
+ * @export {func} action creator
+ * @param {any} recipeId id of the recipe whose reviews we wanna get
+ * @returns {Promise} resolved promise
+ */
+export function getRecipeReviews(recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/recipes/${recipeId}/reviews`);
+      console.log(response);
+      dispatch({
+        type: 'NEW_REVIEWS_ADDED',
+        payload: {
+          recipeId,
+          reviews: response.data.data.reviews
+        }
+      });
+
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}
+

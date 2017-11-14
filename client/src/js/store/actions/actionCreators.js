@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 
 /**
  *Create a reducer for the upvote action
@@ -116,6 +117,7 @@ export function createRecipe(recipe) {
         type: 'NEW_RECIPE_CREATED',
         payload: response.data.data.recipe
       });
+      return Promise.resolve(response);
     } catch (errors) {
       return Promise.reject(errors);
     }

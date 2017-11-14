@@ -1,5 +1,4 @@
 import models from '../database/models';
-import redisClient from './../helpers/redis-client';
 
 
 /**
@@ -59,7 +58,7 @@ export default class RecipesController {
    */
   async create(req, res) {
     const reqBody = req.body;
-    const recipe = await models.Recipe.create({
+    const createdRecipe = await models.Recipe.create({
       title: reqBody.title,
       description: reqBody.description,
       imageUrl: reqBody.imageUrl,
@@ -68,6 +67,14 @@ export default class RecipesController {
       procedure: reqBody.procedure,
       userId: req.authUser.id
     });
+
+    const recipe = await models.Recipe.findById(createdRecipe.id, {
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
+      }
+    });
+    console.log(recipe);
 
     return res.sendSuccessResponse({ recipe }, 201);
   }

@@ -20,8 +20,6 @@ export default class SingleRecipe extends Component {
       reviews: [],
       loading: true 
     };
-
-    this.loadReviews = this.loadReviews.bind(this);
   }
   /**
    * Fetch the recipe once the component is mounted.
@@ -38,8 +36,6 @@ export default class SingleRecipe extends Component {
         const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
         
         await this.props.updateRecipesInStore(response.data.data.recipe);
-
-        this.loadReviews();
       } catch (error) {
         if (error.status === 404) {
           // if the recipe is not found from ajax request, redirect user to 404 page.
@@ -51,18 +47,7 @@ export default class SingleRecipe extends Component {
       }
     }
   }
-  /**
-   * Get the paginated reviews for the recipe
-   * 
-   * @memberof SingleRecipe
-   */
-  async loadReviews() {
-    try {
-      const response = await this.props.getRecipeReviews(this.props.params.id); 
-    } catch (error) {
-      console.log('load reviews error:', error);
-    }
-  }
+
   
 
   render() {
@@ -145,7 +130,7 @@ export default class SingleRecipe extends Component {
             <h3 className="my-3 text-muted">Reviews</h3>
             {/* End procedures section */}
             {/* Reviews section */}
-            <Reviews {...this.props} recipeReviews={this.props.reviews[this.props.params.id]}/>
+            <Reviews {...this.props} />
             {/* End create review section */}
           </div>
         </div>

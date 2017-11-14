@@ -7,24 +7,49 @@ import React, { Component } from 'react';
  * @extends {Component} React
  */
 export default class Reviews extends Component {
-  render() {
 
-    console.log(this.props.recipeReviews);
+  /**
+   * Get the paginated reviews for the recipe
+   * 
+   * @memberof SingleRecipe
+   */
+  async componentWillMount() {
+    try {
+      const response = await this.props.getRecipeReviews(this.props.params.id); 
+    } catch (error) {
+      console.log('load reviews error:', error);
+    }
+  }
+  render() {
+    let recipeReviews = this.props.reviews[this.props.params.id] || [];
+    let reviews;
+    
+    if (recipeReviews.length > 0) {
+      reviews = recipeReviews.map(review => {
+        return (
+          <div>
+            <div className="ml-3 media">
+              <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
+              <div className="media-body">
+                <h6 className="font-weight-bold">Kati Frantz <small className="text-muted ml-2">2 hours ago</small></h6>
+                I have just one thing to tell you. Please go to medical school, you have no hope in cooking.
+              </div>
+            </div>
+            <hr />
+          </div>
+        );
+      });
+    } else {
+    reviews = ( <div className="text-center font-weight-bold">
+      No reviews yet.
+    </div> );
+    }
 
     return (
       <div className="container my-4">
         <div className="row">
           <div className="col-10">
-            <div>
-              <div className="ml-3 media">
-                <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
-                <div className="media-body">
-                  <h6 className="font-weight-bold">Kati Frantz <small className="text-muted ml-2">2 hours ago</small></h6>
-                  I have just one thing to tell you. Please go to medical school, you have no hope in cooking.
-                </div>
-              </div>
-              <hr />
-            </div>
+            {reviews}
           </div>
         </div>
       </div>

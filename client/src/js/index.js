@@ -12,6 +12,7 @@ import Home from './screens/pages/Home';
 import Login from './screens/pages/Login';
 import Recipes from './screens/pages/Recipes';
 import Register from './screens/pages/Register';
+import UserProfile from './screens/pages/UserProfile/UserProfile';
 import SingleRecipe from './screens/pages/SingleRecipe/SingleRecipe';
 import CreateRecipe from './screens/pages/CreateRecipe/createRecipe';
 
@@ -21,6 +22,7 @@ import '../css/styles.css';
 
 import Main from './containers/Main';
 import registerServiceWorker from './registerServiceWorker';
+
 
 
 /**
@@ -83,6 +85,10 @@ ReactDOM.render((
 
         <Route path="/recipe/:id" 
                component={ SingleRecipe }
+        ></Route>
+
+        <Route path="/user/:id"
+               component={ UserProfile }
         ></Route>
         
         <Route path="/recipes/create" 

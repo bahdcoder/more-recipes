@@ -189,3 +189,25 @@ export function createReview({ recipeId, review }) {
     }
   };
 }
+/**
+ * Find a user and resolve it
+ *
+ * @export
+ * @param {any} userId id of the user to be found
+ * @returns {Promise} Promise
+ */
+export function findUser(userId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/users/profile/${userId}`);
+
+      dispatch({
+        type: 'NEW_USER_ADDED',
+        payload: response.data.data.user
+      });
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}

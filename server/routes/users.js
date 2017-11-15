@@ -6,6 +6,7 @@ const userRoutes = new Router();
 const authController = new controllers.AuthController();
 const usersController = new controllers.UsersController();
 
+userRoutes.get('/profile/:id', usersController.getUser);
 userRoutes.get('/recipes', middleware.auth, usersController.getFavorites);
 userRoutes.get('/favorites', middleware.auth, usersController.getFavorites);
 userRoutes.post('/signin', middleware.signinUserValidator, authController.signin);

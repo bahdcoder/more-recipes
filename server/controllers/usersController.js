@@ -19,7 +19,7 @@ export default class UsersController {
     const recipe = req.currentRecipe;
 
     await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
-    await client.sadd(`user:${recipe.id}:favorites`, req.authUser.id);
+    await client.sadd(`recipe:${recipe.id}:favorites`, req.authUser.id);
 
     return res.sendSuccessResponse({ message: 'Recipe favorited.' });
   }
@@ -44,5 +44,22 @@ export default class UsersController {
     });
 
     return res.sendSuccessResponse({ favorites });
+  }
+  /**
+   * Find a user with user Id
+   *
+   * @param {any} req express request object
+   * @param {any} res express response object
+   * @returns {json} user
+   * @memberof UsersController
+   */
+  async getUser(req, res) {
+    const user = await models.User.findById(req.params.id);
+
+    if (!user) {
+      return res.sendFailureResponse({ message: 'User not found.' }, 404);
+    }
+
+    return res.sendSuccessResponse({ user });
   }
 }

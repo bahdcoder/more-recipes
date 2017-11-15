@@ -8,7 +8,8 @@ import rootReducer from './reducers';
 const defaultState = {
   recipes: [],
   authUser: null,
-  reviews: {}
+  reviews: {},
+  users: []
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

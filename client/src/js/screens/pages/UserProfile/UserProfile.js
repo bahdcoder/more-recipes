@@ -55,10 +55,20 @@ export default class UserProfile extends Component {
       about: user.about
     });
   }
-
+  async componentWillReceiveProps(nextProps) {
+    try {
+      const userIndex = this.props.users.findIndex(user => user.id === nextProps.params.id);
+      if (userIndex === -1) {
+        const response = await this.props.findUser(this.props.params.id);
+      } else {
+        this.forceUpdate();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async componentWillMount() {
     try {
-      //  const response = await this.props.getUser
       const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);
       if (userIndex === -1) {
         const response = await this.props.findUser(this.props.params.id);
@@ -67,6 +77,7 @@ export default class UserProfile extends Component {
       console.log(error);
     }
   }
+
   render() {
     let userProfile;
     let editButton = (

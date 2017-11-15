@@ -1,3 +1,4 @@
+
 /**
  * Reducer for handling users in store
  *
@@ -13,6 +14,14 @@ export default function usersReducer(state = [], action) {
         ...state,
         action.payload
       ];
+    case 'USER_UPDATED':
+      return state.map((user, index) => {
+        if (index !== action.payload.index) {
+          return user;
+        }
+
+        return action.payload.user;
+      });
     default:
       return state;
   }

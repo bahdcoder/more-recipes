@@ -211,3 +211,36 @@ export function findUser(userId) {
     }
   };
 }
+/**
+ * Update the user's profile
+ *
+ * @export
+ * @param {any} userData The user data to be updated
+ * @param {int} index The index of the user in redux store
+ * @returns {Promise} Promise reolves/reject
+ */
+export function updateUserProfile(userData, index) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.put(`${apiUrl}/users/update`, userData);
+
+
+      dispatch({
+        type: 'USER_UPDATED',
+        payload: {
+          user: response.data.data.user,
+          index
+        }
+      });
+
+      dispatch({
+        type: 'AUTH_USER_UPDATED',
+        payload: response.data.data.user
+      });
+
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}

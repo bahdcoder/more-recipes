@@ -62,4 +62,17 @@ export default class UsersController {
 
     return res.sendSuccessResponse({ user });
   }
+  /**
+   * Update authenticated user profile
+   *
+   * @param {any} req express request object
+   * @param {any} res express response object
+   * @returns {json} user
+   * @memberof UsersController
+   */
+  async updateProfile(req, res) {
+    const user = await req.authUserObj.update(req.body);
+
+    return res.sendSuccessResponse({ user });
+  }
 }

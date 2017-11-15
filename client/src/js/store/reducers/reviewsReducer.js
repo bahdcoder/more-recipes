@@ -11,6 +11,11 @@ function recipeReview(state = [], action) {
         ...state,
         ...action.payload.reviews
       ];
+    case 'NEW_REVIEW_ADDED':
+      return [
+        ...state,
+        action.payload
+      ];
     default:
       return state;
   }
@@ -28,6 +33,11 @@ function recipeReview(state = [], action) {
 export default function reviewsReducer(state = {}, action) {
   switch (action.type) {
     case 'NEW_REVIEWS_ADDED':
+      return {
+        ...state,
+        [action.payload.recipeId]: recipeReview(state[action.payload.recipeId], action)
+      };
+    case 'NEW_REVIEW_ADDED':
       return {
         ...state,
         [action.payload.recipeId]: recipeReview(state[action.payload.recipeId], action)

@@ -150,7 +150,7 @@ export function getRecipeReviews(recipeId) {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.get(`${apiUrl}/recipes/${recipeId}/reviews`);
-      console.log(response);
+
       dispatch({
         type: 'NEW_REVIEWS_ADDED',
         payload: {
@@ -166,3 +166,26 @@ export function getRecipeReviews(recipeId) {
   };
 }
 
+/**
+ * Create a review for the recipe
+ *
+ * @export
+ * @param {any} review { recipeId, review }
+ * @returns {Promise} Promise
+ */
+export function createReview({ recipeId, review }) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.post(`${apiUrl}/recipes/${recipeId}/reviews`, { review });
+      console.log(response);
+      /*  dispatch({
+        type: 'NEW_REVIEW_ADDED',
+        payload: response.data.data.review
+      }); */
+
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}

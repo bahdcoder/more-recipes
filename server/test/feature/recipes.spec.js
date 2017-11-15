@@ -275,7 +275,7 @@ describe('/recipes', () => {
         .set('x-access-token', globalMock.user1.authToken)    
         .end((error, response) => {
           expect(response).to.have.status(404);
-
+          
           expect(response.body.data.message).to.equal('Recipe not found.');
           done();
         });

@@ -1,7 +1,11 @@
 import axios from 'axios';
+import numeral from 'numeral';
+import Gravatar from 'react-gravatar';
 import React, { Component } from 'react';
 
 import config from './../../../config';
+
+import Reviews from './components/Reviews';
 import NavBar from './../../components/Navbar';
 import Footer from './../../components/Footer';
 import SingleRecipeLoader from './../../components/SingleRecipeLoader';
@@ -12,7 +16,9 @@ export default class SingleRecipe extends Component {
     super(props);
 
     this.state = {
-      recipe: null
+      recipe: null,
+      reviews: [],
+      loading: true 
     };
   }
   /**
@@ -20,7 +26,7 @@ export default class SingleRecipe extends Component {
    * 
    * @memberof SingleRecipe
    */
-  async componentDidMount() {
+  async componentWillMount() {
 
     // Try to find the recipe in redux store.
     const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
@@ -29,9 +35,7 @@ export default class SingleRecipe extends Component {
       try {
         const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
         
-        this.setState({
-          recipe: response.data.data.recipe
-        });
+        await this.props.updateRecipesInStore(response.data.data.recipe);
       } catch (error) {
         if (error.status === 404) {
           // if the recipe is not found from ajax request, redirect user to 404 page.
@@ -41,95 +45,92 @@ export default class SingleRecipe extends Component {
   
         console.log(error.response);
       }
-    } else {
-      const recipeFromRedux = this.props.recipes[indexOfRecipe];
-      this.setState({
-        recipe: recipeFromRedux
-      });
     }
-    
   }
+
   
 
   render() {
 
-    let recipeCard = (
-      <SingleRecipeLoader />
-    );
+    let recipeCard;
+    let recipe;
 
-    if (this.state.recipe) {
+    const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
+
+    if (indexOfRecipe === -1) {
+      recipeCard = (
+        <SingleRecipeLoader />
+      );
+    } else {
+      recipe = this.props.recipes[indexOfRecipe];
+    }
+
+    
+
+    let ingredients;
+
+    if (recipe) {
+      ingredients = JSON.parse(recipe.ingredients).map((ingredient, index) => {
+        return (<li key={index} className="list-group-item">{ingredient}</li>);
+      });
+    }
+
+    let procedure;
+
+    if (recipe) {
+      procedure = JSON.parse(recipe.procedure).map((step, index) => {
+        return (
+          <li key={index} className="list-group-item"><span className="badge badge-primary">{index + 1}</span>   {step}</li>
+        );
+      });
+    }
+
+    if (recipe) {
       recipeCard = (
         <div className="wow fadeIn card">
-          <img className="card-img-top" style={{height: 450}} src="../../assets/img/meal-1.jpg" alt="Card image cap" />
+          <img className="card-img-top" style={{height: 450}} src={recipe.imageUrl} alt={recipe.title} />
           <div className="card-body">
-            <h1 className="card-title text-center h4 mb-4">Emergency Jollof and Coconut stew
+            <h1 className="card-title text-center h4 mb-4">{recipe.title}
               <small className="text-muted" style={{fontSize: 15}}>   
                 <i className="ion ion-clock ml-4 mr-1" />
-                2 min
+                {recipe.timeToCook}
               </small>
             </h1>
             <p className="text-center my-4">
-              At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga
+              {recipe.description}
             </p>
             <hr />
             <div className="media text-center mx-auto my-5" style={{width: 200}}>
-              <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
+              <Gravatar className="d-flex mr-3" 
+                        email={recipe.User.email}
+                        style={{width: 60, height: 60, borderRadius: '100%'}}/>
               <div className="media-body">
-                <h5 className="mt-3">Kati Frantz</h5>
+                <h5 className="mt-3">{recipe.User.name}</h5>
               </div>
             </div>
             <p className="text-muted h6 text-center my-4">
-              <span className="mr-3 h3"><i className="ion ion-happy-outline" /> 531,233 </span>
-              <span className="mr-3 h3"><i className="ion ion-sad-outline" /> 0</span>
-              <span className="mr-3 h3"><i className="ion ion-ios-heart" /> 33</span>
+              <span className="mr-3 h3"><i className="ion ion-happy-outline" /> {numeral(recipe.upvotersIds.length).format('0a')} </span>
+              <span className="mr-3 h3"><i className="ion ion-sad-outline" /> {numeral(recipe.downvotersIds.length).format('0a')} </span>
+              <span className="mr-3 h3"><i className="ion ion-ios-heart" /> {numeral(recipe.favoritersIds.length).format('0a')}</span>
             </p>
             <hr />
             {/* Begin ingredients section */}
-            <h3 className="mb-3 text-muted">Ingredients</h3>
+            <h3 className="mb-4 text-muted">Ingredients</h3>
             <ul className="list-group mt-3">
-              <li className="list-group-item">Cras justo odio</li>
-              <li className="list-group-item">Dapibus ac facilisis in</li>
-              <li className="list-group-item">Morbi leo risus</li>
-              <li className="list-group-item">Porta ac consectetur ac</li>
-              <li className="list-group-item">Vestibulum at eros</li>
+              {ingredients}
             </ul>
+            <br/>
             {/* End ingredients section */}
             {/* Begin procedures section */}
-            <h3 className="mb-3 mt-3 text-muted">Procedure</h3>
+            <h3 className="mb-4 mt-3 text-muted">Procedure</h3>
             <ul className="list-group my-3">
-              <li className="list-group-item"><span className="badge badge-primary">1</span>   Cras justo odio</li>
-              <li className="list-group-item"><span className="badge badge-primary">2</span> Dapibus ac facilisis in</li>
-              <li className="list-group-item"><span className="badge badge-primary">3</span> Morbi leo risus</li>
-              <li className="list-group-item"><span className="badge badge-primary">4</span> Porta ac consectetur ac</li>
-              <li className="list-group-item"><span className="badge badge-primary">5</span> Vestibulum at eros</li>
+              {procedure}
             </ul>
+            <br/>
             <h3 className="my-3 text-muted">Reviews</h3>
             {/* End procedures section */}
             {/* Reviews section */}
-            <div className="container my-4">
-              <div className="row justify-content-center">
-                <div className="col-10">
-                  <div className="media">
-                    <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
-                    <div className="media-body">
-                      I have just one thing to tell you. Please go to medical school, you have no hope in cooking.
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="media">
-                    <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
-                    <div className="media-body">
-                      If not that am a christian ehn, I would just pray juju for your head now. Wetin be this ???!😨😨 
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* End reviews section */}
-            {/* Begin create reviews section */}
-            <h3 className="mb-3 mt-3 text-muted">Leave a review</h3>
-            <textarea cols={5} rows={5} className="form-control" placeholder="Leave a review for this recipe..." defaultValue={""} />
-            <button className="btn btn-primary btn-sm mt-3 float-right">Save review</button>
+            <Reviews {...this.props} />
             {/* End create review section */}
           </div>
         </div>

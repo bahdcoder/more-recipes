@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     review: DataTypes.TEXT,
     userId: {
       type: DataTypes.UUID,
+      onDelete: 'CASCADE',
       references: {
         model: 'Users',
         key: 'id'
@@ -22,19 +23,17 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     }
-  }, {
-    classMethods: {
-      associate(models) {
-        /*  Review.belongsTo(models.User, {
-          foreignKey: 'userId',
-          onDelete: 'CASCADE'
-        });
-        Review.belongsTo(models.Recipe, {
-          foreignKey: 'recipeId',
-          onDelete: 'CASCADE'
-        }); */
-      }
-    }
   });
+
+  Review.associate = (models) => {
+    Review.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
+    Review.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId'
+    });
+  };
+
   return Review;
 };

@@ -34,6 +34,7 @@ export default class CreateRecipe extends React.Component {
       timeToCook: '',
       ingredients: [''],
       procedure: ['Mix the fufu with ...'],
+      loading: false,
       ajaxErrors: [],
       errors: {
         title: [],
@@ -83,6 +84,7 @@ export default class CreateRecipe extends React.Component {
     }
     
     try { 
+      this.setState({ loading: true });    
 
       const imageUploadData = new FormData();
       imageUploadData.append('file', this.state.image);
@@ -109,7 +111,13 @@ export default class CreateRecipe extends React.Component {
         procedure: JSON.stringify(this.state.procedure),
         imageUrl: cloudinaryResponse.data.secure_url
       });
+    
+      console.log(response);
+    this.setState({ loading: false });
+    
+    this.props.router.push(`/recipe/${response.data.data.recipe.id}`);    
     } catch (error) {
+      console.log(error);
       if (error.response.status === 422) {
         this.setState({
           ajaxErrors : error.response.data.data.errors
@@ -252,6 +260,23 @@ export default class CreateRecipe extends React.Component {
    */
   render() {
 
+    let createButton = (
+      <button className="btn btn-primary btn-lg" 
+            onClick={this.handleSubmit}>
+        Publish Recipe
+      </button>
+    );
+
+    if (this.state.loading) {
+      createButton = (
+        <button className="btn btn-primary btn-lg" 
+                onClick={this.handleSubmit}
+                disabled={true}>
+            <i className="ion ion-load-d mr-3 loader" style={{ color: 'white' }}></i>
+            Publishing recipe ...
+          </button>
+      );
+    }
 
     let recipeImage = ( 
         <Dropzone 
@@ -370,7 +395,7 @@ export default class CreateRecipe extends React.Component {
     } 
     return (
       <div>
-        <Navbar data={this.props}/>
+        <Navbar {...this.props}/>
         <div className="container my-5">
           <div className="row justify-content-center">
             <h1 className="text-center my-5 display-3 header-color">Create a recipe</h1>
@@ -423,9 +448,7 @@ export default class CreateRecipe extends React.Component {
                   <br />
                   <br />
                   <p className="text-center">
-                    <button className="btn btn-primary btn-lg" onClick={this.handleSubmit}>
-                      Publish Recipe
-                    </button>
+                    {createButton}
                   </p>
                 </div>
                 {/* End create recipe form */}

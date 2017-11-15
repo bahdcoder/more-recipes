@@ -32,7 +32,8 @@ body {
 }
 .jumbotron {
   height: 100vh;
-  background-image: url('./../assets/img/banner-1.jpg');
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
 }
 .jumbotron-title {
   color: white;
@@ -210,4 +211,13 @@ body {
   filter: alpha(opacity=100);
   -webkit-transform: translate3d(0,0,0);
   transform: translate3d(0,0,0);
+}
+
+.loader {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

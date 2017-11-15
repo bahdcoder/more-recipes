@@ -24,6 +24,14 @@ export default class Home extends React.Component {
         </span>  
       );
     } 
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+    }
+    let background = `url('./../assets/img/banner-${getRandomInt(1, 4)}.jpg')`;
+    console.log(background);
     
     return (
       <div>
@@ -31,7 +39,7 @@ export default class Home extends React.Component {
         <Navbar {...this.props}/>
         {/* The navigation bar ending */}
         {/* The Jumbotron Area */}
-        <div id="jumbotron" className="jumbotron text-center">
+        <div id="jumbotron" className="jumbotron text-center" style={{ backgroundImage: background }}>
           <h1 className="display-3 mb-5">
             <img src="../../../assets/img/logo.png" className="jumbotron-logo-img mr-2" />
           </h1>

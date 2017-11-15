@@ -1,4 +1,6 @@
+import Gravatar from 'react-gravatar';
 import React, { Component } from 'react';
+import { distanceInWordsToNow } from 'date-fns';
 
 import CreateReview from './CreateReview';
 /**
@@ -27,13 +29,16 @@ export default class Reviews extends Component {
     let reviews;
     
     if (recipeReviews.length > 0) {
+      
       reviews = recipeReviews.map(review => {
         return (
           <div key={review.id}>
             <div className="ml-3 media">
-              <img className="d-flex mr-3" style={{width: 60, height: 60, borderRadius: '100%'}} src="http://i.pravatar.cc/300" alt="Recipe author avatar" />
+              <Gravatar className="d-flex mr-3" 
+                        style={{width: 60, height: 60, borderRadius: '100%'}}
+                        email={review.User.email} /> 
               <div className="media-body">
-                <h6 className="font-weight-bold">Kati Frantz <small className="text-muted ml-2">2 hours ago</small></h6>
+                <h6 className="font-weight-bold">{review.User.name}<small className="text-muted ml-2">{distanceInWordsToNow(review.createdAt)} ago</small></h6>
                 {review.review}
               </div>
             </div>

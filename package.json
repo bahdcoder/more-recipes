@@ -59,6 +59,7 @@
     "cors": "2.8.4",
     "coveralls": "3.0.0",
     "cross-env": "5.1.1",
+    "date-fns": "^1.29.0",
     "ejs": "2.5.7",
     "eslint": "4.9.0",
     "eslint-config-airbnb-base": "12.1.0",

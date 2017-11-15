@@ -177,11 +177,11 @@ export function createReview({ recipeId, review }) {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.post(`${apiUrl}/recipes/${recipeId}/reviews`, { review });
-      console.log(response);
-      /*  dispatch({
+
+      dispatch({
         type: 'NEW_REVIEW_ADDED',
         payload: response.data.data.review
-      }); */
+      });
 
       return Promise.resolve();
     } catch (error) {

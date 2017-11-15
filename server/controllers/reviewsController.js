@@ -17,11 +17,8 @@ export default class ReviewsController {
   async index(req, res) {
     const recipe = req.currentRecipe;
 
-    const reviews = await models.Review.findAll({
-      where: {
-        recipeId: recipe.id
-      },
-      include: { model: models.User, exclude: ['password'] }
+    const reviews = await recipe.getReviews({
+      include: { model: models.User, attributes: { exclude: ['password'] } }
     });
 
     return res.sendSuccessResponse({ reviews });

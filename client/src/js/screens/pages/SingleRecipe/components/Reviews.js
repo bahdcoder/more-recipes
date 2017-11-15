@@ -1,6 +1,7 @@
 import Gravatar from 'react-gravatar';
 import React, { Component } from 'react';
 import { distanceInWordsToNow } from 'date-fns';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import CreateReview from './CreateReview';
 /**
@@ -54,13 +55,15 @@ export default class Reviews extends Component {
 
     return (
       <div>
-        <div className="container my-4">
-          <div className="row">
-            <div className="col-10">
-              {reviews}
+        <Scrollbars style={{ height: 350 }}>
+          <div className="container my-4">
+            <div className="row">
+              <div className="col-10">
+                {reviews}
+              </div>
             </div>
           </div>
-        </div>
+        </Scrollbars>
         <CreateReview {...this.props}/>
       </div>
     );

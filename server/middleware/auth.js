@@ -17,6 +17,7 @@ export default async (req, res, next) => {
     const user = await models.User.findOne({ where: { email: userData.email } });
     if (user) {
       req.authUser = user.get();
+      req.authUserObj = user;
       return next();
     }
   } catch (error) {

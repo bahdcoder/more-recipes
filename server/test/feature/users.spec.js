@@ -105,6 +105,22 @@ describe('/favorites', () => {
     });
   });
 
+  describe('/users/update PUT', () => {
+    it.skip('Should update the auth user profile', async () => {
+      const response = await chai.request(application).put(`api/v1/users/update`).send({
+        name: 'Kati Frantz. Vallie',
+        about: 'About me updated.'
+      }).set('x-access-token', globalMock.user1.authToken);
+
+      expect(response).to.have.status(200);
+      const user = response.data.user;
+
+      expect(user.id).to.equal(globalMock.user1.id);
+      expect(user.name).to.equal('Kati Frantz. Vallie');
+      expect(user.about).to.equal('About me updated.');
+    });
+  });
+
   describe('/users/:id GET', () => {
     it('Should return the user profile data', async () => {
       const response = await chai.request(application).get(`/api/v1/users/profile/${globalMock.user1.id}`);

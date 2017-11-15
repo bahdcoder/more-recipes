@@ -13,9 +13,62 @@ import UserProfileLoader from './components/UserProfileLoader';
  * @extends {Component}
  */
 export default class UserProfile extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editing: false,
+      name: null,
+      email: null,
+      about: '',
+      user: null
+    };
+
+    this.saveChanges = this.saveChanges.bind(this);
+    this.startEditing = this.startEditing.bind(this);
+  }
+
+  async saveChanges(userIndex) {
+    this.setState({
+      editing: false
+    });
+
+    try {
+      const response = await this.props.updateUserProfile({
+        name: this.state.name,
+        about: this.state.about
+      }, userIndex);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  startEditing() {
+    const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);    
+    const user = this.props.users[userIndex];
+
+    this.setState({
+      editing: true,
+      name: user.name,
+      email: user.email,
+      about: user.about
+    });
+  }
+  async componentWillReceiveProps(nextProps) {
+    try {
+      const userIndex = this.props.users.findIndex(user => user.id === nextProps.params.id);
+      if (userIndex === -1) {
+        const response = await this.props.findUser(this.props.params.id);
+      } else {
+        this.forceUpdate();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   async componentWillMount() {
     try {
-      //  const response = await this.props.getUser
       const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);
       if (userIndex === -1) {
         const response = await this.props.findUser(this.props.params.id);
@@ -24,13 +77,62 @@ export default class UserProfile extends Component {
       console.log(error);
     }
   }
+
   render() {
     let userProfile;
-    const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);
+    let editButton = (
+      <span></span>
+    );
+    let userName;
+    let aboutText;
+    const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);    
+    const user = this.props.users[userIndex];
+
+    
     if (userIndex === -1) {
       userProfile = <UserProfileLoader />;
     } else {
-      const user = this.props.users[userIndex];
+
+      if (this.state.editing) {
+        editButton = (
+          <button className="btn btn-primary"
+                  onClick={(event) => { this.saveChanges(userIndex); }}>
+              Save changes
+          </button>
+        );
+        userName = (
+          <input className="form-control" 
+                 value={this.state.name}
+                 onChange={(event) => { this.setState({ name: event.target.value }); }}
+                 />
+        );
+        aboutText = (
+          <textarea className="form-control mb-3" 
+                    col={3}
+                    row={3}
+                    value={this.state.about}
+                    onChange={(event) => { this.setState({ about: event.target.value }); }}
+          ></textarea>
+        );
+      } else {
+        if (this.props.authUser.user.id === user.id) {
+          editButton = (
+              <button className="btn btn-primary" 
+                      onClick={this.startEditing}>
+                <i className="ion ion-edit"  style={{ color: 'white' }}></i>
+              </button>
+          );
+        }
+        userName = (
+          <h1 className="text-center header-color">{user.name}</h1>
+        );
+        aboutText = (
+          <p className="text-center my-4">
+            {user.about}
+          </p>
+        );
+      }
+      
       userProfile = (
         <div className="col-lg-8 col-md-8 text-center wow fadeIn">
           {/* Profile avatar */}
@@ -39,7 +141,7 @@ export default class UserProfile extends Component {
           </div>
           {/* End of profile avatar */}
           {/* User name */}
-          <h1 className="text-center header-color">{user.name}</h1>
+          {userName}
           {/* End user name */}
           {/* User stats */}
           <p className="text-center my-4">
@@ -48,12 +150,8 @@ export default class UserProfile extends Component {
           </p>
           {/* End user stats */}
           {/* User bio */}
-          <p className="text-center my-4">
-            I am an Andela developer, with a great passion for cooking. 
-            I'm in charge of organizing birthday parties for my fellow andelans. 
-            What's the meal you wanna cook for your next event ? 
-            Hit me up for a recipe. 
-          </p>
+          {aboutText}
+          {editButton}
           {/* End user bio */}
         </div>
       );

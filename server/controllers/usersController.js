@@ -75,4 +75,19 @@ export default class UsersController {
 
     return res.sendSuccessResponse({ user });
   }
+  /**
+   * Get all the recipes for a user
+   *
+   * @param {obj} req express request object
+   * @param {obj} res express response object
+   * @returns {json} json[Recipe]
+   * @memberof UsersController
+   */
+  async getRecipes(req, res) {
+    const recipes = await req.authUserObj.getRecipes({
+      include: { model: models.User, attributes: { exclude: ['password'] } }
+    });
+
+    return res.sendSuccessResponse({ recipes });
+  }
 }

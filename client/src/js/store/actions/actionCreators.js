@@ -98,6 +98,40 @@ export function toggleDownvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, 
     }
   };
 }
+/**
+ * Toggle user favorites recipe status
+ *
+ * @export
+ * @param {int} indexOfRecipe recipe index in store
+ * @param {bool} hasFavorited if user has favorited recipe
+ * @param {int} indexOfFavoriter index of favoriter in recipe favoriterIds in store
+ * @param {uuid} recipeId id of the recipe
+ * @returns {Promise} Promise
+ */
+export function toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      if (hasFavorited) {
+        dispatch({
+          type: 'REMOVE_USER_FROM_FAVORITERS',
+          payload: { indexOfRecipe, indexOfFavoriter }
+        });
+      } else {
+        dispatch({
+          type: 'ADD_USER_TO_FAVORITERS',
+          payload: {
+            indexOfRecipe,
+            userId: getState().authUser.user.id
+          }
+        });
+      }
+
+      await axios.post(`${apiUrl}/users/${recipeId}/favorites`);
+    } catch (error) {
+      return Promise.reject();
+    }
+  };
+}
 
 /**
  *Create a reducer for the downvote action

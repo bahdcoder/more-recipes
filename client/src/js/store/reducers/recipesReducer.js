@@ -68,6 +68,34 @@ export default function recipesReducer(state = [], action) {
           ]
         };
       });
+    case 'ADD_USER_TO_FAVORITERS':
+      return state.map((recipe, index) => {
+        if (index !== action.payload.indexOfRecipe) {
+          return recipe;
+        }
+
+        return {
+          ...recipe,
+          favoritersIds: [
+            ...recipe.favoritersIds,
+            action.payload.userId
+          ]
+        };
+      });
+    case 'REMOVE_USER_FROM_FAVORITERS':
+      return state.map((recipe, index) => {
+        if (index !== action.payload.indexOfRecipe) {
+          return recipe;
+        }
+
+        return {
+          ...recipe,
+          favoritersIds: [
+            ...recipe.favoritersIds.slice(0, action.payload.indexOfFavoriter),
+            ...recipe.favoritersIds.slice(action.payload.indexOfFavoriter + 1),
+          ]
+        };
+      });
     default:
       return state;
   }

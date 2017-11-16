@@ -24,8 +24,16 @@ export default class SingleRecipe extends Component {
     };
 
     this.toggleUpvote = this.toggleUpvote.bind(this);
-    //  this.toggleFavorite = this.toggleFavorite.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
     this.toggleDownvote = this.toggleDownvote.bind(this);
+  }
+
+  async toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter) {
+    try {
+      const response = await this.props.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, this.props.params.id);
+    } catch (error) {
+      console.log(error);
+    }
   }
   /**
    * Fetch the recipe once the component is mounted.
@@ -164,7 +172,7 @@ export default class SingleRecipe extends Component {
               </span>
               <span className="mr-3 h1">
                 <i className={ hasFavorited ? "ion ion-ios-heart" : "ion ion-ios-heart-outline" }
-                   onClick={this.toggleFavorite}> </i> 
+                   onClick={() => { this.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter); }}> </i> 
                 <span className="ml-3">{numeral(recipe.favoritersIds.length).format('0a')} </span>
               </span>
             </p>

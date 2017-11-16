@@ -1,5 +1,6 @@
 import axios from 'axios';
 import numeral from 'numeral';
+import { Link } from 'react-router';
 import Gravatar from 'react-gravatar';
 import React, { Component } from 'react';
 
@@ -8,6 +9,7 @@ import config from './../../../config';
 import Reviews from './components/Reviews';
 import NavBar from './../../components/Navbar';
 import Footer from './../../components/Footer';
+import RecipeActions from './../../components/RecipeActions';
 import SingleRecipeLoader from './../../components/SingleRecipeLoader';
 
 export default class SingleRecipe extends Component {
@@ -20,6 +22,10 @@ export default class SingleRecipe extends Component {
       reviews: [],
       loading: true 
     };
+
+    this.toggleUpvote = this.toggleUpvote.bind(this);
+    //  this.toggleFavorite = this.toggleFavorite.bind(this);
+    //  this.toggleDownvote = this.toggleDownvote.bind(this);
   }
   /**
    * Fetch the recipe once the component is mounted.
@@ -48,12 +54,19 @@ export default class SingleRecipe extends Component {
     }
   }
 
-  
+  async toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted) {
+    try {
+      const response = await this.props.toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
 
     let recipeCard;
     let recipe;
+    
 
     const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
 
@@ -86,6 +99,19 @@ export default class SingleRecipe extends Component {
     }
 
     if (recipe) {
+      let hasFavorited = false;
+      let hasUpvoted = false;
+      let hasDownvoted = false;
+    
+      if (recipe.favoritersIds.findIndex(userId => userId === this.props.authUser.user.id) !== -1) {
+        hasFavorited = true;
+      }
+      if (recipe.upvotersIds.findIndex(userId => userId === this.props.authUser.user.id) !== -1) {
+        hasUpvoted = true;
+      }
+      if (recipe.downvotersIds.findIndex(userId => userId === this.props.authUser.user.id) !== -1) {
+        hasUpvoted = true;
+      }
       recipeCard = (
         <div className="wow fadeIn card">
           <img className="card-img-top" style={{height: 450}} src={recipe.imageUrl} alt={recipe.title} />
@@ -105,13 +131,29 @@ export default class SingleRecipe extends Component {
                         email={recipe.User.email}
                         style={{width: 60, height: 60, borderRadius: '100%'}}/>
               <div className="media-body">
-                <h5 className="mt-3">{recipe.User.name}</h5>
+                <p className="h6 mt-3">
+                <Link style={ { textDecoration: 'none', color: '#000' } } to={`/user/${recipe.User.id}`}>{recipe.User.name}</Link>
+                </p>
               </div>
             </div>
-            <p className="text-muted h6 text-center my-4">
-              <span className="mr-3 h3"><i className="ion ion-happy-outline" /> {numeral(recipe.upvotersIds.length).format('0a')} </span>
-              <span className="mr-3 h3"><i className="ion ion-sad-outline" /> {numeral(recipe.downvotersIds.length).format('0a')} </span>
-              <span className="mr-3 h3"><i className="ion ion-ios-heart" /> {numeral(recipe.favoritersIds.length).format('0a')}</span>
+            <p className="text-muted h4 text-center my-4">
+              <span className="mr-3 h1">
+                <i className={ hasUpvoted ? "ion ion-happy" : "ion ion-happy-outline" }
+                   onClick={(event) => { this.toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted) }}> </i> 
+                 
+                <span className="ml-3">{numeral(recipe.upvotersIds.length).format('0a')}</span>
+              </span>
+              <span className="mr-3 h1">
+                <i className={ hasDownvoted ? "ion ion-sad" : "ion ion-sad-outline" }
+                   onClick={this.toggleDownvote}> </i> 
+                 
+                <span className="ml-3">{numeral(recipe.downvotersIds.length).format('0a')}</span>
+              </span>
+              <span className="mr-3 h1">
+                <i className={ hasFavorited ? "ion ion-ios-heart" : "ion ion-ios-heart-outline" }
+                   onClick={this.toggleFavorite}> </i> 
+                <span className="ml-3">{numeral(recipe.favoritersIds.length).format('0a')} </span>
+              </span>
             </p>
             <hr />
             {/* Begin ingredients section */}

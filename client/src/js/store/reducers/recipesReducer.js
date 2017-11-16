@@ -12,6 +12,20 @@ export default function recipesReducer(state = [], action) {
         ...state,
         action.payload
       ];
+    case 'ADD_USER_TO_UPVOTERS':
+      return state.map((recipe, index) => {
+        if (index !== action.payload.indexOfRecipe) {
+          return recipe;
+        }
+
+        return {
+          ...recipe,
+          upvotersIds: [
+            ...recipe.upvotersIds,
+            action.payload.userId
+          ]
+        };
+      });
     default:
       return state;
   }

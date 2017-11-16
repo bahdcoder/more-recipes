@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import RecipeActions from './RecipeActions';
+
 export default class RecipeCard extends React.Component {
   render() {
     return (
@@ -19,11 +21,9 @@ export default class RecipeCard extends React.Component {
               <i className="ion ion-clock mr-2" />
               35 min</span>
           </p>
-          <p className="h6 text-center">
-            <span className="mr-3 h5"><i className="ion ion-happy-outline" /> 12 </span>
-            <span className="mr-3 h5"><i className="ion ion-sad-outline" /> 5,301</span>
-            <span className="mr-3 h5"><i className="ion ion-ios-heart" /> 5,301</span>
-          </p>
+          <RecipeActions classes={'h6 text-center'}
+                           subClasses={'mr-3 h3'} 
+                           {...this.props}/>
         </div>
       </div>
     );

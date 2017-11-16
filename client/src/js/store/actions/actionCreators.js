@@ -6,20 +6,15 @@ import axios from 'axios';
  * @param {any} indexOfRecipe the index of the recipe to be upvoted
  * @param {bool} userHasUpvoted bool if user has upvoted this recipe
  * @param {bool} userHasDownvoted bool if user has downvoted this recipe
+ * @param {int} indexOfUpvoter index of the userid in upvotersArray
+ * @param {int} indexOfDownvoter index of the downvoter in downvotersArray
+ * @param {int} recipeId id of recipe to be downvoted
  * @returns {Promise} Promise resolve/reject
  */
-export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted) {
+export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
   return async (dispatch, getState, apiUrl) => {
     try {
-      if (userHasUpvoted) {
-        dispatch({
-          type: 'REMOVE_USER_FROM_UPVOTERS',
-          payload: {
-            indexOfRecipe,
-            userId: getState().authUser.user.id
-          }
-        });
-      } else {
+      if (!userHasUpvoted) {
         dispatch({
           type: 'ADD_USER_TO_UPVOTERS',
           payload: {
@@ -27,17 +22,79 @@ export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted) {
             userId: getState().authUser.user.id
           }
         });
-        if (userHasDownvoted) {
-          dispatch({
-            type: 'REMOVE_USER_FROM_DOWNVOTERS',
-            payload: indexOfRecipe
-          });
-        }
+      } else {
+        dispatch({
+          type: 'REMOVE_USER_FROM_UPVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfUpvoter
+          }
+        });
+      }
+      if (userHasDownvoted) {
+        dispatch({
+          type: 'REMOVE_USER_FROM_DOWNVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfDownvoter
+          }
+        });
       }
 
+      await axios.post(`${apiUrl}/recipes/${recipeId}/upvote`);
       return Promise.resolve();
     } catch (errors) {
       return Promise.reject();
+    }
+  };
+}
+
+/**
+ *Toggle a user upvote status for a recipe
+ *
+ * @param {any} indexOfRecipe the index of the recipe to be upvoted
+ * @param {bool} userHasUpvoted bool if user has upvoted this recipe
+ * @param {bool} userHasDownvoted bool if user has downvoted this recipe
+ * @param {int} indexOfUpvoter index of the userid in upvotersArray
+ * @param {int} indexOfDownvoter index of the downvoter in downvotersArray
+ * @param {int} recipeId id of recipe to be downvoted
+ * @returns {Promise} Promise resolve/reject
+ */
+export function toggleDownvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      if (!userHasDownvoted) {
+        dispatch({
+          type: 'ADD_USER_TO_DOWNVOTERS',
+          payload: {
+            indexOfRecipe,
+            userId: getState().authUser.user.id
+          }
+        });
+      } else {
+        dispatch({
+          type: 'REMOVE_USER_FROM_DOWNVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfDownvoter
+          }
+        });
+      }
+
+      if (userHasUpvoted) {
+        dispatch({
+          type: 'REMOVE_USER_FROM_UPVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfUpvoter
+          }
+        });
+      }
+
+      await axios.post(`${apiUrl}/recipes/${recipeId}/downvote`);
+      return Promise.resolve();
+    } catch (errors) {
+      return Promise.reject(errors);
     }
   };
 }

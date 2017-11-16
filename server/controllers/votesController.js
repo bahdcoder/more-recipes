@@ -1,5 +1,6 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
+import { updateRecipeAttributes } from '../helpers';
 
 /**
  * Class VotesCorntroller to take care of all votes
@@ -13,13 +14,13 @@ export default class VotesController {
    * @memberof VotesController
    */
   async getVoters(req, res) {
-    //  Attempt to find the recipe in the database
+
     const recipe = await models.Recipe.findById(req.params.id);
-    //  Return a 404 if the recipe was not found
+
     if (!recipe) {
       return res.sendFailureResponse({ message: 'Recipe not found.' });
     }
-    //  Find all the rows in the upvotes table that match this recipe
+
     const upvotersUserIds = await client.smembers(`recipe:${recipe.id}:upvotes`);
     const downvotersUserIds = await client.smembers(`recipe:${recipe.id}:downvotes`);
 
@@ -51,9 +52,13 @@ export default class VotesController {
    * @memberof RecipesController
    */
   async upvote(req, res) {
-    const recipe = req.currentRecipe;
+    const recipe = await updateRecipeAttributes(req.currentRecipe);
 
-    await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+    if (recipe.upvotersIds.findIndex(user => user === req.authUser.id) !== -1) {
+      await client.srem(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+    } else {
+      await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
+    }
 
     return res.sendSuccessResponse({ message: 'Recipe upvoted.' });
   }
@@ -66,9 +71,13 @@ export default class VotesController {
    * @memberof RecipesController
    */
   async downvote(req, res) {
-    const recipe = req.currentRecipe;
+    const recipe = await updateRecipeAttributes(req.currentRecipe);
 
-    await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
+    if (recipe.downvotersIds.findIndex(user => user === req.authUser.id) !== -1) {
+      await client.srem(`recipe:${recipe.id}:downvotes`, req.authUser.id);
+    } else {
+      await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
+    }
 
     return res.sendSuccessResponse({ message: 'Recipe downvoted.' });
   }

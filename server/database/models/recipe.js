@@ -1,4 +1,4 @@
-import redisClient from '../../helpers/redis-client';
+import { updateRecipeAttributes } from '../../helpers';
 
 module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
@@ -34,26 +34,6 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Recipe.addHook('afterFind', async (results) => {
-    /**
-     * Updates the recipe attributes
-     *
-     * @param {any} sequelizeRecipe sequelize Recipe instance
-     * @returns {Recipe} recipe with upvotes, downvotes and favorites attributes
-     */
-    async function updateRecipeAttributes(sequelizeRecipe) {
-      const recipe = sequelizeRecipe.get();
-
-      const upvotersIds = await redisClient.smembers(`recipe:${recipe.id}:upvotes`);
-      recipe.upvotersIds = upvotersIds;
-
-      const downvotersIds = await redisClient.smembers(`recipe:${recipe.id}:downvotes`);
-      recipe.downvotersIds = downvotersIds;
-
-      const favoritersIds = await redisClient.smembers(`recipe:${recipe.id}:favorites`);
-      recipe.favoritersIds = favoritersIds;
-
-      return recipe;
-    }
     if (Array.isArray(results)) {
       await Promise.all(results
         .map(async sequelizeRecipe => updateRecipeAttributes(sequelizeRecipe)));

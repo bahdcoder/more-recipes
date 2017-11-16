@@ -1,6 +1,3 @@
-import isUUID from 'validator/lib/isUUID';
-
-import models from '../database/models';
 import client from '../helpers/redis-client';
 
 

@@ -22,11 +22,12 @@ const port = process.env.PORT || 4080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'));
-app.use(express.static(`${__dirname}/public`));
+//  app.set('view engine', 'ejs');
+//  app.set('views', path.join(__dirname, '/views'));
+app.set('appPath', '../client/build');
+app.use(express.static(`${__dirname}/../client/build`));
 
-app.get('/', (req, res) => res.render('index'));
+//  app.get('/', (req, res) => res.render('index'));
 
 app.use(middleware.api);
 
@@ -34,6 +35,10 @@ app.use('/api/v1/users', routes.userRoutes);
 app.use('/api/v1/recipes', routes.recipesRoutes);
 
 //  app.use((req, res) => res.render('index'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '..', 'client/build', 'index.html'));
+});
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {

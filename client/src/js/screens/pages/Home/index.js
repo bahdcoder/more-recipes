@@ -5,6 +5,7 @@ import Navbar from '../../components/Navbar';
 import SignIn from '../../components/auth/SignIn';
 import RecipeCard from '../../components/RecipeCard';
 
+import logo from './../../../../assets/img/logo.png';
 import bannerImage1 from '../../../../assets/img/banner-1.jpg';
 
 export default class Home extends React.Component {
@@ -25,23 +26,21 @@ export default class Home extends React.Component {
       );
     } 
 
-    function getRandomInt(min, max) {
+    /*  function getRandomInt(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
     }
-    let background = `url('./../assets/img/banner-${getRandomInt(1, 4)}.jpg')`;
-    console.log(background);
-    
+    let background = `url('./../assets/img/banner-1.jpg')`;*/
     return (
       <div>
         {/* The navigation bar begin */}
         <Navbar {...this.props}/>
         {/* The navigation bar ending */}
         {/* The Jumbotron Area */}
-        <div id="jumbotron" className="jumbotron text-center" style={{ backgroundImage: background }}>
+        <div id="jumbotron" className="jumbotron text-center">
           <h1 className="display-3 mb-5">
-            <img src="../../../assets/img/logo.png" className="jumbotron-logo-img mr-2" />
+            <img src={logo} className="jumbotron-logo-img mr-2" />
           </h1>
           <p className="lead jumbotron-title display-4 wow bounceInUp" style={{color: 'white'}}>Making everyday cooking fun !</p>
           <br />

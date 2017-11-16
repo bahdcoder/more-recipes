@@ -2,13 +2,14 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import RecipeActions from './RecipeActions';
+import meal1 from './../../../assets/img/meal-1.jpg';
 
 export default class RecipeCard extends React.Component {
   render() {
     return (
       <div className="card mb-3">
         <div className="img-zoom">
-          <img className="card-img-top" style={{height: 250}} src="../../assets/img/meal-1.jpg" alt="Card image cap" />                
+          <img className="card-img-top" style={{height: 250}} src={meal1} alt="Card image cap" />                
         </div>
         <div className="card-body">
           <h5 className="card-title text-center">

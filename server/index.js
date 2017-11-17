@@ -8,6 +8,7 @@ import routes from './routes';
 import db from './database/models';
 import middleware from './middleware';
 
+//  Configure environment variables
 
 const app = new express();
 
@@ -15,7 +16,7 @@ const app = new express();
 app.use(cors());
 app.options('*', cors());
 
-// Enable HTTP REQUEST logging 
+// Enable HTTP REQUEST logging
 app.use(morgan('combined'));
 
 const port = process.env.PORT || 4080;

@@ -39,6 +39,7 @@ html {
   height: 100vh;
   background-repeat: no-repeat, repeat;
   background-size: cover;
+  background-image: url('./../assets/img/banner-1.jpg');
 }
 .jumbotron-title {
   color: white;

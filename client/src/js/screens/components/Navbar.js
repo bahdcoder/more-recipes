@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import Gravatar from 'react-gravatar';
 
+import logo from './../../../assets/img/logo.png';
+
 export default class NavBar extends React.Component {
   render() {
     let authUser = this.props.authUser;
@@ -30,7 +32,7 @@ export default class NavBar extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-custom">
         <Link className="navbar-brand" to="/">
-          <img src="../../../assets/img/logo.png" className="navbar-logo-img mr-2" />
+          <img src={logo} className="navbar-logo-img mr-2" />
           More-recipes
         </Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

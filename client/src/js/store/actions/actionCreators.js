@@ -1,15 +1,135 @@
 import axios from 'axios';
 
 /**
- *Create a reducer for the upvote action
+ *Toggle a user upvote status for a recipe
  *
- * @param {any} recipeId the id of the recipe to be upvoted
- * @returns {obj} reducer
+ * @param {any} indexOfRecipe the index of the recipe to be upvoted
+ * @param {bool} userHasUpvoted bool if user has upvoted this recipe
+ * @param {bool} userHasDownvoted bool if user has downvoted this recipe
+ * @param {int} indexOfUpvoter index of the userid in upvotersArray
+ * @param {int} indexOfDownvoter index of the downvoter in downvotersArray
+ * @param {int} recipeId id of recipe to be downvoted
+ * @returns {Promise} Promise resolve/reject
  */
-export function upvote(recipeId) {
-  return {
-    type: 'UPVOTE_RECIPE',
-    recipeId
+export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      if (!userHasUpvoted) {
+        dispatch({
+          type: 'ADD_USER_TO_UPVOTERS',
+          payload: {
+            indexOfRecipe,
+            userId: getState().authUser.user.id
+          }
+        });
+      } else {
+        dispatch({
+          type: 'REMOVE_USER_FROM_UPVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfUpvoter
+          }
+        });
+      }
+      if (userHasDownvoted) {
+        dispatch({
+          type: 'REMOVE_USER_FROM_DOWNVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfDownvoter
+          }
+        });
+      }
+
+      await axios.post(`${apiUrl}/recipes/${recipeId}/upvote`);
+      return Promise.resolve();
+    } catch (errors) {
+      return Promise.reject();
+    }
+  };
+}
+
+/**
+ *Toggle a user upvote status for a recipe
+ *
+ * @param {any} indexOfRecipe the index of the recipe to be upvoted
+ * @param {bool} userHasUpvoted bool if user has upvoted this recipe
+ * @param {bool} userHasDownvoted bool if user has downvoted this recipe
+ * @param {int} indexOfUpvoter index of the userid in upvotersArray
+ * @param {int} indexOfDownvoter index of the downvoter in downvotersArray
+ * @param {int} recipeId id of recipe to be downvoted
+ * @returns {Promise} Promise resolve/reject
+ */
+export function toggleDownvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      if (!userHasDownvoted) {
+        dispatch({
+          type: 'ADD_USER_TO_DOWNVOTERS',
+          payload: {
+            indexOfRecipe,
+            userId: getState().authUser.user.id
+          }
+        });
+      } else {
+        dispatch({
+          type: 'REMOVE_USER_FROM_DOWNVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfDownvoter
+          }
+        });
+      }
+
+      if (userHasUpvoted) {
+        dispatch({
+          type: 'REMOVE_USER_FROM_UPVOTERS',
+          payload: {
+            indexOfRecipe,
+            indexOfUpvoter
+          }
+        });
+      }
+
+      await axios.post(`${apiUrl}/recipes/${recipeId}/downvote`);
+      return Promise.resolve();
+    } catch (errors) {
+      return Promise.reject(errors);
+    }
+  };
+}
+/**
+ * Toggle user favorites recipe status
+ *
+ * @export
+ * @param {int} indexOfRecipe recipe index in store
+ * @param {bool} hasFavorited if user has favorited recipe
+ * @param {int} indexOfFavoriter index of favoriter in recipe favoriterIds in store
+ * @param {uuid} recipeId id of the recipe
+ * @returns {Promise} Promise
+ */
+export function toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      if (hasFavorited) {
+        dispatch({
+          type: 'REMOVE_USER_FROM_FAVORITERS',
+          payload: { indexOfRecipe, indexOfFavoriter }
+        });
+      } else {
+        dispatch({
+          type: 'ADD_USER_TO_FAVORITERS',
+          payload: {
+            indexOfRecipe,
+            userId: getState().authUser.user.id
+          }
+        });
+      }
+
+      await axios.post(`${apiUrl}/users/${recipeId}/favorites`);
+    } catch (error) {
+      return Promise.reject();
+    }
   };
 }
 
@@ -224,6 +344,7 @@ export function updateUserProfile(userData, index) {
     try {
       const response = await axios.put(`${apiUrl}/users/update`, userData);
 
+      localStorage.setItem('authUser', JSON.stringify(response.data.data));
 
       dispatch({
         type: 'USER_UPDATED',

@@ -1,4 +1,6 @@
 /* eslint-disable */
+import redisClient from './redis-client';
+
 /**
  * Helper methods to use throughout the app
  */
@@ -47,3 +49,24 @@ export const reWebUrl = new RegExp(
 );
 
 export default isValidEmail;
+
+/**
+ * Updates the recipe attributes
+ *
+ * @param {any} sequelizeRecipe sequelize Recipe instance
+ * @returns {Recipe} recipe with upvotes, downvotes and favorites attributes
+ */
+export async function updateRecipeAttributes(sequelizeRecipe) {
+  const recipe = sequelizeRecipe.get();
+
+  const upvotersIds = await redisClient.smembers(`recipe:${recipe.id}:upvotes`);
+  recipe.upvotersIds = upvotersIds;
+
+  const downvotersIds = await redisClient.smembers(`recipe:${recipe.id}:downvotes`);
+  recipe.downvotersIds = downvotersIds;
+
+  const favoritersIds = await redisClient.smembers(`recipe:${recipe.id}:favorites`);
+  recipe.favoritersIds = favoritersIds;
+
+  return recipe;
+}

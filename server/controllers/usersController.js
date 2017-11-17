@@ -1,7 +1,6 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
-
-
+import { updateRecipeAttributes } from '../helpers';
 /**
  * Controller for all `users` endpoints
  * @export
@@ -16,10 +15,15 @@ export default class UsersController {
    * @memberof RecipesController
    */
   async favorite(req, res) {
-    const recipe = req.currentRecipe;
+    const recipe = await updateRecipeAttributes(req.currentRecipe);
 
-    await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
-    await client.sadd(`recipe:${recipe.id}:favorites`, req.authUser.id);
+    if (recipe.favoritersIds.findIndex(user => user === req.authUser.id) !== -1) {
+      await client.srem(`user:${req.authUser.id}:favorites`, recipe.id);
+      await client.srem(`recipe:${recipe.id}:favorites`, req.authUser.id);
+    } else {
+      await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
+      await client.sadd(`recipe:${recipe.id}:favorites`, req.authUser.id);
+    }
 
     return res.sendSuccessResponse({ message: 'Recipe favorited.' });
   }

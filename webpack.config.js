@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // Constant with our paths
 const paths = {
-  DIST: path.resolve(__dirname, 'client/build'),
+  DIST: path.resolve(__dirname, 'server/public'),
   SRC: path.resolve(__dirname, 'client/src'),
   JS: path.resolve(__dirname, 'client/src/js'),
 };
@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: paths.DIST,
     filename: 'app.bundle.js',
-    publicPath: ''
+    publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({

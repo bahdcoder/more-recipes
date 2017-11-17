@@ -25,8 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //  app.set('view engine', 'ejs');
 //  app.set('views', path.join(__dirname, '/views'));
-app.set('appPath', '../client/build');
-app.use(express.static(`${__dirname}/../client/build`));
+app.set('appPath', 'public');
+app.use(express.static(path.join(__dirname, '/public')));
 
 //  app.get('/', (req, res) => res.render('index'));
 
@@ -38,7 +38,7 @@ app.use('/api/v1/recipes', routes.recipesRoutes);
 //  app.use((req, res) => res.render('index'));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '..', 'client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 
 db.sequelize.sync().then(() => {

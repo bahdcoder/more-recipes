@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-console.log(process.env);
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -12,9 +11,9 @@ const config = require('./../../config/database.js')[env];
 const db = {};
 let sequelize;
 if (config.connection_uri) {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-} else {
   sequelize = new Sequelize(config.connection_uri);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 

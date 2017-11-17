@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: paths.DIST,
     filename: 'app.bundle.js',
-    publicPath: '/'
+    publicPath: ''
   },
   plugins: [
     new HtmlWebpackPlugin({

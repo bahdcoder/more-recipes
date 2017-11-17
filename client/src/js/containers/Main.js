@@ -1,8 +1,48 @@
+import { render } from 'react-dom';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { ConnectedRouter } from 'react-router-redux';
+
 import * as actionCreators from '../store/actions/actionCreators';
 
-import App from '../App';
+import Home from './../screens/pages/Home';
+import Recipes from './../screens/pages/Recipes';
+
+import store, { history } from './../store';
+
+import './../../css/styles.css';
+
+
+class App extends Component {
+  /**
+   * When component is about to be mounted, get stuff from localStorage
+   * 
+   * @memberof App
+   */
+  componentWillMount() {
+    try {
+      const user = JSON.parse(localStorage.getItem('authUser'));
+      console.log(user);
+      store.dispatch({
+        type: 'SIGN_IN_USER',
+        authUser: user
+      });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  }
+  
+  render() {
+    return (
+      <div>
+        {React.cloneElement(this.props.children, this.props)}
+      </div>
+    );
+  }
+}
+
 
 
 /**

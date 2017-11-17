@@ -5,7 +5,9 @@ import Navbar from '../../components/Navbar';
 import SignIn from '../../components/auth/SignIn';
 import RecipeCard from '../../components/RecipeCard';
 
+
 import logo from './../../../../assets/img/logo.png';
+import avatar from './../../../../assets/img/avatar.jpg';
 import bannerImage1 from '../../../../assets/img/banner-1.jpg';
 
 export default class Home extends React.Component {
@@ -75,7 +77,7 @@ export default class Home extends React.Component {
           <div className="row wow fadeIn">
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
+                <img className="img-fluid img-responsive" src={avatar} />
                 <div className="overlay">
                   <p className="my-auto">
                     <a>KATI FRANTZ</a>
@@ -85,7 +87,7 @@ export default class Home extends React.Component {
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300"/>
+                <img className="img-fluid img-responsive" src={avatar}/>
                 <div className="overlay">
                   <p className="my-auto">
                     <a >SELINA RYANS</a>
@@ -95,7 +97,7 @@ export default class Home extends React.Component {
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
+                <img className="img-fluid img-responsive" src={avatar} />
                 <div className="overlay">
                   <p className="my-auto">
                     <a>ELLEN MICHEALS</a>
@@ -105,7 +107,7 @@ export default class Home extends React.Component {
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
+                <img className="img-fluid img-responsive" src={avatar} />
                 <div className="overlay">
                   <p className="my-auto">
                     <a>CLAUS LEBRONE</a>

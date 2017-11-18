@@ -15,7 +15,7 @@ recipesRoutes.put('/:id', middleware.auth, middleware.hasRecipe, middleware.auth
 
 recipesRoutes.get('/:id/voters', middleware.auth, middleware.hasRecipe, votesController.getVoters);
 recipesRoutes.post('/:id/upvote', middleware.auth, middleware.hasRecipe, middleware.canUpvote, votesController.upvote);
-recipesRoutes.get('/:id/reviews', middleware.auth, middleware.hasRecipe, reviewsController.index);
+recipesRoutes.get('/:id/reviews', middleware.hasRecipe, reviewsController.index);
 recipesRoutes.post('/:id/downvote', middleware.auth, middleware.hasRecipe, middleware.canDownvote, votesController.downvote);
 recipesRoutes.post('/:id/reviews', middleware.auth, middleware.hasRecipe, middleware.canReview, reviewsController.create);
 

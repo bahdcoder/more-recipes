@@ -11,6 +11,7 @@ const paths = {
 
 // Webpack configuration
 module.exports = {
+  devtool: '#inline-source-map',
   entry: ['babel-polyfill', path.join(paths.JS, 'index.js')],
   output: {
     path: paths.DIST,

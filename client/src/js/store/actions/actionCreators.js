@@ -1,6 +1,21 @@
 import axios from 'axios';
 
 /**
+ * Check if user is authenticated
+ *
+ * @export
+ * @returns {Bool} true or false
+ */
+export function checkAuth() {
+  return (dispatch, getState) => {
+    if (getState().authUser) {
+      return true;
+    }
+
+    return false;
+  };
+}
+/**
  *Toggle a user upvote status for a recipe
  *
  * @param {any} indexOfRecipe the index of the recipe to be upvoted

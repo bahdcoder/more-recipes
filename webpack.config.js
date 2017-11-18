@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // Constant with our paths
@@ -10,7 +11,7 @@ const paths = {
 
 // Webpack configuration
 module.exports = {
-  entry: path.join(paths.JS, 'index.js'),
+  entry: ['babel-polyfill', path.join(paths.JS, 'index.js')],
   output: {
     path: paths.DIST,
     filename: 'app.bundle.js',
@@ -19,6 +20,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, 'index.html'),
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
     new ExtractTextPlugin('style.bundle.css'),
   ],
@@ -29,6 +33,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
+          plugins: ['transform-runtime'],
           presets: ['es2015', 'stage-0', 'react'],
         }
       },

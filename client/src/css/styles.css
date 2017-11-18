@@ -30,7 +30,13 @@ html {
   width: 30px;
   height: 30px;
 }
-
+.ion {
+  cursor: pointer;
+}
+.ion-recipe-action:active{
+  transform: translateX(-50%) translateY(-50%) scale(5);
+  transition: all 100ms;
+}
 .jumbotron-logo-img {
   width: 180px;
   height: 180px;

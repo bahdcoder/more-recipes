@@ -20,7 +20,8 @@ export default class SingleRecipe extends Component {
     this.state = {
       recipe: null,
       reviews: [],
-      loading: true 
+      loading: true,
+      canActOnRecipe: true
     };
 
     this.toggleUpvote = this.toggleUpvote.bind(this);
@@ -29,6 +30,9 @@ export default class SingleRecipe extends Component {
   }
 
   async toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter) {
+    if (!this.state.canActOnRecipe) {
+      return;
+    }
     try {
       const response = await this.props.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, this.props.params.id);
     } catch (error) {
@@ -48,8 +52,16 @@ export default class SingleRecipe extends Component {
     if (indexOfRecipe === -1) {
       try {
         const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
+        const recipe = response.data.data.recipe;
         
-        await this.props.updateRecipesInStore(response.data.data.recipe);
+        //  Check if the current user is authorized to act on the recipe
+        if (!this.props.checkAuth()) {
+          this.setState({
+            canActOnRecipe: false
+          });
+        }
+
+        await this.props.updateRecipesInStore(recipe);
       } catch (error) {
         if (error.status === 404) {
           // if the recipe is not found from ajax request, redirect user to 404 page.
@@ -63,6 +75,9 @@ export default class SingleRecipe extends Component {
   }
 
   async toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter) {
+    if (!this.state.canActOnRecipe) {
+      return;
+    }
     try {
       const response = await this.props.toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter, this.props.params.id);
     } catch (error) {
@@ -71,6 +86,9 @@ export default class SingleRecipe extends Component {
   }
 
   async toggleDownvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter) {
+    if (!this.state.canActOnRecipe) {
+      return;
+    }
     try {
       const response = await this.props.toggleDownvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter, this.props.params.id);
     } catch (error) {
@@ -82,7 +100,6 @@ export default class SingleRecipe extends Component {
 
     let recipeCard;
     let recipe;
-    
 
     const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
 
@@ -119,20 +136,26 @@ export default class SingleRecipe extends Component {
       let hasUpvoted = false;
       let hasDownvoted = false;
       
-      let indexOfFavoriter = recipe.favoritersIds.findIndex(userId => userId === this.props.authUser.user.id);
-      if (indexOfFavoriter !== -1) {
-        hasFavorited = true;
-      }
+      let indexOfFavoriter;
+      let indexOfUpvoter;
+      let indexOfDownvoter;
 
-      let indexOfUpvoter = recipe.upvotersIds.findIndex(userId => userId === this.props.authUser.user.id);
-      if (indexOfUpvoter !== -1) {
-        hasUpvoted = true;
+      if (this.props.checkAuth()) {
+        indexOfFavoriter = recipe.favoritersIds.findIndex(userId => userId === this.props.authUser.user.id)
+        if (indexOfFavoriter !== -1) {
+          hasFavorited = true;
+        }
+        indexOfUpvoter = recipe.upvotersIds.findIndex(userId => userId === this.props.authUser.user.id);
+        if (indexOfUpvoter !== -1) {
+          hasUpvoted = true;
+        }
+  
+        indexOfDownvoter = recipe.downvotersIds.findIndex(userId => userId === this.props.authUser.user.id);
+        if (indexOfDownvoter !== -1) {
+          hasDownvoted = true;
+        }
       }
-
-      let indexOfDownvoter = recipe.downvotersIds.findIndex(userId => userId === this.props.authUser.user.id);
-      if (indexOfDownvoter !== -1) {
-        hasDownvoted = true;
-      }
+      
       recipeCard = (
         <div className="wow fadeIn card">
           <img className="card-img-top" style={{height: 450}} src={recipe.imageUrl} alt={recipe.title} />
@@ -159,19 +182,19 @@ export default class SingleRecipe extends Component {
             </div>
             <p className="text-muted h4 text-center my-4">
               <span className="mr-3 h1">
-                <i className={ hasUpvoted ? "ion ion-happy" : "ion ion-happy-outline" }
+                <i className={ hasUpvoted ? "ion ion-happy ion-recipe-action" : "ion ion-recipe-action ion-happy-outline" }
                    onClick={(event) => { this.toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
                 <span className="ml-3">{numeral(recipe.upvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
-                <i className={ hasDownvoted ? "ion ion-sad" : "ion ion-sad-outline" }
+                <i className={ hasDownvoted ? "ion ion-sad ion-recipe-action" : "ion ion-recipe-action ion-sad-outline" }
                    onClick={() => { this.toggleDownvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
                 <span className="ml-3">{numeral(recipe.downvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
-                <i className={ hasFavorited ? "ion ion-ios-heart" : "ion ion-ios-heart-outline" }
+                <i className={ hasFavorited ? "ion ion-ios-heart ion-recipe-action" : "ion ion-recipe-action ion-ios-heart-outline" }
                    onClick={() => { this.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter); }}> </i> 
                 <span className="ml-3">{numeral(recipe.favoritersIds.length).format('0a')} </span>
               </span>

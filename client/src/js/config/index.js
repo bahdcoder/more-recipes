@@ -5,7 +5,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   apiUrl = 'http://localhost:4080/api/v1';
 }
-console.log(`THE URL FOR THE API COMMUNICATION IS: ${apiUrl}`);
 /**
  * Export application wide configurations
  */

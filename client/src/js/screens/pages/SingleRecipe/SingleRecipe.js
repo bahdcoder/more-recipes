@@ -182,19 +182,19 @@ export default class SingleRecipe extends Component {
             </div>
             <p className="text-muted h4 text-center my-4">
               <span className="mr-3 h1">
-                <i className={ hasUpvoted ? "ion ion-happy" : "ion ion-happy-outline" }
+                <i className={ hasUpvoted ? "ion ion-happy ion-recipe-action" : "ion ion-recipe-action ion-happy-outline" }
                    onClick={(event) => { this.toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
                 <span className="ml-3">{numeral(recipe.upvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
-                <i className={ hasDownvoted ? "ion ion-sad" : "ion ion-sad-outline" }
+                <i className={ hasDownvoted ? "ion ion-sad ion-recipe-action" : "ion ion-recipe-action ion-sad-outline" }
                    onClick={() => { this.toggleDownvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
                 <span className="ml-3">{numeral(recipe.downvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
-                <i className={ hasFavorited ? "ion ion-ios-heart" : "ion ion-ios-heart-outline" }
+                <i className={ hasFavorited ? "ion ion-ios-heart ion-recipe-action" : "ion ion-recipe-action ion-ios-heart-outline" }
                    onClick={() => { this.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter); }}> </i> 
                 <span className="ml-3">{numeral(recipe.favoritersIds.length).format('0a')} </span>
               </span>

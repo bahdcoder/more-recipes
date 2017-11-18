@@ -21,7 +21,6 @@ import '../css/animate.min.css';
 import '../css/styles.css';
 
 import Main from './containers/Main';
-import registerServiceWorker from './registerServiceWorker';
 
 
 
@@ -110,4 +109,3 @@ ReactDOM.render((
     </Router>
   </Provider>
 ), document.getElementById('app'));
-registerServiceWorker();

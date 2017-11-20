@@ -89,10 +89,12 @@ ReactDOM.render((
 
         <Route path="/user/:id"
                component={ UserProfile }
+               onEnter={ checkIfAuth }
         ></Route>
 
         <Route path="/user/:id/recipes"
                component={ UserRecipes }
+               onEnter={ checkIfAuth }
         ></Route>
         
         <Route path="/recipes/create" 

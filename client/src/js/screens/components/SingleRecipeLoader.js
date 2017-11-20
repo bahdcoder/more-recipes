@@ -8,7 +8,7 @@ export default class SingleRecipeLoader extends Component {
         <ContentLoader 
           speed={1} 
           primaryColor={'#f2c3a6'} 
-          secondaryColor={'#E27C3E'}
+          secondaryColor={'#eba57a'}
           width={680}
           height={700}>
         <Rect 

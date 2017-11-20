@@ -55,6 +55,7 @@ export default class UserProfile extends Component {
       about: user.about
     });
   }
+
   async componentWillReceiveProps(nextProps) {
     try {
       const userIndex = this.props.users.findIndex(user => user.id === nextProps.params.id);
@@ -67,6 +68,7 @@ export default class UserProfile extends Component {
       console.log(error);
     }
   }
+
   async componentWillMount() {
     try {
       const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);

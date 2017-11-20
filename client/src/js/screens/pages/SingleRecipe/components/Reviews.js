@@ -55,7 +55,7 @@ export default class Reviews extends Component {
 
     return (
       <div>
-        <Scrollbars style={{ height: 350 }}>
+        <Scrollbars style={{ height: 250 }}>
           <div className="container my-4">
             <div className="row">
               <div className="col-10">
@@ -65,6 +65,7 @@ export default class Reviews extends Component {
           </div>
         </Scrollbars>
         <CreateReview {...this.props}/>
+        
       </div>
     );
   }

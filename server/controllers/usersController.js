@@ -88,10 +88,20 @@ export default class UsersController {
    * @memberof UsersController
    */
   async getRecipes(req, res) {
-    const recipes = await req.authUserObj.getRecipes({
-      include: { model: models.User, attributes: { exclude: ['password'] } }
-    });
+    try {
+      const user = await models.User.findById(req.params.id);
 
-    return res.sendSuccessResponse({ recipes });
+      if (!user) {
+        return res.sendFailureResponse({ message: 'User not found.' }, 404);
+      }
+
+      const recipes = await user.getRecipes({
+        include: { model: models.User, attributes: { exclude: ['password'] } }
+      });
+
+      return res.sendSuccessResponse({ user, recipes });
+    } catch (error) {
+      return res.sendFailureResponse({ message: 'User not found.' }, 404);
+    }
   }
 }

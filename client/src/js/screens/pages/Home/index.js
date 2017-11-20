@@ -23,7 +23,7 @@ export default class Home extends React.Component {
       homeButtons = (
         <span>
           <Link to="/recipes/create" className="btn btn-primary btn-lg mr-2"> Create recipe </Link>                        
-          <Link to="/" className="btn btn-primary btn-lg" role="button"> View your recipes </Link>
+          <Link to={`user/${this.props.authUser.user.id}/recipes`} className="btn btn-primary btn-lg"> Manage your recipes </Link>
         </span>  
       );
     } 
@@ -62,9 +62,7 @@ export default class Home extends React.Component {
             Top Rated Recipes</h1>
           <br />
           <div className="card-deck wow fadeIn">
-            <RecipeCard/>     
-            <RecipeCard/>     
-            <RecipeCard/>                        
+                       
           </div>
         </div>
         {/* End of top rated recipes section */}
@@ -125,9 +123,7 @@ export default class Home extends React.Component {
             Most favorited Recipes</h1>
           <br />
           <div className="card-deck wow fadeIn">
-            <RecipeCard/>
-            <RecipeCard/>
-            <RecipeCard/>            
+
           </div>
         </div>
         {/* End of top rated recipes section */}

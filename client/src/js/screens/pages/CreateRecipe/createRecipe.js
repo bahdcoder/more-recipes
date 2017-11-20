@@ -398,7 +398,7 @@ export default class CreateRecipe extends React.Component {
         <Navbar {...this.props}/>
         <div className="container my-5">
           <div className="row justify-content-center">
-            <h1 className="text-center my-5 display-3 header-color">Create a recipe</h1>
+            <h1 className="text-center my-5 display-5 header-color">Create a recipe</h1>
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-10 col-md-10">

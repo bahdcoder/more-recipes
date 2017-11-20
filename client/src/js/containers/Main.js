@@ -23,7 +23,7 @@ class App extends Component {
   componentWillMount() {
     try {
       const user = JSON.parse(localStorage.getItem('authUser'));
-      console.log(user);
+
       store.dispatch({
         type: 'SIGN_IN_USER',
         authUser: user

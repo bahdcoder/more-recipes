@@ -63,7 +63,7 @@ export default class CreateRecipeValidator {
     }
   }
 
-    /**
+  /**
    * Validate the description field of the request
    * It must be found in request, and it must be longer than 5 characters
    * @returns {null} no return value
@@ -72,6 +72,9 @@ export default class CreateRecipeValidator {
     if (this.recipe.description) {
       if (this.recipe.description.length < 5) {
         this.errors['description'].push('The description must be longer than 5 characters.');
+      }
+      if (this.recipe.description.length > 220) {
+        this.errors['description'].push('The description must not be longer than 220 characters.');
       }
     } else {
       this.errors['description'].push('The description is required.');

@@ -27,6 +27,7 @@ export default class SingleRecipe extends Component {
     this.toggleUpvote = this.toggleUpvote.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.toggleDownvote = this.toggleDownvote.bind(this);
+    this.checkIfCanActOnRecipe = this.checkIfCanActOnRecipe.bind(this);    
   }
 
   async toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter) {
@@ -53,13 +54,8 @@ export default class SingleRecipe extends Component {
       try {
         const response = await axios.get(`${config.apiUrl}/recipes/${this.props.params.id}`);
         const recipe = response.data.data.recipe;
-        
         //  Check if the current user is authorized to act on the recipe
-        if (!this.props.checkAuth()) {
-          this.setState({
-            canActOnRecipe: false
-          });
-        }
+       this.checkIfCanActOnRecipe(recipe);
 
         await this.props.updateRecipesInStore(recipe);
       } catch (error) {
@@ -71,6 +67,23 @@ export default class SingleRecipe extends Component {
   
         console.log(error.response);
       }
+    } else {
+      let recipe = this.props.recipes[indexOfRecipe];
+      this.checkIfCanActOnRecipe(recipe);
+    }
+  }
+
+  checkIfCanActOnRecipe(recipe) {
+    if (this.props.checkAuth()) {
+      if (this.props.authUser.user.id === recipe.User.id) {
+        this.setState({
+          canActOnRecipe: false
+        });
+      }
+    } else {
+      this.setState({
+        canActOnRecipe: false
+      });
     }
   }
 
@@ -231,7 +244,7 @@ export default class SingleRecipe extends Component {
             <div className="col-lg-8 col-xs-12 col-sm-12">
               {/* Begin card details */}
               {recipeCard}
-              {/* End of card details  */}
+              {/* End of card details  */}<br/><br/><br/><br/>
             </div>
             <div className="col-lg-4 col-xs-12">
               <h3 className="text-center my-5">Similar recipes</h3>

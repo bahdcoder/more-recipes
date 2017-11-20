@@ -302,6 +302,44 @@ export function getRecipeReviews(recipeId) {
 }
 
 /**
+ * Get all the recipes for a user
+ *
+ * @export
+ * @param {int} userId id of the user
+ * @returns {Promise} resolve, reject
+ */
+export function getUserRecipes(userId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/users/${userId}/recipes`);
+
+      response.data.data.recipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+
+      const { user } = response.data.data;
+      if (getState().users.findIndex(storeUser => storeUser.id === user.id) === -1) {
+        dispatch({
+          type: 'NEW_USER_ADDED',
+          payload: user
+        });
+      }
+
+      console.log(response);
+
+      return Promise.resolve();
+    } catch (errors) {
+      return Promise.reject();
+    }
+  }
+}
+
+/**
  * Create a review for the recipe
  *
  * @export

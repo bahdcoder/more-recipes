@@ -12,7 +12,7 @@ export default class Recipes extends React.Component {
       {/* The recipes page body */}
       <div className="container-fluid my-5">
         {/* Header */}
-        <h1 className="text-center display-3 my-5">All Recipes</h1>
+        <h1 className="text-center display-5 my-5">All Recipes</h1>
         {/* End Header */}
         <div className="container-fluid px-5">
           <div className="row">
@@ -45,9 +45,7 @@ export default class Recipes extends React.Component {
           <div className="col-lg-10 mb-5">
             {/* List of filtered recipes */}
             <div className="card-deck wow fadeIn">
-              <RecipeCard/>
-              <RecipeCard/>
-              <RecipeCard/>
+
             </div>
             {/* End List of filtered recipes */}
             <br />

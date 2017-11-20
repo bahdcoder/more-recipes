@@ -14,7 +14,7 @@ module.exports = {
   entry: ['babel-polyfill', path.join(paths.JS, 'index.js')],
   output: {
     path: paths.DIST,
-    filename: 'app.[hash].js',
+    filename: 'app.mix.js',
     publicPath: '/'
   },
   plugins: [

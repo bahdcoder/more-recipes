@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import RecipeCard from './../../components/RecipeCard';
+import RecipeCardLoader from './../../components/RecipeCardLoader';
 
 export default class UserRecipes extends Component {
 
@@ -49,7 +50,17 @@ export default class UserRecipes extends Component {
 
     if (this.state.loading) {
       recipes = (
-        <p> Loading the recipes from the database </p>
+        <div className="row">
+          <div className="col-md-4">
+            <RecipeCardLoader/>
+          </div>
+          <div className="col-md-4">
+            <RecipeCardLoader/>
+          </div>
+          <div className="col-md-4">
+            <RecipeCardLoader/>
+          </div>
+        </div>
       );
     } else {
       let userRecipes = this.props.recipes.filter(recipe => recipe.User.id === this.props.params.id);

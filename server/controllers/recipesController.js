@@ -1,5 +1,4 @@
 import models from '../database/models';
-import client from '../helpers/redis-client';
 
 
 /**
@@ -15,8 +14,13 @@ export default class RecipesController {
    */
   async index(req, res) {
     const recipes = await models.Recipe.findAll({
-      include: { model: models.User, exclude: ['password'] },
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
+      }
     });
+
+    // Loop through the recipes and set the upvotes, downvotes and favorites
 
     /* if (req.query.sort === 'upvotes') {
       const upvotes = await client.smembers('recipe:*:upvotes');
@@ -31,6 +35,19 @@ export default class RecipesController {
     return res.sendSuccessResponse({ recipes }, 200);
   }
 
+  /**
+   * Find a specific recipe
+   *
+   * @param {obj} req express request object
+   * @param {any} res express response object
+   * @returns {json} recipe
+   * @memberof RecipesController
+   */
+  async find(req, res) {
+    const recipe = req.currentRecipe;
+
+    return res.sendSuccessResponse({ recipe });
+  }
 
   /**
    * Store a new recipe into the database
@@ -41,7 +58,7 @@ export default class RecipesController {
    */
   async create(req, res) {
     const reqBody = req.body;
-    const recipe = await models.Recipe.create({
+    const createdRecipe = await models.Recipe.create({
       title: reqBody.title,
       description: reqBody.description,
       imageUrl: reqBody.imageUrl,
@@ -49,6 +66,13 @@ export default class RecipesController {
       ingredients: reqBody.ingredients,
       procedure: reqBody.procedure,
       userId: req.authUser.id
+    });
+
+    const recipe = await models.Recipe.findById(createdRecipe.id, {
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
+      }
     });
 
     return res.sendSuccessResponse({ recipe }, 201);

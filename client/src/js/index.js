@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { isAuthenticated } from './helpers';
@@ -11,14 +12,31 @@ import Home from './screens/pages/Home';
 import Login from './screens/pages/Login';
 import Recipes from './screens/pages/Recipes';
 import Register from './screens/pages/Register';
+import UserProfile from './screens/pages/UserProfile/UserProfile';
+import UserRecipes from './screens/pages/UserRecipes/UserRecipes';
+import SingleRecipe from './screens/pages/SingleRecipe/SingleRecipe';
 import CreateRecipe from './screens/pages/CreateRecipe/createRecipe';
+import UserFavorites from './screens/pages/UserFavorites/UserFavorites';
 
 import '../css/bootstrap.min.css';
 import '../css/animate.min.css';
 import '../css/styles.css';
 
 import Main from './containers/Main';
-import registerServiceWorker from './registerServiceWorker';
+
+
+
+/**
+ * Set default axios configurations
+ */
+function setAxios() {
+  const authUser = localStorage.getItem('authUser');
+  if (authUser) {
+    axios.defaults.headers.common['x-access-token'] = JSON.parse(authUser).access_token;  
+  }
+}
+
+setAxios();
 
 /**
  * Check if the user is authenticated
@@ -65,9 +83,28 @@ ReactDOM.render((
         <Route path="/recipes" 
                component={ Recipes }
         ></Route>
+
+        <Route path="/recipe/:id" 
+               component={ SingleRecipe }
+        ></Route>
+
+        <Route path="/user/:id"
+               component={ UserProfile }
+               onEnter={ checkIfAuth }
+        ></Route>
+
+        <Route path="/user/:id/recipes"
+               component={ UserRecipes }
+               onEnter={ checkIfAuth }
+        ></Route>
         
         <Route path="/recipes/create" 
                component={ CreateRecipe }
+               onEnter={ checkIfAuth }
+        ></Route>
+
+        <Route path="/my/favorites" 
+               component={ UserFavorites }
                onEnter={ checkIfAuth }
         ></Route>
 
@@ -85,4 +122,3 @@ ReactDOM.render((
     </Router>
   </Provider>
 ), document.getElementById('app'));
-registerServiceWorker();

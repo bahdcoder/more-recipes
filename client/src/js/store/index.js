@@ -1,20 +1,23 @@
-import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
 
-import recipes from '../data';
+
+import config from './../config';
 import rootReducer from './reducers';
 
 const defaultState = {
-  recipes,
-  authUser: null
+  recipes: [],
+  authUser: null,
+  reviews: {},
+  users: []
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  rootReducer, 
+  rootReducer,
   defaultState,
-  composeEnhancers(applyMiddleware(reduxThunk))
+  composeEnhancers(applyMiddleware(reduxThunk.withExtraArgument(config.apiUrl)))
 );
 
 export default store;

@@ -1,4 +1,3 @@
-import models from '../database/models';
 import client from '../helpers/redis-client';
 
 
@@ -10,23 +9,11 @@ import client from '../helpers/redis-client';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  try {
-    const recipe = await models.Recipe.findById(req.params.id);
-
-    if (!recipe) {
-      return res.sendFailureResponse('Recipe not found.', 404);
-    }
-
-
-    if (recipe.userId === req.authUser.id) {
-      return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
-    }
-
-    await client.srem(`recipe:${recipe.id}:downvotes`, req.authUser.id);
-
-    req.currentRecipe = recipe;
-    next();
-  } catch (error) {
-    return res.sendFailureResponse({ message: error.message }, 400);
+  if (req.currentRecipe.userId === req.authUser.id) {
+    return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
   }
+
+  await client.srem(`recipe:${req.currentRecipe.id}:downvotes`, req.authUser.id);
+
+  next();
 };

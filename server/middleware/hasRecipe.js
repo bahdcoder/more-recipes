@@ -1,6 +1,5 @@
 import models from '../database/models';
 
-
 /**
  * Express middleware to verify if request has a valid recipe
  * @param {object} req express request object
@@ -9,11 +8,21 @@ import models from '../database/models';
  * @returns {function} express next() function
  */
 export default async (req, res, next) => {
-  const recipe = await models.Recipe.findById(req.params.id);
+  try {
+    const recipe = await models.Recipe.findById(req.params.recipeId || req.params.id, {
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
+      }
+    });
 
-  if (!recipe) {
-    return res.sendFailureResponse('Recipe not found.', 404);
+    if (!recipe) {
+      return res.sendFailureResponse({ message: 'Recipe not found.' }, 404);
+    }
+
+    req.currentRecipe = recipe;
+    next();
+  } catch (error) {
+    return res.sendFailureResponse({ message: 'Recipe not found.' }, 404);
   }
-  req.currentRecipe = recipe;
-  next();
 };

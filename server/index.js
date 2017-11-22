@@ -8,6 +8,7 @@ import routes from './routes';
 import db from './database/models';
 import middleware from './middleware';
 
+//  Configure environment variables
 
 const app = new express();
 
@@ -15,18 +16,18 @@ const app = new express();
 app.use(cors());
 app.options('*', cors());
 
-// Enable HTTP REQUEST logging 
+// Enable HTTP REQUEST logging
 app.use(morgan('combined'));
 
 const port = process.env.PORT || 4080;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'));
-app.use(express.static(`${__dirname}/public`));
-
-app.get('/', (req, res) => res.render('index'));
+//  app.set('view engine', 'ejs');
+//  app.set('views', path.join(__dirname, '/views'));
+//  app.set('appPath', 'public');
+app.use(express.static(path.join(__dirname, '/public')));
+//  app.get('/', (req, res) => res.render('index'));
 
 app.use(middleware.api);
 
@@ -34,6 +35,10 @@ app.use('/api/v1/users', routes.userRoutes);
 app.use('/api/v1/recipes', routes.recipesRoutes);
 
 //  app.use((req, res) => res.render('index'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
 
 db.sequelize.sync().then(() => {
   app.listen(port, () => {

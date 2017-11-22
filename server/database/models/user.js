@@ -17,15 +17,21 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
-  }, {
-    classMethods: {
-      associate(models) {
-        /* User.hasMany(models.Recipe, {
-          foreignKey: 'userId'
-        }); */
-      }
+    },
+    about: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   });
+
+  User.associate = (models) => {
+    User.hasMany(models.Recipe, {
+      foreignKey: 'userId'
+    });
+    User.hasMany(models.Review, {
+      foreignKey: 'userId'
+    });
+  };
+
   return User;
 };

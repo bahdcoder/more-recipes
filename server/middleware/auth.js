@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import config from '../config';
 import models from '../database/models';
 
 
@@ -13,10 +14,11 @@ export default async (req, res, next) => {
   const accessToken = req.body.access_token || req.query.access_token || req.headers['x-access-token'];
 
   try {
-    const userData = jwt.verify(accessToken, 'secret');
+    const userData = jwt.verify(accessToken, config.JWT_SECRET);
     const user = await models.User.findOne({ where: { email: userData.email } });
     if (user) {
       req.authUser = user.get();
+      req.authUserObj = user;
       return next();
     }
   } catch (error) {

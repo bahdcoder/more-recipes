@@ -2,26 +2,28 @@ import React from 'react';
 import { Link } from 'react-router';
 import Gravatar from 'react-gravatar';
 
+import logo from './../../../assets/img/logo.png';
+
 export default class NavBar extends React.Component {
   render() {
-    let authUser = this.props.data.authUser;
+    let authUser = this.props.authUser;
     let navbarUser = '';
     if (authUser) {
       navbarUser = (
         <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          <Gravatar className="mr-2 navbar-avatar-img" email={this.props.data.authUser.user.email}/>
-                  Hey, {this.props.data.authUser.user.name}
+          <Gravatar className="mr-2 navbar-avatar-img" email={this.props.authUser.user.email}/>
+                  Hey, {this.props.authUser.user.name}
           </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a className="dropdown-item" href="profile.html">My profile</a>
-              <a className="dropdown-item" href="favorites.html">My favorites</a>
-              <a className="dropdown-item" href="settings.html">Notification settings</a>
+              <Link className="dropdown-item" to={`/user/${this.props.authUser.user.id}`}>My profile</Link>
+              <Link className="dropdown-item" to="/my/favorites">My favorites</Link>
+              <a className="dropdown-item" href="">Notification settings</a>
               <a className="dropdown-item" 
                  href="javascript:;" 
                  onClick={async () => {
-                   await this.props.data.signOut();
-                   this.props.data.router.push('/');
+                   await this.props.signOut();
+                   this.props.router.push('/');
                  }}>Sign out</a>
           </div>
       </li>
@@ -30,7 +32,7 @@ export default class NavBar extends React.Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-custom">
         <Link className="navbar-brand" to="/">
-          <img src="../../../assets/img/logo.png" className="navbar-logo-img mr-2" />
+          <img src={logo} className="navbar-logo-img mr-2" />
           More-recipes
         </Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

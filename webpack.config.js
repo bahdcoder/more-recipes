@@ -1,24 +1,28 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // Constant with our paths
 const paths = {
-  DIST: path.resolve(__dirname, 'client/build'),
+  DIST: path.resolve(__dirname, 'server/public'),
   SRC: path.resolve(__dirname, 'client/src'),
   JS: path.resolve(__dirname, 'client/src/js'),
 };
 
 // Webpack configuration
 module.exports = {
-  entry: path.join(paths.JS, 'index.js'),
+  entry: ['babel-polyfill', path.join(paths.JS, 'index.js')],
   output: {
     path: paths.DIST,
-    filename: 'app.bundle.js',
+    filename: 'app.mix.js',
     publicPath: '/'
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, 'index.html'),
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     }),
     new ExtractTextPlugin('style.bundle.css'),
   ],
@@ -27,9 +31,11 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: [
-          'babel-loader'
-        ],
+        loader: 'babel-loader',
+        query: {
+          plugins: ['transform-runtime'],
+          presets: ['es2015', 'stage-0', 'react'],
+        }
       },
       {
         test: /\.css$/,

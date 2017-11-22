@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 
+import config from '../../../config';
 import CreateRecipeValidator from './validation/createRecipeValidator';
 
 import Footer from '../../components/Footer';
@@ -33,12 +34,15 @@ export default class CreateRecipe extends React.Component {
       timeToCook: '',
       ingredients: [''],
       procedure: ['Mix the fufu with ...'],
+      loading: false,
+      ajaxErrors: [],
       errors: {
         title: [],
         description: [],
         timeToCook: [],
         ingredients: [],
-        procedure: []
+        procedure: [],
+        image: []
       }
     };
 
@@ -69,14 +73,61 @@ export default class CreateRecipe extends React.Component {
    * @returns 
    * @memberof CreateRecipe
    */
-  handleSubmit() {
+  async handleSubmit() {
     const validator = new CreateRecipeValidator(this.state);
     if (!validator.isValid()) {
-      console.log(validator.errors);
+      const errors = { ...this.state.errors };
+      errors['image'] = validator.errors['image'];
+
+      this.setState({ errors });
       return;
     }
-    alert('yaaay ! you can now create a recipe');
-    //  TAKE CARE OF CREATING THE RECIPE
+    
+    try { 
+      this.setState({ loading: true });    
+
+      const imageUploadData = new FormData();
+      imageUploadData.append('file', this.state.image);
+      imageUploadData.append('tags', `recipe`);
+      imageUploadData.append('upload_preset', config.cloudinaryUploadPreset);
+      imageUploadData.append('api_key', config.cloudinaryApiKey);
+      imageUploadData.append('timestamp', (Date.now() / 1000) | 0);
+      
+      //  Delete x-access-token for acceptance by cloudinary api
+      delete axios.defaults.headers.common['x-access-token'];
+
+      const cloudinaryResponse = await axios.post(config.cloudinaryImageUploadUrl, imageUploadData, {
+        headers: { "X-Requested-With": "XMLHttpRequest" }
+      });
+
+      //  Configure header for subsequent axios calls
+      axios.defaults.headers.common['x-access-token'] = this.props.authUser.access_token;
+
+      const response = await this.props.createRecipe({
+        title: this.state.title,
+        timeToCook: this.state.timeToCook,
+        description: this.state.description,
+        ingredients: JSON.stringify(this.state.ingredients),
+        procedure: JSON.stringify(this.state.procedure),
+        imageUrl: cloudinaryResponse.data.secure_url
+      });
+    
+      console.log(response);
+    this.setState({ loading: false });
+    
+    this.props.router.push(`/recipe/${response.data.data.recipe.id}`);    
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 422) {
+        this.setState({
+          ajaxErrors : error.response.data.data.errors
+        });
+      } else {
+        this.setState({
+          ajaxErrors : ['Something went wrong. Please refresh and try again later.']
+        });
+      }
+    }
   }
 
 
@@ -118,7 +169,8 @@ export default class CreateRecipe extends React.Component {
         description: [],
         timeToCook: [],
         ingredients: [],
-        procedure: []
+        procedure: [],
+        image: []
       }
       this.setState({ errors });
       return true;
@@ -208,6 +260,23 @@ export default class CreateRecipe extends React.Component {
    */
   render() {
 
+    let createButton = (
+      <button className="btn btn-primary btn-lg" 
+            onClick={this.handleSubmit}>
+        Publish Recipe
+      </button>
+    );
+
+    if (this.state.loading) {
+      createButton = (
+        <button className="btn btn-primary btn-lg" 
+                onClick={this.handleSubmit}
+                disabled={true}>
+            <i className="ion ion-load-d mr-3 loader" style={{ color: 'white' }}></i>
+            Publishing recipe ...
+          </button>
+      );
+    }
 
     let recipeImage = ( 
         <Dropzone 
@@ -229,6 +298,16 @@ export default class CreateRecipe extends React.Component {
         </div>
       </Dropzone>
     );
+
+    let ajaxErrors = (
+      <small></small>
+    );
+
+    if (this.state.ajaxErrors.length > 0) {
+      ajaxErrors = this.state.ajaxErrors.map((error, index) => {
+        return <small style={this.miniError} key={index}>{error}</small>;
+      });
+    }
 
     if (this.state.image) {
       recipeImage = (
@@ -279,12 +358,18 @@ export default class CreateRecipe extends React.Component {
     // create a procedure array, this one is ordered
     // use react-sortable-hoc plugin for the sorting of the ingredients and procedure arrays
     let titleErrors = <small></small>;
+    let imageErrors = <small></small>;
     let timeToCookErrors = <small></small>;
     let descriptionErrors = <small></small>;
     let ingredientsErrors = <small></small>;
     let procedureErrors = <small></small>;
     if (this.state.errors['title'].length > 0) {
       titleErrors = this.state.errors['title'].map((error, index) => {
+        return <small style={this.miniError} key={index}>{error}</small>;
+      });
+    }
+    if (this.state.errors['image'].length > 0) {
+      imageErrors = this.state.errors['image'].map((error, index) => {
         return <small style={this.miniError} key={index}>{error}</small>;
       });
     } 
@@ -310,10 +395,10 @@ export default class CreateRecipe extends React.Component {
     } 
     return (
       <div>
-        <Navbar data={this.props}/>
+        <Navbar {...this.props}/>
         <div className="container my-5">
           <div className="row justify-content-center">
-            <h1 className="text-center my-5 display-3 header-color">Create a recipe</h1>
+            <h1 className="text-center my-5 display-5 header-color">Create a recipe</h1>
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-10 col-md-10">
@@ -323,6 +408,7 @@ export default class CreateRecipe extends React.Component {
                 
                 {/* End upload recipe image */}
                 <hr />
+                <p className="text-center">{ajaxErrors}{imageErrors}  </p>                
                 {/* Create recipe form */}
                 <div className="card-body">
                   <div className="form-group row">
@@ -362,9 +448,7 @@ export default class CreateRecipe extends React.Component {
                   <br />
                   <br />
                   <p className="text-center">
-                    <button className="btn btn-primary btn-lg" onClick={this.handleSubmit}>
-                      Publish Recipe
-                    </button>
+                    {createButton}
                   </p>
                 </div>
                 {/* End create recipe form */}

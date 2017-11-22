@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { isValidEmail } from '../../../helpers';
 
+import logo from './../../../../assets/img/logo.png';
+
 export default class Login extends Component {
   /**
    * Creates an instance of SignIn.
@@ -73,7 +75,7 @@ export default class Login extends Component {
             <div className="row justify-content-center">
                 <div className="col-md-8 col-lg-8 col-xs-12">
                         <h1 className="text-center">
-                          <img src="../../../assets/img/logo.png" className="mb-5" style={{ width: '100px', height: '100px' }} />
+                          <img src={logo} className="mb-5" style={{ width: '100px', height: '100px' }} />
                         </h1>
                         <div className="card wow fadeInUp">
                             <div className="card-body">

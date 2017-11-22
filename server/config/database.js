@@ -3,11 +3,11 @@
  */
 const config = {
   development: {
-    username: 'postgres',
-    password: 'password',
-    database: 'more-recipes',
-    host: '127.0.0.1',
-    dialect: 'postgres',
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
     logging: false
   },
   test: {
@@ -16,11 +16,7 @@ const config = {
     logging: false
   },
   production: {
-    username: 'dtxgpqzl',
-    password: '05bMGgYSpS3E_JQv47i8CDnwzLrCgdYQ',
-    database: 'dtxgpqzl',
-    host: 'elmer.db.elephantsql.com',
-    dialect: 'postgres',
+    connection_uri: process.env.DATABASE_URL,
     logging: false
   }
 };

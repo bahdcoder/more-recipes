@@ -5,6 +5,9 @@ import Navbar from '../../components/Navbar';
 import SignIn from '../../components/auth/SignIn';
 import RecipeCard from '../../components/RecipeCard';
 
+
+import logo from './../../../../assets/img/logo.png';
+import avatar from './../../../../assets/img/avatar.jpg';
 import bannerImage1 from '../../../../assets/img/banner-1.jpg';
 
 export default class Home extends React.Component {
@@ -20,20 +23,26 @@ export default class Home extends React.Component {
       homeButtons = (
         <span>
           <Link to="/recipes/create" className="btn btn-primary btn-lg mr-2"> Create recipe </Link>                        
-          <Link to="/" className="btn btn-primary btn-lg" role="button"> View your recipes </Link>
+          <Link to={`user/${this.props.authUser.user.id}/recipes`} className="btn btn-primary btn-lg"> Manage your recipes </Link>
         </span>  
       );
     } 
-    
+
+    /*  function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+    }
+    let background = `url('./../assets/img/banner-1.jpg')`;*/
     return (
       <div>
         {/* The navigation bar begin */}
-        <Navbar data={this.props}/>
+        <Navbar {...this.props}/>
         {/* The navigation bar ending */}
         {/* The Jumbotron Area */}
         <div id="jumbotron" className="jumbotron text-center">
           <h1 className="display-3 mb-5">
-            <img src="../../../assets/img/logo.png" className="jumbotron-logo-img mr-2" />
+            <img src={logo} className="jumbotron-logo-img mr-2" />
           </h1>
           <p className="lead jumbotron-title display-4 wow bounceInUp" style={{color: 'white'}}>Making everyday cooking fun !</p>
           <br />
@@ -53,9 +62,7 @@ export default class Home extends React.Component {
             Top Rated Recipes</h1>
           <br />
           <div className="card-deck wow fadeIn">
-            <RecipeCard/>     
-            <RecipeCard/>     
-            <RecipeCard/>                        
+                       
           </div>
         </div>
         {/* End of top rated recipes section */}
@@ -68,7 +75,7 @@ export default class Home extends React.Component {
           <div className="row wow fadeIn">
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
+                <img className="img-fluid img-responsive" src={avatar} />
                 <div className="overlay">
                   <p className="my-auto">
                     <a>KATI FRANTZ</a>
@@ -78,7 +85,7 @@ export default class Home extends React.Component {
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300"/>
+                <img className="img-fluid img-responsive" src={avatar}/>
                 <div className="overlay">
                   <p className="my-auto">
                     <a >SELINA RYANS</a>
@@ -88,7 +95,7 @@ export default class Home extends React.Component {
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
+                <img className="img-fluid img-responsive" src={avatar} />
                 <div className="overlay">
                   <p className="my-auto">
                     <a>ELLEN MICHEALS</a>
@@ -98,7 +105,7 @@ export default class Home extends React.Component {
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src="http://i.pravatar.cc/300" />
+                <img className="img-fluid img-responsive" src={avatar} />
                 <div className="overlay">
                   <p className="my-auto">
                     <a>CLAUS LEBRONE</a>
@@ -116,9 +123,7 @@ export default class Home extends React.Component {
             Most favorited Recipes</h1>
           <br />
           <div className="card-deck wow fadeIn">
-            <RecipeCard/>
-            <RecipeCard/>
-            <RecipeCard/>            
+
           </div>
         </div>
         {/* End of top rated recipes section */}

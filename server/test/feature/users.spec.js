@@ -52,7 +52,7 @@ describe('/favorites', () => {
 
     globalMock.recipe1 = await db.Recipe.create(recipe);
     globalMock.recipe2 = await db.Recipe.create(recipe);
-
+    
   });
 
   describe('/users/favorites POST', () => {
@@ -102,6 +102,42 @@ describe('/favorites', () => {
           done();
         });
       });
+    });
+  });
+
+  describe('/users/update PUT', () => {
+    it.skip('Should update the auth user profile', async () => {
+      const response = await chai.request(application).put(`api/v1/users/update`).send({
+        name: 'Kati Frantz. Vallie',
+        about: 'About me updated.'
+      }).set('x-access-token', globalMock.user1.authToken);
+
+      expect(response).to.have.status(200);
+      const user = response.data.user;
+
+      expect(user.id).to.equal(globalMock.user1.id);
+      expect(user.name).to.equal('Kati Frantz. Vallie');
+      expect(user.about).to.equal('About me updated.');
+    });
+  });
+
+  describe('/users/:id GET', () => {
+    it('Should return the user profile data', async () => {
+      const response = await chai.request(application).get(`/api/v1/users/profile/${globalMock.user1.id}`);
+
+      expect(response).to.have.status(200);
+      expect(response.body.data.user.id).to.equal(globalMock.user1.id);
+    });
+    it('Should return 404 if the user is not found.', (done) => {
+      const invalidUserId = '0fa6d51c-08f5-4b49-9b60-37a5037e308q';
+      chai.request(application).get(`/api/v1/users/profile/${invalidUserId}`)
+          .end((error, response) => {
+            console.log(response.body);
+            expect(response).to.have.status(404);
+            expect(response.body.data.message).to.equal('User not found.');
+
+            done();
+          });
     });
   });
 });

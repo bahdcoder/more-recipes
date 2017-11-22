@@ -363,6 +363,33 @@ export function createReview({ recipeId, review }) {
   };
 }
 /**
+ * Get all favorite recipes for a user
+ *
+ * @export
+ * @returns {Promise} promise resolves/rejects
+ */
+export function getUserFavorites() {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/users/favorites`);
+      const recipes = response.data.data.favorites;
+
+      recipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(recipeInStore => recipeInStore.id === recipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}
+/**
  * Find a user and resolve it
  *
  * @export

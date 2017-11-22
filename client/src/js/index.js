@@ -16,6 +16,7 @@ import UserProfile from './screens/pages/UserProfile/UserProfile';
 import UserRecipes from './screens/pages/UserRecipes/UserRecipes';
 import SingleRecipe from './screens/pages/SingleRecipe/SingleRecipe';
 import CreateRecipe from './screens/pages/CreateRecipe/createRecipe';
+import UserFavorites from './screens/pages/UserFavorites/UserFavorites';
 
 import '../css/bootstrap.min.css';
 import '../css/animate.min.css';
@@ -99,6 +100,11 @@ ReactDOM.render((
         
         <Route path="/recipes/create" 
                component={ CreateRecipe }
+               onEnter={ checkIfAuth }
+        ></Route>
+
+        <Route path="/my/favorites" 
+               component={ UserFavorites }
                onEnter={ checkIfAuth }
         ></Route>
 

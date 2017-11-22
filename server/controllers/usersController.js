@@ -44,7 +44,16 @@ export default class UsersController {
         id: {
           [models.Sequelize.Op.in]: favoritesIds
         }
+      },
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
       }
+    });
+
+    favorites.map(async (favorite) => {
+      const updatedRecipe = await updateRecipeAttributes(favorite);
+      return updatedRecipe;
     });
 
     return res.sendSuccessResponse({ favorites });

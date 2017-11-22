@@ -12,6 +12,9 @@ import Footer from './../../components/Footer';
 import RecipeActions from './../../components/RecipeActions';
 import SingleRecipeLoader from './../../components/SingleRecipeLoader';
 
+import meal1 from './../../../../assets/img/meal-3.jpg';
+import meal2 from './../../../../assets/img/meal-2.jpg';
+
 export default class SingleRecipe extends Component {
 
   constructor(props) {
@@ -250,7 +253,7 @@ export default class SingleRecipe extends Component {
               <h3 className="text-center my-5">Similar recipes</h3>
               <div className="card mb-3">
                 <div className="img-zoom">
-                  <img className="card-img-top" style={{height: 200}} src="../../assets/img/meal-3.jpg" alt="Card image cap" />                
+                  <img className="card-img-top" style={{height: 200}} src={meal1} alt="Card image cap" />                
                 </div>
                 <div className="card-body">
                   <h6 className="card-title text-center">
@@ -260,7 +263,7 @@ export default class SingleRecipe extends Component {
               </div>
               <div className="card mb-3">
                 <div className="img-zoom">
-                  <img className="card-img-top" style={{height: 200}} src="../../assets/img/meal-2.jpg" alt="Card image cap" />                
+                  <img className="card-img-top" style={{height: 200}} src={meal2} alt="Card image cap" />                
                 </div>
                 <div className="card-body">
                   <h6 className="card-title text-center">

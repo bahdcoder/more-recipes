@@ -46,6 +46,9 @@ export default class FrontEndController {
       }
     });
 
+    mostFavoritedRecipes
+      .sort((r1, r2) => r1.get().favoritersIds.length < r2.get().favoritersIds.length);
+
     // Get the most favorited recipes end
 
     // Get the latest recipes begin

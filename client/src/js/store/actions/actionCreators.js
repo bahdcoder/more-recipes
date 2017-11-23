@@ -15,6 +15,43 @@ export function checkAuth() {
     return false;
   };
 }
+
+
+/**
+ * Get the data needed for the home page
+ *
+ * @export
+ * @returns {Promise} promise resolve/reject
+ */
+export function getHomePageData() {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/frontend/home`);
+
+      response.data.data.latestRecipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+
+      response.data.data.mostFavoritedRecipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject();
+    }
+  };
+}
+
 /**
  *Toggle a user upvote status for a recipe
  *

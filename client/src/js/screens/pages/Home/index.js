@@ -2,15 +2,34 @@ import React from 'react';
 import { Link } from 'react-router';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
-import SignIn from '../../components/auth/SignIn';
 import RecipeCard from '../../components/RecipeCard';
-
+import RecipeCardLoader from '../../components/RecipeCardLoader';
 
 import logo from './../../../../assets/img/logo.png';
 import avatar from './../../../../assets/img/avatar.jpg';
 import bannerImage1 from '../../../../assets/img/banner-1.jpg';
 
 export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true
+    }
+  }
+
+  async componentWillMount() {
+    try {
+      await this.props.getHomePageData();
+
+      this.setState({
+        loading: false
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   render() {
     let homeButtons = (
       <span>
@@ -28,12 +47,70 @@ export default class Home extends React.Component {
       );
     } 
 
-    /*  function getRandomInt(min, max) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+    let latestRecipes = [];
+
+    if (this.state.loading) {
+      latestRecipes = (
+        <div className="row">
+          <div className="col-md-4">
+            <RecipeCardLoader/>
+          </div>
+          <div className="col-md-4">
+            <RecipeCardLoader/>
+          </div>
+          <div className="col-md-4">
+            <RecipeCardLoader/>
+          </div>
+        </div>
+      );
+    } else {
+      let numberOnPage = 3;
+      let sortedLatestRecipes = this.props.recipes.sort((recipe1, recipe2) => recipe1.createdAt < recipe2.createdAt);
+      if (sortedLatestRecipes.length > 5) {
+        numberOnPage = 6;
+      }
+      let trimmedListOfLatestRecipes = sortedLatestRecipes.slice(0 , numberOnPage);
+      latestRecipes = trimmedListOfLatestRecipes.map((recipe) => {
+        return (
+          <div className="col-md-4" key={recipe.id}>
+            <RecipeCard recipe={recipe} {...this.props} />
+          </div>
+        );
+      });
     }
-    let background = `url('./../assets/img/banner-1.jpg')`;*/
+
+    let mostFavoritedRecipes = [];
+    
+        if (this.state.loading) {
+          mostFavoritedRecipes = (
+            <div className="row">
+              <div className="col-md-4">
+                <RecipeCardLoader/>
+              </div>
+              <div className="col-md-4">
+                <RecipeCardLoader/>
+              </div>
+              <div className="col-md-4">
+                <RecipeCardLoader/>
+              </div>
+            </div>
+          );
+        } else {
+          let numberOnPage = 3;
+          let sortedMostFavoritedRecipes = this.props.recipes.sort((recipe1, recipe2) => recipe1.favoritersIds.length < recipe2.favoritersIds.length);
+          if (sortedMostFavoritedRecipes.length > 5) {
+            numberOnPage = 6;
+          }
+          let trimmedListOfMostFavoritedRecipes = sortedMostFavoritedRecipes.slice(0 , numberOnPage);
+          mostFavoritedRecipes = trimmedListOfMostFavoritedRecipes.map((recipe) => {
+            return (
+              <div className="col-md-4" key={recipe.id}>
+                <RecipeCard recipe={recipe} {...this.props} />
+              </div>
+            );
+          });
+        }
+
     return (
       <div>
         {/* The navigation bar begin */}
@@ -57,18 +134,18 @@ export default class Home extends React.Component {
         {/* End of the jumbotron area */}
         {/* Top rated recipes section */}
         <div className="container-fluid px-5 my-5">
-          <h1 className="display-4 text-center my-5 wow fadeInDown" style={{padding: '30px 0px'}}>
+          <h1 className="display-5 text-center my-5 wow fadeInDown" style={{padding: '30px 0px'}}>
             <i className="ion ion-star mr-3" />
-            Top Rated Recipes</h1>
+            Lastest Recipes</h1>
           <br />
           <div className="card-deck wow fadeIn">
-                       
+              {latestRecipes}
           </div>
         </div>
         {/* End of top rated recipes section */}
-        {/* Top rated chefs section */}
+        {/* Top rated chefs section 
         <div className="container px-5 my-5">
-          <h1 className="display-4 text-center my-5 wow fadeInDown" style={{padding: '30px 0px'}}>
+          <h1 className="display-5 text-center my-5 wow fadeInDown" style={{padding: '30px 0px'}}>
             <i className="ion ion-person-stalker mr-3" />
             Most Popular Chefs</h1>
           <br />
@@ -105,7 +182,7 @@ export default class Home extends React.Component {
             </div>
             <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
               <div className="hovereffect">
-                <img className="img-fluid img-responsive" src={avatar} />
+                <img className="img-fluid img-responsive rounded" src={avatar} />
                 <div className="overlay">
                   <p className="my-auto">
                     <a>CLAUS LEBRONE</a>
@@ -115,56 +192,23 @@ export default class Home extends React.Component {
             </div>
           </div>
         </div>
-        {/* End of top rated chefs section */}
+         End of top rated chefs section */}
         {/* Most favorited recipes section */}
         <div className="container-fluid px-5 my-5">
-          <h1 className="display-4 text-center my-5 wow fadeInDown" style={{padding: '30px 0px'}}>
+          <h1 className="display-5 text-center my-5 wow fadeInDown" style={{padding: '30px 0px'}}>
             <i className="ion ion-heart mr-4" />
             Most favorited Recipes</h1>
           <br />
           <div className="card-deck wow fadeIn">
-
+                {mostFavoritedRecipes}
           </div>
         </div>
+        <br/><br/><br/>
         {/* End of top rated recipes section */}
-        <SignIn data={this.props}/>
+
         {/*Begin page footer */}
         <Footer/>
         {/* End page footer */}
-        <div className="modal fade" id="registerModal" tabIndex={-1} role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-          <div className="modal-dialog" role="document" style={{paddingTop: 70}}>
-            <div className="modal-content">
-              <div className="modal-body text-center">
-                <div className="row justify-content-center">
-                  <div className="col-10">
-                    <form>
-                      <h3 className="text-center mb-3 mt-3">Register</h3>
-                      <div className="form-group">
-                        <input type="text" className="form-control" placeholder="First name" />                                    
-                      </div>  
-                      <div className="form-group">
-                        <input type="text" className="form-control" placeholder="Last name" />                                    
-                      </div>  
-                      <div className="form-group">
-                        <input type="email" className="form-control" id="staticEmail" placeholder="email@example.com" />                                    
-                      </div>  
-                      <div className="form-group">
-                        <input type="password" className="form-control" id="inputPassword" placeholder="Password" />                                    
-                      </div>
-                      <div className="form-group">
-                        <input type="password" className="form-control" id="inputPassword" placeholder="Confirm Password" />                                    
-                      </div>
-                      <div className="form-group text-center">
-                        <button className="btn mb-3 btn-primary form-control" type="submit">Register</button>   
-                        <span className="mt-5 h6 mr-3"><a role="button" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Have an account? Login</a></span>                              
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     );
   }

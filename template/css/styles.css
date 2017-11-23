@@ -74,13 +74,16 @@ body {
   text-decoration: none;
   color: #8bad00;
 }
-.display-4, .display-1, .display-2, .display-3, .display-5, 
+.display-4, .display-1, .display-2, .display-3, .display-5, .h4
 .ion {
   color: #E27C3E;
 }
 
 .header-color {
   color: #E27C3E;
+}
+.header-color:hover {
+  color: rgb(169, 79, 27);
 }
 
 .color-darker {

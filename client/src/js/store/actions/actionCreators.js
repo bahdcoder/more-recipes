@@ -295,6 +295,35 @@ export function createRecipe(recipe) {
 }
 
 /**
+ * Update a recipe
+ *
+ * @export
+ * @param {any} recipe the new recipe data
+ * @param {uuid} recipeId the id of the recipe
+ * @returns {Promise} Promise
+ */
+export function updateRecipe(recipe, recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.put(`${apiUrl}/recipes/${recipeId}`, recipe);
+
+      const recipeIndex = getState().recipes
+        .findIndex(recipeInStore => recipeInStore.id === recipeId);
+      dispatch({
+        type: 'RECIPE_UPDATED',
+        payload: {
+          recipeIndex,
+          recipe: response.data.data
+        }
+      });
+
+      return Promise.resolve(response);
+    } catch (errors) {
+      return Promise.reject(errors);
+    }
+  };
+}
+/**
  * Update the recipes in store
  *
  * @export {func} action creator

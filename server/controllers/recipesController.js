@@ -99,7 +99,14 @@ export default class RecipesController {
       procedure: reqBody.procedure || recipe.procedure
     });
 
-    return res.sendSuccessResponse(recipe, 200);
+    const updatedRecipe = await models.Recipe.findById(recipe.id, {
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
+      }
+    });
+
+    return res.sendSuccessResponse(updatedRecipe, 200);
   }
 
 

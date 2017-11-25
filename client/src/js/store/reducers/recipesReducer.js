@@ -12,6 +12,12 @@ export default function recipesReducer(state = [], action) {
         ...state,
         action.payload
       ];
+    case 'RECIPE_UPDATED':
+      return [
+        ...state.slice(0, action.payload.recipeIndex),
+        action.payload.recipe,
+        ...state.slice(action.payload.recipeIndex + 1)
+      ];
     case 'ADD_USER_TO_UPVOTERS':
       return state.map((recipe, index) => {
         if (index !== action.payload.indexOfRecipe) {

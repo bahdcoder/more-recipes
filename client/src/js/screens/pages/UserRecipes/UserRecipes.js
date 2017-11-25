@@ -68,6 +68,10 @@ export default class UserRecipes extends Component {
         return (
           <div className="col-md-4" key={recipe.id}>
             <RecipeCard recipe={recipe} {...this.props} />
+            <div className="btn-group btn-group-sm" role="group">
+              <Link className="btn btn-primary btn-xs" to={`/recipe/${recipe.id}/edit`}>Update recipe</Link>
+              <button className="btn btn-danger btn-xs">Delete recipe</button>
+            </div>
           </div>
         );
       });

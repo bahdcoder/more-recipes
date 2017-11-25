@@ -33,6 +33,7 @@ export default class CreateRecipe extends React.Component {
       image: null,
       timeToCook: '',
       ingredients: [''],
+      imageUrl: null,
       procedure: ['Mix the fufu with ...'],
       loading: false,
       ajaxErrors: [],
@@ -43,11 +44,13 @@ export default class CreateRecipe extends React.Component {
         ingredients: [],
         procedure: [],
         image: []
-      }
+      },
+      editing: false
     };
 
     // Method bindings 
     this.handleDrop = this.handleDrop.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateInput = this.validateInput.bind(this);
     this.removeProcedure = this.removeProcedure.bind(this);
@@ -57,6 +60,7 @@ export default class CreateRecipe extends React.Component {
     this.addNewProcedureStep = this.addNewProcedureStep.bind(this);  
     this.handleProcedureChange = this.handleProcedureChange.bind(this);
     this.handleIngredientChange = this.handleIngredientChange.bind(this);
+    this.uploadImagetoCloudinary = this.uploadImagetoCloudinary.bind(this);    
   }
   /**
    * Handle a new file upload event
@@ -65,7 +69,74 @@ export default class CreateRecipe extends React.Component {
    * @memberof CreateRecipe
    */
   handleDrop(file) {
-    this.setState({ image: file[0] });
+    this.setState({ image: file[0], imageUrl: null });
+  }
+
+  /**
+   * Handle the recipe update process
+   * 
+   * @memberof CreateRecipe
+   */
+  async handleUpdate() {
+    const validator = new CreateRecipeValidator(this.state);
+    if (!validator.isValid()) {
+      const errors = { ...this.state.errors };
+
+      this.setState({ errors });
+      return;
+    }
+
+    try {
+      this.setState({ loading: true });
+
+      let imageUrl;
+      if (this.state.image) {
+        imageUrl = await this.uploadImagetoCloudinary();      
+      } else {
+        imageUrl = this.state.imageUrl;
+      }
+
+      await this.props.updateRecipe({
+        title: this.state.title,
+        timeToCook: this.state.timeToCook,
+        description: this.state.description,
+        ingredients: JSON.stringify(this.state.ingredients),
+        procedure: JSON.stringify(this.state.procedure),
+        imageUrl: imageUrl
+      }, this.props.params.id);
+      this.setState({ loading: false });
+      
+      this.props.router.push(`/recipe/${this.props.params.id}`);    
+    } catch (error) {}
+  }
+  /**
+   * Handle image upload to cloudinary
+   * 
+   * @memberof CreateRecipe
+   */
+  async uploadImagetoCloudinary() {
+    try {
+      const imageUploadData = new FormData();
+      imageUploadData.append('file', this.state.image);
+      imageUploadData.append('tags', `recipe`);
+      imageUploadData.append('upload_preset', config.cloudinaryUploadPreset);
+      imageUploadData.append('api_key', config.cloudinaryApiKey);
+      imageUploadData.append('timestamp', (Date.now() / 1000) | 0);
+      
+      //  Delete x-access-token for acceptance by cloudinary api
+      delete axios.defaults.headers.common['x-access-token'];
+  
+      const cloudinaryResponse = await axios.post(config.cloudinaryImageUploadUrl, imageUploadData, {
+        headers: { "X-Requested-With": "XMLHttpRequest" }
+      });
+  
+      //  Configure header for subsequent axios calls
+      axios.defaults.headers.common['x-access-token'] = this.props.authUser.access_token;
+
+      return Promise.resolve(cloudinaryResponse.data.secure_url);
+    } catch (errors) {
+      return Promise.reject(errors);
+    }
   }
   /**
    * Handle the recipe creation process
@@ -130,6 +201,27 @@ export default class CreateRecipe extends React.Component {
     }
   }
 
+  /**
+   * Execute before component is mounted
+   * 
+   * @memberof CreateRecipe
+   */
+  componentWillMount() {
+    if (this.props.params.id) {
+      const recipe = this.props.recipes.find(recipe => recipe.id === this.props.params.id);
+
+      this.setState({
+        editing: true,
+        title: recipe.title,
+        description: recipe.description,
+        imageUrl: recipe.imageUrl,
+        timeToCook: recipe.timeToCook,
+        ingredients: JSON.parse(recipe.ingredients),
+        procedure: JSON.parse(recipe.procedure),
+      });
+    }
+  }
+  
 
   /**
    * Handle input change events
@@ -267,6 +359,24 @@ export default class CreateRecipe extends React.Component {
       </button>
     );
 
+    let updateButton = (
+      <button className="btn btn-primary btn-lg" 
+          onClick={this.handleUpdate}>
+      Update Recipe
+    </button>
+    );
+
+    if (this.state.loading) {
+      updateButton = (
+        <button className="btn btn-primary btn-lg" 
+                onClick={this.handleUpdate}
+                disabled={true}>
+            <i className="ion ion-load-d mr-3 loader" style={{ color: 'white' }}></i>
+            Updating recipe ...
+          </button>
+      );
+    }
+
     if (this.state.loading) {
       createButton = (
         <button className="btn btn-primary btn-lg" 
@@ -308,15 +418,25 @@ export default class CreateRecipe extends React.Component {
         return <small style={this.miniError} key={index}>{error}</small>;
       });
     }
+    
+    let imageSource;
 
-    if (this.state.image) {
+    if (this.state.imageUrl) {
+      imageSource = this.state.imageUrl;
+    }
+
+    if (this.state.image || this.state.imageUrl) {
+      if (this.state.image) {
+        imageSource = this.state.image.preview;
+      }
+
       recipeImage = (
           <Dropzone 
             onDrop={this.handleDrop}  
             accept="image/*"
             multiple={false}
             style={dropZoneStyles}>
-            <img className="card-img-top" style={{ height: '450px' }} src={this.state.image.preview}/>          
+            <img className="card-img-top" style={{ height: '450px' }} src={imageSource}/>          
           </Dropzone>
       ); 
     }
@@ -398,7 +518,7 @@ export default class CreateRecipe extends React.Component {
         <Navbar {...this.props}/>
         <div className="container my-5">
           <div className="row justify-content-center">
-            <h1 className="text-center my-5 display-5 header-color">Create a recipe</h1>
+            <h1 className="text-center my-5 display-5 header-color">{ this.state.editing ? 'Update your recipe': 'Create a recipe' }</h1>
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-10 col-md-10">
@@ -448,7 +568,7 @@ export default class CreateRecipe extends React.Component {
                   <br />
                   <br />
                   <p className="text-center">
-                    {createButton}
+                    {this.state.editing ? updateButton : createButton}
                   </p>
                 </div>
                 {/* End create recipe form */}

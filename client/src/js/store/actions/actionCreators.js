@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
 
 /**
  * Check if user is authenticated
@@ -13,6 +14,35 @@ export function checkAuth() {
     }
 
     return false;
+  };
+}
+
+/**
+ * Change the current route params
+ *
+ * @export
+ * @param {str} name The name of the query
+ * @param {str} value the new value of the query param
+ * @param {obj} location the current location object
+ * @returns {null} null
+ */
+export function changeRouterQueryParams(name, value, location) {
+  return async (dispatch) => {
+    const currentQuery = location.query;
+
+    currentQuery[name] = value;
+    let newQueryString = '/recipes';
+    if (currentQuery.query) {
+      newQueryString += `?query=${currentQuery.query}`;
+      if (currentQuery.sort) {
+        newQueryString += `&sort=${currentQuery.sort}`;
+      }
+    }
+
+    if (!currentQuery.query && currentQuery.sort) {
+      newQueryString += `?sort=${currentQuery.sort}`;
+    }
+    dispatch(push(newQueryString));
   };
 }
 

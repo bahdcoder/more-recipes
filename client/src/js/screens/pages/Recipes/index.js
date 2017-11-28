@@ -1,10 +1,41 @@
 import React from 'react';
+
+import { browserHistory } from 'react-router';
+
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import RecipeCard from '../../components/RecipeCard';
 
 export default class Recipes extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props.location);
+
+    this.state = {
+      sort: props.location.query.sort || 'Sort By',
+      query: props.location.query.query || ''
+    };
+
+    this.changeRouterQueryParams = this.changeRouterQueryParams.bind(this);
+  }
+
+  componentDidMount() {
+    browserHistory.listen(location => {
+      // get data from api right now.
+    });
+  }
+
+  changeRouterQueryParams(event) {
+    let { value } = event.target;
+    let { name } = event.target;
+    this.setState({
+      [name]: value
+    });
+    this.props.changeRouterQueryParams(name, value, this.props.location);
+  }
+
   render() {
+    console.log(this.state);
     return (
       <div>
       {/* The navigation bar begin */}
@@ -17,24 +48,14 @@ export default class Recipes extends React.Component {
         <div className="container-fluid px-5">
           <div className="row">
             <div className="col-lg-4">
-              <input type="text" placeholder="Keywords..." className="form-control mb-3" />
+              <input type="text" name="query" onChange={this.changeRouterQueryParams} value={this.state.query} placeholder="Keywords..." className="form-control mb-3" />
             </div>
             <div className="col-lg-4">
-              <select className="form-control mb-3">
-                <option> Sort By</option>
-                <option>Date</option>
-                <option>Popularity</option>
-                <option>Most Favorited</option>
-                <option>Up votes</option>
-              </select>
-            </div>
-            <div className="col-lg-4">
-              <select className="form-control mb-5">
-                <option> Categories</option>
-                <option>Fufus</option>
-                <option>Soups</option>
-                <option>Yoruba</option>
-                <option>Salads</option>
+              <select value={this.state.sort} name="sort" className="form-control mb-3" onChange={this.changeRouterQueryParams}>
+                <option disabled> Sort By</option>
+                <option value="date">Date</option>
+                <option value="mostFavorited">Most Favorited</option>
+                <option value="mostUpvoted">Up votes</option>
               </select>
             </div>
           </div>
@@ -50,19 +71,9 @@ export default class Recipes extends React.Component {
             {/* End List of filtered recipes */}
             <br />
             {/* Pagination links  */}
-            <nav className="row mt-5 justify-content-center">
-              <ul className="pagination pagination-lg">
-                <li className="page-item disabled">
-                  <a className="page-link" href="#">Previous</a>
-                </li>
-                <li className="page-item"><a className="page-link" href="#">1</a></li>
-                <li className="page-item"><a className="page-link" href="#">2</a></li>
-                <li className="page-item active"><a className="page-link" href="#">3</a></li>
-                <li className="page-item">
-                  <a className="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
+            <p className="text-center">
+              <button className="btn-lg btn-primary" disabled>Load more</button>
+            </p>
             {/* End of pagination links */}
           </div>
         </div>

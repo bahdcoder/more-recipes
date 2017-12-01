@@ -1,4 +1,5 @@
 import axios from 'axios';
+import queryString from 'query-string';
 import { push } from 'react-router-redux';
 
 /**
@@ -16,6 +17,32 @@ export function checkAuth() {
     return false;
   };
 }
+/**
+ * Get sorted recipes
+ *
+ * @export
+ * @param {str} search the recipes search query
+ * @returns {Promise} promise
+ */
+export function getRecipesCatalog() {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/recipes${getState().routing.locationBeforeTransitions.search}`);
+
+      response.data.data.recipes.recipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}
 
 /**
  * Change the current route params
@@ -31,18 +58,8 @@ export function changeRouterQueryParams(name, value, location) {
     const currentQuery = location.query;
 
     currentQuery[name] = value;
-    let newQueryString = '/recipes';
-    if (currentQuery.query) {
-      newQueryString += `?query=${currentQuery.query}`;
-      if (currentQuery.sort) {
-        newQueryString += `&sort=${currentQuery.sort}`;
-      }
-    }
 
-    if (!currentQuery.query && currentQuery.sort) {
-      newQueryString += `?sort=${currentQuery.sort}`;
-    }
-    dispatch(push(newQueryString));
+    dispatch(push(`/recipes?${queryString.stringify(currentQuery)}`));
   };
 }
 

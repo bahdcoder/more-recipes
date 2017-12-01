@@ -5,6 +5,14 @@ import Gravatar from 'react-gravatar';
 import logo from './../../../assets/img/logo.png';
 
 export default class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      query: ''
+    };
+  }
+
   render() {
     let authUser = this.props.authUser;
     let navbarUser = '';
@@ -29,6 +37,7 @@ export default class NavBar extends React.Component {
       </li>
       );
     }
+
     return (
       <nav className="navbar navbar-expand-lg navbar-custom">
         <Link className="navbar-brand" to="/">
@@ -46,8 +55,20 @@ export default class NavBar extends React.Component {
             <li className="nav-item mr-3">
               <Link to="/recipes" className="nav-link">Recipes <span className="sr-only">(current)</span></Link>
             </li>
-            <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+            <form className="form-inline my-2 my-lg-0"
+                  onSubmit={(event) => {
+                    event.preventDefault();
+
+                    this.props.router.push(`/recipes?query=${this.props.location.query.query || ''}`);
+                  }}>
+              <input className="form-control mr-sm-2" 
+                     value={this.props.location.query.query || ''} 
+                     onChange={(event) => {
+                       this.props.changeRouterQueryParams('query', event.target.value, this.props.location)
+                     }} 
+                     type="text" 
+                     placeholder="Search recipes" 
+                     aria-label="Search" />
             </form>
             {navbarUser}
           </ul>

@@ -42,7 +42,7 @@ export default class Recipes extends React.Component {
       const recipeResponse = response.data.data.recipes;
       const { paginationMeta, recipes } = recipeResponse;
       let recipesMeta = {...this.state.recipesMeta};
-      console.log(recipes);
+
       recipesMeta = {
         recipes,
         pageCount: paginationMeta.pageCount,
@@ -51,7 +51,7 @@ export default class Recipes extends React.Component {
       this.setState({
         recipesMeta,
         loading: false
-      }, () => { console.log(this.state); });
+      });
     } catch (error) {
       console.log(`error getting recipes catalog: `, error);
     }
@@ -114,10 +114,10 @@ export default class Recipes extends React.Component {
         <div className="container-fluid px-5">
           <div className="row">
             <div className="col-lg-3">
-              <input type="text" name="query" onChange={this.changeRouterQueryParams} value={this.state.query} placeholder="Keywords..." className="form-control mb-3" />
+              <input type="text" name="query" onChange={this.changeRouterQueryParams} value={this.props.location.query.query || ''} placeholder="Keywords..." className="form-control mb-3" />
             </div>
             <div className="col-lg-3">
-              <select value={this.state.sort} name="sort" className="form-control mb-3" onChange={this.changeRouterQueryParams}>
+              <select value={this.props.location.query.sort || 'Sort By'} name="sort" className="form-control mb-3" onChange={this.changeRouterQueryParams}>
                 <option disabled> Sort By</option>
                 <option value="date">Date</option>
                 <option value="mostFavorited">Most Favorited</option>

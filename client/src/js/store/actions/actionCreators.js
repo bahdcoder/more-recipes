@@ -58,8 +58,7 @@ export function changeRouterQueryParams(name, value, location) {
     const currentQuery = location.query;
 
     currentQuery[name] = value;
-
-    dispatch(push(`/recipes?${queryString.stringify(currentQuery)}`));
+    dispatch(push(`${location.pathname}?${queryString.stringify(currentQuery)}`));
   };
 }
 

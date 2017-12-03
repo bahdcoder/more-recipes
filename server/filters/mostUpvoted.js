@@ -31,7 +31,7 @@ const filterMostUpvotedRecipes = async (page, perPage) => {
   });
 
   mostUpvotedRecipes
-    .sort((r1, r2) => r1.get().favoritersIds.length < r2.get().favoritersIds.length);
+    .sort((r1, r2) => r1.get().upvotersIds.length < r2.get().upvotersIds.length);
 
   return {
     rows: mostUpvotedRecipes,

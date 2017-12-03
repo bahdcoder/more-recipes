@@ -93,7 +93,19 @@ export default class Recipes extends React.Component {
         </div>
       );
     } else {
-      recipes = this.state.recipesMeta.recipes.map((recipe) => {
+      let sortedRecipes = this.state.recipesMeta.recipes;
+      const { query, sort } = this.props.location.query;
+      if (query) {
+        if (sort === 'mostFavorited') {
+          sortedRecipes
+            .sort((r1, r2) => r1.favoritersIds.length < r2.favoritersIds.length);
+        }
+        if (sort === 'mostUpvoted') {
+          sortedRecipes
+            .sort((r1, r2) => r1.upvotersIds.length < r2.upvotersIds.length);
+        }
+      }
+      recipes = sortedRecipes.map((recipe) => {
         return (
           <div className="col-md-4" key={recipe.id}>
             <RecipeCard recipe={recipe} {...this.props} />

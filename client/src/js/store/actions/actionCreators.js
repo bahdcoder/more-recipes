@@ -513,10 +513,12 @@ export function findUser(userId) {
     try {
       const response = await axios.get(`${apiUrl}/users/profile/${userId}`);
 
-      dispatch({
-        type: 'NEW_USER_ADDED',
-        payload: response.data.data.user
-      });
+      if (getState().users.findIndex(u => u.id === response.data.data.user.id) === -1) {
+        dispatch({
+          type: 'NEW_USER_ADDED',
+          payload: response.data.data.user
+        });
+      }
       return Promise.resolve();
     } catch (error) {
       return Promise.reject(error);
@@ -536,7 +538,7 @@ export function updateUserProfile(userData, index) {
     try {
       const response = await axios.put(`${apiUrl}/users/update`, userData);
       const currentUser = JSON.parse(localStorage.getItem('authUser'));
-      currentUser.user = response.data.data;
+      currentUser.user = response.data.data.user;
       localStorage.setItem('authUser', JSON.stringify(currentUser));
 
       dispatch({

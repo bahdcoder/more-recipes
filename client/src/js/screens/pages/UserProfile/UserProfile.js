@@ -56,19 +56,6 @@ export default class UserProfile extends Component {
     });
   }
 
-  async componentWillReceiveProps(nextProps) {
-    try {
-      const userIndex = this.props.users.findIndex(user => user.id === nextProps.params.id);
-      if (userIndex === -1) {
-        const response = await this.props.findUser(this.props.params.id);
-      } else {
-        this.forceUpdate();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async componentWillMount() {
     try {
       const response = await this.props.findUser(this.props.params.id);

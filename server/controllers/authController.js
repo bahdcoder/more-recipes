@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import models from '../database/models';
+import { updateUserAttributes } from '../helpers';
 
 import redisConfig from '../config/redis';
 
@@ -38,7 +39,9 @@ export default class AuthController {
     }).events(false).save();
 
     const accessToken = jwt.sign({ email: user.email }, config.JWT_SECRET);
-    return res.sendSuccessResponse({ user, access_token: accessToken });
+
+    const updatedUser = await updateUserAttributes(user, models);
+    return res.sendSuccessResponse({ user: updatedUser, access_token: accessToken });
   }
 
 
@@ -55,7 +58,8 @@ export default class AuthController {
         const isCorrectPassword = await bcrypt.compare(req.body.password, user.password);
         if (isCorrectPassword) {
           const accessToken = jwt.sign({ email: user.email }, config.JWT_SECRET);
-          return res.sendSuccessResponse({ user, access_token: accessToken });
+          const updatedUser = await updateUserAttributes(user);
+          return res.sendSuccessResponse({ user: updatedUser, access_token: accessToken });
         }
 
         throw new Error('The passwords did not match.');

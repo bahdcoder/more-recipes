@@ -1,4 +1,6 @@
 import axios from 'axios';
+import queryString from 'query-string';
+import { push } from 'react-router-redux';
 
 /**
  * Check if user is authenticated
@@ -15,6 +17,87 @@ export function checkAuth() {
     return false;
   };
 }
+/**
+ * Get sorted recipes
+ *
+ * @export
+ * @param {str} search the recipes search query
+ * @returns {Promise} promise
+ */
+export function getRecipesCatalog() {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/recipes${getState().routing.locationBeforeTransitions.search}`);
+
+      response.data.data.recipes.recipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+      return Promise.resolve(response);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+}
+
+/**
+ * Change the current route params
+ *
+ * @export
+ * @param {str} name The name of the query
+ * @param {str} value the new value of the query param
+ * @param {obj} location the current location object
+ * @returns {null} null
+ */
+export function changeRouterQueryParams(name, value, location) {
+  return async (dispatch) => {
+    const currentQuery = location.query;
+
+    currentQuery[name] = value;
+    dispatch(push(`${location.pathname}?${queryString.stringify(currentQuery)}`));
+  };
+}
+
+
+/**
+ * Get the data needed for the home page
+ *
+ * @export
+ * @returns {Promise} promise resolve/reject
+ */
+export function getHomePageData() {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.get(`${apiUrl}/frontend/home`);
+
+      response.data.data.latestRecipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+
+      response.data.data.mostFavoritedRecipes.forEach((recipe) => {
+        if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
+          dispatch({
+            type: 'NEW_RECIPE_CREATED',
+            payload: recipe
+          });
+        }
+      });
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject();
+    }
+  };
+}
+
 /**
  *Toggle a user upvote status for a recipe
  *
@@ -257,6 +340,35 @@ export function createRecipe(recipe) {
   };
 }
 
+/**
+ * Update a recipe
+ *
+ * @export
+ * @param {any} recipe the new recipe data
+ * @param {uuid} recipeId the id of the recipe
+ * @returns {Promise} Promise
+ */
+export function updateRecipe(recipe, recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      const response = await axios.put(`${apiUrl}/recipes/${recipeId}`, recipe);
+
+      const recipeIndex = getState().recipes
+        .findIndex(recipeInStore => recipeInStore.id === recipeId);
+      dispatch({
+        type: 'RECIPE_UPDATED',
+        payload: {
+          recipeIndex,
+          recipe: response.data.data
+        }
+      });
+
+      return Promise.resolve(response);
+    } catch (errors) {
+      return Promise.reject(errors);
+    }
+  };
+}
 /**
  * Update the recipes in store
  *

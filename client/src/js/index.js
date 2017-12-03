@@ -55,6 +55,40 @@ function checkIfAuth (nextState, replace) {
   });
 }
 
+/**
+ * Check if the user is authenticated and authorized to visit this route
+ * 
+ * @param {any} nextState Next router destination
+ * @param {any} replace replace the next route 
+ * @returns 
+ */
+function checkIfAuthorized(nextState, replace) {
+  if (isAuthenticated(store.getState())) {
+    const currentState = store.getState();
+    const recipe = currentState.recipes.find(recipe => recipe.id === nextState.params.id);
+
+    if (!recipe) {
+      // redirect user to the 404 page.
+      replace({
+        pathname: '/'
+      });
+    } else {
+      if (recipe.User.id !== currentState.authUser.user.id) {
+        // flash a message to the user and redirect to home
+        replace({
+          pathname: '/'
+        });
+      }
+
+      return true;
+    }
+  }
+  
+  // this in future will be the 404 page.
+  replace({
+    pathname: '/'
+  });
+}
 
 /**
  * Redirect to home if the user is authenticated
@@ -106,6 +140,11 @@ ReactDOM.render((
         <Route path="/my/favorites" 
                component={ UserFavorites }
                onEnter={ checkIfAuth }
+        ></Route>
+
+        <Route path="/recipe/:id/edit" 
+               component={ CreateRecipe }
+               onEnter={ checkIfAuthorized }
         ></Route>
 
         <Route path="/auth/login"

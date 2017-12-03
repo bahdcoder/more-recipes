@@ -1,5 +1,6 @@
 import models from '../database/models';
-
+import filterMostUpvotedRecipes from './../filters/mostUpvoted';
+import filterMostFavoritedRecipes from './../filters/mostFavorited';
 
 /**
  * Controller to handle all recipe endpoint routes
@@ -13,26 +14,57 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async index(req, res) {
-    const recipes = await models.Recipe.findAll({
+    const {
+      query, page, perPage, sort
+    } = req.query;
+
+    const getMetaData = recipesMeta => ({
+      paginationMeta: {
+        currentPage: Number(page) || 1,
+        recipesCount: recipesMeta.count,
+        pageCount: Math.ceil(recipesMeta.count / (perPage || 2))
+      },
+      recipes: recipesMeta.rows
+    });
+
+    if (sort === 'mostFavorited' && !query) {
+      const recipesMeta = await filterMostFavoritedRecipes(page || 1, perPage || 3);
+
+      return res.sendSuccessResponse({ recipes: getMetaData(recipesMeta) }, 200);
+    }
+
+    if (sort === 'mostUpvoted' && !query) {
+      const recipesMeta = await filterMostUpvotedRecipes(page || 1, perPage || 3);
+
+      return res.sendSuccessResponse({ recipes: getMetaData(recipesMeta) }, 200);
+    }
+
+    const dbQuery = {
       include: {
         model: models.User,
         attributes: { exclude: ['password'] }
-      }
-    });
+      },
+      limit: perPage || 2,
+      offset: (perPage || 2) * ((page || 1) - 1)
+    };
 
-    // Loop through the recipes and set the upvotes, downvotes and favorites
+    if (query) {
+      dbQuery.where = {
+        title: {
+          $iLike: `%${query}%`
+        }
+      };
+    }
 
-    /* if (req.query.sort === 'upvotes') {
-      const upvotes = await client.smembers('recipe:*:upvotes');
+    if (sort === 'date') {
+      dbQuery.order = [
+        ['createdAt', 'DESC']
+      ];
+    }
 
-      if (req.query.order === 'des') {
-        recipes.sort((recipeA, recipeB) => upvotes[`recipe:${recipeA}:upvotes`].length > upvotes[`recipe:${recipeB}:upvotes`]);
-      } else {
-        recipes.sort((recipeA, recipeB) => upvotes[`recipe:${recipeA}:upvotes`].length < upvotes[`recipe:${recipeB}:upvotes`]);
-      }
-    } */
+    const recipesMeta = await models.Recipe.findAndCountAll(dbQuery);
 
-    return res.sendSuccessResponse({ recipes }, 200);
+    return res.sendSuccessResponse({ recipes: getMetaData(recipesMeta) }, 200);
   }
 
   /**
@@ -99,7 +131,14 @@ export default class RecipesController {
       procedure: reqBody.procedure || recipe.procedure
     });
 
-    return res.sendSuccessResponse(recipe, 200);
+    const updatedRecipe = await models.Recipe.findById(recipe.id, {
+      include: {
+        model: models.User,
+        attributes: { exclude: ['password'] }
+      }
+    });
+
+    return res.sendSuccessResponse(updatedRecipe, 200);
   }
 
 

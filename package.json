@@ -15,7 +15,7 @@
     "test:client": "cross-env NODE_ENV=test ./node_modules/.bin/mocha client/src/js/test/**/**.spec.js --exit --timeout 10000  --compilers js:babel-core/register --reporter spec",
     "build:client": "node server/scripts/removeDeploymentDir.js && cross-env NODE_ENV=production webpack -p",
     "dev:client": "webpack-dev-server --hot --inline --history-api-fallback",
-    "heroku-postbuild": "npm run build && npm run build:client"
+    "heroku-postbuild": "npm run build:client && npm run build"
   },
   "repository": {
     "type": "git",
@@ -81,6 +81,7 @@
     "nyc": "11.2.1",
     "pg": "7.3.0",
     "pg-hstore": "2.3.2",
+    "query-string": "^5.0.1",
     "react": "16.0.0",
     "react-content-loader": "1.5.2",
     "react-custom-scrollbars": "^4.2.1",
@@ -88,6 +89,7 @@
     "react-dropzone": "4.2.1",
     "react-gravatar": "2.6.3",
     "react-hot-loader": "3.0.0",
+    "react-paginate": "^5.0.0",
     "react-redux": "5.0.6",
     "react-redux-loading-bar": "2.9.3",
     "react-router": "3.2.0",

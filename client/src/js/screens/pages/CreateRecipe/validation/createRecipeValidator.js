@@ -7,7 +7,7 @@
 export default class CreateRecipeValidator {
   /**
    * Creates an instance of CreateRecipeValidator.
-   * @param {any} formData the form data to validate
+   * @param {any} recipe the form data to validate
    * @memberof CreateRecipeValidator
    */
   constructor(recipe) {
@@ -116,7 +116,7 @@ export default class CreateRecipeValidator {
   validateProcedure() {
     let { procedure } = this.recipe;
 
-    procedure.forEach(step => {
+    procedure.forEach((step) => {
       if (step.length < 3) {
         this.errors['procedure'].push('Oops ! Please make sure you actually typed in all procedure steps.');
       }
@@ -124,12 +124,14 @@ export default class CreateRecipeValidator {
   }
   /**
    * Validate the image is provided.
-   * 
+   * @returns {nyll} null
    * @memberof CreateRecipeValidator
    */
   validateImage() {
-    if (!this.recipe.image) {
-      this.errors.image.push('The recipe image is required.');
+    if (!this.recipe.imageUrl) {
+      if (!this.recipe.image) {
+        this.errors.image.push('The recipe image is required.');
+      }
     }
   }
 }

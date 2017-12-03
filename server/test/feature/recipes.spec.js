@@ -52,12 +52,12 @@ describe('/recipes', () => {
         .end((error, response) => {
           expect(response).to.have.status(200);
           const res = response.body;
+          const { recipes } = res.data.recipes;
 
-          expect(res.data.recipes).to.not.be.undefined;
-          expect(Array.isArray(res.data.recipes)).to.be.true;
-          expect(res.data.recipes[0].id).to.equal(globalMock.recipe1.id);
-          expect(res.data.recipes[0].title).to.equal(globalMock.recipe1.title);
-          expect(res.data.recipes[0].User.name).to.equal(globalMock.user1.name);      
+          expect(Array.isArray(recipes)).to.be.true;
+          expect(recipes[0].id).to.equal(globalMock.recipe1.id);
+          expect(recipes[0].title).to.equal(globalMock.recipe1.title);
+          expect(recipes[0].User.name).to.equal(globalMock.user1.name);      
           done();
         });
     });

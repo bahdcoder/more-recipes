@@ -12,6 +12,7 @@ import middleware from './middleware';
 
 const app = new express();
 
+
 //  Enable CORS for the express server
 app.use(cors());
 app.options('*', cors());
@@ -33,7 +34,7 @@ app.use(middleware.api);
 
 app.use('/api/v1/users', routes.userRoutes);
 app.use('/api/v1/recipes', routes.recipesRoutes);
-
+app.use('/api/v1/frontend', routes.frontendRouter);
 //  app.use((req, res) => res.render('index'));
 
 app.get('*', (req, res) => {

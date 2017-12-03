@@ -19,6 +19,10 @@ export default class CreateReview extends Component {
         recipeId: this.props.params.id,
         review: this.state.review
       });
+
+      this.setState({
+        review: ''
+      });
     } catch (e) {
       console.log(e.response);
     }

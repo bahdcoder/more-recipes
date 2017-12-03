@@ -58,7 +58,7 @@ export default class AuthController {
         const isCorrectPassword = await bcrypt.compare(req.body.password, user.password);
         if (isCorrectPassword) {
           const accessToken = jwt.sign({ email: user.email }, config.JWT_SECRET);
-          const updatedUser = await updateUserAttributes(user);
+          const updatedUser = await updateUserAttributes(user, models);
           return res.sendSuccessResponse({ user: updatedUser, access_token: accessToken });
         }
 
@@ -67,6 +67,7 @@ export default class AuthController {
 
       throw new Error('No user was found.');
     } catch (error) {
+      console.log(error);
       return res.sendFailureResponse({ message: 'These credentials do not match our records.' }, 422);
     }
   }

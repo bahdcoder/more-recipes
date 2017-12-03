@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 import models from '../database/models';
 
+import Mail from './../mailer';
 
 /**
  * Controls endpoints for authentication
@@ -21,6 +22,23 @@ export default class AuthController {
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, 10)
     });
+
+    try {
+      await (new Mail(
+        {
+          pug: 'welcome',
+          locals: {
+            name: user.name
+          }
+        },
+        {
+          subject: 'Welcome to Bahdcoder More-recipes'
+        }
+      )).to(user).send();
+    } catch (error) {
+      console.log(error);
+    }
+
     const accessToken = jwt.sign({ email: user.email }, config.JWT_SECRET);
     return res.sendSuccessResponse({ user, access_token: accessToken });
   }

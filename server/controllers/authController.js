@@ -1,8 +1,10 @@
+import kue from 'kue';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import models from '../database/models';
 
+import redisConfig from '../config/redis';
 
 /**
  * Controls endpoints for authentication
@@ -21,6 +23,20 @@ export default class AuthController {
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, 10)
     });
+    const queue = kue.createQueue({ redis: redisConfig[process.env.NODE_ENV] });
+
+    //  Register a new mails job to the queue
+    queue.create('mails', {
+      recipient: user.get(),
+      message: {
+        subject: 'Welcome to Bahdcoder More-recipes'
+      },
+      template: {
+        pug: 'welcome',
+        locals: { user: user.name }
+      }
+    }).events(false).save();
+
     const accessToken = jwt.sign({ email: user.email }, config.JWT_SECRET);
     return res.sendSuccessResponse({ user, access_token: accessToken });
   }

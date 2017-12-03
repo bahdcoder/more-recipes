@@ -144,7 +144,7 @@ export default class UserProfile extends Component {
           {/* End user name */}
           {/* User stats */}
           <p className="text-center my-4">
-            <span className="mr-3 h2 header-color"> 531,233 </span> <span className="h6 mr-3"><a href="/user-recipes.html" className="color-darker">RECIPES</a></span>
+            <span className="mr-3 h2 header-color"> {user.recipes.length} </span> <span className="h6 mr-3"><Link to={`/user/${user.id}/recipes`} className="color-darker">RECIPES</Link></span>
             <span className="mr-3 h2 header-color"> 531 </span> <span className="h6">REVIEWS</span>
           </p>
           {/* End user stats */}

@@ -300,7 +300,7 @@ export default class SingleRecipe extends Component {
       topChefs = this.state.topChefs.map(chef => {
         return (
           <li className="list-group-item" key={chef.id}>
-            <span className="card-title">{chef.name}</span>
+            <Link className="card-title text-center" to={`/user/${chef.id}`}>{chef.name}</Link>
           </li>
         );
       });

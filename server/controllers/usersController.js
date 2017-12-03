@@ -72,7 +72,7 @@ export default class UsersController {
     if (!user) {
       return res.sendFailureResponse({ message: 'User not found.' }, 404);
     }
-    const updatedUser = await updateUserAttributes(user);
+    const updatedUser = await updateUserAttributes(user, models);
     return res.sendSuccessResponse({ user: updatedUser });
   }
   /**

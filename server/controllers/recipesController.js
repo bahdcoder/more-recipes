@@ -1,5 +1,6 @@
 import models from '../database/models';
-
+import filterMostUpvotedRecipes from './../filters/mostUpvoted';
+import filterMostFavoritedRecipes from './../filters/mostFavorited';
 
 /**
  * Controller to handle all recipe endpoint routes
@@ -13,7 +14,30 @@ export default class RecipesController {
    * @memberof RecipesController
    */
   async index(req, res) {
-    const { query, page, perPage } = req.query;
+    const {
+      query, page, perPage, sort
+    } = req.query;
+
+    const getMetaData = recipesMeta => ({
+      paginationMeta: {
+        currentPage: Number(page) || 1,
+        recipesCount: recipesMeta.count,
+        pageCount: Math.ceil(recipesMeta.count / (perPage || 2))
+      },
+      recipes: recipesMeta.rows
+    });
+
+    if (sort === 'mostFavorited' && !query) {
+      const recipesMeta = await filterMostFavoritedRecipes(page || 1, perPage || 3);
+
+      return res.sendSuccessResponse({ recipes: getMetaData(recipesMeta) }, 200);
+    }
+
+    if (sort === 'mostUpvoted' && !query) {
+      const recipesMeta = await filterMostUpvotedRecipes(page || 1, perPage || 3);
+
+      return res.sendSuccessResponse({ recipes: getMetaData(recipesMeta) }, 200);
+    }
 
     const dbQuery = {
       include: {
@@ -32,18 +56,15 @@ export default class RecipesController {
       };
     }
 
+    if (sort === 'date') {
+      dbQuery.order = [
+        ['createdAt', 'DESC']
+      ];
+    }
+
     const recipesMeta = await models.Recipe.findAndCountAll(dbQuery);
 
-    const response = {
-      paginationMeta: {
-        currentPage: Number(page) || 1,
-        recipesCount: recipesMeta.count,
-        pageCount: Math.ceil(recipesMeta.count / (perPage || 2))
-      },
-      recipes: recipesMeta.rows
-    };
-
-    return res.sendSuccessResponse({ recipes: response }, 200);
+    return res.sendSuccessResponse({ recipes: getMetaData(recipesMeta) }, 200);
   }
 
   /**

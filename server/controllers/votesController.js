@@ -14,7 +14,6 @@ export default class VotesController {
    * @memberof VotesController
    */
   async getVoters(req, res) {
-
     const recipe = await models.Recipe.findById(req.params.id);
 
     if (!recipe) {

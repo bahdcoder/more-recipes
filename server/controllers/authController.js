@@ -23,7 +23,7 @@ export default class AuthController {
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, 10)
     });
-    const queue = kue.createQueue({ redis: redisConfig[process.env.NODE_ENV] });
+    const queue = kue.createQueue(process.env.NODE_ENV === 'production' ? redisConfig.production : { redis: redisConfig[process.env.NODE_ENV] });
 
     //  Register a new mails job to the queue
     queue.create('mails', {

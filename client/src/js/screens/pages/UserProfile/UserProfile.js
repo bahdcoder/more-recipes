@@ -110,6 +110,7 @@ export default class UserProfile extends Component {
                     col={3}
                     row={3}
                     value={this.state.about}
+                    placeholder="Tell us about yourself ..."
                     onChange={(event) => { this.setState({ about: event.target.value }); }}
           ></textarea>
         );
@@ -145,7 +146,6 @@ export default class UserProfile extends Component {
           {/* User stats */}
           <p className="text-center my-4">
             <span className="mr-3 h2 header-color"> {user.recipes.length} </span> <span className="h6 mr-3"><Link to={`/user/${user.id}/recipes`} className="color-darker">RECIPES</Link></span>
-            <span className="mr-3 h2 header-color"> 531 </span> <span className="h6">REVIEWS</span>
           </p>
           {/* End user stats */}
           {/* User bio */}

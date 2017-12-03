@@ -86,7 +86,8 @@ export default class UsersController {
   async updateProfile(req, res) {
     const user = await req.authUserObj.update(req.body);
 
-    return res.sendSuccessResponse({ user });
+    const updatedUser = await updateUserAttributes(user, models);
+    return res.sendSuccessResponse({ user: updatedUser });
   }
   /**
    * Get all the recipes for a user

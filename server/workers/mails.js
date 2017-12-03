@@ -7,7 +7,7 @@ const nodeMailer = require('nodemailer');
 const config = require('./../config');
 const redisConfig = require('./../config/redis');
 
-const queue = kue.createQueue({ redis: redisConfig[process.env.NODE_ENV] });
+const queue = kue.createQueue({ redis: redisConfig[process.env.NODE_ENV || 'production'] });
 winston.info('The queue was created successfully. listening to jobs.');
 
 const transporter = nodeMailer.createTransport({

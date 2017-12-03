@@ -71,10 +71,7 @@ export default class UserProfile extends Component {
 
   async componentWillMount() {
     try {
-      const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);
-      if (userIndex === -1) {
-        const response = await this.props.findUser(this.props.params.id);
-      }
+      const response = await this.props.findUser(this.props.params.id);
     } catch (error) {
       console.log(error);
     }

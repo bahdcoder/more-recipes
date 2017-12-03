@@ -14,6 +14,7 @@ import SingleRecipeLoader from './../../components/SingleRecipeLoader';
 
 import meal1 from './../../../../assets/img/meal-3.jpg';
 import meal2 from './../../../../assets/img/meal-2.jpg';
+import RecipeCardLoader from './../../components/RecipeCardLoader';
 
 export default class SingleRecipe extends Component {
 
@@ -24,7 +25,9 @@ export default class SingleRecipe extends Component {
       recipe: null,
       reviews: [],
       loading: true,
-      canActOnRecipe: true
+      canActOnRecipe: true,
+      topChefs: null,
+      similarRecipes: null
     };
 
     this.toggleUpvote = this.toggleUpvote.bind(this);
@@ -61,6 +64,13 @@ export default class SingleRecipe extends Component {
        this.checkIfCanActOnRecipe(recipe);
 
         await this.props.updateRecipesInStore(recipe);
+        const searchResponse = await axios.get(`${config.apiUrl}/recipes?query=${recipe.title}`);
+        let { recipes } = searchResponse.data.data.recipes;
+        recipes = recipes.filter(r => r.id !== recipe.id);
+        console.log(recipes);
+        this.setState({
+          similarRecipes: recipes
+        });
       } catch (error) {
         if (error.status === 404) {
           // if the recipe is not found from ajax request, redirect user to 404 page.
@@ -75,6 +85,23 @@ export default class SingleRecipe extends Component {
       this.checkIfCanActOnRecipe(recipe);
     }
   }
+
+  async componentDidMount() {
+    window.scroll(0, 0);
+    try {
+      const response = await axios.get(`${config.apiUrl}/recipes?sort=mostFavorited&perPage=4`);
+      const { recipes } = response.data.data.recipes;
+      const topChefs = recipes.map((recipe) => {
+        return recipe.User;
+      });
+      this.setState({
+        topChefs
+      });
+    } catch (errors) {
+
+    }
+  }
+  
 
   checkIfCanActOnRecipe(recipe) {
     if (this.props.checkAuth()) {
@@ -117,6 +144,19 @@ export default class SingleRecipe extends Component {
     let recipeCard;
     let recipe;
 
+    let singleRecipeCardClasses = "";
+    let sideBarClasses = "";
+    if(this.state.topChefs && 
+      this.state.topChefs.length > 0 &&
+      this.state.similarRecipes &&
+      this.state.similarRecipes.length > 0) {
+        singleRecipeCardClasses = "col-lg-8 col-xs-12 col-sm-12";
+        sideBarClasses = "col-lg-4 col-xs-12 col-sm-12";
+      } else {
+        singleRecipeCardClasses = "col-lg-8 offset-lg-2";
+        sideBarClasses = "";
+      }
+
     const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
 
     if (indexOfRecipe === -1) {
@@ -155,6 +195,7 @@ export default class SingleRecipe extends Component {
       let indexOfFavoriter;
       let indexOfUpvoter;
       let indexOfDownvoter;
+      
 
       if (this.props.checkAuth()) {
         indexOfFavoriter = recipe.favoritersIds.findIndex(userId => userId === this.props.authUser.user.id)
@@ -239,45 +280,64 @@ export default class SingleRecipe extends Component {
       );
     }
 
+    let similarRecipes;
+    if(this.state.similarRecipes !== null && this.state.similarRecipes.length > 0) {
+      similarRecipes = this.state.similarRecipes.map(recipe => {
+        return (
+          <div>
+            <h3 className="text-center my-3">Similar recipes</h3>
+            <div className="card mb-3" key={recipe.id}>
+              <div className="img-zoom">
+                <img className="card-img-top" style={{height: 200}} src={recipe.imageUrl} />                
+              </div>
+              <div className="card-body">
+                <h6 className="card-title text-center">
+                  <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
+                </h6>
+              </div>
+            </div>
+          </div>
+        );
+      });
+    }
+
+    let topChefs;
+    let topChefsList;
+
+    if(this.state.topChefs !== null) {
+      topChefs = this.state.topChefs.map(chef => {
+        return (
+          <li className="list-group-item" key={chef.id}>
+            <span className="card-title">{chef.name}</span>
+          </li>
+        );
+      });
+
+      if (topChefs.length > 0) {
+        topChefsList = (
+          <div>
+            <h3 className="text-center my-5">Top notch chefs</h3>
+            <ul className="list-group">
+              {topChefs}
+            </ul>
+          </div>
+        );
+      }
+    }
+
     return (
       <div>
         <NavBar {...this.props}/>
         <div className="container my-5">
-          <div className="row">
-            <div className="col-lg-8 col-xs-12 col-sm-12">
+          <div className="row justify-content-center">
+            <div className={singleRecipeCardClasses}>
               {/* Begin card details */}
               {recipeCard}
               {/* End of card details  */}<br/><br/><br/><br/>
             </div>
-            <div className="col-lg-4 col-xs-12">
-              <h3 className="text-center my-5">Similar recipes</h3>
-              <div className="card mb-3">
-                <div className="img-zoom">
-                  <img className="card-img-top" style={{height: 200}} src={meal1} alt="Card image cap" />                
-                </div>
-                <div className="card-body">
-                  <h6 className="card-title text-center">
-                    <a href="single-recipe.html">Italian Pepperonni with mushroom coverings</a>
-                  </h6>
-                </div>
-              </div>
-              <div className="card mb-3">
-                <div className="img-zoom">
-                  <img className="card-img-top" style={{height: 200}} src={meal2} alt="Card image cap" />                
-                </div>
-                <div className="card-body">
-                  <h6 className="card-title text-center">
-                    <a href="single-recipe.html">Pressurized African Cassava Golden Grains</a>
-                  </h6>
-                </div>
-              </div>
-              <h3 className="text-center my-5">Top notch chefs</h3>
-              <ul className="list-group">
-                <li className="list-group-item"><span className="card-title">Kati Frantz</span></li>
-                <li className="list-group-item"><span className="card-title">Irene Myers</span></li>
-                <li className="list-group-item"><span className="card-title">Doctor Strange</span></li>
-                <li className="list-group-item"><span className="card-title">Nadine Almendi F.</span></li>
-              </ul>
+            <div className={sideBarClasses}>
+              {similarRecipes}
+              {topChefsList}
             </div>
           </div>
         </div>

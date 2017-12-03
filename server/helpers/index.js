@@ -70,3 +70,15 @@ export async function updateRecipeAttributes(sequelizeRecipe) {
 
   return recipe;
 }
+
+export async function updateUserAttributes(user) {
+  const recipes = await models.Recipe.findAll({
+    where: {
+      userId: user.id
+    }
+  });
+
+  user.recipes = recipes;
+
+  return user;
+}

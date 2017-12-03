@@ -1,6 +1,6 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
-import { updateRecipeAttributes } from '../helpers';
+import { updateRecipeAttributes, updateUserAttributes } from '../helpers';
 /**
  * Controller for all `users` endpoints
  * @export
@@ -72,8 +72,8 @@ export default class UsersController {
     if (!user) {
       return res.sendFailureResponse({ message: 'User not found.' }, 404);
     }
-
-    return res.sendSuccessResponse({ user });
+    const updatedUser = await updateUserAttributes(user);
+    return res.sendSuccessResponse({ user: updatedUser });
   }
   /**
    * Update authenticated user profile

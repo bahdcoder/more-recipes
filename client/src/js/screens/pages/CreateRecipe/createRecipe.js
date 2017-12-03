@@ -201,6 +201,12 @@ export default class CreateRecipe extends React.Component {
     }
   }
 
+  
+  componentDidMount() {
+    window.scroll(0, 0);
+  }
+  
+
   /**
    * Execute before component is mounted
    * 

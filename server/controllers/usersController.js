@@ -51,12 +51,12 @@ export default class UsersController {
       }
     });
 
-    favorites.map(async (favorite) => {
+    const updatedFavorites = favorites.map(async (favorite) => {
       const updatedRecipe = await updateRecipeAttributes(favorite);
       return updatedRecipe;
     });
 
-    return res.sendSuccessResponse({ favorites });
+    return res.sendSuccessResponse({ favorites: updatedFavorites });
   }
   /**
    * Find a user with user Id

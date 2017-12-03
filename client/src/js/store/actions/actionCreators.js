@@ -535,8 +535,9 @@ export function updateUserProfile(userData, index) {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.put(`${apiUrl}/users/update`, userData);
-
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      const currentUser = JSON.parse(localStorage.getItem('authUser'));
+      currentUser.user = response.data.data;
+      localStorage.setItem('authUser', JSON.stringify(currentUser));
 
       dispatch({
         type: 'USER_UPDATED',

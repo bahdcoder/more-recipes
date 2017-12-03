@@ -46,7 +46,7 @@ describe('/recipes', () => {
 
   describe('/recipes GET endpoint', () => {
 
-    it.only('Should return a list of recipes when called', (done) => {
+    it('Should return a list of recipes when called', (done) => {
       chai.request(application)
         .get('/api/v1/recipes')
         .end((error, response) => {

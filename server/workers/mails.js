@@ -1,3 +1,4 @@
+require('dotenv').config();
 const kue = require('kue');
 const path = require('path');
 const winston = require('winston');
@@ -7,7 +8,15 @@ const nodeMailer = require('nodemailer');
 const config = require('./../config');
 const redisConfig = require('./../config/redis');
 
-const queue = kue.createQueue({ redis: redisConfig[process.env.NODE_ENV || 'production'] });
+let queueConfig;
+
+if (process.env.NODE_ENV === 'production') {
+  queueConfig = { ...redisConfig.production };
+} else {
+  queueConfig = null;
+}
+
+const queue = kue.createQueue(queueConfig);
 winston.info('The queue was created successfully. listening to jobs.');
 
 const transporter = nodeMailer.createTransport({

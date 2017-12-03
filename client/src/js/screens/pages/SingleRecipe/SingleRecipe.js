@@ -94,8 +94,14 @@ export default class SingleRecipe extends Component {
       const topChefs = recipes.map((recipe) => {
         return recipe.User;
       });
+      const uniqueChefs = [];
+      topChefs.forEach(chef => {
+        if(uniqueChefs.findIndex(c => c.id === chef.id) === -1) {
+          uniqueChefs.push(chef);
+        }
+      });
       this.setState({
-        topChefs
+        topChefs: uniqueChefs
       });
     } catch (errors) {
 
@@ -144,18 +150,6 @@ export default class SingleRecipe extends Component {
     let recipeCard;
     let recipe;
 
-    let singleRecipeCardClasses = "";
-    let sideBarClasses = "";
-    if(this.state.topChefs && 
-      this.state.topChefs.length > 0 &&
-      this.state.similarRecipes &&
-      this.state.similarRecipes.length > 0) {
-        singleRecipeCardClasses = "col-lg-8 col-xs-12 col-sm-12";
-        sideBarClasses = "col-lg-4 col-xs-12 col-sm-12";
-      } else {
-        singleRecipeCardClasses = "col-lg-8 offset-lg-2";
-        sideBarClasses = "";
-      }
 
     const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
 
@@ -291,9 +285,7 @@ export default class SingleRecipe extends Component {
                 <img className="card-img-top" style={{height: 200}} src={recipe.imageUrl} />                
               </div>
               <div className="card-body">
-                <h6 className="card-title text-center">
-                  <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
-                </h6>
+                <Link className="card-title text-center" to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
               </div>
             </div>
           </div>
@@ -329,13 +321,13 @@ export default class SingleRecipe extends Component {
       <div>
         <NavBar {...this.props}/>
         <div className="container my-5">
-          <div className="row justify-content-center">
-            <div className={singleRecipeCardClasses}>
+          <div className="row">
+            <div className="col-lg-8 col-xs-12 col-sm-12">
               {/* Begin card details */}
               {recipeCard}
               {/* End of card details  */}<br/><br/><br/><br/>
             </div>
-            <div className={sideBarClasses}>
+            <div className="col-lg-4 col-sm-12">
               {similarRecipes}
               {topChefsList}
             </div>

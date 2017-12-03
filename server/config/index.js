@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'test') {
 /**
  * Application wide configurations
  */
-export default {
+module.exports = {
   JWT_SECRET: jwtSecret,
   MAILER: {
     SERVICE: process.env.MAILER_SERVICE,

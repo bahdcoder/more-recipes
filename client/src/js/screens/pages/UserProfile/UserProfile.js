@@ -56,25 +56,9 @@ export default class UserProfile extends Component {
     });
   }
 
-  async componentWillReceiveProps(nextProps) {
-    try {
-      const userIndex = this.props.users.findIndex(user => user.id === nextProps.params.id);
-      if (userIndex === -1) {
-        const response = await this.props.findUser(this.props.params.id);
-      } else {
-        this.forceUpdate();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async componentWillMount() {
     try {
-      const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);
-      if (userIndex === -1) {
-        const response = await this.props.findUser(this.props.params.id);
-      }
+      const response = await this.props.findUser(this.props.params.id);
     } catch (error) {
       console.log(error);
     }
@@ -113,6 +97,7 @@ export default class UserProfile extends Component {
                     col={3}
                     row={3}
                     value={this.state.about}
+                    placeholder="Tell us about yourself ..."
                     onChange={(event) => { this.setState({ about: event.target.value }); }}
           ></textarea>
         );
@@ -147,8 +132,7 @@ export default class UserProfile extends Component {
           {/* End user name */}
           {/* User stats */}
           <p className="text-center my-4">
-            <span className="mr-3 h2 header-color"> 531,233 </span> <span className="h6 mr-3"><a href="/user-recipes.html" className="color-darker">RECIPES</a></span>
-            <span className="mr-3 h2 header-color"> 531 </span> <span className="h6">REVIEWS</span>
+            <span className="mr-3 h2 header-color"> {user.recipes.length} </span> <span className="h6 mr-3"><Link to={`/user/${user.id}/recipes`} className="color-darker">RECIPES</Link></span>
           </p>
           {/* End user stats */}
           {/* User bio */}

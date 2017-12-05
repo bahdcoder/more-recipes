@@ -15,5 +15,6 @@ module.exports = {
     SERVICE: process.env.MAILER_SERVICE,
     USER: process.env.MAILER_USER,
     PASS: process.env.MAILER_PASS
-  }
+  },
+  VALID_USER_SETTINGS: ['reviewEmails', 'favoriteModifiedEmail']
 };

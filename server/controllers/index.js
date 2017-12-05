@@ -4,6 +4,7 @@ import VotesController from './votesController';
 import AuthController from './authController';
 import UsersController from './usersController';
 import FrontEndController from './frontEndController';
+import SettingsController from './settingsController';
 
 export default {
   RecipesController,
@@ -11,5 +12,6 @@ export default {
   VotesController,
   UsersController,
   AuthController,
-  FrontEndController
+  FrontEndController,
+  SettingsController
 };

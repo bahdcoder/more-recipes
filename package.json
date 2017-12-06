@@ -16,7 +16,8 @@
     "build:client": "node server/scripts/removeDeploymentDir.js && cross-env NODE_ENV=production webpack -p",
     "dev:client": "webpack-dev-server --hot --inline --history-api-fallback",
     "heroku-postbuild": "npm run build:client && npm run build",
-    "start:worker:mails": "cross-env NODE_ENV=production node server/workers/mails.js"
+    "start:worker:mails": "cross-env NODE_ENV=production node server/workers/mails.js",
+    "start:worker:mails:dev": "cross-env NODE_ENV=development node server/workers/mails.js"
   },
   "repository": {
     "type": "git",

@@ -20,7 +20,8 @@ const queue = kue.createQueue(queueConfig);
 winston.info('The queue was created successfully. listening to jobs.');
 
 const transporter = nodeMailer.createTransport({
-  service: config.MAILER.SERVICE,
+  host: config.MAILER.HOST,
+  port: config.MAILER.PORT,
   auth: {
     user: config.MAILER.USER, // generated ethereal user
     pass: config.MAILER.PASS // generated ethereal password
@@ -61,6 +62,23 @@ const sendEmail = async (recipient, message, template) => {
   }
 };
 
+const sendBatchEmails = async ({
+  users,
+  template,
+  message,
+  recipe
+}) => {
+  users.forEach(async (user) => {
+    const locals = { name: user.name, recipeTitle: recipe.title };
+    try {
+      await sendEmail(user, { ...template, locals }, message);
+    } catch (error) {
+      winston.info(`The email sending process to ${user.name} was not successfull`);
+      winston.info(error);
+    }
+  });
+};
+
 queue.process('mails', async (job, done) => {
   try {
     const email = job.data;
@@ -75,3 +93,15 @@ queue.process('mails', async (job, done) => {
   }
 });
 
+queue.process('batchMails', async (job, done) => {
+  try {
+    winston.info('The batch emails are about to be sent out to all favoriters ...');
+    await sendBatchEmails(job.data);
+    winston.info('The batch email sending was successful.');
+    done();
+  } catch (errors) {
+    winston.info('The email sending was a failure.');
+    winston.info(errors);
+    done();
+  }
+});

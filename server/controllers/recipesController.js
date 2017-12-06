@@ -1,4 +1,8 @@
+import kue from 'kue';
+
 import models from '../database/models';
+import redisConfig from '../config/redis';
+import client from './../helpers/redis-client';
 import filterMostUpvotedRecipes from './../filters/mostUpvoted';
 import filterMostFavoritedRecipes from './../filters/mostFavorited';
 
@@ -137,6 +141,36 @@ export default class RecipesController {
         attributes: { exclude: ['password'] }
       }
     });
+    // get the ids of all favoriters for this email
+    const favoritersIds = await client.smembers(`recipe:${recipe.id}:favoriters`);
+    // with this array, findAll users from database.
+    const favoriters = await models.User.findAll({
+      where: {
+        id: {
+          [models.Sequelize.Op.in]: favoritersIds
+        }
+      }
+    });
+    // filter out the users whose email settings for favorite updates are turned off
+    const favoritersToNotify = favoriters.filter((user) => {
+      const settings = JSON.parse(user.settings);
+      return Number(settings.favoriteModifiedEmail) === 1;
+    });
+    // queue a batch email sending campaign
+    const queue = kue.createQueue(process.env.NODE_ENV === 'production' ? redisConfig.production : {});
+
+    //  Register a new mails job to the queue
+    queue.create('batchMails', {
+      users: favoritersToNotify,
+      message: {
+        subject: 'Favorite recipe updated'
+      },
+      template: {
+        pug: 'welcome'
+      },
+      recipe
+    }).events(false).save();
+    // make sure queue is queueuing into batchMails, and sends message, users and template objects
 
     return res.sendSuccessResponse(updatedRecipe, 200);
   }

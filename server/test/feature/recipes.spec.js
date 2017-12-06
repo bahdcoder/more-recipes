@@ -7,6 +7,7 @@ import chai, { expect } from 'chai';
 import config from '../../config';
 import application from '../../index';
 import db from '../../database/models/index';
+import client from '../../helpers/redis-client';
 
 chai.use(chaiHttp);
 const globalMock = {};
@@ -16,6 +17,16 @@ describe('/recipes', () => {
 
     await db.User.destroy({ where: {}, truncate: true });
     await db.Recipe.destroy({ where: {}, truncate: true });
+    await client.flushall();
+
+    globalMock.recipeStub = {
+      title: 'Vegetable Salad',
+      description: 'this stuff is not nice, really. am just building my api.',
+      imageUrl: 'https://i.imgur.com/av7fjeA.jpg',
+      timeToCook: 205,
+      ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces"]),
+      procedure: JSON.stringify(["Wash all the vegetables with enough water and salt."])
+    };
 
     globalMock.user1 = await db.User.create({
       name: 'kati frantz',
@@ -33,33 +44,92 @@ describe('/recipes', () => {
     globalMock.user2.authToken = jwt.sign({ email: globalMock.user2.email }, config.JWT_SECRET);
 
     globalMock.recipe1 = await db.Recipe.create({
-      title: 'Vegetable Salad',
-      description: 'this stuff is not nice, really. am just building my api.',
-      imageUrl: 'https://i.imgur.com/av7fjeA.jpg',
-      timeToCook: 205,
-      ingredients: JSON.stringify(["2 pieces Carrots","Handful Lettuces"]),
-      procedure: JSON.stringify(["Wash all the vegetables with enough water and salt."]),
+      ...globalMock.recipeStub,
       userId: globalMock.user1.id
     });
 
   });
 
   describe('/recipes GET endpoint', () => {
+    beforeEach(async () => {
 
-    it('Should return a list of recipes when called', (done) => {
+      globalMock.user3 = await db.User.create({
+        name: 'Mama miya',
+        email: 'mama@miya.com',
+        password: await bcrypt.hash('secret', 10)
+      });
+  
+      globalMock.user1.authToken = jwt.sign({ email: globalMock.user1.email }, config.JWT_SECRET);
+
+      globalMock.recipe2 = await db.Recipe.create({
+        ...globalMock.recipeStub,
+        userId: globalMock.user1.id
+      });
+
+      globalMock.recipe3 = await db.Recipe.create({
+        ...globalMock.recipeStub,
+        userId: globalMock.user2.id
+      });
+
+      globalMock.recipe4 = await db.Recipe.create({
+        ...globalMock.recipeStub,
+        userId: globalMock.user2.id
+      });
+      // add user 1 to the list of favorites of recipe 2
+      await client.sadd(`recipe:${globalMock.recipe2.id}:favorites`, globalMock.user1.id);
+      await client.sadd(`recipe:${globalMock.recipe2.id}:favorites`, globalMock.user3.id);  
+      // upvote the second recipe
+      await client.sadd(`recipe:${globalMock.recipe2.id}:upvotes`, globalMock.user2.id);
+      await client.sadd(`recipe:${globalMock.recipe2.id}:upvotes`, globalMock.user3.id);   
+      await client.sadd(`recipe:${globalMock.recipe1.id}:upvotes`, globalMock.user2.id);          
+      
+      // add user 2 to the list of favorites of recipe 1   
+      await client.sadd(`recipe:${globalMock.recipe1.id}:favorites`, globalMock.user1.id);
+      
+    });
+    it('Should return a paginated list of recipes when called', (done) => {
       chai.request(application)
-        .get('/api/v1/recipes')
+        .get('/api/v1/recipes?perPage=5')
         .end((error, response) => {
           expect(response).to.have.status(200);
           const res = response.body;
-          const { recipes } = res.data.recipes;
+          const { recipes, paginationMeta } = res.data.recipes;
 
           expect(Array.isArray(recipes)).to.be.true;
           expect(recipes[0].id).to.equal(globalMock.recipe1.id);
           expect(recipes[0].title).to.equal(globalMock.recipe1.title);
           expect(recipes[0].User.name).to.equal(globalMock.user1.name);      
+          expect(paginationMeta.currentPage).to.equal(1);
+          expect(paginationMeta.recipesCount).to.equal(4);
+          expect(paginationMeta.pageCount).to.equal(1);
           done();
         });
+    });
+
+    it('Should sort recipes by mostFavorited', async () => {
+      const response = await chai.request(application).get('/api/v1/recipes?perPage=5&sort=mostFavorited');
+      const { recipes, paginationMeta } = response.body.data.recipes;
+
+      expect(paginationMeta.currentPage).to.equal(1);
+      // only recipes that have been counted actually show up
+      expect(paginationMeta.recipesCount).to.equal(2);
+      expect(paginationMeta.pageCount).to.equal(1);
+      expect(recipes.length).to.equal(2);
+
+      expect(recipes[0].id).to.equal(globalMock.recipe2.id);
+      expect(recipes[1].id).to.equal(globalMock.recipe1.id);      
+    });
+
+    it('Should sort recipes by mostUpvoted', async () => {
+      const response = await chai.request(application).get('/api/v1/recipes?perPage=5&sort=mostUpvoted');
+      const { recipes, paginationMeta } = response.body.data.recipes;
+
+      expect(paginationMeta.recipesCount).to.equal(2);
+      expect(paginationMeta.pageCount).to.equal(1);
+      expect(recipes.length).to.equal(2);
+      
+      expect(recipes[0].id).to.equal(globalMock.recipe2.id);
+      expect(recipes[1].id).to.equal(globalMock.recipe1.id);      
     });
 
   });

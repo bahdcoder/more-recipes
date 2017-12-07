@@ -8,6 +8,7 @@ import config from '../../config';
 import application from '../../index';
 import db from '../../database/models/index';
 import client from '../../helpers/redis-client';
+import { BADQUERY } from 'dns';
 
 chai.use(chaiHttp);
 const globalMock = {};
@@ -349,6 +350,39 @@ describe('/recipes', () => {
           expect(response.body.data.message).to.equal('Recipe not found.');
           done();
         });
+    });
+  });
+
+  describe('/recipes/:id/views POST endpoint', () => {
+    it('can add the views of a specific recipe', async () => {
+      const response = await chai.request(application).post(`/api/v1/recipes/${globalMock.recipe1.id}/views`)
+        .set({ 'x-access-token': globalMock.user2.authToken });
+      
+      expect(response).to.have.status(200);
+      const { viewers } = response.body.data;
+
+      expect(viewers.length).to.equal(1);
+      expect(viewers).to.include(globalMock.user2.id);
+    });
+    it('can permit only authenticated views', async () => {
+      try {
+        await chai.request(application).post(`/api/v1/recipes/${globalMock.recipe1.id}/views`); 
+        expect.fail();     
+      } catch (errors){
+        if (errors.name === 'expect.fail()') { throw errors };
+        expect(errors).to.have.status(401);
+       }
+    });
+    it('cannot allow creator of recipe to view', async () => {
+      try {
+        await chai.request(application).post(`/api/v1/recipes/${globalMock.recipe1.id}/views`)
+            .set({ 'x-access-token': globalMock.user1.authToken }); 
+        expect.fail();     
+      } catch (error){
+        if (error.message === 'expect.fail()') { throw error; };
+
+        expect(error).to.have.status(401);
+       }
     });
   });
 });

@@ -68,6 +68,9 @@ export async function updateRecipeAttributes(sequelizeRecipe) {
   const favoritersIds = await redisClient.smembers(`recipe:${recipe.id}:favorites`);
   recipe.favoritersIds = favoritersIds;
 
+  const viewers = await redisClient.smembers(`recipe:${recipe.id}:viewers`);
+  recipe.viewers = viewers;
+
   return recipe;
 }
 

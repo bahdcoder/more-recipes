@@ -9,6 +9,7 @@ import config from './../../../config';
 import Reviews from './components/Reviews';
 import NavBar from './../../components/Navbar';
 import Footer from './../../components/Footer';
+import UsersModal from './components/UsersModal';
 import RecipeActions from './../../components/RecipeActions';
 import SingleRecipeLoader from './../../components/SingleRecipeLoader';
 
@@ -27,13 +28,28 @@ export default class SingleRecipe extends Component {
       loading: true,
       canActOnRecipe: true,
       topChefs: null,
-      similarRecipes: null
+      similarRecipes: null,
+      usersModal: {
+        title: 'Recipe upvoters',
+        users: null,
+        loading: true
+      }
     };
-
+    this.getBulkUsers = this.getBulkUsers.bind(this);
     this.toggleUpvote = this.toggleUpvote.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.toggleDownvote = this.toggleDownvote.bind(this);
     this.checkIfCanActOnRecipe = this.checkIfCanActOnRecipe.bind(this);    
+  }
+
+  async getBulkUsers(action) {
+    const newState = {
+      title: `Recipe ${action}`,
+      users: null,
+      loading: true
+    };
+
+    this.setState({ usersModal: newState });
   }
 
   async toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter) {
@@ -67,7 +83,7 @@ export default class SingleRecipe extends Component {
         const searchResponse = await axios.get(`${config.apiUrl}/recipes?query=${recipe.title}`);
         let { recipes } = searchResponse.data.data.recipes;
         recipes = recipes.filter(r => r.id !== recipe.id);
-        console.log(recipes);
+
         this.setState({
           similarRecipes: recipes
         });
@@ -236,18 +252,22 @@ export default class SingleRecipe extends Component {
                 <i className={ hasUpvoted ? "ion ion-happy ion-recipe-action" : "ion ion-recipe-action ion-happy-outline" }
                    onClick={(event) => { this.toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
-                <span className="ml-3">{numeral(recipe.upvotersIds.length).format('0a')}</span>
+                <span className="ml-3" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('upvoters')}>{numeral(recipe.upvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
                 <i className={ hasDownvoted ? "ion ion-sad ion-recipe-action" : "ion ion-recipe-action ion-sad-outline" }
                    onClick={() => { this.toggleDownvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
-                <span className="ml-3">{numeral(recipe.downvotersIds.length).format('0a')}</span>
+                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} onClick={() => this.getBulkUsers('downvoters')} data-toggle="modal" data-target="#exampleModal">{numeral(recipe.downvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
                 <i className={ hasFavorited ? "ion ion-ios-heart ion-recipe-action" : "ion ion-recipe-action ion-ios-heart-outline" }
                    onClick={() => { this.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter); }}> </i> 
-                <span className="ml-3">{numeral(recipe.favoritersIds.length).format('0a')} </span>
+                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('favoriters')}>{numeral(recipe.favoritersIds.length).format('0a')} </span>
+              </span>
+              <span className="mr-3 h1">
+                <i className="ion ion-eye"> </i> 
+                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('viewers')}>{numeral(recipe.viewers.length).format('0a')} </span>
               </span>
             </p>
             <hr />
@@ -334,8 +354,8 @@ export default class SingleRecipe extends Component {
           </div>
         </div>
         <Footer />
+        <UsersModal {...this.state.usersModal}/>
       </div>
-
     );
   }
 }

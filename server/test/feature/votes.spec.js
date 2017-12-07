@@ -79,6 +79,22 @@ describe('/votes', () => {
           done();
       });
     });
+    it('Should toggle off upvote for a recipe', async () => {
+      // upvote the recipe for the user
+      await chai.request(application).post(`/api/v1/recipes/${globalMock.recipe1.id}/upvote`)
+      .set('x-access-token', globalMock.user2.authToken);
+
+      const upvotersAfterUpvote = await client.smembers(`recipe:${globalMock.recipe1.id}:upvotes`);
+      expect(upvotersAfterUpvote).to.include(globalMock.user2.id);
+      expect(upvotersAfterUpvote.length).to.equal(1);      
+
+      await chai.request(application).post(`/api/v1/recipes/${globalMock.recipe1.id}/upvote`)
+      .set('x-access-token', globalMock.user2.authToken);
+
+      const upvoters = await client.smembers(`recipe:${globalMock.recipe1.id}:upvotes`);
+
+      expect(upvoters.length).to.equal(0);
+    });
   });
 
   describe('/downvote', () => {
@@ -104,6 +120,22 @@ describe('/votes', () => {
 
           done();
       });
+    });
+    it('Should toggle off downvote for a recipe', async () => {
+      // upvote the recipe for the user
+      await chai.request(application).post(`/api/v1/recipes/${globalMock.recipe1.id}/downvote`)
+      .set('x-access-token', globalMock.user2.authToken);
+
+      const upvotersAfterUpvote = await client.smembers(`recipe:${globalMock.recipe1.id}:downvotes`);
+      expect(upvotersAfterUpvote).to.include(globalMock.user2.id);
+      expect(upvotersAfterUpvote.length).to.equal(1);      
+
+      await chai.request(application).post(`/api/v1/recipes/${globalMock.recipe1.id}/downvote`)
+      .set('x-access-token', globalMock.user2.authToken);
+
+      const upvoters = await client.smembers(`recipe:${globalMock.recipe1.id}:downvotes`);
+
+      expect(upvoters.length).to.equal(0);
     });
   });
 

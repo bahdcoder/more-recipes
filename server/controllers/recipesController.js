@@ -175,6 +175,23 @@ export default class RecipesController {
     return res.sendSuccessResponse(updatedRecipe, 200);
   }
 
+  /**
+   * Add a viewer to a recipe
+   * @param {*} req express req object
+   * @param {*} res express res object
+   * @returns {json} json with recipe views
+   */
+  async view(req, res) {
+    const { authUser, currentRecipe } = req;
+
+    if (authUser.id === currentRecipe.userId) {
+      return res.sendFailureResponse({ message: 'Unauthorized' }, 401);
+    }
+    await client.sadd(`recipe:${req.currentRecipe.id}/viewers`, authUser.id);
+    const viewers = await client.smembers(`recipe:${req.currentRecipe.id}/viewers`);
+    return res.sendSuccessResponse({ viewers });
+  }
+
 
   /**
    * Delete a recipe from the database

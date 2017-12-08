@@ -132,7 +132,7 @@ export default class UserProfile extends Component {
           {/* End user name */}
           {/* User stats */}
           <p className="text-center my-4">
-            <span className="mr-3 h2 header-color"> {user.recipes.length} </span> <span className="h6 mr-3"><Link to={`/user/${user.id}/recipes`} className="color-darker">RECIPES</Link></span>
+            <span className="mr-3 h2 header-color"> {user.recipes.length} </span> <span className="h6 mr-3"><Link to={`/user/${user.id}/recipes`} style={{ textDecoration: 'none' }} className="color-darker">RECIPES</Link></span>
           </p>
           {/* End user stats */}
           {/* User bio */}

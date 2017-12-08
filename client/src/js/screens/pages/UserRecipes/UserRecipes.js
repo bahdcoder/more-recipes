@@ -98,6 +98,8 @@ export default class UserRecipes extends Component {
               </div>
             </div>
           </div>
+          <br/>
+          <br/>
           <Footer {...this.props} />
       </div>
     );

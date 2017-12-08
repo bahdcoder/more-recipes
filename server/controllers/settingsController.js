@@ -1,4 +1,4 @@
-import config from './../config';
+import { updateUserSettings } from './../helpers';
 /**
  * Manage user settings
  */
@@ -10,21 +10,7 @@ export default class SettingsController {
    * @returns {json} json response to user with new settings
    */
   async updateUserSettings(req, res) {
-    const user = req.authUserObj;
-
-    const currentSettings = JSON.parse(user.settings);
-    const newSettings = currentSettings;
-
-    const requestData = req.body;
-
-    Object.entries(requestData).forEach(([key, value]) => {
-      if (config.VALID_USER_SETTINGS.indexOf(key) !== -1) {
-        newSettings[key] = value;
-      }
-    });
-
-    user.settings = JSON.stringify(newSettings);
-    await user.save();
+    const newSettings = await updateUserSettings(req.authUserObj, req.body);
     return res.sendSuccessResponse({ settings: newSettings });
   }
 }

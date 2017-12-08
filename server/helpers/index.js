@@ -1,4 +1,5 @@
 /* eslint-disable */
+import config from './../config';
 import redisClient from './redis-client';
 
 /**
@@ -85,4 +86,20 @@ export async function updateUserAttributes(user, models) {
   user.recipes = recipes;
 
   return user;
+}
+
+export async function updateUserSettings(user, requestData) {
+  const newSettings = JSON.parse(user.settings);
+
+  Object.entries(requestData).forEach(([key, value]) => {
+    if (config.VALID_USER_SETTINGS.indexOf(key) !== -1) {
+      newSettings[key] = value;
+    }
+  });
+
+  console.log(newSettings);
+
+  user.settings = JSON.stringify(newSettings);
+  await user.save();
+  return newSettings;
 }

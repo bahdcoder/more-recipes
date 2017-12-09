@@ -73,6 +73,7 @@ export function getHomePageData() {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.get(`${apiUrl}/frontend/home`);
+      console.log(response);
 
       response.data.data.latestRecipes.forEach((recipe) => {
         if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
@@ -93,6 +94,7 @@ export function getHomePageData() {
       });
       return Promise.resolve();
     } catch (error) {
+      console.log(error);
       return Promise.reject();
     }
   };

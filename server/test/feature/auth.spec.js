@@ -1,4 +1,6 @@
 /* eslint-disable */
+import kue from 'kue';
+import sinon from 'sinon';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import chaiHttp from 'chai-http';
@@ -48,6 +50,27 @@ describe('/users', () => {
           'The password is required.'
         ]);
         done();
+      });
+    });
+    context('User registration email sending', () => {
+      beforeEach(() => {
+        // fake the job create function, and replace it with sinon
+        const queue = kue.createQueue();    
+        globalMock.jobStub = sinon.spy(queue, 'create');
+      });
+      afterEach(() => {
+        globalMock.jobStub.restore();
+      });
+      it.skip('Should dispatch a queue job to send email after registration', async () => {
+        // when this function is called during tests, just assert that the data in it is the expected
+        const response = chai.request(application).post('/api/v1/users/signup')
+          .send({
+            name: 'brand new user',
+            email: 'brand-new@user.com',
+            password: 'secret'
+          });
+        
+        expect(globalMock.jobStub.called).to.be.true;
       });
     });
   });

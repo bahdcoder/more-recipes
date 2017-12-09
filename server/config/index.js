@@ -14,6 +14,9 @@ module.exports = {
   MAILER: {
     SERVICE: process.env.MAILER_SERVICE,
     USER: process.env.MAILER_USER,
-    PASS: process.env.MAILER_PASS
-  }
+    PASS: process.env.MAILER_PASS,
+    HOST: process.env.MAILER_HOST,
+    PORT: process.env.MAILER_PORT
+  },
+  VALID_USER_SETTINGS: ['reviewEmails', 'favoriteModifiedEmail']
 };

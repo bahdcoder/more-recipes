@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import { isValidEmail } from '../../../helpers';
 
 import logo from './../../../../assets/img/logo.png';
@@ -110,7 +111,7 @@ export default class Login extends Component {
                                               onClick={(event) => { this.handleSignIn(); }} 
                                               type="button"
                                               disabled={!this.dataIsValid()}>Login</button>   
-                                      <span className="mt-5 h6 mr-3"><a role="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">No account ? Register</a></span>    
+                                      <span className="mt-5 h6 mr-3">No account yet ? <Link style={{ textDecoration: 'none' }} to="/auth/register">Register</Link></span>
                                       <span className="mt-5 ml-2 h6"><a>Forgot your password?</a></span>                                 
                                     </div>
                                 </div>

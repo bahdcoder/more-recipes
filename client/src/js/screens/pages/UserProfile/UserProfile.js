@@ -22,11 +22,27 @@ export default class UserProfile extends Component {
       name: null,
       email: null,
       about: '',
-      user: null
+      user: null,
+      settings: {
+        reviewEmails: 1,
+        favoriteModifiedEmail: 1
+      }
     };
 
     this.saveChanges = this.saveChanges.bind(this);
     this.startEditing = this.startEditing.bind(this);
+    this.handleSettingsChange = this.handleSettingsChange.bind(this);
+  }
+
+  async handleSettingsChange(event) {
+    const settings = this.state.settings;
+    const { name, checked } = event.target;
+
+    settings[name] = checked === true ? 1 : 0;
+
+    this.setState({
+      settings
+    });
   }
 
   async saveChanges(userIndex) {
@@ -37,7 +53,8 @@ export default class UserProfile extends Component {
     try {
       const response = await this.props.updateUserProfile({
         name: this.state.name,
-        about: this.state.about
+        about: this.state.about,
+        settings: this.state.settings
       }, userIndex);
     } catch (error) {
       console.log(error);
@@ -47,12 +64,20 @@ export default class UserProfile extends Component {
   startEditing() {
     const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);    
     const user = this.props.users[userIndex];
+    let settings;
+    try {
+      settings = JSON.parse(user.settings);
+    } catch (e) {
+      settings = user.settings;
+    }
+    console.log(settings);
 
     this.setState({
       editing: true,
       name: user.name,
       email: user.email,
-      about: user.about
+      about: user.about,
+      settings
     });
   }
 
@@ -71,8 +96,28 @@ export default class UserProfile extends Component {
     );
     let userName;
     let aboutText;
+    let notificationSettings;
     const userIndex = this.props.users.findIndex(user => user.id === this.props.params.id);    
     const user = this.props.users[userIndex];
+
+    if (this.state.editing) {
+      notificationSettings = (
+        <div className="my-5">
+          <div className="input-group mb-5">
+              <span className="input-group-addon mr-3">
+                  <input name="reviewEmails" defaultChecked={this.state.settings.reviewEmails === 1 ? true : false } onChange={this.handleSettingsChange} type="checkbox"/>
+              </span>
+              Send me an email each time someone leaves a review on my recipe
+          </div>
+          <div className="input-group">
+              <span className="input-group-addon mr-3">
+                  <input name="favoriteModifiedEmail" defaultChecked={this.state.settings.favoriteModifiedEmail === 1 ? true : false } value={this.state.settings.favoriteModifiedEmail} type="checkbox" onChange={this.handleSettingsChange}/>
+              </span>
+              Send me an email when my favorite recipes are updated
+          </div>
+        </div>
+      );
+    }
 
     
     if (userIndex === -1) {
@@ -132,11 +177,13 @@ export default class UserProfile extends Component {
           {/* End user name */}
           {/* User stats */}
           <p className="text-center my-4">
-            <span className="mr-3 h2 header-color"> {user.recipes.length} </span> <span className="h6 mr-3"><Link to={`/user/${user.id}/recipes`} className="color-darker">RECIPES</Link></span>
+            <span className="mr-3 h2 header-color"> {user.recipes.length} </span> <span className="h6 mr-3"><Link to={`/user/${user.id}/recipes`} style={{ textDecoration: 'none' }} className="color-darker">RECIPES</Link></span>
           </p>
           {/* End user stats */}
           {/* User bio */}
           {aboutText}
+          {notificationSettings}
+          <br/>
           {editButton}
           {/* End user bio */}
         </div>
@@ -150,6 +197,8 @@ export default class UserProfile extends Component {
             {userProfile}
           </div>
         </div>
+        <br/>
+        <br/>
         <Footer />
       </div>
     );

@@ -1,3 +1,9 @@
+const defaultUserSettings = JSON.stringify({
+  reviewEmails: 1,
+  favoriteModifiedEmail: 1
+});
+
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -21,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     about: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    settings: {
+      allowNull: true,
+      type: DataTypes.TEXT,
+      defaultValue: defaultUserSettings
     }
   });
 

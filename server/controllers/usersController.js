@@ -1,6 +1,6 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
-import { updateRecipeAttributes, updateUserAttributes } from '../helpers';
+import { updateRecipeAttributes, updateUserAttributes, updateUserSettings } from '../helpers';
 /**
  * Controller for all `users` endpoints
  * @export
@@ -84,8 +84,13 @@ export default class UsersController {
    * @memberof UsersController
    */
   async updateProfile(req, res) {
-    const user = await req.authUserObj.update(req.body);
-
+    const { name, about, settings } = req.body;
+    if (settings) {
+      await updateUserSettings(req.authUserObj, settings);
+    }
+    const user = await req.authUserObj.update({
+      name, about
+    });
     const updatedUser = await updateUserAttributes(user, models);
     return res.sendSuccessResponse({ user: updatedUser });
   }

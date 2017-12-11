@@ -7,7 +7,6 @@ import bodyParser from 'body-parser';
 import routes from './routes';
 import db from './database/models';
 import middleware from './middleware';
-import client from './helpers/redis-client';
 
 //  Configure environment variables
 
@@ -30,10 +29,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //  app.set('appPath', 'public');
 app.use(express.static(path.join(__dirname, '/public')));
 //  app.get('/', (req, res) => res.render('index'));
-app.get('/redis', async (req, res) => {
-  const keys = await client.keys('*');
-  return res.json(keys);
-});
 
 app.use(middleware.api);
 

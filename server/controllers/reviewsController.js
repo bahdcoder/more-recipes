@@ -61,7 +61,7 @@ export default class ReviewsController {
           subject: `${authUser.name} commented on your recipe.`
         },
         template: {
-          pug: 'reviews',
+          pug: 'welcome',
           locals: {
             name: user.name,
             reviewer: authUser.name,

@@ -142,7 +142,7 @@ export default class RecipesController {
       }
     });
     // get the ids of all favoriters for this email
-    const favoritersIds = await client.smembers(`recipe:${recipe.id}:favoriters`);
+    const favoritersIds = await client.smembers(`recipe:${recipe.id}:favorites`);
     // with this array, findAll users from database.
     const favoriters = await models.User.findAll({
       where: {
@@ -158,7 +158,7 @@ export default class RecipesController {
     });
     // queue a batch email sending campaign
     const queue = kue.createQueue(process.env.NODE_ENV === 'production' ? redisConfig.production : {});
-
+    console.log(favoritersToNotify, favoriters);
     //  Register a new mails job to the queue
     queue.create('batchMails', {
       users: favoritersToNotify,

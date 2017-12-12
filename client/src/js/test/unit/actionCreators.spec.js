@@ -11,7 +11,7 @@ const globalMock = {
 };
 
 describe('actionCreators', () => {
-  context('actionCreators.getRecipesCatalog', () => {
+  context('action creators that make GET API requests for recipes', () => {
     beforeEach(() => {
       globalMock.recipeStub = () => ({
         id: faker.random.uuid(),
@@ -50,6 +50,22 @@ describe('actionCreators', () => {
         }
       });
 
+      nock(globalMock.apiUrl).get('/frontend/home').reply(200, {
+        status: 'success',
+        data: {
+          latestRecipes: [{
+            ...globalMock.recipe1
+          }, {
+            ...globalMock.recipe2
+          }],
+          mostFavoritedRecipes: [{
+            ...globalMock.recipe1
+          }, {
+            ...globalMock.recipe2
+          }]
+        }
+      });
+
       globalMock.store = configureStore([thunk.withExtraArgument(globalMock.apiUrl)])(() => ({
         routing: {
           locationBeforeTransitions: {
@@ -59,18 +75,31 @@ describe('actionCreators', () => {
         recipes: []
       }));
     });
-    it('Should dispatch NEW_RECIPE_CREATED action to store when called', async () => {
-      const { getRecipesCatalog } = actionCreators;
+    context('actionCreators.getRecipesCatalog', () => {
+      it('Should dispatch NEW_RECIPE_CREATED action to store when called', async () => {
+        const { getRecipesCatalog } = actionCreators;
 
-      await globalMock.store.dispatch(getRecipesCatalog());
-      const storeActions = globalMock.store.getActions();
+        await globalMock.store.dispatch(getRecipesCatalog());
+        const storeActions = globalMock.store.getActions();
 
-      expect(storeActions[0].type).to.equal('NEW_RECIPE_CREATED');
-      expect(storeActions[0].payload.title).to.equal(globalMock.recipe1.title);
-      expect(storeActions[1].type).to.equal('NEW_RECIPE_CREATED');
-      expect(storeActions[1].payload.title).to.equal(globalMock.recipe2.title);
+        expect(storeActions[0].type).to.equal('NEW_RECIPE_CREATED');
+        expect(storeActions[0].payload.title).to.equal(globalMock.recipe1.title);
+        expect(storeActions[1].type).to.equal('NEW_RECIPE_CREATED');
+        expect(storeActions[1].payload.title).to.equal(globalMock.recipe2.title);
+      });
     });
 
-    
+    context('actionCreators.getHomePageData', () => {
+      it('should dispatch NEW_RECIPE_CREATED to store when called', async () => {
+        const { getHomePageData } = actionCreators;
+
+        await globalMock.store.dispatch(getHomePageData());
+        const storeActions = globalMock.store.getActions();
+
+        expect(storeActions.length).to.equal(4);
+        expect(storeActions[0].type).to.equal('NEW_RECIPE_CREATED');
+        expect(storeActions[0].payload.id).to.equal(globalMock.recipe1.id);
+      });
+    });
   });
 });

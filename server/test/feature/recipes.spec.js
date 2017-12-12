@@ -193,7 +193,7 @@ describe('/recipes', () => {
           });
     });
 
-    it('Should reject creating a recipe if there the user already has a recipe with that title', async () => {
+    it.only('Should reject creating a recipe if there the user already has a recipe with that title', async () => {
       try {
         const recipeStub = globalMock.recipeStub();
 
@@ -212,7 +212,7 @@ describe('/recipes', () => {
         if (errors.message === 'expect.fail()') { throw errors; }
 
         expect(errors).to.have.status(409);
-        expect(errors.response.body.data.errors).to.equal('You already have a recipe with this title.');
+        expect(errors.response.body.data.errors[0]).to.equal('You already have a recipe with this title.');
       }
     });
   });

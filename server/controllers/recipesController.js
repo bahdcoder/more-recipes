@@ -102,7 +102,7 @@ export default class RecipesController {
     });
     const userRecipeTitles = userRecipes.map(recipe => recipe.title);
     if (userRecipeTitles.includes(reqBody.title)) {
-      return res.sendFailureResponse({ errors: 'You already have a recipe with this title.' }, 409);
+      return res.sendFailureResponse({ errors: ['You already have a recipe with this title.'] }, 409);
     }
 
     const createdRecipe = await models.Recipe.create({

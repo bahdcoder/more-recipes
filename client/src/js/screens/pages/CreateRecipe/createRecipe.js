@@ -189,7 +189,7 @@ export default class CreateRecipe extends React.Component {
     this.props.router.push(`/recipe/${response.data.data.recipe.id}`);    
     } catch (error) {
       console.log(error);
-      if (error.response.status === 422) {
+      if (error.response.status === 422 || error.response.status === 409) {
         this.setState({
           ajaxErrors : error.response.data.data.errors
         });

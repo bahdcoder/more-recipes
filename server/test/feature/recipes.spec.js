@@ -193,7 +193,7 @@ describe('/recipes', () => {
           });
     });
 
-    it.only('Should reject creating a recipe if there the user already has a recipe with that title', async () => {
+    it('Should reject creating a recipe if there the user already has a recipe with that title', async () => {
       try {
         const recipeStub = globalMock.recipeStub();
 

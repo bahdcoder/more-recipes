@@ -94,6 +94,17 @@ export default class RecipesController {
    */
   async create(req, res) {
     const reqBody = req.body;
+
+    const userRecipes = await models.Recipe.findAll({
+      where: {
+        userId: req.authUser.id
+      }
+    });
+    const userRecipeTitles = userRecipes.map(recipe => recipe.title);
+    if (userRecipeTitles.includes(reqBody.title)) {
+      return res.sendFailureResponse({ errors: 'You already have a recipe with this title.' }, 409);
+    }
+
     const createdRecipe = await models.Recipe.create({
       title: reqBody.title,
       description: reqBody.description,
@@ -158,7 +169,6 @@ export default class RecipesController {
     });
     // queue a batch email sending campaign
     const queue = kue.createQueue(process.env.NODE_ENV === 'production' ? redisConfig.production : {});
-    console.log(favoritersToNotify, favoriters);
     //  Register a new mails job to the queue
     queue.create('batchMails', {
       users: favoritersToNotify,
@@ -172,7 +182,7 @@ export default class RecipesController {
     }).events(false).save();
     // make sure queue is queueuing into batchMails, and sends message, users and template objects
 
-    return res.sendSuccessResponse(updatedRecipe, 200);
+    return res.sendSuccessResponse({ recipe: updatedRecipe }, 200);
   }
 
   /**

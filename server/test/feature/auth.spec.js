@@ -112,7 +112,7 @@ describe('/users', () => {
         expect(response).to.have.status(422);
         const responseData = response.body.data;
 
-        expect(responseData.message).to.equal('These credentials do not match our records.');
+        expect(responseData.errors).to.equal('These credentials do not match our records.');
         done();
       });
     });
@@ -127,7 +127,7 @@ describe('/users', () => {
         expect(response).to.have.status(422);
         const responseData = response.body.data;
 
-        expect(responseData.message).to.equal('These credentials do not match our records.');
+        expect(responseData.errors).to.equal('These credentials do not match our records.');
         done();
       });
     });

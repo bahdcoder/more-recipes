@@ -357,11 +357,12 @@ export function updateRecipe(recipe, recipeId) {
 
       const recipeIndex = getState().recipes
         .findIndex(recipeInStore => recipeInStore.id === recipeId);
+
       dispatch({
         type: 'RECIPE_UPDATED',
         payload: {
           recipeIndex,
-          recipe: response.data.data
+          recipe: response.data.data.recipe
         }
       });
 

@@ -45,12 +45,12 @@ export default class Login extends Component {
 
       this.props.router.push('/');
 
-    } catch (error) {
-      let error = error.response;
+    } catch (errors) {
+      let error = errors.response;
 
       if (error.status === 422) {
         this.setState({
-          error: error.data.data.message
+          error: error.data.data.errors
         });
       } else {
         this.setState({

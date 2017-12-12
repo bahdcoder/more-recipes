@@ -52,3 +52,62 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 ### The server api 
 The server api uses the [Jsend Response Standard](http://labs.omniti.com/labs/jsend)
 #### THE ROUTES
+All api routes are prefixed with `/api/v1`
+
+* POST `/users/signup` for creation of new account. Required fields are:
+  * `name` Username containing alphabets, mininmum of five characters
+  * `email` A valid email address of the new user, unique to the app database
+  * `password` Password mininmum character length of five
+
+* POST `/users/signin` for logging in to the application. Required fields are:
+  * `email` Username of registered user
+  * `password` Password of registered user
+
+* POST `/recipes` for creating new recipes posts. Required fields are:
+  * `title` Name of the recipe
+  * `ingredients` Ingredients for preparing the recipe (must be a valid json serialized array) 
+  * `timeToCook` Length of time for preparing this recipe (must be a number) 
+  * `procedure` Step by step guide on how recipe is prepared (must be a valid json serialized array) 
+  * `imageUrl` Url of recipe image (must be a valid url)
+  
+* GET `/recipes` for viewing all the posted recipes in the application
+
+* GET `/recipes?sort=mostUpvoted` sort results by upvotes
+* GET `/recipes?sort=mostFavorited` sort results by most favorited
+* GET `/recipes?sort=date` sort results by lastly created
+
+
+* GET `/recipes?query=<keyword>` for searching recipes in database with title matching query keyword
+
+* PUT `/recipes/<recipeId>` update the details of a recipe. Fields that can be modified:
+  * `title`
+  * `timeToCook`
+  * `description`
+  * `ingredients`
+  * `procedure`
+
+* DELETE `/recipes/<recipeId>` to delete a recipe.
+
+* GET `/users/<userId>recipes` to get all recipes owned by a user
+
+* POST `/recipes/<recipeId>/upvote` to upvote a recipe.
+
+* POST `/recipes/<recipeId>/downvote` to downvote a recipe.
+
+* POST `/recipes/<recipeId>/reviews` add a review to a recipe
+
+* POST `/users/<recipeId>/favorites` favorite a recipe for a user
+
+* POST `/users/<recipeId>/favorites` get all favorite recipes for a user
+
+#### RUNNING TESTS 
+
+```sh
+  $ npm run test
+```
+
+#### How To Contribute
+* Fork the repository
+* Create a feature branch with a feature.md file
+* Write tests and make them pass
+* Open a pull request

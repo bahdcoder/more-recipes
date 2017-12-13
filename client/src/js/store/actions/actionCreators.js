@@ -109,7 +109,12 @@ export function getHomePageData() {
  * @param {int} recipeId id of recipe to be downvoted
  * @returns {Promise} Promise resolve/reject
  */
-export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+export function toggleUpvote(
+  indexOfRecipe,
+  userHasUpvoted,
+  userHasDownvoted,
+  indexOfUpvoter, indexOfDownvoter, recipeId
+) {
   return async (dispatch, getState, apiUrl) => {
     try {
       if (!userHasUpvoted) {
@@ -142,7 +147,7 @@ export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, in
       await axios.post(`${apiUrl}/recipes/${recipeId}/upvote`);
       return Promise.resolve();
     } catch (errors) {
-      return Promise.reject();
+      return Promise.reject(errors);
     }
   };
 }
@@ -158,7 +163,10 @@ export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, in
  * @param {int} recipeId id of recipe to be downvoted
  * @returns {Promise} Promise resolve/reject
  */
-export function toggleDownvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+export function toggleDownvote(
+  indexOfRecipe,
+  userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId
+) {
   return async (dispatch, getState, apiUrl) => {
     try {
       if (!userHasDownvoted) {
@@ -442,14 +450,11 @@ export function getUserRecipes(userId) {
           payload: user
         });
       }
-
-      console.log(response);
-
       return Promise.resolve();
     } catch (errors) {
       return Promise.reject();
     }
-  }
+  };
 }
 
 /**

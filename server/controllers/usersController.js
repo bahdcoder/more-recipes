@@ -20,11 +20,12 @@ export default class UsersController {
     if (recipe.favoritersIds.findIndex(user => user === req.authUser.id) !== -1) {
       await client.srem(`user:${req.authUser.id}:favorites`, recipe.id);
       await client.srem(`recipe:${recipe.id}:favorites`, req.authUser.id);
-    } else {
-      await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
-      await client.sadd(`recipe:${recipe.id}:favorites`, req.authUser.id);
+
+      return res.sendSuccessResponse({ message: 'Recipe removed from favorites.' });
     }
 
+    await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
+    await client.sadd(`recipe:${recipe.id}:favorites`, req.authUser.id);
     return res.sendSuccessResponse({ message: 'Recipe favorited.' });
   }
 

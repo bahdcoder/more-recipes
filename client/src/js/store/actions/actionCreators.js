@@ -1,3 +1,4 @@
+import lockr from 'lockr';
 import axios from 'axios';
 import queryString from 'query-string';
 import { push } from 'react-router-redux';
@@ -266,7 +267,7 @@ export function signIn({ email, password }) {
         email, password
       });
 
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      lockr.set('authUser', response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
@@ -288,7 +289,7 @@ export function signIn({ email, password }) {
  */
 export function signOut() {
   return async (dispatch) => {
-    localStorage.removeItem('authUser');
+    lockr.rm('authUser');
 
     dispatch({
       type: 'SIGN_OUT_USER'
@@ -312,7 +313,7 @@ export function signUp({ name, email, password }) {
         email, password, name
       });
 
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      lockr.set('authUser', response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',

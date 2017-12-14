@@ -1,4 +1,7 @@
+/* eslint-disable */
 import nock from 'nock';
+import lockr from 'lockr';
+import sinon from 'sinon';
 import faker from 'faker';
 import { expect } from 'chai';
 import thunk from 'redux-thunk';
@@ -170,6 +173,127 @@ describe('actionCreators', () => {
 
         expect(storeActions[0].type).to.equal('REMOVE_USER_FROM_DOWNVOTERS');
         expect(storeActions[0].payload.indexOfRecipe).to.equal(0);
+      });
+    });
+    context('actionCreators.toggleFavorite', () => {
+      beforeEach(() => {
+        nock(globalMock.apiUrl).post(`/users/${globalMock.recipe1.id}/favorites`).reply(200, {});
+      });
+      it('Should dispatch REMOVE_USER_FROM_FAVORITERS if user has favorited recipe', async () => {
+        const { toggleFavorite } = actionCreators;
+
+        await globalMock.store.dispatch(toggleFavorite(0, true, 0, globalMock.recipe1.id));
+        const storeActions = globalMock.store.getActions();
+
+        expect(storeActions[0].type).to.equal('REMOVE_USER_FROM_FAVORITERS');
+        expect(storeActions[0].payload).to.deep.equal({ indexOfRecipe: 0, indexOfFavoriter: 0 });
+      });
+    });
+
+    context('actionCreators.signIn', () => {
+      beforeEach(() => {
+        nock(globalMock.apiUrl).post('/users/signin').reply(200, {
+          status: 'success',
+          data: {
+            user: {
+              id: faker.random.uuid(),
+              settings: {
+                reviewEmails: 1,
+                favoriteModifiedEmail: 1
+              },
+              name: faker.name.findName(),
+              email: faker.internet.email(),
+              updatedAt: faker.date.past(),
+              createdAt: faker.date.past(),
+              recipes: [globalMock.recipeStub()]
+            },
+            access_token: faker.random.word()
+          }
+        });
+      });
+      it('should dispatch a SIGN_IN_USER action when called', async () => {
+        const { signIn } = actionCreators;
+
+        await globalMock.store.dispatch(signIn({
+          email: faker.internet.email(),
+          password: faker.random.word()
+        }));
+
+        const storeAction = globalMock.store.getActions()[0];
+        expect(storeAction.type).to.equal('SIGN_IN_USER');
+        expect(storeAction.authUser.user).to.not.be.undefined;
+        expect(storeAction.authUser.access_token).to.not.be.undefined;
+      });
+    });
+
+    context('actionCreators.signOut', () => {
+      beforeEach(() => {
+        globalMock.lockrStub = sinon.stub(lockr, 'rm');
+      });
+      it('should dispatch SIGN_OUT_USER action when called', async () => {
+        const { signOut } = actionCreators;
+
+        await globalMock.store.dispatch(signOut());
+        const storeAction = globalMock.store.getActions()[0];
+        expect(storeAction.type).to.equal('SIGN_OUT_USER');
+        expect(globalMock.lockrStub.calledOnce).to.be.true;
+      });
+    });
+
+    context('actionCreators.signUp', () => {
+      beforeEach(() => {
+        nock(globalMock.apiUrl).post('/users/signup').reply(200, {
+          status: 'success',
+          data: {
+            user: {
+              id: faker.random.uuid(),
+              settings: {
+                reviewEmails: 1,
+                favoriteModifiedEmail: 1
+              },
+              name: faker.name.findName(),
+              email: faker.internet.email(),
+              updatedAt: faker.date.past(),
+              createdAt: faker.date.past(),
+              recipes: [globalMock.recipeStub()]
+            },
+            access_token: faker.random.word()
+          }
+        });
+      });
+      it('Should dispatch SIGN_IN_USER when called', async () => {
+        const { signUp } = actionCreators;
+        
+        await globalMock.store.dispatch(signUp({
+          name: faker.name.findName(),
+          email: faker.internet.email(),
+          password: faker.random.word()
+        }));
+
+        const storeAction = globalMock.store.getActions()[0];
+        expect(storeAction.type).to.equal('SIGN_IN_USER');
+        expect(globalMock.lockrStub.calledOnce).to.be.true;
+      });
+    });
+
+    context('actionCreators.createRecipe', () => {
+      beforeEach(() => {
+        nock(globalMock.apiUrl).post('/recipes').reply(200, {
+          status: 'success',
+          data: {
+            recipe: globalMock.recipeStub()
+          }
+        });
+      });
+      it('Should dispatch NEW_RECIPE_CREATED action to store when called', async () => {
+        const { createRecipe } = actionCreators;
+
+        await globalMock.store.dispatch(createRecipe());
+        const storeAction = globalMock.store.getActions()[0];
+
+        expect(storeAction.type).to.equal('NEW_RECIPE_CREATED');
+        expect(storeAction.payload.id).to.not.be.undefined;
+        expect(storeAction.payload.title).to.not.be.undefined;
       });
     });
   });

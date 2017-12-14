@@ -1,3 +1,4 @@
+import lockr from 'lockr';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';

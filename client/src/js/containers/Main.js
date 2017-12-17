@@ -23,14 +23,14 @@ class App extends Component {
    */
   componentWillMount() {
     try {
-      const user = JSON.parse(localStorage.getItem('authUser'));
+      const user = lockr.get('authUser');
+      console.log(user);
 
       store.dispatch({
         type: 'SIGN_IN_USER',
         authUser: user
       });
     } catch (error) {
-      console.log(error);
       return;
     }
   }

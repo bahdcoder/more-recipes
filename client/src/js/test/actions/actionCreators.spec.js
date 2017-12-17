@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import faker from 'faker';
 import { expect } from 'chai';
 import thunk from 'redux-thunk';
+import recipeStub from './../stubs/recipeStub';
 import configureStore from 'redux-mock-store';
 
 import * as actionCreators from './../../../js/store/actions/actionCreators';
@@ -16,25 +17,7 @@ const globalMock = {
 describe('actionCreators', () => {
   context('action creators that make GET API requests for recipes', () => {
     beforeEach(() => {
-      globalMock.recipeStub = () => ({
-        id: faker.random.uuid(),
-        title: faker.lorem.sentence(),
-        userId: faker.random.uuid(),
-        description: faker.lorem.paragraph(),
-        imageUrl: faker.image.imageUrl(),
-        timeToCook: faker.random.number(),
-        ingredients: JSON.stringify([faker.lorem.sentence(), faker.lorem.sentence()]),
-        procedure: JSON.stringify([faker.lorem.sentence(), faker.lorem.sentence()]),
-        User: {
-          id: faker.random.uuid(),
-          name: faker.name.findName(),
-          email: faker.internet.email(),
-          about: faker.lorem.paragraph()
-        },
-        upvotersIds: [faker.random.uuid(), faker.random.uuid()],
-        favoritersIds: [faker.random.uuid()],
-        downvotersIds: [faker.random.uuid()]
-      });
+      globalMock.recipeStub = recipeStub;
 
       globalMock.recipe1 = globalMock.recipeStub();
       globalMock.recipe2 = globalMock.recipeStub();
@@ -294,6 +277,67 @@ describe('actionCreators', () => {
         expect(storeAction.type).to.equal('NEW_RECIPE_CREATED');
         expect(storeAction.payload.id).to.not.be.undefined;
         expect(storeAction.payload.title).to.not.be.undefined;
+      });
+    });
+
+    context('actionCreators.updateRecipe', () => {
+      beforeEach(() => {
+        const recipe1 = globalMock.recipe1;
+        recipe1.title = globalMock.recipeStub().title;
+        nock(globalMock.apiUrl).put(`/recipes/${globalMock.recipe1.id}`).reply(200, {
+          status: 'success',
+          data: {
+            recipe: {
+              ...recipe1
+            }
+          }
+        });
+      });
+      it('Should dispatch RECIPE_UPDATED action to store when called', async () => {
+        const { updateRecipe } = actionCreators;
+
+        await globalMock.store.dispatch(updateRecipe({}, globalMock.recipe1.id));
+        const storeAction = globalMock.store.getActions()[0];
+
+        expect(storeAction.type).to.equal('RECIPE_UPDATED');
+        expect(storeAction.payload.recipeIndex).to.equal(-1);
+        expect(storeAction.payload.recipe.id).to.not.be.undefined;
+        expect(storeAction.payload.recipe.title).to.not.be.undefined;
+      });
+    });
+
+    context('actionCreators.updateRecipesInStore', () => {
+      it('should dispatch NEW_RECIPE_CREATED when called ', () => {
+        const { updateRecipesInStore } = actionCreators;
+
+        globalMock.store.dispatch(updateRecipesInStore({}));
+        const storeAction = globalMock.store.getActions()[0];
+        console.log(storeAction);
+        expect(storeAction.type).to.equal('NEW_RECIPE_CREATED');
+        expect(storeAction.payload).to.deep.equal({});
+      });
+    });
+
+    context('actionCreators.getRecipeReviews', () => {
+      beforeEach(() => {
+        const recipe1 = globalMock.recipe1;
+        recipe1.title = globalMock.recipeStub().title;
+        nock(globalMock.apiUrl).get(`/recipes/${globalMock.recipe1.id}/reviews`).reply(200, {
+          status: 'success',
+          data: {
+            reviews: []
+          }
+        });
+      });
+      it('should dispatch NEW_REVIEWS_ADDED when called', async () => {
+        const { getRecipeReviews } = actionCreators;
+
+        await globalMock.store.dispatch(getRecipeReviews(globalMock.recipe1.id));
+
+        const storeAction = globalMock.store.getActions()[0];
+        expect(storeAction.type).to.equal('NEW_REVIEWS_ADDED');
+        expect(storeAction.payload.recipeId).to.not.be.undefined;
+        expect(storeAction.payload.reviews).to.not.be.undefined;
       });
     });
   });

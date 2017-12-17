@@ -12,7 +12,7 @@
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
     "migrate:refresh": "./node_modules/.bin/sequelize db:migrate:undo:all && ./node_modules/.bin/sequelize db:migrate",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha server/test/**/**.spec.js --exit --timeout 10000  --compilers js:babel-core/register --reporter spec",
-    "test:client": "cross-env NODE_ENV=test ./node_modules/.bin/mocha client/src/js/test/**/**.spec.js --exit --timeout 10000  --compilers js:babel-core/register --reporter spec",
+    "test:client": "cross-env NODE_ENV=test ./node_modules/.bin/mocha client/src/js/test/**/**/**.spec.js --exit --timeout 10000  --compilers js:babel-core/register --reporter spec",
     "build:client": "node server/scripts/removeDeploymentDir.js && cross-env NODE_ENV=production webpack -p",
     "dev:client": "webpack-dev-server --hot --inline --history-api-fallback",
     "heroku-postbuild": "npm run build:client && npm run build",

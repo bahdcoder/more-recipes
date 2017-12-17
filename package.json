@@ -6,6 +6,7 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development ./node_modules/.bin/babel-watch server/index.js",
     "start": "cross-env NODE_ENV=production node build/index.js",
+    "start:e2e": "cp .env .env.temp && cross-env NODE_ENV=e2eTests node build/index.js",
     "babel-node": "babel-node --",
     "build": "./node_modules/.bin/babel server/ -d build --copy-files",
     "dist": "./node_modules/.bin/babel server/ -d dist --presets=babili",
@@ -34,8 +35,11 @@
     "babel-jest": "^21.2.0",
     "enzyme": "^3.2.0",
     "faker": "^4.1.0",
+    "forever": "^0.15.3",
+    "forever-monitor": "^1.7.1",
     "jest": "^21.2.1",
     "mocha-jsdom": "^1.1.0",
+    "nightwatch": "^0.9.19",
     "redux-mock-store": "^1.3.0",
     "sinon": "^4.1.3",
     "sinon-chai": "^2.14.0"

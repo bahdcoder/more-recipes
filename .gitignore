@@ -3,3 +3,5 @@
 /build
 .env
 welcome.html
+/client/bin
+selenium-debug.log

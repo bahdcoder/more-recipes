@@ -20,7 +20,7 @@ app.options('*', cors());
 // Enable HTTP REQUEST logging
 app.use(morgan('combined'));
 
-const port = process.env.PORT || 4444;
+const port = process.env.PORT || 5678;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

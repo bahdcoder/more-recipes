@@ -5,9 +5,11 @@
 
   <testsuite name="homePage"
     errors="0" failures="0" hostname="" id="" package="homePage" skipped="0"
-    tests="1" time="6.875" timestamp="Sun, 17 Dec 2017 08:50:55 GMT">
+    tests="1" time="3.986" timestamp="Wed, 20 Dec 2017 13:35:03 GMT">
   
-    <testcase name="Demo test Google" classname="homePage" time="6.875" assertions="2">
+    <testcase name="Home page: (user is not authenticated)" classname="homePage" time="3.986" assertions="3">
+
+    
 
     
 

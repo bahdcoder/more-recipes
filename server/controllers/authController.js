@@ -22,7 +22,7 @@ export default class AuthController {
     const user = await models.User.create({
       name: req.body.name,
       email: req.body.email,
-      password: await bcrypt.hash(req.body.password, 10)
+      password: await bcrypt.hash(req.body.password, process.env.NODE_ENV === 'production' ? 10 : 1)
     });
     const queue = kue.createQueue(process.env.NODE_ENV === 'production' ? redisConfig.production : {});
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="home.homePage"
+    errors="0" failures="0" hostname="" id="" package="home" skipped="0"
+    tests="1" time="21.32" timestamp="Wed, 20 Dec 2017 15:34:17 GMT">
+  
+    <testcase name="Home page: (user is not authenticated)" classname="home.homePage" time="21.32" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

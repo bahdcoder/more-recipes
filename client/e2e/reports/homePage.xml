@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="homePage"
+    errors="1" failures="0" hostname="" id="" package="homePage" skipped="0"
+    tests="1" time="0.005000" timestamp="Tue, 19 Dec 2017 10:50:44 GMT">
+  
+    <testcase name="Demo test Google" classname="homePage" time="0.005000" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Home Page / Demo test Google]:
+
+  ReferenceError: appUrl is not defined
+    at Object.Demo test Google (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/homePage.js:11:12)
+    at Module.call (/Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/Users/andeladeveloper/Code/JavaScript/more-recipes/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

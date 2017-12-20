@@ -64,7 +64,7 @@ export default class Login extends Component {
       <small></small>
     );
     if (this.state.error) {
-      errorBag = <small className="mb-3" style={{
+      errorBag = <small id="loginErrorMessage" className="mb-3" style={{
         color: '#E27C3E',
         fontWeight: '700'
       }}>{this.state.error}</small>;

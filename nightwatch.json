@@ -11,8 +11,6 @@
       "webdriver.chrome.driver" : "./client/bin/chromedriver"
     }
   },
-  "test_runner" : "mocha",
-
   "test_settings" : {
     "default" : {
       "launch_url" : "http://localhost",
@@ -22,7 +20,9 @@
         "browserName": "chrome",
         "javascriptEnabled": true,
         "acceptSslCerts": true
-      }
+      },
+      "screenshots": true,
+      "path": "./client/e2e/screenshots"
     }
   }
 }

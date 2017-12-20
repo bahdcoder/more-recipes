@@ -6,8 +6,9 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development ./node_modules/.bin/babel-watch server/index.js",
     "start": "cross-env NODE_ENV=production node build/index.js",
-    "start:e2e": "cp .env .env.temp && cross-env NODE_ENV=e2eTests node build/index.js",
+    "start:e2e": "cross-env NODE_ENV=e2eTests node build/index.js",
     "babel-node": "babel-node --",
+    "nightwatch": "nightwatch",
     "build": "./node_modules/.bin/babel server/ -d build --copy-files",
     "dist": "./node_modules/.bin/babel server/ -d dist --presets=babili",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
@@ -40,6 +41,7 @@
     "jest": "^21.2.1",
     "mocha-jsdom": "^1.1.0",
     "nightwatch": "^0.9.19",
+    "pm2": "^2.9.1",
     "redux-mock-store": "^1.3.0",
     "sinon": "^4.1.3",
     "sinon-chai": "^2.14.0"
@@ -91,6 +93,7 @@
     "mysql2": "1.4.2",
     "nock": "^9.1.4",
     "nodemailer": "^4.4.0",
+    "npm": "^5.6.0",
     "numeral": "2.0.6",
     "nyc": "11.2.1",
     "pg": "7.3.0",

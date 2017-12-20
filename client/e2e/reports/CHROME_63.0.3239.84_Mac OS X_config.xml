@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="0">
+
+  <testsuite name="config"
+    errors="0" failures="0" hostname="" id="" package="config" skipped="0"
+    tests="0" time="0.000" timestamp="Wed, 20 Dec 2017 13:35:02 GMT">
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

@@ -1,15 +1,12 @@
 /* eslint-disable */
 // for the nightwatchjs tests, you can start your server with the npm script command, and after the tests, emit a test completed event with node, and then, have a script in your app that listens to this event, and closes the server.
 
-const globalMock = {
-  appUrl: 'http://localhost:5678'
-};
+const config = require('../config');
 
 module.exports = {
-  '@tags': 'home',
+  '@tags': ['home'],
   'Home page: (user is not authenticated)' : function (browser) {
-    browser
-      .url(globalMock.appUrl);
+    browser.url(config.appUrl);
 
     browser.expect.element('body').to.be.present.before(1000);
     browser.expect.element('#app').text.to.contain('Making everyday cooking fun !');

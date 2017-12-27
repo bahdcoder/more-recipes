@@ -13,7 +13,7 @@ const registerUser = function (browser) {
 
   browser.click('.btn.mb-3.btn-primary.btn-lg');
   browser.click('.btn.mb-3.btn-primary.btn-lg');
-  browser.pause(1000);
+  browser.pause(1800);
 }
 
 module.exports = {

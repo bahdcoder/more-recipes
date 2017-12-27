@@ -81,7 +81,7 @@ describe('/users', () => {
       globalMock.user1 = await db.User.create({
         name: 'kati frantz',
         email: 'kati@frantz.com',
-        password: await bcrypt.hash('secret', 10)
+        password: await bcrypt.hash('secret', 1)
       });
   
     });

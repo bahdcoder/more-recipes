@@ -10,9 +10,7 @@ export default function authReducer(state = {}, action) {
     case 'SIGN_IN_USER':
       return action.authUser;
     case 'SIGN_OUT_USER':
-      let newState = state;
-      newState = null;
-      return newState;
+      return null;
     case 'AUTH_USER_UPDATED':
       return {
         ...state,

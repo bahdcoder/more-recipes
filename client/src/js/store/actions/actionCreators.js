@@ -1,3 +1,4 @@
+import lockr from 'lockr';
 import axios from 'axios';
 import queryString from 'query-string';
 import { push } from 'react-router-redux';
@@ -73,7 +74,6 @@ export function getHomePageData() {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.get(`${apiUrl}/frontend/home`);
-      console.log(response);
 
       response.data.data.latestRecipes.forEach((recipe) => {
         if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
@@ -94,7 +94,6 @@ export function getHomePageData() {
       });
       return Promise.resolve();
     } catch (error) {
-      console.log(error);
       return Promise.reject();
     }
   };
@@ -111,7 +110,12 @@ export function getHomePageData() {
  * @param {int} recipeId id of recipe to be downvoted
  * @returns {Promise} Promise resolve/reject
  */
-export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+export function toggleUpvote(
+  indexOfRecipe,
+  userHasUpvoted,
+  userHasDownvoted,
+  indexOfUpvoter, indexOfDownvoter, recipeId
+) {
   return async (dispatch, getState, apiUrl) => {
     try {
       if (!userHasUpvoted) {
@@ -144,7 +148,7 @@ export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, in
       await axios.post(`${apiUrl}/recipes/${recipeId}/upvote`);
       return Promise.resolve();
     } catch (errors) {
-      return Promise.reject();
+      return Promise.reject(errors);
     }
   };
 }
@@ -160,7 +164,10 @@ export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, in
  * @param {int} recipeId id of recipe to be downvoted
  * @returns {Promise} Promise resolve/reject
  */
-export function toggleDownvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+export function toggleDownvote(
+  indexOfRecipe,
+  userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId
+) {
   return async (dispatch, getState, apiUrl) => {
     try {
       if (!userHasDownvoted) {
@@ -260,7 +267,7 @@ export function signIn({ email, password }) {
         email, password
       });
 
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      lockr.set('authUser', response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
@@ -282,7 +289,7 @@ export function signIn({ email, password }) {
  */
 export function signOut() {
   return async (dispatch) => {
-    localStorage.removeItem('authUser');
+    lockr.rm('authUser');
 
     dispatch({
       type: 'SIGN_OUT_USER'
@@ -306,7 +313,7 @@ export function signUp({ name, email, password }) {
         email, password, name
       });
 
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      lockr.set('authUser', response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
@@ -444,14 +451,11 @@ export function getUserRecipes(userId) {
           payload: user
         });
       }
-
-      console.log(response);
-
       return Promise.resolve();
     } catch (errors) {
       return Promise.reject();
     }
-  }
+  };
 }
 
 /**

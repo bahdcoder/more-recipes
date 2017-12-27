@@ -74,6 +74,6 @@ export default class ReviewsController {
       }).events(false).save();
     }
 
-    return res.sendSuccessResponse({ review, message: 'Recipe reviewed successfully.' });
+    return res.sendSuccessResponse({ review });
   }
 }

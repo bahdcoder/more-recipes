@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="2">
+
+  <testsuite name="login.UserFailedLogin"
+    errors="1" failures="0" hostname="" id="" package="login" skipped="1"
+    tests="2" time="0.02000" timestamp="Wed, 20 Dec 2017 15:27:26 GMT">
+  
+    <testcase name="User login process successful" classname="login.UserFailedLogin" time="0.02000" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Login /  User Failed Login / User login process successful]:
+
+  ReferenceError: globalMock is not defined
+    at registerUser (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/helpers/index.js:4:40)
+    at Object.User login process successful (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/login/UserFailedLogin.js:15:5)
+    at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    </system-err>
+  
+
+  
+    
+    <testcase
+      name="User Login Process with wrong password" classname="login.UserFailedLogin">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

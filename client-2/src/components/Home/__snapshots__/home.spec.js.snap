@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should home component render correctly 1`] = `
+<div
+  className="jumbotron text-center"
+  id="jumbotron"
+>
+  <h1
+    className="display-3 mb-5"
+  >
+    <img
+      className="jumbotron-logo-img mr-2"
+      src="/img/logo.png"
+    />
+  </h1>
+  <p
+    className="lead jumbotron-title display-4 wow bounceInUp"
+    style={
+      Object {
+        "color": "white",
+      }
+    }
+  >
+    Making everyday cooking fun !
+  </p>
+  <br />
+  <p
+    className="lead"
+  >
+    <span>
+      <span>
+        <a
+          className="btn btn-primary btn-lg mr-2"
+          href="/recipes/create"
+          onClick={[Function]}
+          role="button"
+        >
+          Create recipe
+        </a>
+        <a
+          className="btn btn-primary btn-lg"
+          href="/user/recipes"
+          onClick={[Function]}
+          role="button"
+        >
+          Manage your recipes
+        </a>
+      </span>
+    </span>
+  </p>
+</div>
+`;

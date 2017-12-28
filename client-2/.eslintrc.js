@@ -2,7 +2,6 @@ module.exports = {
     "extends": "airbnb",
     "env": {
         "es6": true,
-        "react": true,
         "browser": true
       },
       "rules": {
@@ -14,6 +13,7 @@ module.exports = {
         "comma-dangle": 0,
         "curly": ["error", "multi-line"],
         "linebreak-style": 0,
+        "react/jsx-filename-extension": ["off"],
         "import/no-unresolved": [2, { "commonjs": true }],
         "class-methods-use-this": ["off"],
         "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
@@ -29,6 +29,10 @@ module.exports = {
                 "MethodDefinition": true,
                 "ClassDeclaration": true
             }
+        }],
+        "jsx-a11y/anchor-is-valid": [ "error", {
+            "components": [ "a" ],
+            "aspects": [ "noHref", "invalidHref", "preferButton" ]
         }]
       }
 };

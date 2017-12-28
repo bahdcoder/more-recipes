@@ -28,6 +28,15 @@ const Home = () => (
         <br />
         <RecipeRow recipes={mockRecipes} />
       </div>
+      <div className="container-fluid px-5 my-5">
+        <h1 className="display-5 text-center my-5 wow fadeInDown" style={{ padding: '30px 0px' }}>
+          <i className="ion ion-heart mr-4" />
+          Most favorited Recipes
+        </h1>
+        <br />
+        <RecipeRow recipes={mockRecipes} />
+      </div>
+      <br /><br /><br />
     </div>
   )
 );

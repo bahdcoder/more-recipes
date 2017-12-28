@@ -11,11 +11,7 @@ class Home extends React.Component {
         <p className="lead jumbotron-title display-4 wow bounceInUp" style={{color: 'white'}}>Making everyday cooking fun !</p>
         <br />
         <p className="lead">
-          {/* The home button 
-                  If the user is authenticated, let him rather see a create recipe button
-              */}
-          <LeadButtons />
-          {/* End of the home button */}
+          <LeadButtons isAuthenticated={true}/>
         </p>
       </div>
     );

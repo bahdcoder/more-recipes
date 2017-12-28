@@ -16,8 +16,11 @@ it('Should mount SignedInButtons if isAuthenticated prop is true', () => {
 
   const leadButtons = authenticatedTree.children[0].children;
 
-  expect(leadButtons[0].children[0]).toBe('Sign in');
-  expect(leadButtons[1].children[0]).toBe('Join now');
+  expect(leadButtons[0].children[0]).toBe('Create recipe');
+  expect(leadButtons[0].props.href).toBe('/recipes/create');
+
+  expect(leadButtons[1].children[0]).toBe('Manage your recipes');
+  expect(leadButtons[1].props.href).toBe('/user/recipes');
 });
 
 it('Should mount SignedOutButtons if isAuthenticated prop is false', () => {
@@ -30,11 +33,7 @@ it('Should mount SignedOutButtons if isAuthenticated prop is false', () => {
 
 
   const leadButtons = authenticatedTree.children[0].children;
-  console.log(leadButtons);
 
-  expect(leadButtons[0].children[0]).toBe('Create recipe');
-  expect(leadButtons[0].props.href).toBe('/recipes/create');
-
-  expect(leadButtons[1].children[0]).toBe('Manage your recipes');
-  expect(leadButtons[1].props.href).toBe('/user/recipes');
+  expect(leadButtons[0].children[0]).toBe('Sign in');
+  expect(leadButtons[1].children[0]).toBe('Join now');
 });

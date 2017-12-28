@@ -30,5 +30,10 @@ module.exports = {
                 "ClassDeclaration": true
             }
         }]
+      },
+      "parseOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
       }
 };

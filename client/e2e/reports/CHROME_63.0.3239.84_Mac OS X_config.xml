@@ -5,7 +5,7 @@
 
   <testsuite name="config"
     errors="0" failures="0" hostname="" id="" package="config" skipped="0"
-    tests="0" time="0.000" timestamp="Wed, 20 Dec 2017 15:43:40 GMT">
+    tests="0" time="0.000" timestamp="Thu, 28 Dec 2017 16:05:56 GMT">
   
 
   
@@ -20,7 +20,7 @@
     at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
     at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
     at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
-    at process._tickCallback (internal/process/next_tick.js:150:11)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
 ERROR: Unable to locate element: &#34;input[name=email]&#34; using: css selector
     at Object.registerUser (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/helpers/index.js:10:11)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
@@ -31,7 +31,7 @@ ERROR: Unable to locate element: &#34;input[name=email]&#34; using: css selector
     at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
     at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
     at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
-    at process._tickCallback (internal/process/next_tick.js:150:11)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
 ERROR: Unable to locate element: &#34;input[name=password]&#34; using: css selector
     at Object.registerUser (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/helpers/index.js:11:11)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
@@ -42,7 +42,7 @@ ERROR: Unable to locate element: &#34;input[name=password]&#34; using: css selec
     at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
     at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
     at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
-    at process._tickCallback (internal/process/next_tick.js:150:11)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
 ERROR: Unable to locate element: &#34;input[name=confirmPassword]&#34; using: css selector
     at Object.registerUser (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/helpers/index.js:12:11)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
@@ -53,7 +53,7 @@ ERROR: Unable to locate element: &#34;input[name=confirmPassword]&#34; using: cs
     at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
     at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
     at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
-    at process._tickCallback (internal/process/next_tick.js:150:11)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
 ERROR: Unable to locate element: &#34;.btn.mb-3.btn-primary.btn-lg&#34; using: css selector
     at Object.registerUser (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/helpers/index.js:14:11)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
@@ -64,7 +64,7 @@ ERROR: Unable to locate element: &#34;.btn.mb-3.btn-primary.btn-lg&#34; using: c
     at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
     at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
     at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
-    at process._tickCallback (internal/process/next_tick.js:150:11)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
 ERROR: Unable to locate element: &#34;.btn.mb-3.btn-primary.btn-lg&#34; using: css selector
     at Object.registerUser (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/helpers/index.js:15:11)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
@@ -75,7 +75,7 @@ ERROR: Unable to locate element: &#34;.btn.mb-3.btn-primary.btn-lg&#34; using: c
     at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
     at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
     at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
-    at process._tickCallback (internal/process/next_tick.js:150:11)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
     </system-err>
   
 

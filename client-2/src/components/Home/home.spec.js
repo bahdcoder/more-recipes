@@ -1,7 +1,7 @@
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
-import renderer from 'react-test-renderer';
 import Home from './index';
 
 it('Should home component render correctly without crashing', () => {

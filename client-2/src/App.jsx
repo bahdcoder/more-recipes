@@ -1,6 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
+import { Route, Switch } from 'react-router-dom';
 
+import { history } from './store';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
@@ -11,7 +13,7 @@ import UserProfile from './components/UserProfile';
  * @returns {class} class
  */
 const App = () => (
-  <BrowserRouter>
+  <ConnectedRouter history={history}>
     <div>
       <Navbar />
       <Switch>
@@ -20,7 +22,7 @@ const App = () => (
       </Switch>
       <Footer />
     </div>
-  </BrowserRouter>
+  </ConnectedRouter>
 );
 
 export default App;

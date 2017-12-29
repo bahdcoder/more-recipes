@@ -1,13 +1,19 @@
 import React from 'react';
-import RecipeRow from '../RecipeRow';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import mockRecipes from '../../mock/recipes.json';
+import RecipeRow from '../RecipeRow';
 import LeadButtons from './components/LeadButtons';
+import recipeProptype from '../../propTypes/recipe';
 
 /**
  * Home Screen component
+ * When this component is mounted, it triggers a
+ * call to the api to find latest and most favorited recipes
+ * This puts those in the store.
  * @returns {class} jsx
  */
-const Home = () => (
+const Home = ({ mostFavoritedRecipes, latestRecipes }) => (
   (
     <div>
       <div id="jumbotron" className="jumbotron text-center">
@@ -26,7 +32,7 @@ const Home = () => (
             Lastest Recipes
         </h1>
         <br />
-        <RecipeRow recipes={mockRecipes} />
+        <RecipeRow recipes={latestRecipes} />
       </div>
       <div className="container-fluid px-5 my-5">
         <h1 className="display-5 text-center my-5 wow fadeInDown" style={{ padding: '30px 0px' }}>
@@ -34,11 +40,23 @@ const Home = () => (
           Most favorited Recipes
         </h1>
         <br />
-        <RecipeRow recipes={mockRecipes} />
+        <RecipeRow recipes={mostFavoritedRecipes} />
       </div>
       <br /><br /><br />
     </div>
   )
 );
 
-export default Home;
+Home.propTypes = {
+  mostFavoritedRecipes: PropTypes.arrayOf(recipeProptype).isRequired,
+  latestRecipes: PropTypes.arrayOf(recipeProptype).isRequired
+};
+
+const mapStateToProps = () => ({
+  mostFavoritedRecipes: mockRecipes,
+  latestRecipes: mockRecipes
+});
+
+const HomeContainer = connect(mapStateToProps)(Home);
+
+export default HomeContainer;

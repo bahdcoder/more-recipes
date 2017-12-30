@@ -1,8 +1,6 @@
 import { combineEpics } from 'redux-observable';
-import recipesEpic from './recipesEpic';
+import fetchHomePageDataEpic from './recipesEpic';
 
-
-const rootEpic = combineEpics(recipesEpic);
+const rootEpic = combineEpics(fetchHomePageDataEpic);
 
 export default rootEpic;
-

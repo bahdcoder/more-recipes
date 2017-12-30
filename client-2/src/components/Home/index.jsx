@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import RecipeRow from '../RecipeRow';
-import mockRecipes from '../../mock/recipes.json';
 import LeadButtons from './components/LeadButtons';
 import recipeProptype from '../../propTypes/recipe';
 import { fetchHomePageData } from '../../store/actions/recipes';
@@ -70,9 +69,17 @@ Home.propTypes = {
   fetchHomePageData: PropTypes.func.isRequired
 };
 
-const mapStateToProps = () => ({
-  mostFavoritedRecipes: mockRecipes,
-  latestRecipes: mockRecipes
+const mostFavoritedRecipes = recipesFromStore =>
+  recipesFromStore.sort((recipeA, recipeB) =>
+    recipeA.favoritersIds.length > recipeB.favoritersIds.length).slice(0, 3);
+
+const latestRecipes = recipesFromStore =>
+  recipesFromStore.sort((recipeA, recipeB) =>
+    recipeA.createdAt > recipeB.createdAt).slice(0, 3);
+
+const mapStateToProps = ({ recipes }) => ({
+  mostFavoritedRecipes: mostFavoritedRecipes(recipes),
+  latestRecipes: latestRecipes(recipes)
 });
 
 const mapDispatchToProps = dispatch => (bindActionCreators({

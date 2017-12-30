@@ -24,10 +24,12 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.5.1",
+    "nock": "^9.1.5",
     "react-test-renderer": "^16.2.0",
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.4.0"

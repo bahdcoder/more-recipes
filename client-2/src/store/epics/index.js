@@ -1,6 +1,12 @@
 import { combineEpics } from 'redux-observable';
-import fetchHomePageDataEpic from './recipesEpic';
+import { ajax } from 'rxjs/observable/dom/ajax';
 
-const rootEpic = combineEpics(fetchHomePageDataEpic);
+import config from '../../config';
+import { fetchHomePageDataEpic } from './recipesEpic';
+
+const rootEpic = (...args) => combineEpics(fetchHomePageDataEpic)(
+  ...args,
+  { ajax, apiUrl: config.apiUrl }
+);
 
 export default rootEpic;

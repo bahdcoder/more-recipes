@@ -9,7 +9,7 @@ const middleware = [];
 const mockStore = configureStore(middleware);
 
 it('Should home component render correctly without crashing', () => {
-  const store = mockStore({});
+  const store = mockStore({ recipes: [] });
   ReactDOM.render(
     <MemoryRouter>
       <Home store={store} />

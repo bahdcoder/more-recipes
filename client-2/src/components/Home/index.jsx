@@ -16,6 +16,11 @@ import { fetchHomePageData } from '../../store/actions/recipes';
  * @returns {class} jsx
  */
 class Home extends React.Component {
+  static propTypes = {
+    mostFavoritedRecipes: PropTypes.arrayOf(recipeProptype).isRequired,
+    latestRecipes: PropTypes.arrayOf(recipeProptype).isRequired,
+    fetchHomePageData: PropTypes.func.isRequired
+  }
   /**
    * Fetch home page data when the component mounts
    * @returns {null} null
@@ -23,7 +28,6 @@ class Home extends React.Component {
   componentWillMount() {
     this.props.fetchHomePageData();
   }
-
   /**
    * Render the component
    * @returns {jsx} component jsx
@@ -62,12 +66,6 @@ class Home extends React.Component {
     );
   }
 }
-
-Home.propTypes = {
-  mostFavoritedRecipes: PropTypes.arrayOf(recipeProptype).isRequired,
-  latestRecipes: PropTypes.arrayOf(recipeProptype).isRequired,
-  fetchHomePageData: PropTypes.func.isRequired
-};
 
 const mostFavoritedRecipes = recipesFromStore =>
   recipesFromStore.sort((recipeA, recipeB) =>

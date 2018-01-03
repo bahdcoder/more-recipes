@@ -28,6 +28,10 @@ export default class UserRecipes extends Component {
     }
   }
 
+  componentDidMount() {
+    window.scroll(0, 0);
+  }
+
 
   render() {
     let recipes;
@@ -94,6 +98,8 @@ export default class UserRecipes extends Component {
               </div>
             </div>
           </div>
+          <br/>
+          <br/>
           <Footer {...this.props} />
       </div>
     );

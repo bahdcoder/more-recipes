@@ -1,3 +1,4 @@
+import lockr from 'lockr';
 import axios from 'axios';
 import queryString from 'query-string';
 import { push } from 'react-router-redux';
@@ -109,7 +110,12 @@ export function getHomePageData() {
  * @param {int} recipeId id of recipe to be downvoted
  * @returns {Promise} Promise resolve/reject
  */
-export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+export function toggleUpvote(
+  indexOfRecipe,
+  userHasUpvoted,
+  userHasDownvoted,
+  indexOfUpvoter, indexOfDownvoter, recipeId
+) {
   return async (dispatch, getState, apiUrl) => {
     try {
       if (!userHasUpvoted) {
@@ -142,7 +148,7 @@ export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, in
       await axios.post(`${apiUrl}/recipes/${recipeId}/upvote`);
       return Promise.resolve();
     } catch (errors) {
-      return Promise.reject();
+      return Promise.reject(errors);
     }
   };
 }
@@ -158,7 +164,10 @@ export function toggleUpvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, in
  * @param {int} recipeId id of recipe to be downvoted
  * @returns {Promise} Promise resolve/reject
  */
-export function toggleDownvote(indexOfRecipe, userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId) {
+export function toggleDownvote(
+  indexOfRecipe,
+  userHasUpvoted, userHasDownvoted, indexOfUpvoter, indexOfDownvoter, recipeId
+) {
   return async (dispatch, getState, apiUrl) => {
     try {
       if (!userHasDownvoted) {
@@ -258,7 +267,7 @@ export function signIn({ email, password }) {
         email, password
       });
 
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      lockr.set('authUser', response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
@@ -280,7 +289,7 @@ export function signIn({ email, password }) {
  */
 export function signOut() {
   return async (dispatch) => {
-    localStorage.removeItem('authUser');
+    lockr.rm('authUser');
 
     dispatch({
       type: 'SIGN_OUT_USER'
@@ -304,7 +313,7 @@ export function signUp({ name, email, password }) {
         email, password, name
       });
 
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      lockr.set('authUser', response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
@@ -355,11 +364,12 @@ export function updateRecipe(recipe, recipeId) {
 
       const recipeIndex = getState().recipes
         .findIndex(recipeInStore => recipeInStore.id === recipeId);
+
       dispatch({
         type: 'RECIPE_UPDATED',
         payload: {
           recipeIndex,
-          recipe: response.data.data
+          recipe: response.data.data.recipe
         }
       });
 
@@ -441,14 +451,11 @@ export function getUserRecipes(userId) {
           payload: user
         });
       }
-
-      console.log(response);
-
       return Promise.resolve();
     } catch (errors) {
       return Promise.reject();
     }
-  }
+  };
 }
 
 /**
@@ -513,10 +520,12 @@ export function findUser(userId) {
     try {
       const response = await axios.get(`${apiUrl}/users/profile/${userId}`);
 
-      dispatch({
-        type: 'NEW_USER_ADDED',
-        payload: response.data.data.user
-      });
+      if (getState().users.findIndex(u => u.id === response.data.data.user.id) === -1) {
+        dispatch({
+          type: 'NEW_USER_ADDED',
+          payload: response.data.data.user
+        });
+      }
       return Promise.resolve();
     } catch (error) {
       return Promise.reject(error);
@@ -535,8 +544,9 @@ export function updateUserProfile(userData, index) {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.put(`${apiUrl}/users/update`, userData);
-
-      localStorage.setItem('authUser', JSON.stringify(response.data.data));
+      const currentUser = JSON.parse(localStorage.getItem('authUser'));
+      currentUser.user = response.data.data.user;
+      localStorage.setItem('authUser', JSON.stringify(currentUser));
 
       dispatch({
         type: 'USER_UPDATED',

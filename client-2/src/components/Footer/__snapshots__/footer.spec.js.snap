@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The footer renders without crashing 1`] = `
+<footer
+  className="footer mt-5"
+>
+  <p>
+    More-recipes app by bahdcoder @andela
+  </p>
+</footer>
+`;

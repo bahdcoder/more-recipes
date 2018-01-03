@@ -25,8 +25,8 @@ export default class NavBar extends React.Component {
           </a>
           <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <Link className="dropdown-item" to={`/user/${this.props.authUser.user.id}`}>My profile</Link>
+              <Link className="dropdown-item" to={`/user/${this.props.authUser.user.id}/recipes`}>My recipes</Link>              
               <Link className="dropdown-item" to="/my/favorites">My favorites</Link>
-              <a className="dropdown-item" href="">Notification settings</a>
               <a className="dropdown-item" 
                  href="javascript:;" 
                  onClick={async () => {

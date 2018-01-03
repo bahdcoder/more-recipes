@@ -1,4 +1,6 @@
 /* eslint-disable */
+import kue from 'kue';
+import sinon from 'sinon';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import chaiHttp from 'chai-http';
@@ -50,6 +52,27 @@ describe('/users', () => {
         done();
       });
     });
+    context('User registration email sending', () => {
+      beforeEach(() => {
+        // fake the job create function, and replace it with sinon
+        const queue = kue.createQueue();    
+        globalMock.jobStub = sinon.spy(queue, 'create');
+      });
+      afterEach(() => {
+        globalMock.jobStub.restore();
+      });
+      it.skip('Should dispatch a queue job to send email after registration', async () => {
+        // when this function is called during tests, just assert that the data in it is the expected
+        const response = chai.request(application).post('/api/v1/users/signup')
+          .send({
+            name: 'brand new user',
+            email: 'brand-new@user.com',
+            password: 'secret'
+          });
+        
+        expect(globalMock.jobStub.called).to.be.true;
+      });
+    });
   });
   
   describe('/signin', () => {
@@ -58,7 +81,7 @@ describe('/users', () => {
       globalMock.user1 = await db.User.create({
         name: 'kati frantz',
         email: 'kati@frantz.com',
-        password: await bcrypt.hash('secret', 10)
+        password: await bcrypt.hash('secret', 1)
       });
   
     });
@@ -89,7 +112,7 @@ describe('/users', () => {
         expect(response).to.have.status(422);
         const responseData = response.body.data;
 
-        expect(responseData.message).to.equal('These credentials do not match our records.');
+        expect(responseData.errors).to.equal('These credentials do not match our records.');
         done();
       });
     });
@@ -104,7 +127,7 @@ describe('/users', () => {
         expect(response).to.have.status(422);
         const responseData = response.body.data;
 
-        expect(responseData.message).to.equal('These credentials do not match our records.');
+        expect(responseData.errors).to.equal('These credentials do not match our records.');
         done();
       });
     });

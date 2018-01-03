@@ -1,4 +1,5 @@
 /* eslint-disable */
+import config from './../config';
 import redisClient from './redis-client';
 
 /**
@@ -68,5 +69,37 @@ export async function updateRecipeAttributes(sequelizeRecipe) {
   const favoritersIds = await redisClient.smembers(`recipe:${recipe.id}:favorites`);
   recipe.favoritersIds = favoritersIds;
 
+  const viewers = await redisClient.smembers(`recipe:${recipe.id}:viewers`);
+  recipe.viewers = viewers;
+
   return recipe;
+}
+
+export async function updateUserAttributes(user, models) {
+  const recipes = await models.Recipe.findAll({
+    where: {
+      userId: user.id
+    }
+  });
+
+  user = user.get();
+  user.recipes = recipes;
+
+  return user;
+}
+
+export async function updateUserSettings(user, requestData) {
+  const newSettings = JSON.parse(user.settings);
+
+  Object.entries(requestData).forEach(([key, value]) => {
+    if (config.VALID_USER_SETTINGS.indexOf(key) !== -1) {
+      newSettings[key] = value;
+    }
+  });
+
+  console.log(newSettings);
+
+  user.settings = JSON.stringify(newSettings);
+  await user.save();
+  return newSettings;
 }

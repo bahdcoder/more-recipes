@@ -1,4 +1,8 @@
+import kue from 'kue';
+
 import models from '../database/models';
+import redisConfig from '../config/redis';
+import client from './../helpers/redis-client';
 import filterMostUpvotedRecipes from './../filters/mostUpvoted';
 import filterMostFavoritedRecipes from './../filters/mostFavorited';
 
@@ -90,6 +94,17 @@ export default class RecipesController {
    */
   async create(req, res) {
     const reqBody = req.body;
+
+    const userRecipes = await models.Recipe.findAll({
+      where: {
+        userId: req.authUser.id
+      }
+    });
+    const userRecipeTitles = userRecipes.map(recipe => recipe.title);
+    if (userRecipeTitles.includes(reqBody.title)) {
+      return res.sendFailureResponse({ errors: ['You already have a recipe with this title.'] }, 409);
+    }
+
     const createdRecipe = await models.Recipe.create({
       title: reqBody.title,
       description: reqBody.description,
@@ -137,8 +152,54 @@ export default class RecipesController {
         attributes: { exclude: ['password'] }
       }
     });
+    // get the ids of all favoriters for this email
+    const favoritersIds = await client.smembers(`recipe:${recipe.id}:favorites`);
+    // with this array, findAll users from database.
+    const favoriters = await models.User.findAll({
+      where: {
+        id: {
+          [models.Sequelize.Op.in]: favoritersIds
+        }
+      }
+    });
+    // filter out the users whose email settings for favorite updates are turned off
+    const favoritersToNotify = favoriters.filter((user) => {
+      const settings = JSON.parse(user.settings);
+      return Number(settings.favoriteModifiedEmail) === 1;
+    });
+    // queue a batch email sending campaign
+    const queue = kue.createQueue(process.env.NODE_ENV === 'production' ? redisConfig.production : {});
+    //  Register a new mails job to the queue
+    queue.create('batchMails', {
+      users: favoritersToNotify,
+      message: {
+        subject: 'Favorite recipe updated'
+      },
+      template: {
+        pug: 'welcome'
+      },
+      recipe
+    }).events(false).save();
+    // make sure queue is queueuing into batchMails, and sends message, users and template objects
 
-    return res.sendSuccessResponse(updatedRecipe, 200);
+    return res.sendSuccessResponse({ recipe: updatedRecipe }, 200);
+  }
+
+  /**
+   * Add a viewer to a recipe
+   * @param {*} req express req object
+   * @param {*} res express res object
+   * @returns {json} json with recipe views
+   */
+  async view(req, res) {
+    const { authUser, currentRecipe } = req;
+
+    if (authUser.id === currentRecipe.userId) {
+      return res.sendFailureResponse({ message: 'Unauthorized' }, 401);
+    }
+    await client.sadd(`recipe:${req.currentRecipe.id}/viewers`, authUser.id);
+    const viewers = await client.smembers(`recipe:${req.currentRecipe.id}/viewers`);
+    return res.sendSuccessResponse({ viewers });
   }
 
 

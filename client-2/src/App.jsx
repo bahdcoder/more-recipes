@@ -6,6 +6,7 @@ import { history } from './store';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import SignUp from './components/Auth/SignUp';
 import UserProfile from './components/UserProfile';
 
 /**
@@ -18,6 +19,7 @@ const App = () => (
       <Navbar />
       <Switch>
         <Route component={Home} exact path="/" />
+        <Route component={SignUp} path="/auth/register" />
         <Route component={UserProfile} path="/profile" />
       </Switch>
       <Footer />

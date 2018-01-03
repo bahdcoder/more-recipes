@@ -35,7 +35,9 @@
   "devDependencies": {
     "babel-eslint": "^8.0.1",
     "babel-jest": "^21.2.0",
-    "enzyme": "^3.2.0",
+    "cypress": "^1.4.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "faker": "^4.1.0",
     "forever": "^0.15.3",
     "forever-monitor": "^1.7.1",

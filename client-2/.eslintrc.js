@@ -35,5 +35,8 @@ module.exports = {
             "components": [ "a" ],
             "aspects": [ "noHref", "invalidHref", "preferButton" ]
         }]
+      },
+      "globals": {
+          "expect": true
       }
 };

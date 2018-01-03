@@ -10,6 +10,8 @@ import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import { checkAuth } from './services/checkAuth';
 import UserProfile from './components/UserProfile';
+import PrivateRoute from './components/PrivateRoute';
+import RedirectIfAuthenticated from './components/RedirectIfAuthenticated';
 
 /**
  * App component
@@ -34,9 +36,9 @@ class App extends React.Component {
         <div>
           <Navbar />
           <Switch>
-            <Route component={Home} exact path="/" />
-            <Route component={Login} path="/auth/login" />
-            <Route component={SignUp} path="/auth/register" />
+            <PrivateRoute component={Home} exact path="/" />
+            <RedirectIfAuthenticated component={Login} path="/auth/login" />
+            <RedirectIfAuthenticated component={SignUp} path="/auth/register" />
             <Route component={UserProfile} path="/profile" />
           </Switch>
           <Footer />

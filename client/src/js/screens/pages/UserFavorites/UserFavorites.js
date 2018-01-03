@@ -26,12 +26,8 @@ export default class UserFavorites extends Component {
     } catch (error) {
       console.log(error.response);
     }
-  
   }
 
-  componentDidMount() {
-    window.scroll(0, 0);
-  }
 
   render() {
     let recipes;

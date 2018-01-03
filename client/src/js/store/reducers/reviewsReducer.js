@@ -47,3 +47,5 @@ export default function reviewsReducer(state = {}, action) {
   }
 }
 
+//  reviews: { recipe1: ['review1', 'review2'], recipe2: [ 'review3', 'review3' ] }
+

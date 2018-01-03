@@ -9,13 +9,11 @@ import config from './../../../config';
 import Reviews from './components/Reviews';
 import NavBar from './../../components/Navbar';
 import Footer from './../../components/Footer';
-import UsersModal from './components/UsersModal';
 import RecipeActions from './../../components/RecipeActions';
 import SingleRecipeLoader from './../../components/SingleRecipeLoader';
 
 import meal1 from './../../../../assets/img/meal-3.jpg';
 import meal2 from './../../../../assets/img/meal-2.jpg';
-import RecipeCardLoader from './../../components/RecipeCardLoader';
 
 export default class SingleRecipe extends Component {
 
@@ -26,30 +24,13 @@ export default class SingleRecipe extends Component {
       recipe: null,
       reviews: [],
       loading: true,
-      canActOnRecipe: true,
-      topChefs: null,
-      similarRecipes: null,
-      usersModal: {
-        title: 'Recipe upvoters',
-        users: null,
-        loading: true
-      }
+      canActOnRecipe: true
     };
-    this.getBulkUsers = this.getBulkUsers.bind(this);
+
     this.toggleUpvote = this.toggleUpvote.bind(this);
     this.toggleFavorite = this.toggleFavorite.bind(this);
     this.toggleDownvote = this.toggleDownvote.bind(this);
     this.checkIfCanActOnRecipe = this.checkIfCanActOnRecipe.bind(this);    
-  }
-
-  async getBulkUsers(action) {
-    const newState = {
-      title: `Recipe ${action}`,
-      users: null,
-      loading: true
-    };
-
-    this.setState({ usersModal: newState });
   }
 
   async toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter) {
@@ -80,13 +61,6 @@ export default class SingleRecipe extends Component {
        this.checkIfCanActOnRecipe(recipe);
 
         await this.props.updateRecipesInStore(recipe);
-        const searchResponse = await axios.get(`${config.apiUrl}/recipes?query=${recipe.title}`);
-        let { recipes } = searchResponse.data.data.recipes;
-        recipes = recipes.filter(r => r.id !== recipe.id);
-
-        this.setState({
-          similarRecipes: recipes
-        });
       } catch (error) {
         if (error.status === 404) {
           // if the recipe is not found from ajax request, redirect user to 404 page.
@@ -101,29 +75,6 @@ export default class SingleRecipe extends Component {
       this.checkIfCanActOnRecipe(recipe);
     }
   }
-
-  async componentDidMount() {
-    window.scroll(0, 0);
-    try {
-      const response = await axios.get(`${config.apiUrl}/recipes?sort=mostFavorited&perPage=4`);
-      const { recipes } = response.data.data.recipes;
-      const topChefs = recipes.map((recipe) => {
-        return recipe.User;
-      });
-      const uniqueChefs = [];
-      topChefs.forEach(chef => {
-        if(uniqueChefs.findIndex(c => c.id === chef.id) === -1) {
-          uniqueChefs.push(chef);
-        }
-      });
-      this.setState({
-        topChefs: uniqueChefs
-      });
-    } catch (errors) {
-
-    }
-  }
-  
 
   checkIfCanActOnRecipe(recipe) {
     if (this.props.checkAuth()) {
@@ -166,7 +117,6 @@ export default class SingleRecipe extends Component {
     let recipeCard;
     let recipe;
 
-
     const indexOfRecipe = this.props.recipes.findIndex(recipe => recipe.id === this.props.params.id);
 
     if (indexOfRecipe === -1) {
@@ -205,7 +155,6 @@ export default class SingleRecipe extends Component {
       let indexOfFavoriter;
       let indexOfUpvoter;
       let indexOfDownvoter;
-      
 
       if (this.props.checkAuth()) {
         indexOfFavoriter = recipe.favoritersIds.findIndex(userId => userId === this.props.authUser.user.id)
@@ -252,22 +201,18 @@ export default class SingleRecipe extends Component {
                 <i className={ hasUpvoted ? "ion ion-happy ion-recipe-action" : "ion ion-recipe-action ion-happy-outline" }
                    onClick={(event) => { this.toggleUpvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
-                <span className="ml-3" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('upvoters')}>{numeral(recipe.upvotersIds.length).format('0a')}</span>
+                <span className="ml-3">{numeral(recipe.upvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
                 <i className={ hasDownvoted ? "ion ion-sad ion-recipe-action" : "ion ion-recipe-action ion-sad-outline" }
                    onClick={() => { this.toggleDownvote(indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter, indexOfDownvoter); }}> </i> 
                  
-                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} onClick={() => this.getBulkUsers('downvoters')} data-toggle="modal" data-target="#exampleModal">{numeral(recipe.downvotersIds.length).format('0a')}</span>
+                <span className="ml-3">{numeral(recipe.downvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
                 <i className={ hasFavorited ? "ion ion-ios-heart ion-recipe-action" : "ion ion-recipe-action ion-ios-heart-outline" }
                    onClick={() => { this.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter); }}> </i> 
-                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('favoriters')}>{numeral(recipe.favoritersIds.length).format('0a')} </span>
-              </span>
-              <span className="mr-3 h1">
-                <i className="ion ion-eye"> </i> 
-                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('viewers')}>{numeral(recipe.viewers.length).format('0a')} </span>
+                <span className="ml-3">{numeral(recipe.favoritersIds.length).format('0a')} </span>
               </span>
             </p>
             <hr />
@@ -294,49 +239,6 @@ export default class SingleRecipe extends Component {
       );
     }
 
-    let similarRecipes;
-    if(this.state.similarRecipes !== null && this.state.similarRecipes.length > 0) {
-      similarRecipes = this.state.similarRecipes.map(recipe => {
-        return (
-          <div>
-            <h3 className="text-center my-3">Similar recipes</h3>
-            <div className="card mb-3" key={recipe.id}>
-              <div className="img-zoom">
-                <img className="card-img-top" style={{height: 200}} src={recipe.imageUrl} />                
-              </div>
-              <div className="card-body">
-                <Link className="card-title text-center" to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
-              </div>
-            </div>
-          </div>
-        );
-      });
-    }
-
-    let topChefs;
-    let topChefsList;
-
-    if(this.state.topChefs !== null) {
-      topChefs = this.state.topChefs.map(chef => {
-        return (
-          <li className="list-group-item" key={chef.id}>
-            <Link className="card-title text-center" to={`/user/${chef.id}`}>{chef.name}</Link>
-          </li>
-        );
-      });
-
-      if (topChefs.length > 0) {
-        topChefsList = (
-          <div>
-            <h3 className="text-center my-5">Top notch chefs</h3>
-            <ul className="list-group">
-              {topChefs}
-            </ul>
-          </div>
-        );
-      }
-    }
-
     return (
       <div>
         <NavBar {...this.props}/>
@@ -347,15 +249,41 @@ export default class SingleRecipe extends Component {
               {recipeCard}
               {/* End of card details  */}<br/><br/><br/><br/>
             </div>
-            <div className="col-lg-4 col-sm-12">
-              {similarRecipes}
-              {topChefsList}
+            <div className="col-lg-4 col-xs-12">
+              <h3 className="text-center my-5">Similar recipes</h3>
+              <div className="card mb-3">
+                <div className="img-zoom">
+                  <img className="card-img-top" style={{height: 200}} src={meal1} alt="Card image cap" />                
+                </div>
+                <div className="card-body">
+                  <h6 className="card-title text-center">
+                    <a href="single-recipe.html">Italian Pepperonni with mushroom coverings</a>
+                  </h6>
+                </div>
+              </div>
+              <div className="card mb-3">
+                <div className="img-zoom">
+                  <img className="card-img-top" style={{height: 200}} src={meal2} alt="Card image cap" />                
+                </div>
+                <div className="card-body">
+                  <h6 className="card-title text-center">
+                    <a href="single-recipe.html">Pressurized African Cassava Golden Grains</a>
+                  </h6>
+                </div>
+              </div>
+              <h3 className="text-center my-5">Top notch chefs</h3>
+              <ul className="list-group">
+                <li className="list-group-item"><span className="card-title">Kati Frantz</span></li>
+                <li className="list-group-item"><span className="card-title">Irene Myers</span></li>
+                <li className="list-group-item"><span className="card-title">Doctor Strange</span></li>
+                <li className="list-group-item"><span className="card-title">Nadine Almendi F.</span></li>
+              </ul>
             </div>
           </div>
         </div>
         <Footer />
-        <UsersModal {...this.state.usersModal}/>
       </div>
+
     );
   }
 }

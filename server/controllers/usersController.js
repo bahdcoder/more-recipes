@@ -1,6 +1,6 @@
 import models from '../database/models';
 import client from '../helpers/redis-client';
-import { updateRecipeAttributes, updateUserAttributes, updateUserSettings } from '../helpers';
+import { updateRecipeAttributes } from '../helpers';
 /**
  * Controller for all `users` endpoints
  * @export
@@ -20,12 +20,11 @@ export default class UsersController {
     if (recipe.favoritersIds.findIndex(user => user === req.authUser.id) !== -1) {
       await client.srem(`user:${req.authUser.id}:favorites`, recipe.id);
       await client.srem(`recipe:${recipe.id}:favorites`, req.authUser.id);
-
-      return res.sendSuccessResponse({ message: 'Recipe removed from favorites.' });
+    } else {
+      await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
+      await client.sadd(`recipe:${recipe.id}:favorites`, req.authUser.id);
     }
 
-    await client.sadd(`user:${req.authUser.id}:favorites`, recipe.id);
-    await client.sadd(`recipe:${recipe.id}:favorites`, req.authUser.id);
     return res.sendSuccessResponse({ message: 'Recipe favorited.' });
   }
 
@@ -73,8 +72,8 @@ export default class UsersController {
     if (!user) {
       return res.sendFailureResponse({ message: 'User not found.' }, 404);
     }
-    const updatedUser = await updateUserAttributes(user, models);
-    return res.sendSuccessResponse({ user: updatedUser });
+
+    return res.sendSuccessResponse({ user });
   }
   /**
    * Update authenticated user profile
@@ -85,15 +84,9 @@ export default class UsersController {
    * @memberof UsersController
    */
   async updateProfile(req, res) {
-    const { name, about, settings } = req.body;
-    if (settings) {
-      await updateUserSettings(req.authUserObj, settings);
-    }
-    const user = await req.authUserObj.update({
-      name, about
-    });
-    const updatedUser = await updateUserAttributes(user, models);
-    return res.sendSuccessResponse({ user: updatedUser });
+    const user = await req.authUserObj.update(req.body);
+
+    return res.sendSuccessResponse({ user });
   }
   /**
    * Get all the recipes for a user

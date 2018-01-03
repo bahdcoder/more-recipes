@@ -18,6 +18,5 @@ recipesRoutes.post('/:id/upvote', middleware.auth, middleware.hasRecipe, middlew
 recipesRoutes.get('/:id/reviews', middleware.hasRecipe, reviewsController.index);
 recipesRoutes.post('/:id/downvote', middleware.auth, middleware.hasRecipe, middleware.canDownvote, votesController.downvote);
 recipesRoutes.post('/:id/reviews', middleware.auth, middleware.hasRecipe, middleware.canReview, reviewsController.create);
-recipesRoutes.post('/:id/views', middleware.auth, middleware.hasRecipe, recipesController.view);
 
 export default recipesRoutes;

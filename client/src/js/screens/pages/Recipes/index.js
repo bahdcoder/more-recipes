@@ -30,7 +30,9 @@ export default class Recipes extends React.Component {
   }
 
   componentDidMount() {
-    window.scroll(0, 0);
+    browserHistory.listen(location => {
+      // get data from api right now.
+    });
   }
 
   async getRecipes() {

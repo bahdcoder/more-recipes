@@ -1,4 +1,3 @@
-const path = require('path');
 /**
  * The different database configurations for different environments.
  */
@@ -15,10 +14,6 @@ const config = {
     dialect: 'sqlite',
     storage: 'database.sqlite',
     logging: false
-  },
-  e2eTests: {
-    dialect: 'sqlite',
-    storage: path.resolve(__dirname, '../../client/e2e/e2e.sqlite')
   },
   production: {
     connection_uri: process.env.DATABASE_URL,

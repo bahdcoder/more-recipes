@@ -9,14 +9,6 @@ if (process.env.NODE_ENV === 'test') {
 /**
  * Application wide configurations
  */
-module.exports = {
-  JWT_SECRET: jwtSecret,
-  MAILER: {
-    SERVICE: process.env.MAILER_SERVICE,
-    USER: process.env.MAILER_USER,
-    PASS: process.env.MAILER_PASS,
-    HOST: process.env.MAILER_HOST,
-    PORT: process.env.MAILER_PORT
-  },
-  VALID_USER_SETTINGS: ['reviewEmails', 'favoriteModifiedEmail']
+export default {
+  JWT_SECRET: jwtSecret
 };

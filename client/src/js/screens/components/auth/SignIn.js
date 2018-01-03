@@ -42,7 +42,7 @@ export default class SignIn extends Component {
 
       $('#loginModal').modal('toggle');
     } catch (error) {
-      error = error.response;
+      let error = error.response;
 
       if (error.status === 422) {
         this.setState({
@@ -60,7 +60,7 @@ export default class SignIn extends Component {
       <small></small>
     );
     if (this.state.error) {
-      errorBag = <small id="loginErrorMessage" className="mb-3" style={{
+      errorBag = <small className="mb-3" style={{
         color: '#E27C3E',
         fontWeight: '700'
       }}>{this.state.error}</small>;

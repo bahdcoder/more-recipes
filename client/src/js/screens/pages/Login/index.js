@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { isValidEmail } from '../../../helpers';
 
 import logo from './../../../../assets/img/logo.png';
@@ -45,12 +44,12 @@ export default class Login extends Component {
 
       this.props.router.push('/');
 
-    } catch (errors) {
-      let error = errors.response;
+    } catch (error) {
+      let error = error.response;
 
       if (error.status === 422) {
         this.setState({
-          error: error.data.data.errors
+          error: error.data.data.message
         });
       } else {
         this.setState({
@@ -64,7 +63,7 @@ export default class Login extends Component {
       <small></small>
     );
     if (this.state.error) {
-      errorBag = <small id="loginErrorMessage" className="mb-3" style={{
+      errorBag = <small className="mb-3" style={{
         color: '#E27C3E',
         fontWeight: '700'
       }}>{this.state.error}</small>;
@@ -111,7 +110,7 @@ export default class Login extends Component {
                                               onClick={(event) => { this.handleSignIn(); }} 
                                               type="button"
                                               disabled={!this.dataIsValid()}>Login</button>   
-                                      <span className="mt-5 h6 mr-3">No account yet ? <Link style={{ textDecoration: 'none' }} to="/auth/register">Register</Link></span>
+                                      <span className="mt-5 h6 mr-3"><a role="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">No account ? Register</a></span>    
                                       <span className="mt-5 ml-2 h6"><a>Forgot your password?</a></span>                                 
                                     </div>
                                 </div>

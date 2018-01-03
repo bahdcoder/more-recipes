@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RecipeCard from './../RecipeCard';
+import recipePropType from '../../propTypes/recipe';
 
 const RecipeRow = ({ recipes }) => (
   <div className="card-deck wow fadeIn">
@@ -13,7 +14,7 @@ const RecipeRow = ({ recipes }) => (
 );
 
 RecipeRow.propTypes = {
-  recipes: PropTypes.arrayOf(PropTypes.object).isRequired
+  recipes: PropTypes.arrayOf(recipePropType).isRequired
 };
 
 export default RecipeRow;

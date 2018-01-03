@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const SignedOutLeadButtons = () => (
@@ -49,5 +50,9 @@ const LeadButtons = ({ isAuthenticated }) => (
     }
   </span>
 );
+
+LeadButtons.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
+};
 
 export default LeadButtons;

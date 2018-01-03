@@ -6,6 +6,7 @@ import { history } from './store';
 import Home from './components/Home';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import checkAuth from './services/checkAuth';
 import SignUp from './components/Auth/SignUp';
 import UserProfile from './components/UserProfile';
 
@@ -13,18 +14,34 @@ import UserProfile from './components/UserProfile';
  * App component
  * @returns {class} class
  */
-const App = () => (
-  <ConnectedRouter history={history}>
-    <div>
-      <Navbar />
-      <Switch>
-        <Route component={Home} exact path="/" />
-        <Route component={SignUp} path="/auth/register" />
-        <Route component={UserProfile} path="/profile" />
-      </Switch>
-      <Footer />
-    </div>
-  </ConnectedRouter>
-);
+class App extends React.Component {
+  /**
+   * Get user from localStorage when component mounts
+   * @returns {null} null
+   */
+  componentWillMount() {
+    checkAuth();
+  }
+
+  /**
+   * Render component
+   * @returns {jsx} App connected router
+   */
+  render() {
+    return (
+      <ConnectedRouter history={history}>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route component={Home} exact path="/" />
+            <Route component={SignUp} path="/auth/register" />
+            <Route component={UserProfile} path="/profile" />
+          </Switch>
+          <Footer />
+        </div>
+      </ConnectedRouter>
+    );
+  }
+}
 
 export default App;

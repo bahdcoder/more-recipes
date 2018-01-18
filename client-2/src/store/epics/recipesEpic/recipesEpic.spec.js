@@ -1,13 +1,14 @@
 import 'rxjs';
-import { Observable } from 'rxjs/Observable';
 import { expect } from 'chai';
+import { Observable } from 'rxjs/Observable';
+
 import { ActionsObservable } from 'redux-observable';
 
 import config from '../../../config';
 import { fetchHomePageDataEpic } from './index';
-import { FETCH_HOME_PAGE_DATA_FULFILLED } from '../../actions/recipes/recipeActions';
-import mockRawRecipes from '../../../mock/rawRecipes.json';
 import { fetchHomePageData } from '../../actions/recipes';
+import mockRawRecipes from '../../../mock/rawRecipes.json';
+import { FETCH_HOME_PAGE_DATA_FULFILLED } from '../../actions/recipes/recipeActions';
 
 describe('the fetchHomePageDataEpic ', () => {
   it('fetches the home page recipes ', (done) => {
@@ -23,7 +24,15 @@ describe('the fetchHomePageDataEpic ', () => {
       })
     };
 
-    fetchHomePageDataEpic(actionStream, {}, { ajax, apiUrl: config.apiUrl })
+    const fakeStore = {
+      getState() {
+        return {
+          recipes: []
+        };
+      }
+    };
+
+    fetchHomePageDataEpic(actionStream, fakeStore, { ajax, apiUrl: config.apiUrl })
       .toArray()
       .subscribe((storeActions) => {
         expect(storeActions.length).to.equal(1);

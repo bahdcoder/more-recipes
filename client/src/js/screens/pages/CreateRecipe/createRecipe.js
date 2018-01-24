@@ -1,7 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 
 import config from '../../../config';

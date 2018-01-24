@@ -1,6 +1,7 @@
 {
     "root": true,
-    "extends": "airbnb-base",
+    "extends": "airbnb",
+    "parser": "babel-eslint",
     "env": {
       "node": true,
       "es6": true,
@@ -24,6 +25,10 @@
         "requireReturnType": true,
         "requireParamDescription": false,
         "requireReturnDescription": true
+      }],
+      "jsx-a11y/anchor-is-valid": [ "error", {
+            "components": [ "a", "Link" ],
+            "aspects": ["invalidHref", "preferButton" ]
       }],
       "require-jsdoc": ["error", {
           "require": {

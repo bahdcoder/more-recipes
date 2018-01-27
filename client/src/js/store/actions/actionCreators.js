@@ -143,12 +143,26 @@ export function toggleUpvote(
             userId: getState().authUser.user.id
           }
         });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe upvoted successfully.'
+          }
+        });
       } else {
         dispatch({
           type: 'REMOVE_USER_FROM_UPVOTERS',
           payload: {
             indexOfRecipe,
             indexOfUpvoter
+          }
+        });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Upvote removed successfully.'
           }
         });
       }
@@ -195,12 +209,26 @@ export function toggleDownvote(
             userId: getState().authUser.user.id
           }
         });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe downvoted successfully.'
+          }
+        });
       } else {
         dispatch({
           type: 'REMOVE_USER_FROM_DOWNVOTERS',
           payload: {
             indexOfRecipe,
             indexOfDownvoter
+          }
+        });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Downvote removed successfully.'
           }
         });
       }
@@ -240,12 +268,26 @@ export function toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, re
           type: 'REMOVE_USER_FROM_FAVORITERS',
           payload: { indexOfRecipe, indexOfFavoriter }
         });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe removed from favorites successfully.'
+          }
+        });
       } else {
         dispatch({
           type: 'ADD_USER_TO_FAVORITERS',
           payload: {
             indexOfRecipe,
             userId: getState().authUser.user.id
+          }
+        });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe favorited successfully.'
           }
         });
       }
@@ -289,6 +331,14 @@ export function signIn({ email, password }) {
       dispatch({
         type: 'SIGN_IN_USER',
         authUser: response.data.data
+      });
+
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Successfully signed in.'
+        }
       });
 
       return Promise.resolve(response);
@@ -337,6 +387,14 @@ export function signUp({ name, email, password }) {
         authUser: response.data.data
       });
 
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Welcome to BahdRecipes !'
+        }
+      });
+
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
@@ -358,6 +416,13 @@ export function createRecipe(recipe) {
       dispatch({
         type: 'NEW_RECIPE_CREATED',
         payload: response.data.data.recipe
+      });
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Recipe created successfully.'
+        }
       });
       return Promise.resolve(response);
     } catch (errors) {
@@ -387,6 +452,14 @@ export function updateRecipe(recipe, recipeId) {
         payload: {
           recipeIndex,
           recipe: response.data.data.recipe
+        }
+      });
+
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Recipe updated successfully.'
         }
       });
 
@@ -492,6 +565,14 @@ export function createReview({ recipeId, review }) {
         payload: response.data.data.review
       });
 
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Recipe reviewed successfully.'
+        }
+      });
+
       return Promise.resolve();
     } catch (error) {
       return Promise.reject(error);
@@ -576,6 +657,14 @@ export function updateUserProfile(userData, index) {
       dispatch({
         type: 'AUTH_USER_UPDATED',
         payload: response.data.data.user
+      });
+
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Your profile was updated successfully.'
+        }
       });
 
       return Promise.resolve(response);

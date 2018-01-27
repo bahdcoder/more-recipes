@@ -8,6 +8,8 @@ import * as actionCreators from '../store/actions/actionCreators';
 
 import './../../css/styles.css';
 
+import Notification from '../screens/components/Notification';
+
 /**
  * The Main root component
  */
@@ -35,6 +37,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Notification />
         {React.cloneElement(this.props.children, this.props)}
       </div>
     );

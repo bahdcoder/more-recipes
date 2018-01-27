@@ -100,6 +100,23 @@ export function getHomePageData() {
 }
 
 /**
+ * Get a single recipe from api
+ * @param {string} recipeId
+ * @returns {object} action
+ */
+export function getSingleRecipe(recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    const response = await axios.get(`${apiUrl}/recipes/${recipeId}`);
+    const { recipe } = response.data.data;
+
+    dispatch({
+      type: 'NEW_RECIPE_CREATED',
+      payload: recipe
+    });
+  };
+}
+
+/**
  *Toggle a user upvote status for a recipe
  *
  * @param {any} indexOfRecipe the index of the recipe to be upvoted

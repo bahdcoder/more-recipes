@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
+import lockr from 'lockr';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { isAuthenticated } from './helpers';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { Router, Route, IndexRoute, browserHistory  } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
+import { isAuthenticated } from './helpers';
 
 import store from './store';
 
@@ -24,48 +26,48 @@ import '../css/styles.css';
 
 import Main from './containers/Main';
 
-
-
 /**
  * Set default axios configurations
+ * @returns {null} null
  */
-function setAxios() {
-  const authUser = localStorage.getItem('authUser');
+const setAxios = () => {
+  const authUser = lockr.get('authUser');
   if (authUser) {
-    axios.defaults.headers.common['x-access-token'] = JSON.parse(authUser).access_token;  
+    axios.defaults.headers.common['x-access-token'] = authUser.access_token;
   }
-}
+};
 
 setAxios();
 
 /**
  * Check if the user is authenticated
- * 
- * @param {any} nextState Next router destination
- * @param {any} replace replace the next route 
- * @returns 
+ *
+ * @param {obj} nextState Next router destination
+ * @param {func} replace replace the next route
+ * @returns {null} null
  */
-function checkIfAuth (nextState, replace) {
+const checkIfAuth = (nextState, replace) => {
   if (isAuthenticated(store.getState())) {
     return true;
   }
-  
+
   replace({
     pathname: '/auth/login'
   });
-}
+};
 
 /**
  * Check if the user is authenticated and authorized to visit this route
- * 
+ *
  * @param {any} nextState Next router destination
- * @param {any} replace replace the next route 
- * @returns 
+ * @param {any} replace replace the next route
+ * @returns {null} null
  */
-function checkIfAuthorized(nextState, replace) {
+const checkIfAuthorized = (nextState, replace) => {
   if (isAuthenticated(store.getState())) {
     const currentState = store.getState();
-    const recipe = currentState.recipes.find(recipe => recipe.id === nextState.params.id);
+    const recipe = currentState.recipes.find(currentRecipe =>
+      currentRecipe.id === nextState.params.id);
 
     if (!recipe) {
       // redirect user to the 404 page.
@@ -83,21 +85,21 @@ function checkIfAuthorized(nextState, replace) {
       return true;
     }
   }
-  
+
   // this in future will be the 404 page.
   replace({
     pathname: '/'
   });
-}
+};
 
 /**
  * Redirect to home if the user is authenticated
- * 
+ *
  * @param {any} nextState Next router destination
- * @param {any} replace replace the next route 
- * @returns 
+ * @param {any} replace replace the next route
+ * @returns {null} null
  */
-function redirectIfAuth(nextState, replace) {
+const redirectIfAuth = (nextState, replace) => {
   const authUser = localStorage.getItem('authUser');
   if (authUser) {
     replace({

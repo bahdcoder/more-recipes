@@ -584,3 +584,28 @@ export function updateUserProfile(userData, index) {
     }
   };
 }
+
+/**
+ * Delete a recipe
+ * @param {string} recipeId
+ * @returns {null} null
+ */
+export function deleteRecipe(recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      await axios.delete(`${apiUrl}/recipes/${recipeId}`);
+      dispatch({
+        type: 'REMOVE_RECIPE',
+        payload: { recipeId }
+      });
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS', message: 'Recipe deleted successfully.'
+        }
+      });
+    } catch (error) {
+      // notify user something went wrong.
+    }
+  };
+}

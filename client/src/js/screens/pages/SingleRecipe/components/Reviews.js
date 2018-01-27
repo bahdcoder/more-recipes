@@ -20,7 +20,7 @@ export default class Reviews extends Component {
    */
   async componentWillMount() {
     try {
-      const response = await this.props.getRecipeReviews(this.props.params.id); 
+      const response = await this.props.getRecipeReviews(this.props.params.id);
     } catch (error) {
       console.log('load reviews error:', error);
     }
@@ -28,16 +28,16 @@ export default class Reviews extends Component {
   render() {
     let recipeReviews = this.props.reviews[this.props.params.id] || [];
     let reviews;
-    
+
     if (recipeReviews.length > 0) {
-      
+
       reviews = recipeReviews.map(review => {
         return (
-          <div key={review.id}>
+          <div key={review.id} className="wow fadeInUp">
             <div className="ml-3 media">
-              <Gravatar className="d-flex mr-3" 
-                        style={{width: 60, height: 60, borderRadius: '100%'}}
-                        email={review.User.email} /> 
+              <Gravatar className="d-flex mr-3"
+                style={{ width: 60, height: 60, borderRadius: '100%' }}
+                email={review.User.email} />
               <div className="media-body">
                 <h6 className="font-weight-bold">{review.User.name}<small className="text-muted ml-2">{distanceInWordsToNow(review.createdAt)} ago</small></h6>
                 {review.review}
@@ -48,9 +48,9 @@ export default class Reviews extends Component {
         );
       });
     } else {
-    reviews = ( <div className="text-center font-weight-bold">
-      No reviews yet.
-    </div> );
+      reviews = (<div className="text-center font-weight-bold">
+        No reviews yet.
+    </div>);
     }
 
     return (
@@ -64,8 +64,8 @@ export default class Reviews extends Component {
             </div>
           </div>
         </Scrollbars>
-        <CreateReview {...this.props}/>
-        
+        <CreateReview {...this.props} />
+
       </div>
     );
   }

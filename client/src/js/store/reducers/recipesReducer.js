@@ -12,6 +12,8 @@ export default function recipesReducer(state = [], action) {
         ...state,
         action.payload
       ];
+    case 'REMOVE_RECIPE':
+      return state.filter(recipe => recipe.id !== action.payload.recipeId);
     case 'RECIPE_UPDATED':
       return [
         ...state.slice(0, action.payload.recipeIndex),

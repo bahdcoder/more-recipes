@@ -121,9 +121,9 @@ describe('actionCreators', () => {
 
         await globalMock.store.dispatch(toggleUpvote(0, false, true, 0, 0, globalMock.recipe1.id));
         const storeActions = globalMock.store.getActions();
-
-        expect(storeActions[1].type).to.equal('REMOVE_USER_FROM_DOWNVOTERS');
-        expect(storeActions[1].payload.indexOfRecipe).to.equal(0);
+        expect(storeActions[1].type).to.equal('NOTIFICATION');
+        expect(storeActions[2].payload.indexOfRecipe).to.equal(0);
+        expect(storeActions[2].type).to.equal('REMOVE_USER_FROM_DOWNVOTERS');
       });
     });
     context('actionCreators.toggleDownvote', () => {
@@ -312,7 +312,6 @@ describe('actionCreators', () => {
 
         globalMock.store.dispatch(updateRecipesInStore({}));
         const storeAction = globalMock.store.getActions()[0];
-        console.log(storeAction);
         expect(storeAction.type).to.equal('NEW_RECIPE_CREATED');
         expect(storeAction.payload).to.deep.equal({});
       });

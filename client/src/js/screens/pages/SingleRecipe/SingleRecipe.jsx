@@ -101,12 +101,14 @@ class SingleRecipe extends Component {
    * @param {string} action
    * @returns {null} null
    */
-  getBulkUsers(action) {
+  async getBulkUsers(action) {
     const newState = {
       title: `Recipe ${action}`,
       users: null,
       loading: true
     };
+
+    console.log(action);
 
     this.setState({ usersModal: newState });
   }
@@ -166,12 +168,12 @@ class SingleRecipe extends Component {
     try {
       await this.props
         .toggleUpvote(
-          indexOfRecipe,
-          hasUpvoted,
-          hasDownvoted,
-          indexOfUpvoter,
-          indexOfDownvoter,
-          this.props.params.id
+        indexOfRecipe,
+        hasUpvoted,
+        hasDownvoted,
+        indexOfUpvoter,
+        indexOfDownvoter,
+        this.props.params.id
         );
     } catch (error) {
       //  NOTIFY THE USER ABOUT THE ERROR.
@@ -193,8 +195,8 @@ class SingleRecipe extends Component {
     try {
       await this.props
         .toggleDownvote(
-          indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter,
-          indexOfDownvoter, this.props.params.id
+        indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter,
+        indexOfDownvoter, this.props.params.id
         );
     } catch (error) {
       // NOTIFY USER OF ERROR
@@ -321,7 +323,7 @@ class SingleRecipe extends Component {
                   }}
                 />
 
-                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} onClick={() => this.getBulkUsers('downvoters')} data-toggle="modal" data-target="#exampleModal">{numeral(recipe.downvotersIds.length).format('0a')}</span>
+                <span className="ml-3" style={{ cursor: 'pointer' }} onClick={() => this.getBulkUsers('downvoters')} data-toggle="modal" data-target="#exampleModal">{numeral(recipe.downvotersIds.length).format('0a')}</span>
               </span>
               <span className="mr-3 h1">
                 <i
@@ -330,11 +332,11 @@ class SingleRecipe extends Component {
                     this.toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter);
                   }}
                 />
-                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('favoriters')}>{numeral(recipe.favoritersIds.length).format('0a')} </span>
+                <span className="ml-3" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('favoriters')}>{numeral(recipe.favoritersIds.length).format('0a')} </span>
               </span>
               <span className="mr-3 h1">
                 <i className="ion ion-eye" />
-                <span className="ml-3" type="button" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('viewers')}>{numeral(recipe.viewers.length).format('0a')} </span>
+                <span className="ml-3" style={{ cursor: 'pointer' }} data-toggle="modal" data-target="#exampleModal" onClick={() => this.getBulkUsers('viewers')}>{numeral(recipe.viewers.length).format('0a')} </span>
               </span>
             </p>
             <hr />

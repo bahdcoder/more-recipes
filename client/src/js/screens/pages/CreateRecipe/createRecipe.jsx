@@ -499,7 +499,7 @@ class CreateRecipe extends Component {
     ));
     const procedureList = this.state.procedure.map((step, index) => ((
       //  eslint-disable-next-line react/no-array-index-key
-      <li key={index} className="list-group-item">
+      <li key={index} className="list-group-item wow fadeIn">
         <div className="row">
           <div className="col-1 h3">
             <span className="badge badge-primary">{index + 1}</span>
@@ -622,6 +622,7 @@ class CreateRecipe extends Component {
             </div>
           </div>
         </div>
+        <br /><br /><br />
         <Footer />
       </div>
     );

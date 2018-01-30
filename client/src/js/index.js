@@ -106,12 +106,11 @@ const redirectIfAuth = (nextState, replace) => {
       pathname: '/'
     });
   }
-  
-}
+};
 
 
 ReactDOM.render((
-  <Provider store={ store }>
+  <Provider store={store}>
     <Router history={ syncHistoryWithStore(browserHistory, store) }>
       <Route path="/" component={ Main }>
         <IndexRoute component={ Home }></IndexRoute>
@@ -130,7 +129,7 @@ ReactDOM.render((
         ></Route>
 
         <Route path="/user/:id/recipes"
-               component={ UserRecipes }
+               component={UserRecipes}
                onEnter={ checkIfAuth }
         ></Route>
         

@@ -20,8 +20,6 @@ describe('the authReducer', () => {
         }
       });
 
-      console.log(newState);
-
       expect(newState.user).to.deep.equal({});
       expect(newState.access_token).to.not.be.undefined;
     });

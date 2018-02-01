@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 /**
  * Create Review component
@@ -59,7 +59,7 @@ export default class CreateReview extends Component {
     let createReview;
     if (this.props.checkAuth()) {
       createReview = (
-        <Fragment>
+        <div>
           <h3 className="mb-3 mt-3 text-muted">Leave a review</h3>
           <textarea
             cols={5}
@@ -75,7 +75,7 @@ export default class CreateReview extends Component {
             onClick={this.createReview}
           >Save review
           </button>
-        </Fragment>
+        </div>
       );
     } else {
       createReview = (
@@ -85,12 +85,12 @@ export default class CreateReview extends Component {
 
 
     return (
-      <Fragment>
+      <div>
         {/* Begin create reviews section */}
         {createReview}
-s
+
         {/* End create review section */}
-      </Fragment>
+      </div>
     );
   }
 }

@@ -13,7 +13,11 @@ import RecipeCardLoader from '../../components/RecipeCardLoader';
  */
 class Home extends React.Component {
   static propTypes = {
-    getHomePageData: PropTypes.func.isRequired
+    getHomePageData: PropTypes.func
+  };
+
+  static defaultProps = {
+    getHomePageData: () => {}
   };
   /**
    * The home page props

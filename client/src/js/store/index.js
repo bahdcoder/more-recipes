@@ -12,7 +12,8 @@ const defaultState = {
   authUser: null,
   reviews: {},
   users: [],
-  notification: {}
+  notification: {},
+  events: {}
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,3 +1,7 @@
+import lockr from 'lockr';
+import axios from 'axios';
+
+
 /**
  * Check if an email is of valid format
  * @param {string} email the email to check validity for
@@ -12,4 +16,15 @@ export const isAuthenticated = (state) => {
   }
 
   return false;
+};
+
+/**
+ * Set default axios configurations
+ * @returns {null} null
+ */
+export const setAxios = () => {
+  const authUser = lockr.get('authUser');
+  if (authUser) {
+    axios.defaults.headers.common['x-access-token'] = authUser.access_token;
+  }
 };

@@ -53,7 +53,7 @@ class CreateRecipe extends Component {
       timeToCook: '',
       ingredients: [''],
       imageUrl: null,
-      procedure: ['Mix the fufu with ...'],
+      procedure: [''],
       loading: false,
       ajaxErrors: [],
       errors: {
@@ -511,6 +511,7 @@ class CreateRecipe extends Component {
                 value={this.state.procedure[index]}
                 onBlur={(event) => { this.validateInput(event, index); }}
                 name="procedure"
+                placeholder="Mix the fufu with ..."
                 onChange={(event) => { this.handleProcedureChange(event, index); }}
                 type="text"
               />
@@ -592,25 +593,21 @@ class CreateRecipe extends Component {
                   <hr />
                   <h3 className="text-muted mb-3 mt-3">
                     <span className="mr-3">Ingredients</span>
-                    <span className="text-muted h4 mr-4">
-                      <i className="ion ion-plus" onClick={this.addNewIngredient} />
-                    </span>
 
                   </h3>
                   {ingredientsErrors}
                   <ul className="list-group">
                     {ingredientList}
                   </ul>
+                  <button className="btn btn-xs mt-2 btn-primary" onClick={this.addNewIngredient}>Add ingredient</button>
                   <h3 className="text-muted mb-3 mt-3">
                     <span className="mr-4">Procedure</span>
-                    <span className="text-muted h4">
-                      <i className="ion ion-plus" onClick={this.addNewProcedureStep} />
-                    </span>
                   </h3>
                   {procedureErrors}
                   <ul className="list-group">
                     {procedureList}
                   </ul>
+                  <button className="btn btn-xs mt-2 btn-primary" onClick={this.addNewProcedureStep}>Add procedure step</button>
                   <br />
                   <br />
                   <p className="text-center">

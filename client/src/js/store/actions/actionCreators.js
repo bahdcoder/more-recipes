@@ -1,5 +1,6 @@
 import lockr from 'lockr';
 import axios from 'axios';
+import { setAxios } from '../../helpers';
 import queryString from 'query-string';
 import { push } from 'react-router-redux';
 
@@ -42,6 +43,20 @@ export function getRecipesCatalog() {
     } catch (error) {
       return Promise.reject(error);
     }
+  };
+}
+
+/**
+ * Change the current route params
+ *
+ * @export
+ * @returns {null} null
+ */
+export function triggerGetRecipesCatalog() {
+  return (dispatch) => {
+    dispatch({
+      type: 'TRIGGER_GET_RECIPES_CATALOG'
+    });
   };
 }
 
@@ -327,6 +342,7 @@ export function signIn({ email, password }) {
       });
 
       lockr.set('authUser', response.data.data);
+      setAxios();
 
       dispatch({
         type: 'SIGN_IN_USER',
@@ -381,6 +397,7 @@ export function signUp({ name, email, password }) {
       });
 
       lockr.set('authUser', response.data.data);
+      setAxios();
 
       dispatch({
         type: 'SIGN_IN_USER',

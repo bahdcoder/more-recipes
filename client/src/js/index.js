@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import { isAuthenticated } from './helpers';
+import { isAuthenticated, setAxios } from './helpers';
 
 import store from './store';
 
@@ -25,17 +25,6 @@ import '../css/animate.min.css';
 import '../css/styles.css';
 
 import Main from './containers/Main';
-
-/**
- * Set default axios configurations
- * @returns {null} null
- */
-const setAxios = () => {
-  const authUser = lockr.get('authUser');
-  if (authUser) {
-    axios.defaults.headers.common['x-access-token'] = authUser.access_token;
-  }
-};
 
 setAxios();
 
@@ -111,51 +100,51 @@ const redirectIfAuth = (nextState, replace) => {
 
 ReactDOM.render((
   <Provider store={store}>
-    <Router history={ syncHistoryWithStore(browserHistory, store) }>
-      <Route path="/" component={ Main }>
-        <IndexRoute component={ Home }></IndexRoute>
+    <Router history={syncHistoryWithStore(browserHistory, store)}>
+      <Route path="/" component={Main}>
+        <IndexRoute component={Home}></IndexRoute>
 
-        <Route path="/recipes" 
-               component={ Recipes }
+        <Route path="/recipes"
+          component={Recipes}
         ></Route>
 
-        <Route path="/recipe/:id" 
-               component={ SingleRecipe }
+        <Route path="/recipe/:id"
+          component={SingleRecipe}
         ></Route>
 
         <Route path="/user/:id"
-               component={ UserProfile }
-               onEnter={ checkIfAuth }
+          component={UserProfile}
+          onEnter={checkIfAuth}
         ></Route>
 
         <Route path="/user/:id/recipes"
-               component={UserRecipes}
-               onEnter={ checkIfAuth }
-        ></Route>
-        
-        <Route path="/recipes/create" 
-               component={ CreateRecipe }
-               onEnter={ checkIfAuth }
+          component={UserRecipes}
+          onEnter={checkIfAuth}
         ></Route>
 
-        <Route path="/my/favorites" 
-               component={ UserFavorites }
-               onEnter={ checkIfAuth }
+        <Route path="/recipes/create"
+          component={CreateRecipe}
+          onEnter={checkIfAuth}
         ></Route>
 
-        <Route path="/recipe/:id/edit" 
-               component={ CreateRecipe }
-               onEnter={ checkIfAuthorized }
+        <Route path="/my/favorites"
+          component={UserFavorites}
+          onEnter={checkIfAuth}
+        ></Route>
+
+        <Route path="/recipe/:id/edit"
+          component={CreateRecipe}
+          onEnter={checkIfAuthorized}
         ></Route>
 
         <Route path="/auth/login"
-               component={ Login }
-               onEnter={ redirectIfAuth }
+          component={Login}
+          onEnter={redirectIfAuth}
         ></Route>
 
         <Route path="/auth/register"
-               component={ Register }
-               onEnter={ redirectIfAuth }
+          component={Register}
+          onEnter={redirectIfAuth}
         ></Route>
 
       </Route>

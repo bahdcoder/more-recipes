@@ -55,11 +55,11 @@ export default class VotesController {
 
     if (recipe.upvotersIds.findIndex(user => user === req.authUser.id) !== -1) {
       await client.srem(`recipe:${recipe.id}:upvotes`, req.authUser.id);
-      return res.sendSuccessResponse({ message: 'Recipe upvote removed.' });
+      return res.sendSuccessResponse({ message: 'Recipe upvote removed successfully.' });
     }
 
     await client.sadd(`recipe:${recipe.id}:upvotes`, req.authUser.id);
-    return res.sendSuccessResponse({ message: 'Recipe upvoted.' });
+    return res.sendSuccessResponse({ message: 'Recipe upvoted successfully.' });
   }
 
   /**
@@ -78,6 +78,6 @@ export default class VotesController {
     }
 
     await client.sadd(`recipe:${recipe.id}:downvotes`, req.authUser.id);
-    return res.sendSuccessResponse({ message: 'Recipe downvoted.' });
+    return res.sendSuccessResponse({ message: 'Recipe downvoted successfully.' });
   }
 }

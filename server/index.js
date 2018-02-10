@@ -3,10 +3,12 @@ import cors from 'cors';
 import morgan from 'morgan';
 import express from 'express';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
 
 import routes from './routes';
 import db from './database/models';
 import middleware from './middleware';
+import swaggerDoc from '../api-docs/swagger.json'
 
 //  Configure environment variables
 
@@ -36,6 +38,8 @@ app.use('/api/v1/users', routes.userRoutes);
 app.use('/api/v1/recipes', routes.recipesRoutes);
 app.use('/api/v1/frontend', routes.frontendRouter);
 //  app.use((req, res) => res.render('index'));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));

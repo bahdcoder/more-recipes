@@ -342,7 +342,7 @@ export function signIn({ email, password }) {
       });
 
       lockr.set('authUser', response.data.data);
-      setAxios();
+      setAxios(response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
@@ -397,7 +397,7 @@ export function signUp({ name, email, password }) {
       });
 
       lockr.set('authUser', response.data.data);
-      setAxios();
+      setAxios(response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',

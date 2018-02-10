@@ -20,10 +20,10 @@ export const isAuthenticated = (state) => {
 
 /**
  * Set default axios configurations
+ * @param {object} authUser auth user
  * @returns {null} null
  */
-export const setAxios = () => {
-  const authUser = lockr.get('authUser');
+export const setAxios = (authUser) => {
   if (authUser) {
     axios.defaults.headers.common['x-access-token'] = authUser.access_token;
   }

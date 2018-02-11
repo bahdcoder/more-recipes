@@ -63,7 +63,7 @@ describe('/votes', () => {
         .end((error, response) => {
 
           expect(response).to.have.status(200);
-          expect(response.body.data.message).to.equal('Recipe upvoted.');
+          expect(response.body.data.message).to.equal('Recipe upvoted successfully.');
 
           done();
         });
@@ -105,7 +105,7 @@ describe('/votes', () => {
         .end((error, response) => {
 
           expect(response).to.have.status(200);
-          expect(response.body.data.message).to.equal('Recipe downvoted.');
+          expect(response.body.data.message).to.equal('Recipe downvoted successfully.');
 
           done();
         });

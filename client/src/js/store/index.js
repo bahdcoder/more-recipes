@@ -11,7 +11,9 @@ const defaultState = {
   recipes: [],
   authUser: null,
   reviews: {},
-  users: []
+  users: [],
+  notification: {},
+  events: {}
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

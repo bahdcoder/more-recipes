@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kati-frantz/more-recipes.svg?branch=server-side)](https://travis-ci.org/kati-frantz/more-recipes) [![Maintainability](https://api.codeclimate.com/v1/badges/d86c0fb140d38e863e99/maintainability)](https://codeclimate.com/github/kati-frantz/more-recipes/maintainability) [![Coverage Status](https://coveralls.io/repos/github/kati-frantz/more-recipes/badge.svg?branch=develop)](https://coveralls.io/github/kati-frantz/more-recipes?branch=develop) 
+[![Build Status](https://travis-ci.org/bahdcoder/more-recipes.svg?branch=develop)](https://travis-ci.org/bahdcoder/more-recipes)[![Maintainability](https://api.codeclimate.com/v1/badges/d86c0fb140d38e863e99/maintainability)](https://codeclimate.com/github/kati-frantz/more-recipes/maintainability) [![Coverage Status](https://coveralls.io/repos/github/kati-frantz/more-recipes/badge.svg?branch=develop)](https://coveralls.io/github/kati-frantz/more-recipes?branch=develop) 
 
 # MORE-RECIPES
 A platform for users to share awesome and exciting recipe ideas they have invented or learnt. 

@@ -1,0 +1,2 @@
+export const NEW_RECIPE_CREATED = 'NEW_RECIPE_CREATED';
+export default NEW_RECIPE_CREATED;

@@ -1,5 +1,6 @@
 import lockr from 'lockr';
 import axios from 'axios';
+import { setAxios } from '../../helpers';
 import queryString from 'query-string';
 import { push } from 'react-router-redux';
 
@@ -42,6 +43,20 @@ export function getRecipesCatalog() {
     } catch (error) {
       return Promise.reject(error);
     }
+  };
+}
+
+/**
+ * Change the current route params
+ *
+ * @export
+ * @returns {null} null
+ */
+export function triggerGetRecipesCatalog() {
+  return (dispatch) => {
+    dispatch({
+      type: 'TRIGGER_GET_RECIPES_CATALOG'
+    });
   };
 }
 
@@ -100,6 +115,23 @@ export function getHomePageData() {
 }
 
 /**
+ * Get a single recipe from api
+ * @param {string} recipeId
+ * @returns {object} action
+ */
+export function getSingleRecipe(recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    const response = await axios.get(`${apiUrl}/recipes/${recipeId}`);
+    const { recipe } = response.data.data;
+
+    dispatch({
+      type: 'NEW_RECIPE_CREATED',
+      payload: recipe
+    });
+  };
+}
+
+/**
  *Toggle a user upvote status for a recipe
  *
  * @param {any} indexOfRecipe the index of the recipe to be upvoted
@@ -126,12 +158,26 @@ export function toggleUpvote(
             userId: getState().authUser.user.id
           }
         });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe upvoted successfully.'
+          }
+        });
       } else {
         dispatch({
           type: 'REMOVE_USER_FROM_UPVOTERS',
           payload: {
             indexOfRecipe,
             indexOfUpvoter
+          }
+        });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Upvote removed successfully.'
           }
         });
       }
@@ -178,12 +224,26 @@ export function toggleDownvote(
             userId: getState().authUser.user.id
           }
         });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe downvoted successfully.'
+          }
+        });
       } else {
         dispatch({
           type: 'REMOVE_USER_FROM_DOWNVOTERS',
           payload: {
             indexOfRecipe,
             indexOfDownvoter
+          }
+        });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Downvote removed successfully.'
           }
         });
       }
@@ -223,12 +283,26 @@ export function toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, re
           type: 'REMOVE_USER_FROM_FAVORITERS',
           payload: { indexOfRecipe, indexOfFavoriter }
         });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe removed from favorites successfully.'
+          }
+        });
       } else {
         dispatch({
           type: 'ADD_USER_TO_FAVORITERS',
           payload: {
             indexOfRecipe,
             userId: getState().authUser.user.id
+          }
+        });
+        dispatch({
+          type: 'NOTIFICATION',
+          payload: {
+            level: 'SUCCESS',
+            message: 'Recipe favorited successfully.'
           }
         });
       }
@@ -268,10 +342,19 @@ export function signIn({ email, password }) {
       });
 
       lockr.set('authUser', response.data.data);
+      setAxios(response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
         authUser: response.data.data
+      });
+
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Successfully signed in.'
+        }
       });
 
       return Promise.resolve(response);
@@ -314,10 +397,19 @@ export function signUp({ name, email, password }) {
       });
 
       lockr.set('authUser', response.data.data);
+      setAxios(response.data.data);
 
       dispatch({
         type: 'SIGN_IN_USER',
         authUser: response.data.data
+      });
+
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Welcome to BahdRecipes !'
+        }
       });
 
       return Promise.resolve(response);
@@ -341,6 +433,13 @@ export function createRecipe(recipe) {
       dispatch({
         type: 'NEW_RECIPE_CREATED',
         payload: response.data.data.recipe
+      });
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Recipe created successfully.'
+        }
       });
       return Promise.resolve(response);
     } catch (errors) {
@@ -370,6 +469,14 @@ export function updateRecipe(recipe, recipeId) {
         payload: {
           recipeIndex,
           recipe: response.data.data.recipe
+        }
+      });
+
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Recipe updated successfully.'
         }
       });
 
@@ -475,6 +582,14 @@ export function createReview({ recipeId, review }) {
         payload: response.data.data.review
       });
 
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Recipe reviewed successfully.'
+        }
+      });
+
       return Promise.resolve();
     } catch (error) {
       return Promise.reject(error);
@@ -561,9 +676,42 @@ export function updateUserProfile(userData, index) {
         payload: response.data.data.user
       });
 
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS',
+          message: 'Your profile was updated successfully.'
+        }
+      });
+
       return Promise.resolve(response);
     } catch (error) {
       return Promise.reject(error);
+    }
+  };
+}
+
+/**
+ * Delete a recipe
+ * @param {string} recipeId
+ * @returns {null} null
+ */
+export function deleteRecipe(recipeId) {
+  return async (dispatch, getState, apiUrl) => {
+    try {
+      await axios.delete(`${apiUrl}/recipes/${recipeId}`);
+      dispatch({
+        type: 'REMOVE_RECIPE',
+        payload: { recipeId }
+      });
+      dispatch({
+        type: 'NOTIFICATION',
+        payload: {
+          level: 'SUCCESS', message: 'Recipe deleted successfully.'
+        }
+      });
+    } catch (error) {
+      // notify user something went wrong.
     }
   };
 }

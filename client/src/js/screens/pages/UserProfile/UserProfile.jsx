@@ -1,4 +1,5 @@
 import Gravatar from 'react-gravatar';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { Link } from 'react-router';
@@ -87,6 +88,7 @@ export default class UserProfile extends Component {
     try {
       settings = JSON.parse(user.settings);
     } catch (e) {
+      //  eslint-disable-next-line
       settings = user.settings;
     }
     this.setState({
@@ -116,13 +118,19 @@ export default class UserProfile extends Component {
         <div className="my-5">
           <div className="input-group mb-5">
             <span className="input-group-addon mr-3">
-              <input name="reviewEmails" defaultChecked={this.state.settings.reviewEmails === 1 ? true : false} onChange={this.handleSettingsChange} type="checkbox" />
+              <input name="reviewEmails" defaultChecked={this.state.settings.reviewEmails === 1} onChange={this.handleSettingsChange} type="checkbox" />
             </span>
             Send me an email each time someone leaves a review on my recipe
           </div>
           <div className="input-group">
             <span className="input-group-addon mr-3">
-              <input name="favoriteModifiedEmail" defaultChecked={this.state.settings.favoriteModifiedEmail === 1 ? true : false} value={this.state.settings.favoriteModifiedEmail} type="checkbox" onChange={this.handleSettingsChange} />
+              <input
+                name="favoriteModifiedEmail"
+                defaultChecked={this.state.settings.favoriteModifiedEmail === 1}
+                value={this.state.settings.favoriteModifiedEmail}
+                type="checkbox"
+                onChange={this.handleSettingsChange}
+              />
             </span>
             Send me an email when my favorite recipes are updated
           </div>
@@ -134,35 +142,42 @@ export default class UserProfile extends Component {
     if (userIndex === -1) {
       userProfile = <UserProfileLoader />;
     } else {
-
       if (this.state.editing) {
         editButton = (
-          <button className="btn btn-primary"
-            onClick={(event) => { this.saveChanges(userIndex); }}>
-            Save changes
+          <button
+            id="saveChanges"
+            className="btn btn-primary"
+            onClick={() => { this.saveChanges(userIndex); }}
+          >
+            Save Changes
           </button>
         );
         userName = (
-          <input className="form-control"
+          <input
+            className="form-control"
             value={this.state.name}
             onChange={(event) => { this.setState({ name: event.target.value }); }}
           />
         );
         aboutText = (
-          <textarea className="form-control mb-3"
+          <textarea
+            className="form-control mb-3"
             col={3}
             row={3}
             value={this.state.about}
             placeholder="Tell us about yourself ..."
             onChange={(event) => { this.setState({ about: event.target.value }); }}
-          ></textarea>
+          />
         );
       } else {
         if (this.props.authUser.user.id === user.id) {
           editButton = (
-            <button className="btn btn-primary"
-              onClick={this.startEditing}>
-              <i className="ion ion-edit" style={{ color: 'white' }}></i>
+            <button
+              id="startEditing"
+              className="btn btn-primary"
+              onClick={this.startEditing}
+            >
+              <i className="ion ion-edit" style={{ color: 'white' }} />
             </button>
           );
         }
@@ -215,3 +230,15 @@ export default class UserProfile extends Component {
     );
   }
 }
+
+UserProfile.propTypes = {
+  findUser: PropTypes.func.isRequired,
+  authUser: PropTypes.objectOf(PropTypes.any).isRequired,
+  params: PropTypes.objectOf(PropTypes.any).isRequired,
+  users: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
+  updateUserProfile: PropTypes.func.isRequired
+};
+
+UserProfile.defaultProps = {
+  users: []
+};

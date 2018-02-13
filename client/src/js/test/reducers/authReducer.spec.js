@@ -1,17 +1,16 @@
 /* eslint-disable */
 import faker from 'faker';
-import { expect } from 'chai';
 import authReducer from './../../store/reducers/authReducer';
 
 
 describe('the authReducer', () => {
-  it('Should return an empty object as initial state', () => {
+  test('Should return an empty object as initial state', () => {
     const newState = authReducer(undefined, {});
 
-    expect(newState).to.deep.equal({});
+    expect(newState).toEqual({});
   });
-  context('authReducer.SIGN_IN_USER', () => {
-    it('Should return auth user data', () => {
+  describe('authReducer.SIGN_IN_USER', () => {
+    test('Should return auth user data', () => {
       const newState = authReducer(undefined, {
         type: 'SIGN_IN_USER',
         authUser: {
@@ -20,23 +19,23 @@ describe('the authReducer', () => {
         }
       });
 
-      expect(newState.user).to.deep.equal({});
-      expect(newState.access_token).to.not.be.undefined;
+      expect(newState.user).toEqual({});
+      expect(newState.access_token).toBeDefined();
     });
   });
 
-  context('authReducer.SIGN_OUT_USER', () => {
-    it('should return null when user is signed out', () => {
+  describe('authReducer.SIGN_OUT_USER', () => {
+    test('should return null when user is signed out', () => {
       const newState = authReducer({ user: {}, access_token: '' }, {
         type: 'SIGN_OUT_USER'
       });
 
-      expect(newState).to.be.null;
+      expect(newState).toBeNull();
     });
   });
 
-  context('authReducer.AUTH_USER_UPDATED', () => {
-    it('should update the user details', () => {
+  describe('authReducer.AUTH_USER_UPDATED', () => {
+    test('should update the user details', () => {
       const newName = faker.name.findName();
 
       const newState = authReducer({ user: {}, access_token: '' }, {
@@ -46,7 +45,7 @@ describe('the authReducer', () => {
         }
       });
 
-      expect(newState.user.name).to.equal(newName);
+      expect(newState.user.name).toBe(newName);
     });
   });
 });

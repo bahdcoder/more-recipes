@@ -1,4 +1,6 @@
+/* eslint-disable no-script-url */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import Gravatar from 'react-gravatar';
 
@@ -11,7 +13,7 @@ import logo from './../../../assets/img/logo.png';
  */
 const Navbar = (props) => {
   const { authUser } = props;
-  let navbarUser = '';
+  let navbarUser;
   if (authUser) {
     navbarUser = (
       <li className="nav-item dropdown">
@@ -78,17 +80,31 @@ const Navbar = (props) => {
               className="form-control mr-sm-2"
               value={props.location.query.query || ''}
               onChange={(event) => {
-                props.changeRouterQueryParams('query', event.target.value, props.location)
+                props.changeRouterQueryParams('query', event.target.value, props.location);
               }}
               type="text"
               placeholder="Search recipes"
-              aria-label="Search" />
+              aria-label="Search"
+            />
           </form>
           {navbarUser}
         </ul>
       </div>
     </nav>
   );
+};
+
+Navbar.propTypes = {
+  authUser: PropTypes.objectOf(PropTypes.any),
+  signOut: PropTypes.func.isRequired,
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
+  triggerGetRecipesCatalog: PropTypes.func.isRequired,
+  changeRouterQueryParams: PropTypes.func.isRequired,
+  router: PropTypes.objectOf(PropTypes.any).isRequired
+};
+
+Navbar.defaultProps = {
+  authUser: null
 };
 
 export default Navbar;

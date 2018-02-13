@@ -168,12 +168,12 @@ class SingleRecipe extends Component {
     try {
       await this.props
         .toggleUpvote(
-        indexOfRecipe,
-        hasUpvoted,
-        hasDownvoted,
-        indexOfUpvoter,
-        indexOfDownvoter,
-        this.props.params.id
+          indexOfRecipe,
+          hasUpvoted,
+          hasDownvoted,
+          indexOfUpvoter,
+          indexOfDownvoter,
+          this.props.params.id
         );
     } catch (error) {
       //  NOTIFY THE USER ABOUT THE ERROR.
@@ -195,8 +195,8 @@ class SingleRecipe extends Component {
     try {
       await this.props
         .toggleDownvote(
-        indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter,
-        indexOfDownvoter, this.props.params.id
+          indexOfRecipe, hasUpvoted, hasDownvoted, indexOfUpvoter,
+          indexOfDownvoter, this.props.params.id
         );
     } catch (error) {
       // NOTIFY USER OF ERROR

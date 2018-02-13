@@ -1,6 +1,5 @@
 /* eslint-disable */
 import faker from 'faker';
-import { expect } from 'chai';
 import recipeStub from './../stubs/recipeStub';
 import recipesReducer from './../../store/reducers/recipesReducer';
 
@@ -10,13 +9,13 @@ describe('The recipesReducer', () => {
     globalMock.recipeA = recipeStub();
     globalMock.recipeB = recipeStub();
   });
-  it('should return the initial state', () => {
+  test('should return the initial state', () => {
     const state = recipesReducer(undefined, {});
 
-    expect(state).to.have.members([]);
+    expect(state).toEqual(expect.arrayContaining([]));
   });
-  context('recipesReducer.NEW_RECIPE_CREATED', () => {
-    it('Should add a recipe to the redux store', () => {
+  describe('recipesReducer.NEW_RECIPE_CREATED', () => {
+    test('Should add a recipe to the redux store', () => {
       const initialState = [
         globalMock.recipeA
       ];
@@ -26,14 +25,14 @@ describe('The recipesReducer', () => {
         payload: globalMock.recipeB
       });
 
-      expect(newState.length).to.equal(2);
-      expect(newState[0].id).to.equal(globalMock.recipeA.id);
-      expect(newState[1].id).to.equal(globalMock.recipeB.id);      
+      expect(newState.length).toBe(2);
+      expect(newState[0].id).toBe(globalMock.recipeA.id);
+      expect(newState[1].id).toBe(globalMock.recipeB.id);      
     });
   });
 
-  context('recipesReducer.RECIPE_UPDATED', () => {
-    it('Should update a recipe in the redux store', () => {
+  describe('recipesReducer.RECIPE_UPDATED', () => {
+    test('Should update a recipe in the redux store', () => {
       const initialState = [
         globalMock.recipeA,
         globalMock.recipeB
@@ -49,14 +48,14 @@ describe('The recipesReducer', () => {
         }
       });
 
-      expect(newState.length).to.equal(2);
-      expect(newState[0].id).to.equal(globalMock.recipeA.id);
-      expect(newState[1].id).to.equal(recipe.id);
+      expect(newState.length).toBe(2);
+      expect(newState[0].id).toBe(globalMock.recipeA.id);
+      expect(newState[1].id).toBe(recipe.id);
     });
   });
 
-  context('recipesReducer.ADD_USER_TO_UPVOTERS', () => {
-    it('Should add user id to upvoters array of a recipe', () => {
+  describe('recipesReducer.ADD_USER_TO_UPVOTERS', () => {
+    test('Should add user id to upvoters array of a recipe', () => {
       const initialState = [
         globalMock.recipeA
       ];
@@ -71,14 +70,14 @@ describe('The recipesReducer', () => {
         }
       });
 
-      expect(newState.length).to.equal(1);
-      expect(newState[0].upvotersIds.includes(fakeUserId)).to.be.true;
-      expect(newState[0].upvotersIds.length).to.equal(globalMock.recipeA.upvotersIds.length + 1);
+      expect(newState.length).toBe(1);
+      expect(newState[0].upvotersIds.includes(fakeUserId)).toBe(true);
+      expect(newState[0].upvotersIds.length).toBe(globalMock.recipeA.upvotersIds.length + 1);
     });
   });
 
-  context('recipesReducer.ADD_USER_TO_DOWNVOTERS', () => {
-    it('Should add a user id to the downvoters for a recipe', () => {
+  describe('recipesReducer.ADD_USER_TO_DOWNVOTERS', () => {
+    test('Should add a user id to the downvoters for a recipe', () => {
       const initialState = [
         globalMock.recipeA
       ];
@@ -93,14 +92,14 @@ describe('The recipesReducer', () => {
         }
       });
   
-      expect(newState.length).to.equal(1);
-      expect(newState[0].downvotersIds.includes(fakeUserId)).to.be.true;
-      expect(newState[0].downvotersIds.length).to.equal(globalMock.recipeA.downvotersIds.length + 1);``
+      expect(newState.length).toBe(1);
+      expect(newState[0].downvotersIds.includes(fakeUserId)).toBe(true);
+      expect(newState[0].downvotersIds.length).toBe(globalMock.recipeA.downvotersIds.length + 1);``
     });
   });
 
-  context('recipesReducer.REMOVE_USER_FROM_UPVOTERS', () => {
-    it('Should remove a user id from upvotersIds array of the recipe', () => {
+  describe('recipesReducer.REMOVE_USER_FROM_UPVOTERS', () => {
+    test('Should remove a user id from upvotersIds array of the recipe', () => {
       const fakeUserId = faker.random.uuid();
 
       const initialState = [{
@@ -118,14 +117,14 @@ describe('The recipesReducer', () => {
         }
       });
   
-      expect(newState.length).to.equal(1);
-      expect(newState[0].upvotersIds.includes(fakeUserId)).to.be.false;
-      expect(newState[0].upvotersIds.length).to.equal(initialState[0].upvotersIds.length - 1);
+      expect(newState.length).toBe(1);
+      expect(newState[0].upvotersIds.includes(fakeUserId)).toBe(false);
+      expect(newState[0].upvotersIds.length).toBe(initialState[0].upvotersIds.length - 1);
     });
   });
 
-  context('recipesReducer.REMOVE_USER_FROM_DOWNVOTERS', () => {
-    it('Should remove a user id from downvoterIds array of the recipe', () => {
+  describe('recipesReducer.REMOVE_USER_FROM_DOWNVOTERS', () => {
+    test('Should remove a user id from downvoterIds array of the recipe', () => {
       const fakeUserId = faker.random.uuid();
 
       const initialState = [{
@@ -143,14 +142,14 @@ describe('The recipesReducer', () => {
         }
       });
   
-      expect(newState.length).to.equal(1);
-      expect(newState[0].downvotersIds.includes(fakeUserId)).to.be.false;
-      expect(newState[0].downvotersIds.length).to.equal(initialState[0].downvotersIds.length - 1);
+      expect(newState.length).toBe(1);
+      expect(newState[0].downvotersIds.includes(fakeUserId)).toBe(false);
+      expect(newState[0].downvotersIds.length).toBe(initialState[0].downvotersIds.length - 1);
     });
   });
 
-  context('recipesReducer.REMOVE_USER_FROM_FAVORITERS', () => {
-    it('Should remove a user id from favoritersIds array of the recipe', () => {
+  describe('recipesReducer.REMOVE_USER_FROM_FAVORITERS', () => {
+    test('Should remove a user id from favoritersIds array of the recipe', () => {
       const fakeUserId = faker.random.uuid();
 
       const initialState = [{
@@ -168,14 +167,14 @@ describe('The recipesReducer', () => {
         }
       });
   
-      expect(newState.length).to.equal(1);
-      expect(newState[0].favoritersIds.includes(fakeUserId)).to.be.false;
-      expect(newState[0].favoritersIds.length).to.equal(initialState[0].favoritersIds.length - 1);
+      expect(newState.length).toBe(1);
+      expect(newState[0].favoritersIds.includes(fakeUserId)).toBe(false);
+      expect(newState[0].favoritersIds.length).toBe(initialState[0].favoritersIds.length - 1);
     });
   });
 
-  context('recipesReducer.ADD_USER_TO_FAVORITERS', () => {
-    it('Should add user id to upvoters array of a recipe', () => {
+  describe('recipesReducer.ADD_USER_TO_FAVORITERS', () => {
+    test('Should add user id to upvoters array of a recipe', () => {
       const initialState = [
         globalMock.recipeA
       ];
@@ -190,9 +189,9 @@ describe('The recipesReducer', () => {
         }
       });
 
-      expect(newState.length).to.equal(1);
-      expect(newState[0].favoritersIds.includes(fakeUserId)).to.be.true;
-      expect(newState[0].favoritersIds.length).to.equal(globalMock.recipeA.favoritersIds.length + 1);
+      expect(newState.length).toBe(1);
+      expect(newState[0].favoritersIds.includes(fakeUserId)).toBe(true);
+      expect(newState[0].favoritersIds.length).toBe(globalMock.recipeA.favoritersIds.length + 1);
     });
   });
 });

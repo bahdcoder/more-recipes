@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The RecipeCard component should mount without crashing 1`] = `
+<div
+  className="wow fadeIn card mb-3"
+>
+  <div
+    className="img-zoom"
+  >
+    <img
+      alt=""
+      className="card-img-top"
+      src="http://lorempixel.com/640/480"
+      style={
+        Object {
+          "height": 170,
+        }
+      }
+    />
+  </div>
+  <div
+    className="card-body"
+  >
+    <h5
+      className="card-title h6 text-center"
+    >
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+        Sit quos quam.
+      </a>
+    </h5>
+    <hr />
+    <p
+      className="text-sm mb-3"
+    >
+      <small>
+        <span
+          className="text-muted"
+        >
+          by
+        </span>
+         
+        <a
+          className="header-color"
+          onClick={[Function]}
+          style={
+            Object {
+              "textDecoration": "none",
+            }
+          }
+        >
+          Lula Jaskolski
+        </a>
+      </small>
+      <span
+        className="text-muted float-right"
+      >
+        <i
+          className="ion ion-clock mr-2"
+        />
+        21763
+         min
+      </span>
+    </p>
+    <p
+      className="text-muted h4 text-center my-2"
+    >
+      <span
+        className="mr-3 h5"
+      >
+        <i
+          className="ion ion-recipe-action ion-happy-outline"
+        />
+        <span
+          className="ml-3"
+        >
+          2
+        </span>
+      </span>
+      <span
+        className="mr-3 h5"
+      >
+        <i
+          className="ion ion-recipe-action ion-sad-outline"
+        />
+        <span
+          className="ml-3"
+        >
+          1
+        </span>
+      </span>
+      <span
+        className="mr-3 h5"
+      >
+        <i
+          className="ion ion-recipe-action ion-ios-heart-outline"
+        />
+        <span
+          className="ml-3"
+        >
+          1
+           
+        </span>
+      </span>
+    </p>
+  </div>
+</div>
+`;

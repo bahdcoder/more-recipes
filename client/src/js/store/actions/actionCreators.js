@@ -1,8 +1,9 @@
 import lockr from 'lockr';
 import axios from 'axios';
-import { setAxios } from '../../helpers';
 import queryString from 'query-string';
 import { push } from 'react-router-redux';
+
+import { setAxios } from '../../helpers';
 
 /**
  * Check if user is authenticated

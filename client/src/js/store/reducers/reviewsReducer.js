@@ -26,7 +26,7 @@ function recipeReview(state = [], action) {
  * The reducer for the reviews
  *
  * @export
- * @param {array} [state=[]] initial state
+ * @param {object} [state={}] initial state
  * @param {obj} action action to be reduced
  * @returns {array} state
  */

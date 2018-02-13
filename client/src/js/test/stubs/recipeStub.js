@@ -1,4 +1,3 @@
-/* eslint-disable */
 import faker from 'faker';
 
 const recipeStub = () => ({

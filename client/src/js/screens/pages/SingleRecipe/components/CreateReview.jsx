@@ -5,12 +5,7 @@ import React, { Component } from 'react';
 /**
  * Create Review component
  */
-export default class CreateReview extends Component {
-  static propTypes = {
-    createReview: PropTypes.func.isRequired,
-    params: PropTypes.objectOf(PropTypes.any).isRequired,
-    checkAuth: PropTypes.func.isRequired
-  };
+class CreateReview extends Component {
   /**
    * Create review initialization
    * @param {object} props
@@ -94,3 +89,11 @@ export default class CreateReview extends Component {
     );
   }
 }
+
+CreateReview.propTypes = {
+  createReview: PropTypes.func.isRequired,
+  params: PropTypes.objectOf(PropTypes.any).isRequired,
+  checkAuth: PropTypes.func.isRequired
+};
+
+export default CreateReview;

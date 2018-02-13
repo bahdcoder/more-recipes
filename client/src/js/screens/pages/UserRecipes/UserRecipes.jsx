@@ -22,7 +22,8 @@ class UserRecipes extends Component {
     user: PropTypes.objectOf(PropTypes.any),
     userRecipes: PropTypes.arrayOf(PropTypes.any).isRequired,
     params: PropTypes.objectOf(PropTypes.string).isRequired,
-    deleteRecipe: PropTypes.func.isRequired
+    deleteRecipe: PropTypes.func.isRequired,
+    router: PropTypes.objectOf(PropTypes.any).isRequired
   };
   static defaultProps = {
     authUser: {},
@@ -76,6 +77,10 @@ class UserRecipes extends Component {
     let isAuthUserRecipes = false;
     const { user } = this.props;
     let pageHeading;
+
+    if (!this.props.authUser) {
+      return this.props.router.push('/');
+    }
 
 
     if (user) {

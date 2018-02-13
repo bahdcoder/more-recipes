@@ -1,0 +1,1237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Reviews component Should mount without crashing 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Reviews
+    checkAuth={[Function]}
+    createReview={[Function]}
+    getRecipeReviews={[Function]}
+    params={
+      Object {
+        "id": 1,
+      }
+    }
+    reviews={
+      Object {
+        "1": Array [
+          Object {
+            "User": Object {
+              "createdAt": "2017-12-16T07:12:57.840Z",
+              "email": "test@user.com",
+              "id": "f1dcd707-96fd-4351-85ac-dd4220049aae",
+              "name": "test user",
+              "updatedAt": "2017-12-16T07:12:57.840Z",
+            },
+            "createdAt": "2017-12-16T07:12:57.840Z",
+            "id": "8c3b5c6d-6d33-4e73-8a9e-e141a20b06b2",
+            "recipeId": "4fd56c98-ce0a-4369-b5ff-0a0a7e883437",
+            "review": "nice and lovely",
+            "updatedAt": "2017-12-16T07:12:57.840Z",
+            "userId": "f1dcd707-96fd-4351-85ac-dd4220049aac",
+          },
+        ],
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Scrollbars
+          autoHeight={false}
+          autoHeightMax={200}
+          autoHeightMin={0}
+          autoHide={false}
+          autoHideDuration={200}
+          autoHideTimeout={1000}
+          hideTracksWhenNotNeeded={false}
+          renderThumbHorizontal={[Function]}
+          renderThumbVertical={[Function]}
+          renderTrackHorizontal={[Function]}
+          renderTrackVertical={[Function]}
+          renderView={[Function]}
+          style={
+            Object {
+              "height": 250,
+            }
+          }
+          tagName="div"
+          thumbMinSize={30}
+          universal={false}
+        >
+          <div
+            className="container my-4"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-10"
+              >
+                <div
+                  className="wow fadeInUp"
+                >
+                  <div
+                    className="ml-3 media"
+                  >
+                    <Gravatar
+                      className="d-flex mr-3"
+                      default="retro"
+                      email="test@user.com"
+                      protocol="//"
+                      rating="g"
+                      size={50}
+                      style={
+                        Object {
+                          "borderRadius": "100%",
+                          "height": 60,
+                          "width": 60,
+                        }
+                      }
+                    />
+                    <div
+                      className="media-body"
+                    >
+                      <h6
+                        className="font-weight-bold"
+                      >
+                        test user
+                        <small
+                          className="text-muted ml-2"
+                        >
+                          about 2 months
+                           ago
+                        </small>
+                      </h6>
+                      nice and lovely
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              </div>
+            </div>
+          </div>
+        </Scrollbars>,
+        <CreateReview
+          checkAuth={[Function]}
+          createReview={[Function]}
+          getRecipeReviews={[Function]}
+          params={
+            Object {
+              "id": 1,
+            }
+          }
+          reviews={
+            Object {
+              "1": Array [
+                Object {
+                  "User": Object {
+                    "createdAt": "2017-12-16T07:12:57.840Z",
+                    "email": "test@user.com",
+                    "id": "f1dcd707-96fd-4351-85ac-dd4220049aae",
+                    "name": "test user",
+                    "updatedAt": "2017-12-16T07:12:57.840Z",
+                  },
+                  "createdAt": "2017-12-16T07:12:57.840Z",
+                  "id": "8c3b5c6d-6d33-4e73-8a9e-e141a20b06b2",
+                  "recipeId": "4fd56c98-ce0a-4369-b5ff-0a0a7e883437",
+                  "review": "nice and lovely",
+                  "updatedAt": "2017-12-16T07:12:57.840Z",
+                  "userId": "f1dcd707-96fd-4351-85ac-dd4220049aac",
+                },
+              ],
+            }
+          }
+        />,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "autoHeight": false,
+          "autoHeightMax": 200,
+          "autoHeightMin": 0,
+          "autoHide": false,
+          "autoHideDuration": 200,
+          "autoHideTimeout": 1000,
+          "children": <div
+            className="container my-4"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-10"
+              >
+                <div
+                  className="wow fadeInUp"
+                >
+                  <div
+                    className="ml-3 media"
+                  >
+                    <Gravatar
+                      className="d-flex mr-3"
+                      default="retro"
+                      email="test@user.com"
+                      protocol="//"
+                      rating="g"
+                      size={50}
+                      style={
+                        Object {
+                          "borderRadius": "100%",
+                          "height": 60,
+                          "width": 60,
+                        }
+                      }
+                    />
+                    <div
+                      className="media-body"
+                    >
+                      <h6
+                        className="font-weight-bold"
+                      >
+                        test user
+                        <small
+                          className="text-muted ml-2"
+                        >
+                          about 2 months
+                           ago
+                        </small>
+                      </h6>
+                      nice and lovely
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              </div>
+            </div>
+          </div>,
+          "hideTracksWhenNotNeeded": false,
+          "renderThumbHorizontal": [Function],
+          "renderThumbVertical": [Function],
+          "renderTrackHorizontal": [Function],
+          "renderTrackVertical": [Function],
+          "renderView": [Function],
+          "style": Object {
+            "height": 250,
+          },
+          "tagName": "div",
+          "thumbMinSize": 30,
+          "universal": false,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="row"
+            >
+              <div
+                className="col-10"
+              >
+                <div
+                  className="wow fadeInUp"
+                >
+                  <div
+                    className="ml-3 media"
+                  >
+                    <Gravatar
+                      className="d-flex mr-3"
+                      default="retro"
+                      email="test@user.com"
+                      protocol="//"
+                      rating="g"
+                      size={50}
+                      style={
+                        Object {
+                          "borderRadius": "100%",
+                          "height": 60,
+                          "width": 60,
+                        }
+                      }
+                    />
+                    <div
+                      className="media-body"
+                    >
+                      <h6
+                        className="font-weight-bold"
+                      >
+                        test user
+                        <small
+                          className="text-muted ml-2"
+                        >
+                          about 2 months
+                           ago
+                        </small>
+                      </h6>
+                      nice and lovely
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              </div>
+            </div>,
+            "className": "container my-4",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="col-10"
+              >
+                <div
+                  className="wow fadeInUp"
+                >
+                  <div
+                    className="ml-3 media"
+                  >
+                    <Gravatar
+                      className="d-flex mr-3"
+                      default="retro"
+                      email="test@user.com"
+                      protocol="//"
+                      rating="g"
+                      size={50}
+                      style={
+                        Object {
+                          "borderRadius": "100%",
+                          "height": 60,
+                          "width": 60,
+                        }
+                      }
+                    />
+                    <div
+                      className="media-body"
+                    >
+                      <h6
+                        className="font-weight-bold"
+                      >
+                        test user
+                        <small
+                          className="text-muted ml-2"
+                        >
+                          about 2 months
+                           ago
+                        </small>
+                      </h6>
+                      nice and lovely
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              </div>,
+              "className": "row",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <div
+                    className="wow fadeInUp"
+                  >
+                    <div
+                      className="ml-3 media"
+                    >
+                      <Gravatar
+                        className="d-flex mr-3"
+                        default="retro"
+                        email="test@user.com"
+                        protocol="//"
+                        rating="g"
+                        size={50}
+                        style={
+                          Object {
+                            "borderRadius": "100%",
+                            "height": 60,
+                            "width": 60,
+                          }
+                        }
+                      />
+                      <div
+                        className="media-body"
+                      >
+                        <h6
+                          className="font-weight-bold"
+                        >
+                          test user
+                          <small
+                            className="text-muted ml-2"
+                          >
+                            about 2 months
+                             ago
+                          </small>
+                        </h6>
+                        nice and lovely
+                      </div>
+                    </div>
+                    <hr />
+                  </div>,
+                ],
+                "className": "col-10",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "8c3b5c6d-6d33-4e73-8a9e-e141a20b06b2",
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <div
+                        className="ml-3 media"
+                      >
+                        <Gravatar
+                          className="d-flex mr-3"
+                          default="retro"
+                          email="test@user.com"
+                          protocol="//"
+                          rating="g"
+                          size={50}
+                          style={
+                            Object {
+                              "borderRadius": "100%",
+                              "height": 60,
+                              "width": 60,
+                            }
+                          }
+                        />
+                        <div
+                          className="media-body"
+                        >
+                          <h6
+                            className="font-weight-bold"
+                          >
+                            test user
+                            <small
+                              className="text-muted ml-2"
+                            >
+                              about 2 months
+                               ago
+                            </small>
+                          </h6>
+                          nice and lovely
+                        </div>
+                      </div>,
+                      <hr />,
+                    ],
+                    "className": "wow fadeInUp",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <Gravatar
+                            className="d-flex mr-3"
+                            default="retro"
+                            email="test@user.com"
+                            protocol="//"
+                            rating="g"
+                            size={50}
+                            style={
+                              Object {
+                                "borderRadius": "100%",
+                                "height": 60,
+                                "width": 60,
+                              }
+                            }
+                          />,
+                          <div
+                            className="media-body"
+                          >
+                            <h6
+                              className="font-weight-bold"
+                            >
+                              test user
+                              <small
+                                className="text-muted ml-2"
+                              >
+                                about 2 months
+                                 ago
+                              </small>
+                            </h6>
+                            nice and lovely
+                          </div>,
+                        ],
+                        "className": "ml-3 media",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "class",
+                          "props": Object {
+                            "className": "d-flex mr-3",
+                            "default": "retro",
+                            "email": "test@user.com",
+                            "protocol": "//",
+                            "rating": "g",
+                            "size": 50,
+                            "style": Object {
+                              "borderRadius": "100%",
+                              "height": 60,
+                              "width": 60,
+                            },
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": [Function],
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              <h6
+                                className="font-weight-bold"
+                              >
+                                test user
+                                <small
+                                  className="text-muted ml-2"
+                                >
+                                  about 2 months
+                                   ago
+                                </small>
+                              </h6>,
+                              "nice and lovely",
+                            ],
+                            "className": "media-body",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": Array [
+                                  "test user",
+                                  <small
+                                    className="text-muted ml-2"
+                                  >
+                                    about 2 months
+                                     ago
+                                  </small>,
+                                ],
+                                "className": "font-weight-bold",
+                              },
+                              "ref": null,
+                              "rendered": Array [
+                                "test user",
+                                Object {
+                                  "instance": null,
+                                  "key": undefined,
+                                  "nodeType": "host",
+                                  "props": Object {
+                                    "children": Array [
+                                      "about 2 months",
+                                      " ago",
+                                    ],
+                                    "className": "text-muted ml-2",
+                                  },
+                                  "ref": null,
+                                  "rendered": Array [
+                                    "about 2 months",
+                                    " ago",
+                                  ],
+                                  "type": "small",
+                                },
+                              ],
+                              "type": "h6",
+                            },
+                            "nice and lovely",
+                          ],
+                          "type": "div",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "hr",
+                    },
+                  ],
+                  "type": "div",
+                },
+              ],
+              "type": "div",
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "checkAuth": [Function],
+          "createReview": [Function],
+          "getRecipeReviews": [Function],
+          "params": Object {
+            "id": 1,
+          },
+          "reviews": Object {
+            "1": Array [
+              Object {
+                "User": Object {
+                  "createdAt": "2017-12-16T07:12:57.840Z",
+                  "email": "test@user.com",
+                  "id": "f1dcd707-96fd-4351-85ac-dd4220049aae",
+                  "name": "test user",
+                  "updatedAt": "2017-12-16T07:12:57.840Z",
+                },
+                "createdAt": "2017-12-16T07:12:57.840Z",
+                "id": "8c3b5c6d-6d33-4e73-8a9e-e141a20b06b2",
+                "recipeId": "4fd56c98-ce0a-4369-b5ff-0a0a7e883437",
+                "review": "nice and lovely",
+                "updatedAt": "2017-12-16T07:12:57.840Z",
+                "userId": "f1dcd707-96fd-4351-85ac-dd4220049aac",
+              },
+            ],
+          },
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Scrollbars
+            autoHeight={false}
+            autoHeightMax={200}
+            autoHeightMin={0}
+            autoHide={false}
+            autoHideDuration={200}
+            autoHideTimeout={1000}
+            hideTracksWhenNotNeeded={false}
+            renderThumbHorizontal={[Function]}
+            renderThumbVertical={[Function]}
+            renderTrackHorizontal={[Function]}
+            renderTrackVertical={[Function]}
+            renderView={[Function]}
+            style={
+              Object {
+                "height": 250,
+              }
+            }
+            tagName="div"
+            thumbMinSize={30}
+            universal={false}
+          >
+            <div
+              className="container my-4"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-10"
+                >
+                  <div
+                    className="wow fadeInUp"
+                  >
+                    <div
+                      className="ml-3 media"
+                    >
+                      <Gravatar
+                        className="d-flex mr-3"
+                        default="retro"
+                        email="test@user.com"
+                        protocol="//"
+                        rating="g"
+                        size={50}
+                        style={
+                          Object {
+                            "borderRadius": "100%",
+                            "height": 60,
+                            "width": 60,
+                          }
+                        }
+                      />
+                      <div
+                        className="media-body"
+                      >
+                        <h6
+                          className="font-weight-bold"
+                        >
+                          test user
+                          <small
+                            className="text-muted ml-2"
+                          >
+                            about 2 months
+                             ago
+                          </small>
+                        </h6>
+                        nice and lovely
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Scrollbars>,
+          <CreateReview
+            checkAuth={[Function]}
+            createReview={[Function]}
+            getRecipeReviews={[Function]}
+            params={
+              Object {
+                "id": 1,
+              }
+            }
+            reviews={
+              Object {
+                "1": Array [
+                  Object {
+                    "User": Object {
+                      "createdAt": "2017-12-16T07:12:57.840Z",
+                      "email": "test@user.com",
+                      "id": "f1dcd707-96fd-4351-85ac-dd4220049aae",
+                      "name": "test user",
+                      "updatedAt": "2017-12-16T07:12:57.840Z",
+                    },
+                    "createdAt": "2017-12-16T07:12:57.840Z",
+                    "id": "8c3b5c6d-6d33-4e73-8a9e-e141a20b06b2",
+                    "recipeId": "4fd56c98-ce0a-4369-b5ff-0a0a7e883437",
+                    "review": "nice and lovely",
+                    "updatedAt": "2017-12-16T07:12:57.840Z",
+                    "userId": "f1dcd707-96fd-4351-85ac-dd4220049aac",
+                  },
+                ],
+              }
+            }
+          />,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "autoHeight": false,
+            "autoHeightMax": 200,
+            "autoHeightMin": 0,
+            "autoHide": false,
+            "autoHideDuration": 200,
+            "autoHideTimeout": 1000,
+            "children": <div
+              className="container my-4"
+            >
+              <div
+                className="row"
+              >
+                <div
+                  className="col-10"
+                >
+                  <div
+                    className="wow fadeInUp"
+                  >
+                    <div
+                      className="ml-3 media"
+                    >
+                      <Gravatar
+                        className="d-flex mr-3"
+                        default="retro"
+                        email="test@user.com"
+                        protocol="//"
+                        rating="g"
+                        size={50}
+                        style={
+                          Object {
+                            "borderRadius": "100%",
+                            "height": 60,
+                            "width": 60,
+                          }
+                        }
+                      />
+                      <div
+                        className="media-body"
+                      >
+                        <h6
+                          className="font-weight-bold"
+                        >
+                          test user
+                          <small
+                            className="text-muted ml-2"
+                          >
+                            about 2 months
+                             ago
+                          </small>
+                        </h6>
+                        nice and lovely
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                </div>
+              </div>
+            </div>,
+            "hideTracksWhenNotNeeded": false,
+            "renderThumbHorizontal": [Function],
+            "renderThumbVertical": [Function],
+            "renderTrackHorizontal": [Function],
+            "renderTrackVertical": [Function],
+            "renderView": [Function],
+            "style": Object {
+              "height": 250,
+            },
+            "tagName": "div",
+            "thumbMinSize": 30,
+            "universal": false,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="row"
+              >
+                <div
+                  className="col-10"
+                >
+                  <div
+                    className="wow fadeInUp"
+                  >
+                    <div
+                      className="ml-3 media"
+                    >
+                      <Gravatar
+                        className="d-flex mr-3"
+                        default="retro"
+                        email="test@user.com"
+                        protocol="//"
+                        rating="g"
+                        size={50}
+                        style={
+                          Object {
+                            "borderRadius": "100%",
+                            "height": 60,
+                            "width": 60,
+                          }
+                        }
+                      />
+                      <div
+                        className="media-body"
+                      >
+                        <h6
+                          className="font-weight-bold"
+                        >
+                          test user
+                          <small
+                            className="text-muted ml-2"
+                          >
+                            about 2 months
+                             ago
+                          </small>
+                        </h6>
+                        nice and lovely
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                </div>
+              </div>,
+              "className": "container my-4",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="col-10"
+                >
+                  <div
+                    className="wow fadeInUp"
+                  >
+                    <div
+                      className="ml-3 media"
+                    >
+                      <Gravatar
+                        className="d-flex mr-3"
+                        default="retro"
+                        email="test@user.com"
+                        protocol="//"
+                        rating="g"
+                        size={50}
+                        style={
+                          Object {
+                            "borderRadius": "100%",
+                            "height": 60,
+                            "width": 60,
+                          }
+                        }
+                      />
+                      <div
+                        className="media-body"
+                      >
+                        <h6
+                          className="font-weight-bold"
+                        >
+                          test user
+                          <small
+                            className="text-muted ml-2"
+                          >
+                            about 2 months
+                             ago
+                          </small>
+                        </h6>
+                        nice and lovely
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                </div>,
+                "className": "row",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <div
+                      className="wow fadeInUp"
+                    >
+                      <div
+                        className="ml-3 media"
+                      >
+                        <Gravatar
+                          className="d-flex mr-3"
+                          default="retro"
+                          email="test@user.com"
+                          protocol="//"
+                          rating="g"
+                          size={50}
+                          style={
+                            Object {
+                              "borderRadius": "100%",
+                              "height": 60,
+                              "width": 60,
+                            }
+                          }
+                        />
+                        <div
+                          className="media-body"
+                        >
+                          <h6
+                            className="font-weight-bold"
+                          >
+                            test user
+                            <small
+                              className="text-muted ml-2"
+                            >
+                              about 2 months
+                               ago
+                            </small>
+                          </h6>
+                          nice and lovely
+                        </div>
+                      </div>
+                      <hr />
+                    </div>,
+                  ],
+                  "className": "col-10",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": "8c3b5c6d-6d33-4e73-8a9e-e141a20b06b2",
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <div
+                          className="ml-3 media"
+                        >
+                          <Gravatar
+                            className="d-flex mr-3"
+                            default="retro"
+                            email="test@user.com"
+                            protocol="//"
+                            rating="g"
+                            size={50}
+                            style={
+                              Object {
+                                "borderRadius": "100%",
+                                "height": 60,
+                                "width": 60,
+                              }
+                            }
+                          />
+                          <div
+                            className="media-body"
+                          >
+                            <h6
+                              className="font-weight-bold"
+                            >
+                              test user
+                              <small
+                                className="text-muted ml-2"
+                              >
+                                about 2 months
+                                 ago
+                              </small>
+                            </h6>
+                            nice and lovely
+                          </div>
+                        </div>,
+                        <hr />,
+                      ],
+                      "className": "wow fadeInUp",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <Gravatar
+                              className="d-flex mr-3"
+                              default="retro"
+                              email="test@user.com"
+                              protocol="//"
+                              rating="g"
+                              size={50}
+                              style={
+                                Object {
+                                  "borderRadius": "100%",
+                                  "height": 60,
+                                  "width": 60,
+                                }
+                              }
+                            />,
+                            <div
+                              className="media-body"
+                            >
+                              <h6
+                                className="font-weight-bold"
+                              >
+                                test user
+                                <small
+                                  className="text-muted ml-2"
+                                >
+                                  about 2 months
+                                   ago
+                                </small>
+                              </h6>
+                              nice and lovely
+                            </div>,
+                          ],
+                          "className": "ml-3 media",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "class",
+                            "props": Object {
+                              "className": "d-flex mr-3",
+                              "default": "retro",
+                              "email": "test@user.com",
+                              "protocol": "//",
+                              "rating": "g",
+                              "size": 50,
+                              "style": Object {
+                                "borderRadius": "100%",
+                                "height": 60,
+                                "width": 60,
+                              },
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": [Function],
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                <h6
+                                  className="font-weight-bold"
+                                >
+                                  test user
+                                  <small
+                                    className="text-muted ml-2"
+                                  >
+                                    about 2 months
+                                     ago
+                                  </small>
+                                </h6>,
+                                "nice and lovely",
+                              ],
+                              "className": "media-body",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              Object {
+                                "instance": null,
+                                "key": undefined,
+                                "nodeType": "host",
+                                "props": Object {
+                                  "children": Array [
+                                    "test user",
+                                    <small
+                                      className="text-muted ml-2"
+                                    >
+                                      about 2 months
+                                       ago
+                                    </small>,
+                                  ],
+                                  "className": "font-weight-bold",
+                                },
+                                "ref": null,
+                                "rendered": Array [
+                                  "test user",
+                                  Object {
+                                    "instance": null,
+                                    "key": undefined,
+                                    "nodeType": "host",
+                                    "props": Object {
+                                      "children": Array [
+                                        "about 2 months",
+                                        " ago",
+                                      ],
+                                      "className": "text-muted ml-2",
+                                    },
+                                    "ref": null,
+                                    "rendered": Array [
+                                      "about 2 months",
+                                      " ago",
+                                    ],
+                                    "type": "small",
+                                  },
+                                ],
+                                "type": "h6",
+                              },
+                              "nice and lovely",
+                            ],
+                            "type": "div",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": "hr",
+                      },
+                    ],
+                    "type": "div",
+                  },
+                ],
+                "type": "div",
+              },
+              "type": "div",
+            },
+            "type": "div",
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "checkAuth": [Function],
+            "createReview": [Function],
+            "getRecipeReviews": [Function],
+            "params": Object {
+              "id": 1,
+            },
+            "reviews": Object {
+              "1": Array [
+                Object {
+                  "User": Object {
+                    "createdAt": "2017-12-16T07:12:57.840Z",
+                    "email": "test@user.com",
+                    "id": "f1dcd707-96fd-4351-85ac-dd4220049aae",
+                    "name": "test user",
+                    "updatedAt": "2017-12-16T07:12:57.840Z",
+                  },
+                  "createdAt": "2017-12-16T07:12:57.840Z",
+                  "id": "8c3b5c6d-6d33-4e73-8a9e-e141a20b06b2",
+                  "recipeId": "4fd56c98-ce0a-4369-b5ff-0a0a7e883437",
+                  "review": "nice and lovely",
+                  "updatedAt": "2017-12-16T07:12:57.840Z",
+                  "userId": "f1dcd707-96fd-4351-85ac-dd4220049aac",
+                },
+              ],
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

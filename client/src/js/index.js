@@ -26,8 +26,8 @@ import '../css/styles.css';
 
 import Main from './containers/Main';
 
-setAxios();
-
+setAxios(lockr.get('authUser'));
+window.axios = axios;
 /**
  * Check if the user is authenticated
  *

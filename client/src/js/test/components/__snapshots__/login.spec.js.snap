@@ -1,0 +1,2166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Login component should mount without crashing 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Login
+    router={
+      Object {
+        "push": [Function],
+      }
+    }
+    signIn={[Function]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="container my-5"
+      >
+        <div
+          className="row justify-content-center"
+        >
+          <div
+            className="col-md-8 col-lg-8 col-xs-12"
+          >
+            <h1
+              className="text-center"
+            >
+              <img
+                alt=""
+                className="mb-5"
+                src="test-file-stub"
+                style={
+                  Object {
+                    "height": "100px",
+                    "width": "100px",
+                  }
+                }
+              />
+            </h1>
+            <div
+              className="card wow fadeInUp"
+            >
+              <div
+                className="card-body"
+              >
+                <div
+                  className="text-center row justify-content-center"
+                >
+                  <div
+                    className="col-10"
+                  >
+                    <h3
+                      className="text-center mb-3 mt-3"
+                    >
+                      Login
+                    </h3>
+                    <small />
+                    <br />
+                    <br />
+                    <div
+                      className="form-group"
+                    >
+                      <input
+                        className="form-control"
+                        id="staticEmail"
+                        onChange={[Function]}
+                        placeholder="email@example.com"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="form-group"
+                    >
+                      <input
+                        className="form-control"
+                        id="inputPassword"
+                        onChange={[Function]}
+                        placeholder="Password"
+                        type="password"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="form-group"
+                    >
+                      <button
+                        className="btn mb-3 btn-primary form-control"
+                        disabled={true}
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Login
+                      </button>
+                      <span
+                        className="mt-5 h6 mr-3"
+                      >
+                        No account yet ? 
+                        <Link
+                          onlyActiveOnIndex={false}
+                          style={
+                            Object {
+                              "textDecoration": "none",
+                            }
+                          }
+                          to="/auth/register"
+                        >
+                          Register
+                        </Link>
+                      </span>
+                      <span
+                        className="mt-5 ml-2 h6"
+                      >
+                        <a>
+                          Forgot your password?
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="row justify-content-center"
+        >
+          <div
+            className="col-md-8 col-lg-8 col-xs-12"
+          >
+            <h1
+              className="text-center"
+            >
+              <img
+                alt=""
+                className="mb-5"
+                src="test-file-stub"
+                style={
+                  Object {
+                    "height": "100px",
+                    "width": "100px",
+                  }
+                }
+              />
+            </h1>
+            <div
+              className="card wow fadeInUp"
+            >
+              <div
+                className="card-body"
+              >
+                <div
+                  className="text-center row justify-content-center"
+                >
+                  <div
+                    className="col-10"
+                  >
+                    <h3
+                      className="text-center mb-3 mt-3"
+                    >
+                      Login
+                    </h3>
+                    <small />
+                    <br />
+                    <br />
+                    <div
+                      className="form-group"
+                    >
+                      <input
+                        className="form-control"
+                        id="staticEmail"
+                        onChange={[Function]}
+                        placeholder="email@example.com"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="form-group"
+                    >
+                      <input
+                        className="form-control"
+                        id="inputPassword"
+                        onChange={[Function]}
+                        placeholder="Password"
+                        type="password"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="form-group"
+                    >
+                      <button
+                        className="btn mb-3 btn-primary form-control"
+                        disabled={true}
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Login
+                      </button>
+                      <span
+                        className="mt-5 h6 mr-3"
+                      >
+                        No account yet ? 
+                        <Link
+                          onlyActiveOnIndex={false}
+                          style={
+                            Object {
+                              "textDecoration": "none",
+                            }
+                          }
+                          to="/auth/register"
+                        >
+                          Register
+                        </Link>
+                      </span>
+                      <span
+                        className="mt-5 ml-2 h6"
+                      >
+                        <a>
+                          Forgot your password?
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>,
+        "className": "container my-5",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="col-md-8 col-lg-8 col-xs-12"
+          >
+            <h1
+              className="text-center"
+            >
+              <img
+                alt=""
+                className="mb-5"
+                src="test-file-stub"
+                style={
+                  Object {
+                    "height": "100px",
+                    "width": "100px",
+                  }
+                }
+              />
+            </h1>
+            <div
+              className="card wow fadeInUp"
+            >
+              <div
+                className="card-body"
+              >
+                <div
+                  className="text-center row justify-content-center"
+                >
+                  <div
+                    className="col-10"
+                  >
+                    <h3
+                      className="text-center mb-3 mt-3"
+                    >
+                      Login
+                    </h3>
+                    <small />
+                    <br />
+                    <br />
+                    <div
+                      className="form-group"
+                    >
+                      <input
+                        className="form-control"
+                        id="staticEmail"
+                        onChange={[Function]}
+                        placeholder="email@example.com"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="form-group"
+                    >
+                      <input
+                        className="form-control"
+                        id="inputPassword"
+                        onChange={[Function]}
+                        placeholder="Password"
+                        type="password"
+                        value=""
+                      />
+                    </div>
+                    <div
+                      className="form-group"
+                    >
+                      <button
+                        className="btn mb-3 btn-primary form-control"
+                        disabled={true}
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        Login
+                      </button>
+                      <span
+                        className="mt-5 h6 mr-3"
+                      >
+                        No account yet ? 
+                        <Link
+                          onlyActiveOnIndex={false}
+                          style={
+                            Object {
+                              "textDecoration": "none",
+                            }
+                          }
+                          to="/auth/register"
+                        >
+                          Register
+                        </Link>
+                      </span>
+                      <span
+                        className="mt-5 ml-2 h6"
+                      >
+                        <a>
+                          Forgot your password?
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>,
+          "className": "row justify-content-center",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h1
+                className="text-center"
+              >
+                <img
+                  alt=""
+                  className="mb-5"
+                  src="test-file-stub"
+                  style={
+                    Object {
+                      "height": "100px",
+                      "width": "100px",
+                    }
+                  }
+                />
+              </h1>,
+              <div
+                className="card wow fadeInUp"
+              >
+                <div
+                  className="card-body"
+                >
+                  <div
+                    className="text-center row justify-content-center"
+                  >
+                    <div
+                      className="col-10"
+                    >
+                      <h3
+                        className="text-center mb-3 mt-3"
+                      >
+                        Login
+                      </h3>
+                      <small />
+                      <br />
+                      <br />
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="staticEmail"
+                          onChange={[Function]}
+                          placeholder="email@example.com"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="inputPassword"
+                          onChange={[Function]}
+                          placeholder="Password"
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <button
+                          className="btn mb-3 btn-primary form-control"
+                          disabled={true}
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Login
+                        </button>
+                        <span
+                          className="mt-5 h6 mr-3"
+                        >
+                          No account yet ? 
+                          <Link
+                            onlyActiveOnIndex={false}
+                            style={
+                              Object {
+                                "textDecoration": "none",
+                              }
+                            }
+                            to="/auth/register"
+                          >
+                            Register
+                          </Link>
+                        </span>
+                        <span
+                          className="mt-5 ml-2 h6"
+                        >
+                          <a>
+                            Forgot your password?
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>,
+            ],
+            "className": "col-md-8 col-lg-8 col-xs-12",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <img
+                  alt=""
+                  className="mb-5"
+                  src="test-file-stub"
+                  style={
+                    Object {
+                      "height": "100px",
+                      "width": "100px",
+                    }
+                  }
+                />,
+                "className": "text-center",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "alt": "",
+                  "className": "mb-5",
+                  "src": "test-file-stub",
+                  "style": Object {
+                    "height": "100px",
+                    "width": "100px",
+                  },
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "img",
+              },
+              "type": "h1",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="card-body"
+                >
+                  <div
+                    className="text-center row justify-content-center"
+                  >
+                    <div
+                      className="col-10"
+                    >
+                      <h3
+                        className="text-center mb-3 mt-3"
+                      >
+                        Login
+                      </h3>
+                      <small />
+                      <br />
+                      <br />
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="staticEmail"
+                          onChange={[Function]}
+                          placeholder="email@example.com"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="inputPassword"
+                          onChange={[Function]}
+                          placeholder="Password"
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <button
+                          className="btn mb-3 btn-primary form-control"
+                          disabled={true}
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Login
+                        </button>
+                        <span
+                          className="mt-5 h6 mr-3"
+                        >
+                          No account yet ? 
+                          <Link
+                            onlyActiveOnIndex={false}
+                            style={
+                              Object {
+                                "textDecoration": "none",
+                              }
+                            }
+                            to="/auth/register"
+                          >
+                            Register
+                          </Link>
+                        </span>
+                        <span
+                          className="mt-5 ml-2 h6"
+                        >
+                          <a>
+                            Forgot your password?
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>,
+                "className": "card wow fadeInUp",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="text-center row justify-content-center"
+                  >
+                    <div
+                      className="col-10"
+                    >
+                      <h3
+                        className="text-center mb-3 mt-3"
+                      >
+                        Login
+                      </h3>
+                      <small />
+                      <br />
+                      <br />
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="staticEmail"
+                          onChange={[Function]}
+                          placeholder="email@example.com"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="inputPassword"
+                          onChange={[Function]}
+                          placeholder="Password"
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <button
+                          className="btn mb-3 btn-primary form-control"
+                          disabled={true}
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Login
+                        </button>
+                        <span
+                          className="mt-5 h6 mr-3"
+                        >
+                          No account yet ? 
+                          <Link
+                            onlyActiveOnIndex={false}
+                            style={
+                              Object {
+                                "textDecoration": "none",
+                              }
+                            }
+                            to="/auth/register"
+                          >
+                            Register
+                          </Link>
+                        </span>
+                        <span
+                          className="mt-5 ml-2 h6"
+                        >
+                          <a>
+                            Forgot your password?
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>,
+                  "className": "card-body",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <div
+                      className="col-10"
+                    >
+                      <h3
+                        className="text-center mb-3 mt-3"
+                      >
+                        Login
+                      </h3>
+                      <small />
+                      <br />
+                      <br />
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="staticEmail"
+                          onChange={[Function]}
+                          placeholder="email@example.com"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="inputPassword"
+                          onChange={[Function]}
+                          placeholder="Password"
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <button
+                          className="btn mb-3 btn-primary form-control"
+                          disabled={true}
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Login
+                        </button>
+                        <span
+                          className="mt-5 h6 mr-3"
+                        >
+                          No account yet ? 
+                          <Link
+                            onlyActiveOnIndex={false}
+                            style={
+                              Object {
+                                "textDecoration": "none",
+                              }
+                            }
+                            to="/auth/register"
+                          >
+                            Register
+                          </Link>
+                        </span>
+                        <span
+                          className="mt-5 ml-2 h6"
+                        >
+                          <a>
+                            Forgot your password?
+                          </a>
+                        </span>
+                      </div>
+                    </div>,
+                    "className": "text-center row justify-content-center",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": Array [
+                        <h3
+                          className="text-center mb-3 mt-3"
+                        >
+                          Login
+                        </h3>,
+                        <small />,
+                        <br />,
+                        <br />,
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="staticEmail"
+                            onChange={[Function]}
+                            placeholder="email@example.com"
+                            type="text"
+                            value=""
+                          />
+                        </div>,
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="inputPassword"
+                            onChange={[Function]}
+                            placeholder="Password"
+                            type="password"
+                            value=""
+                          />
+                        </div>,
+                        <div
+                          className="form-group"
+                        >
+                          <button
+                            className="btn mb-3 btn-primary form-control"
+                            disabled={true}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            Login
+                          </button>
+                          <span
+                            className="mt-5 h6 mr-3"
+                          >
+                            No account yet ? 
+                            <Link
+                              onlyActiveOnIndex={false}
+                              style={
+                                Object {
+                                  "textDecoration": "none",
+                                }
+                              }
+                              to="/auth/register"
+                            >
+                              Register
+                            </Link>
+                          </span>
+                          <span
+                            className="mt-5 ml-2 h6"
+                          >
+                            <a>
+                              Forgot your password?
+                            </a>
+                          </span>
+                        </div>,
+                      ],
+                      "className": "col-10",
+                    },
+                    "ref": null,
+                    "rendered": Array [
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "Login",
+                          "className": "text-center mb-3 mt-3",
+                        },
+                        "ref": null,
+                        "rendered": "Login",
+                        "type": "h3",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": "small",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": "br",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": "br",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <input
+                            className="form-control"
+                            id="staticEmail"
+                            onChange={[Function]}
+                            placeholder="email@example.com"
+                            type="text"
+                            value=""
+                          />,
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "form-control",
+                            "id": "staticEmail",
+                            "onChange": [Function],
+                            "placeholder": "email@example.com",
+                            "type": "text",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "input",
+                        },
+                        "type": "div",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": <input
+                            className="form-control"
+                            id="inputPassword"
+                            onChange={[Function]}
+                            placeholder="Password"
+                            type="password"
+                            value=""
+                          />,
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "className": "form-control",
+                            "id": "inputPassword",
+                            "onChange": [Function],
+                            "placeholder": "Password",
+                            "type": "password",
+                            "value": "",
+                          },
+                          "ref": null,
+                          "rendered": null,
+                          "type": "input",
+                        },
+                        "type": "div",
+                      },
+                      Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": Array [
+                            <button
+                              className="btn mb-3 btn-primary form-control"
+                              disabled={true}
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              Login
+                            </button>,
+                            <span
+                              className="mt-5 h6 mr-3"
+                            >
+                              No account yet ? 
+                              <Link
+                                onlyActiveOnIndex={false}
+                                style={
+                                  Object {
+                                    "textDecoration": "none",
+                                  }
+                                }
+                                to="/auth/register"
+                              >
+                                Register
+                              </Link>
+                            </span>,
+                            <span
+                              className="mt-5 ml-2 h6"
+                            >
+                              <a>
+                                Forgot your password?
+                              </a>
+                            </span>,
+                          ],
+                          "className": "form-group",
+                        },
+                        "ref": null,
+                        "rendered": Array [
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": "Login",
+                              "className": "btn mb-3 btn-primary form-control",
+                              "disabled": true,
+                              "onClick": [Function],
+                              "type": "button",
+                            },
+                            "ref": null,
+                            "rendered": "Login",
+                            "type": "button",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": Array [
+                                "No account yet ? ",
+                                <Link
+                                  onlyActiveOnIndex={false}
+                                  style={
+                                    Object {
+                                      "textDecoration": "none",
+                                    }
+                                  }
+                                  to="/auth/register"
+                                >
+                                  Register
+                                </Link>,
+                              ],
+                              "className": "mt-5 h6 mr-3",
+                            },
+                            "ref": null,
+                            "rendered": Array [
+                              "No account yet ? ",
+                              Object {
+                                "instance": null,
+                                "key": undefined,
+                                "nodeType": "class",
+                                "props": Object {
+                                  "children": "Register",
+                                  "onlyActiveOnIndex": false,
+                                  "style": Object {
+                                    "textDecoration": "none",
+                                  },
+                                  "to": "/auth/register",
+                                },
+                                "ref": null,
+                                "rendered": "Register",
+                                "type": [Function],
+                              },
+                            ],
+                            "type": "span",
+                          },
+                          Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "children": <a>
+                                Forgot your password?
+                              </a>,
+                              "className": "mt-5 ml-2 h6",
+                            },
+                            "ref": null,
+                            "rendered": Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": "Forgot your password?",
+                              },
+                              "ref": null,
+                              "rendered": "Forgot your password?",
+                              "type": "a",
+                            },
+                            "type": "span",
+                          },
+                        ],
+                        "type": "div",
+                      },
+                    ],
+                    "type": "div",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="container my-5"
+        >
+          <div
+            className="row justify-content-center"
+          >
+            <div
+              className="col-md-8 col-lg-8 col-xs-12"
+            >
+              <h1
+                className="text-center"
+              >
+                <img
+                  alt=""
+                  className="mb-5"
+                  src="test-file-stub"
+                  style={
+                    Object {
+                      "height": "100px",
+                      "width": "100px",
+                    }
+                  }
+                />
+              </h1>
+              <div
+                className="card wow fadeInUp"
+              >
+                <div
+                  className="card-body"
+                >
+                  <div
+                    className="text-center row justify-content-center"
+                  >
+                    <div
+                      className="col-10"
+                    >
+                      <h3
+                        className="text-center mb-3 mt-3"
+                      >
+                        Login
+                      </h3>
+                      <small />
+                      <br />
+                      <br />
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="staticEmail"
+                          onChange={[Function]}
+                          placeholder="email@example.com"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="inputPassword"
+                          onChange={[Function]}
+                          placeholder="Password"
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <button
+                          className="btn mb-3 btn-primary form-control"
+                          disabled={true}
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Login
+                        </button>
+                        <span
+                          className="mt-5 h6 mr-3"
+                        >
+                          No account yet ? 
+                          <Link
+                            onlyActiveOnIndex={false}
+                            style={
+                              Object {
+                                "textDecoration": "none",
+                              }
+                            }
+                            to="/auth/register"
+                          >
+                            Register
+                          </Link>
+                        </span>
+                        <span
+                          className="mt-5 ml-2 h6"
+                        >
+                          <a>
+                            Forgot your password?
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="row justify-content-center"
+          >
+            <div
+              className="col-md-8 col-lg-8 col-xs-12"
+            >
+              <h1
+                className="text-center"
+              >
+                <img
+                  alt=""
+                  className="mb-5"
+                  src="test-file-stub"
+                  style={
+                    Object {
+                      "height": "100px",
+                      "width": "100px",
+                    }
+                  }
+                />
+              </h1>
+              <div
+                className="card wow fadeInUp"
+              >
+                <div
+                  className="card-body"
+                >
+                  <div
+                    className="text-center row justify-content-center"
+                  >
+                    <div
+                      className="col-10"
+                    >
+                      <h3
+                        className="text-center mb-3 mt-3"
+                      >
+                        Login
+                      </h3>
+                      <small />
+                      <br />
+                      <br />
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="staticEmail"
+                          onChange={[Function]}
+                          placeholder="email@example.com"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="inputPassword"
+                          onChange={[Function]}
+                          placeholder="Password"
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <button
+                          className="btn mb-3 btn-primary form-control"
+                          disabled={true}
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Login
+                        </button>
+                        <span
+                          className="mt-5 h6 mr-3"
+                        >
+                          No account yet ? 
+                          <Link
+                            onlyActiveOnIndex={false}
+                            style={
+                              Object {
+                                "textDecoration": "none",
+                              }
+                            }
+                            to="/auth/register"
+                          >
+                            Register
+                          </Link>
+                        </span>
+                        <span
+                          className="mt-5 ml-2 h6"
+                        >
+                          <a>
+                            Forgot your password?
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>,
+          "className": "container my-5",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="col-md-8 col-lg-8 col-xs-12"
+            >
+              <h1
+                className="text-center"
+              >
+                <img
+                  alt=""
+                  className="mb-5"
+                  src="test-file-stub"
+                  style={
+                    Object {
+                      "height": "100px",
+                      "width": "100px",
+                    }
+                  }
+                />
+              </h1>
+              <div
+                className="card wow fadeInUp"
+              >
+                <div
+                  className="card-body"
+                >
+                  <div
+                    className="text-center row justify-content-center"
+                  >
+                    <div
+                      className="col-10"
+                    >
+                      <h3
+                        className="text-center mb-3 mt-3"
+                      >
+                        Login
+                      </h3>
+                      <small />
+                      <br />
+                      <br />
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="staticEmail"
+                          onChange={[Function]}
+                          placeholder="email@example.com"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <input
+                          className="form-control"
+                          id="inputPassword"
+                          onChange={[Function]}
+                          placeholder="Password"
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                      <div
+                        className="form-group"
+                      >
+                        <button
+                          className="btn mb-3 btn-primary form-control"
+                          disabled={true}
+                          onClick={[Function]}
+                          type="button"
+                        >
+                          Login
+                        </button>
+                        <span
+                          className="mt-5 h6 mr-3"
+                        >
+                          No account yet ? 
+                          <Link
+                            onlyActiveOnIndex={false}
+                            style={
+                              Object {
+                                "textDecoration": "none",
+                              }
+                            }
+                            to="/auth/register"
+                          >
+                            Register
+                          </Link>
+                        </span>
+                        <span
+                          className="mt-5 ml-2 h6"
+                        >
+                          <a>
+                            Forgot your password?
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>,
+            "className": "row justify-content-center",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <h1
+                  className="text-center"
+                >
+                  <img
+                    alt=""
+                    className="mb-5"
+                    src="test-file-stub"
+                    style={
+                      Object {
+                        "height": "100px",
+                        "width": "100px",
+                      }
+                    }
+                  />
+                </h1>,
+                <div
+                  className="card wow fadeInUp"
+                >
+                  <div
+                    className="card-body"
+                  >
+                    <div
+                      className="text-center row justify-content-center"
+                    >
+                      <div
+                        className="col-10"
+                      >
+                        <h3
+                          className="text-center mb-3 mt-3"
+                        >
+                          Login
+                        </h3>
+                        <small />
+                        <br />
+                        <br />
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="staticEmail"
+                            onChange={[Function]}
+                            placeholder="email@example.com"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="inputPassword"
+                            onChange={[Function]}
+                            placeholder="Password"
+                            type="password"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <button
+                            className="btn mb-3 btn-primary form-control"
+                            disabled={true}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            Login
+                          </button>
+                          <span
+                            className="mt-5 h6 mr-3"
+                          >
+                            No account yet ? 
+                            <Link
+                              onlyActiveOnIndex={false}
+                              style={
+                                Object {
+                                  "textDecoration": "none",
+                                }
+                              }
+                              to="/auth/register"
+                            >
+                              Register
+                            </Link>
+                          </span>
+                          <span
+                            className="mt-5 ml-2 h6"
+                          >
+                            <a>
+                              Forgot your password?
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>,
+              ],
+              "className": "col-md-8 col-lg-8 col-xs-12",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <img
+                    alt=""
+                    className="mb-5"
+                    src="test-file-stub"
+                    style={
+                      Object {
+                        "height": "100px",
+                        "width": "100px",
+                      }
+                    }
+                  />,
+                  "className": "text-center",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "alt": "",
+                    "className": "mb-5",
+                    "src": "test-file-stub",
+                    "style": Object {
+                      "height": "100px",
+                      "width": "100px",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "img",
+                },
+                "type": "h1",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="card-body"
+                  >
+                    <div
+                      className="text-center row justify-content-center"
+                    >
+                      <div
+                        className="col-10"
+                      >
+                        <h3
+                          className="text-center mb-3 mt-3"
+                        >
+                          Login
+                        </h3>
+                        <small />
+                        <br />
+                        <br />
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="staticEmail"
+                            onChange={[Function]}
+                            placeholder="email@example.com"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="inputPassword"
+                            onChange={[Function]}
+                            placeholder="Password"
+                            type="password"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <button
+                            className="btn mb-3 btn-primary form-control"
+                            disabled={true}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            Login
+                          </button>
+                          <span
+                            className="mt-5 h6 mr-3"
+                          >
+                            No account yet ? 
+                            <Link
+                              onlyActiveOnIndex={false}
+                              style={
+                                Object {
+                                  "textDecoration": "none",
+                                }
+                              }
+                              to="/auth/register"
+                            >
+                              Register
+                            </Link>
+                          </span>
+                          <span
+                            className="mt-5 ml-2 h6"
+                          >
+                            <a>
+                              Forgot your password?
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>,
+                  "className": "card wow fadeInUp",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <div
+                      className="text-center row justify-content-center"
+                    >
+                      <div
+                        className="col-10"
+                      >
+                        <h3
+                          className="text-center mb-3 mt-3"
+                        >
+                          Login
+                        </h3>
+                        <small />
+                        <br />
+                        <br />
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="staticEmail"
+                            onChange={[Function]}
+                            placeholder="email@example.com"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="inputPassword"
+                            onChange={[Function]}
+                            placeholder="Password"
+                            type="password"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <button
+                            className="btn mb-3 btn-primary form-control"
+                            disabled={true}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            Login
+                          </button>
+                          <span
+                            className="mt-5 h6 mr-3"
+                          >
+                            No account yet ? 
+                            <Link
+                              onlyActiveOnIndex={false}
+                              style={
+                                Object {
+                                  "textDecoration": "none",
+                                }
+                              }
+                              to="/auth/register"
+                            >
+                              Register
+                            </Link>
+                          </span>
+                          <span
+                            className="mt-5 ml-2 h6"
+                          >
+                            <a>
+                              Forgot your password?
+                            </a>
+                          </span>
+                        </div>
+                      </div>
+                    </div>,
+                    "className": "card-body",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <div
+                        className="col-10"
+                      >
+                        <h3
+                          className="text-center mb-3 mt-3"
+                        >
+                          Login
+                        </h3>
+                        <small />
+                        <br />
+                        <br />
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="staticEmail"
+                            onChange={[Function]}
+                            placeholder="email@example.com"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <input
+                            className="form-control"
+                            id="inputPassword"
+                            onChange={[Function]}
+                            placeholder="Password"
+                            type="password"
+                            value=""
+                          />
+                        </div>
+                        <div
+                          className="form-group"
+                        >
+                          <button
+                            className="btn mb-3 btn-primary form-control"
+                            disabled={true}
+                            onClick={[Function]}
+                            type="button"
+                          >
+                            Login
+                          </button>
+                          <span
+                            className="mt-5 h6 mr-3"
+                          >
+                            No account yet ? 
+                            <Link
+                              onlyActiveOnIndex={false}
+                              style={
+                                Object {
+                                  "textDecoration": "none",
+                                }
+                              }
+                              to="/auth/register"
+                            >
+                              Register
+                            </Link>
+                          </span>
+                          <span
+                            className="mt-5 ml-2 h6"
+                          >
+                            <a>
+                              Forgot your password?
+                            </a>
+                          </span>
+                        </div>
+                      </div>,
+                      "className": "text-center row justify-content-center",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": Array [
+                          <h3
+                            className="text-center mb-3 mt-3"
+                          >
+                            Login
+                          </h3>,
+                          <small />,
+                          <br />,
+                          <br />,
+                          <div
+                            className="form-group"
+                          >
+                            <input
+                              className="form-control"
+                              id="staticEmail"
+                              onChange={[Function]}
+                              placeholder="email@example.com"
+                              type="text"
+                              value=""
+                            />
+                          </div>,
+                          <div
+                            className="form-group"
+                          >
+                            <input
+                              className="form-control"
+                              id="inputPassword"
+                              onChange={[Function]}
+                              placeholder="Password"
+                              type="password"
+                              value=""
+                            />
+                          </div>,
+                          <div
+                            className="form-group"
+                          >
+                            <button
+                              className="btn mb-3 btn-primary form-control"
+                              disabled={true}
+                              onClick={[Function]}
+                              type="button"
+                            >
+                              Login
+                            </button>
+                            <span
+                              className="mt-5 h6 mr-3"
+                            >
+                              No account yet ? 
+                              <Link
+                                onlyActiveOnIndex={false}
+                                style={
+                                  Object {
+                                    "textDecoration": "none",
+                                  }
+                                }
+                                to="/auth/register"
+                              >
+                                Register
+                              </Link>
+                            </span>
+                            <span
+                              className="mt-5 ml-2 h6"
+                            >
+                              <a>
+                                Forgot your password?
+                              </a>
+                            </span>
+                          </div>,
+                        ],
+                        "className": "col-10",
+                      },
+                      "ref": null,
+                      "rendered": Array [
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": "Login",
+                            "className": "text-center mb-3 mt-3",
+                          },
+                          "ref": null,
+                          "rendered": "Login",
+                          "type": "h3",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {},
+                          "ref": null,
+                          "rendered": null,
+                          "type": "small",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {},
+                          "ref": null,
+                          "rendered": null,
+                          "type": "br",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {},
+                          "ref": null,
+                          "rendered": null,
+                          "type": "br",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <input
+                              className="form-control"
+                              id="staticEmail"
+                              onChange={[Function]}
+                              placeholder="email@example.com"
+                              type="text"
+                              value=""
+                            />,
+                            "className": "form-group",
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "id": "staticEmail",
+                              "onChange": [Function],
+                              "placeholder": "email@example.com",
+                              "type": "text",
+                              "value": "",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "input",
+                          },
+                          "type": "div",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": <input
+                              className="form-control"
+                              id="inputPassword"
+                              onChange={[Function]}
+                              placeholder="Password"
+                              type="password"
+                              value=""
+                            />,
+                            "className": "form-group",
+                          },
+                          "ref": null,
+                          "rendered": Object {
+                            "instance": null,
+                            "key": undefined,
+                            "nodeType": "host",
+                            "props": Object {
+                              "className": "form-control",
+                              "id": "inputPassword",
+                              "onChange": [Function],
+                              "placeholder": "Password",
+                              "type": "password",
+                              "value": "",
+                            },
+                            "ref": null,
+                            "rendered": null,
+                            "type": "input",
+                          },
+                          "type": "div",
+                        },
+                        Object {
+                          "instance": null,
+                          "key": undefined,
+                          "nodeType": "host",
+                          "props": Object {
+                            "children": Array [
+                              <button
+                                className="btn mb-3 btn-primary form-control"
+                                disabled={true}
+                                onClick={[Function]}
+                                type="button"
+                              >
+                                Login
+                              </button>,
+                              <span
+                                className="mt-5 h6 mr-3"
+                              >
+                                No account yet ? 
+                                <Link
+                                  onlyActiveOnIndex={false}
+                                  style={
+                                    Object {
+                                      "textDecoration": "none",
+                                    }
+                                  }
+                                  to="/auth/register"
+                                >
+                                  Register
+                                </Link>
+                              </span>,
+                              <span
+                                className="mt-5 ml-2 h6"
+                              >
+                                <a>
+                                  Forgot your password?
+                                </a>
+                              </span>,
+                            ],
+                            "className": "form-group",
+                          },
+                          "ref": null,
+                          "rendered": Array [
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": "Login",
+                                "className": "btn mb-3 btn-primary form-control",
+                                "disabled": true,
+                                "onClick": [Function],
+                                "type": "button",
+                              },
+                              "ref": null,
+                              "rendered": "Login",
+                              "type": "button",
+                            },
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": Array [
+                                  "No account yet ? ",
+                                  <Link
+                                    onlyActiveOnIndex={false}
+                                    style={
+                                      Object {
+                                        "textDecoration": "none",
+                                      }
+                                    }
+                                    to="/auth/register"
+                                  >
+                                    Register
+                                  </Link>,
+                                ],
+                                "className": "mt-5 h6 mr-3",
+                              },
+                              "ref": null,
+                              "rendered": Array [
+                                "No account yet ? ",
+                                Object {
+                                  "instance": null,
+                                  "key": undefined,
+                                  "nodeType": "class",
+                                  "props": Object {
+                                    "children": "Register",
+                                    "onlyActiveOnIndex": false,
+                                    "style": Object {
+                                      "textDecoration": "none",
+                                    },
+                                    "to": "/auth/register",
+                                  },
+                                  "ref": null,
+                                  "rendered": "Register",
+                                  "type": [Function],
+                                },
+                              ],
+                              "type": "span",
+                            },
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": <a>
+                                  Forgot your password?
+                                </a>,
+                                "className": "mt-5 ml-2 h6",
+                              },
+                              "ref": null,
+                              "rendered": Object {
+                                "instance": null,
+                                "key": undefined,
+                                "nodeType": "host",
+                                "props": Object {
+                                  "children": "Forgot your password?",
+                                },
+                                "ref": null,
+                                "rendered": "Forgot your password?",
+                                "type": "a",
+                              },
+                              "type": "span",
+                            },
+                          ],
+                          "type": "div",
+                        },
+                      ],
+                      "type": "div",
+                    },
+                    "type": "div",
+                  },
+                  "type": "div",
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

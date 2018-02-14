@@ -110,7 +110,7 @@ ShallowWrapper {
                         <small
                           className="text-muted ml-2"
                         >
-                          about 2 months
+                          2 months
                            ago
                         </small>
                       </h6>
@@ -209,7 +209,7 @@ ShallowWrapper {
                         <small
                           className="text-muted ml-2"
                         >
-                          about 2 months
+                          2 months
                            ago
                         </small>
                       </h6>
@@ -277,7 +277,7 @@ ShallowWrapper {
                         <small
                           className="text-muted ml-2"
                         >
-                          about 2 months
+                          2 months
                            ago
                         </small>
                       </h6>
@@ -330,7 +330,7 @@ ShallowWrapper {
                         <small
                           className="text-muted ml-2"
                         >
-                          about 2 months
+                          2 months
                            ago
                         </small>
                       </h6>
@@ -380,7 +380,7 @@ ShallowWrapper {
                           <small
                             className="text-muted ml-2"
                           >
-                            about 2 months
+                            2 months
                              ago
                           </small>
                         </h6>
@@ -428,7 +428,7 @@ ShallowWrapper {
                             <small
                               className="text-muted ml-2"
                             >
-                              about 2 months
+                              2 months
                                ago
                             </small>
                           </h6>
@@ -472,7 +472,7 @@ ShallowWrapper {
                               <small
                                 className="text-muted ml-2"
                               >
-                                about 2 months
+                                2 months
                                  ago
                               </small>
                             </h6>
@@ -517,7 +517,7 @@ ShallowWrapper {
                                 <small
                                   className="text-muted ml-2"
                                 >
-                                  about 2 months
+                                  2 months
                                    ago
                                 </small>
                               </h6>,
@@ -537,7 +537,7 @@ ShallowWrapper {
                                   <small
                                     className="text-muted ml-2"
                                   >
-                                    about 2 months
+                                    2 months
                                      ago
                                   </small>,
                                 ],
@@ -552,14 +552,14 @@ ShallowWrapper {
                                   "nodeType": "host",
                                   "props": Object {
                                     "children": Array [
-                                      "about 2 months",
+                                      "2 months",
                                       " ago",
                                     ],
                                     "className": "text-muted ml-2",
                                   },
                                   "ref": null,
                                   "rendered": Array [
-                                    "about 2 months",
+                                    "2 months",
                                     " ago",
                                   ],
                                   "type": "small",
@@ -702,7 +702,7 @@ ShallowWrapper {
                           <small
                             className="text-muted ml-2"
                           >
-                            about 2 months
+                            2 months
                              ago
                           </small>
                         </h6>
@@ -801,7 +801,7 @@ ShallowWrapper {
                           <small
                             className="text-muted ml-2"
                           >
-                            about 2 months
+                            2 months
                              ago
                           </small>
                         </h6>
@@ -869,7 +869,7 @@ ShallowWrapper {
                           <small
                             className="text-muted ml-2"
                           >
-                            about 2 months
+                            2 months
                              ago
                           </small>
                         </h6>
@@ -922,7 +922,7 @@ ShallowWrapper {
                           <small
                             className="text-muted ml-2"
                           >
-                            about 2 months
+                            2 months
                              ago
                           </small>
                         </h6>
@@ -972,7 +972,7 @@ ShallowWrapper {
                             <small
                               className="text-muted ml-2"
                             >
-                              about 2 months
+                              2 months
                                ago
                             </small>
                           </h6>
@@ -1020,7 +1020,7 @@ ShallowWrapper {
                               <small
                                 className="text-muted ml-2"
                               >
-                                about 2 months
+                                2 months
                                  ago
                               </small>
                             </h6>
@@ -1064,7 +1064,7 @@ ShallowWrapper {
                                 <small
                                   className="text-muted ml-2"
                                 >
-                                  about 2 months
+                                  2 months
                                    ago
                                 </small>
                               </h6>
@@ -1109,7 +1109,7 @@ ShallowWrapper {
                                   <small
                                     className="text-muted ml-2"
                                   >
-                                    about 2 months
+                                    2 months
                                      ago
                                   </small>
                                 </h6>,
@@ -1129,7 +1129,7 @@ ShallowWrapper {
                                     <small
                                       className="text-muted ml-2"
                                     >
-                                      about 2 months
+                                      2 months
                                        ago
                                     </small>,
                                   ],
@@ -1144,14 +1144,14 @@ ShallowWrapper {
                                     "nodeType": "host",
                                     "props": Object {
                                       "children": Array [
-                                        "about 2 months",
+                                        "2 months",
                                         " ago",
                                       ],
                                       "className": "text-muted ml-2",
                                     },
                                     "ref": null,
                                     "rendered": Array [
-                                      "about 2 months",
+                                      "2 months",
                                       " ago",
                                     ],
                                     "type": "small",

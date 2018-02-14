@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1518546616195" clover="3.2.0">
-  <project timestamp="1518546616195" name="All files">
-    <metrics statements="123" coveredstatements="103" conditionals="54" coveredconditionals="40" methods="37" coveredmethods="30" elements="214" coveredelements="173" complexity="0" loc="123" ncloc="123" packages="7" files="13" classes="13">
+<coverage generated="1518620672862" clover="3.2.0">
+  <project timestamp="1518620672862" name="All files">
+    <metrics statements="152" coveredstatements="126" conditionals="64" coveredconditionals="46" methods="47" coveredmethods="38" elements="263" coveredelements="210" complexity="0" loc="152" ncloc="152" packages="9" files="15" classes="15">
+      <package name="helpers">
+        <metrics statements="9" coveredstatements="3" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <file name="index.js" path="/Users/andeladeveloper/Code/JavaScript/more-recipes/client/src/js/helpers/index.js">
+          <metrics statements="9" coveredstatements="3" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="1"/>
+          <line num="10" count="17" type="stmt"/>
+          <line num="12" count="1" type="stmt"/>
+          <line num="13" count="0" type="stmt"/>
+          <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="15" count="0" type="stmt"/>
+          <line num="18" count="0" type="stmt"/>
+          <line num="26" count="1" type="stmt"/>
+          <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="28" count="0" type="stmt"/>
+        </file>
+      </package>
       <package name="screens.components">
         <metrics statements="21" coveredstatements="14" conditionals="8" coveredconditionals="4" methods="7" coveredmethods="4"/>
         <file name="Footer.jsx" path="/Users/andeladeveloper/Code/JavaScript/more-recipes/client/src/js/screens/components/Footer.jsx">
@@ -36,6 +51,32 @@
           <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
           <line num="4" count="1" type="stmt"/>
           <line num="5" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="screens.pages.Login">
+        <metrics statements="20" coveredstatements="20" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
+        <file name="index.jsx" path="/Users/andeladeveloper/Code/JavaScript/more-recipes/client/src/js/screens/pages/Login/index.jsx">
+          <metrics statements="20" coveredstatements="20" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
+          <line num="18" count="7" type="stmt"/>
+          <line num="20" count="7" type="stmt"/>
+          <line num="26" count="7" type="stmt"/>
+          <line num="35" count="17" type="cond" truecount="2" falsecount="0"/>
+          <line num="45" count="3" type="stmt"/>
+          <line num="46" count="3" type="stmt"/>
+          <line num="51" count="1" type="stmt"/>
+          <line num="53" count="2" type="stmt"/>
+          <line num="55" count="2" type="cond" truecount="2" falsecount="0"/>
+          <line num="56" count="1" type="stmt"/>
+          <line num="60" count="1" type="stmt"/>
+          <line num="73" count="17" type="stmt"/>
+          <line num="75" count="17" type="cond" truecount="2" falsecount="0"/>
+          <line num="76" count="2" type="stmt"/>
+          <line num="90" count="17" type="stmt"/>
+          <line num="114" count="1" type="stmt"/>
+          <line num="126" count="1" type="stmt"/>
+          <line num="133" count="3" type="stmt"/>
+          <line num="153" count="1" type="stmt"/>
+          <line num="158" count="1" type="stmt"/>
         </file>
       </package>
       <package name="screens.pages.SingleRecipe.components">
@@ -170,12 +211,12 @@
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <file name="fileMock.js" path="/Users/andeladeveloper/Code/JavaScript/more-recipes/client/src/js/test/fileMock.js">
           <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-          <line num="1" count="2" type="stmt"/>
+          <line num="1" count="3" type="stmt"/>
         </file>
         <file name="setupTests.js" path="/Users/andeladeveloper/Code/JavaScript/more-recipes/client/src/js/test/setupTests.js">
           <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-          <line num="4" count="7" type="stmt"/>
-          <line num="6" count="7" type="stmt"/>
+          <line num="4" count="8" type="stmt"/>
+          <line num="6" count="8" type="stmt"/>
         </file>
       </package>
       <package name="test.stubs">

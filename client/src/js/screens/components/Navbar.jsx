@@ -26,7 +26,7 @@ const Navbar = (props) => {
           <Link className="dropdown-item" to={`/user/${props.authUser.user.id}/recipes`}>My recipes</Link>
           <Link className="dropdown-item" to="/my/favorites">My favorites</Link>
           <a
-            className="dropdown-item"
+            className="dropdown-item logout"
             href="javascript:;"
             onClick={async () => {
               await props.signOut();

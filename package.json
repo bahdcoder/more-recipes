@@ -9,7 +9,7 @@
     "start:e2e": "cross-env NODE_ENV=e2eTests node build/index.js",
     "babel-node": "babel-node --",
     "nightwatch": "nightwatch",
-    "build": "./node_modules/.bin/babel server/ -d build --copy-files",
+    "build": "npm run build:client && ./node_modules/.bin/babel server/ -d build --copy-files",
     "dist": "./node_modules/.bin/babel server/ -d dist --presets=babili",
     "coveralls": "nyc npm test&& nyc report --reporter=text-lcov | coveralls",
     "migrate:refresh": "./node_modules/.bin/sequelize db:migrate:undo:all && ./node_modules/.bin/sequelize db:migrate",

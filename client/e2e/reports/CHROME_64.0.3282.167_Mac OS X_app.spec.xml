@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="3">
+
+  <testsuite name="app.spec"
+    errors="1" failures="0" hostname="" id="" package="app.spec" skipped="0"
+    tests="3" time="42.20" timestamp="Sat, 17 Feb 2018 12:35:16 GMT">
+  
+    <testcase name="Home page: (user is not authenticated)" classname="app.spec" time="15.36" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User registration process successful" classname="app.spec" time="10.44" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User sign in process successful" classname="app.spec" time="16.40" assertions="1">
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+      Error while running waitForElementVisible command: waitForElement expects second parameter to have a global default (waitForConditionTimeout) to be specified if not passed as the second parameter 
+    at logoutUser (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/helpers/index.js:27:6)
+    at Object.User sign in process successful (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/test/app.spec.js:42:5)
+    at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

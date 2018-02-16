@@ -1,7 +1,7 @@
 let apiUrl;
 
-if (window.location.hostname === 'bahdcoder-more-recipes.herokuapp.com') {
-  apiUrl = 'https://bahdcoder-more-recipes.herokuapp.com/api/v1';
+if (window.location.hostname === 'bahdcoder-more-recipes.herokuapp.com' || window.location.hostname === 'frontstack-io-api-demo.herokuapp.com') {
+  apiUrl = `https://${window.location.hostname}/api/v1`;
 } else if (window.location.hostname === 'localhost') {
   apiUrl = 'http://localhost:5678/api/v1';
 } else {

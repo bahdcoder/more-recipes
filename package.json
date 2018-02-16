@@ -70,6 +70,7 @@
     "babel-preset-es2015-node": "6.1.1",
     "babel-preset-react": "6.24.1",
     "babel-watch": "2.0.7",
+    "base-64": "^0.1.0",
     "bcrypt": "1.0.3",
     "bluebird": "3.5.1",
     "body-parser": "1.18.2",
@@ -146,10 +147,8 @@
   "jest": {
     "setupTestFrameworkScriptFile": "./client/src/js/test/setupTests.js",
     "testRegex": "./client/src/js/test/.*.spec.js$",
-
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/client/src/js/test/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/client/src/js/test/fileMock.js"
     }
   }
 }

@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Bahdcoder - More-recipes",
+    "title": "More-recipes",
     "description": "More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.",
     "version": "1.0"
   },
   "servers": [
     {
-      "url": "https://bahdcoder-more-recipes.herokuapp.com/api/v1",
+      "url": "https://frontstack-io-api-demo.herokuapp.com/api/v1",
       "variables": {}
     }
   ],

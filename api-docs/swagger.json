@@ -18,7 +18,7 @@
           "Misc"
         ],
         "summary": "Sign up a new user",
-        "description": "",
+        "description": "git ",
         "operationId": "SignUpANewUser",
         "parameters": [
           {

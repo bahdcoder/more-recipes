@@ -5,6 +5,26 @@ import { push } from 'react-router-redux';
 
 import { setAxios } from '../../helpers';
 
+export const NOTIFICATION = 'NOTIFICATION';
+export const SIGN_IN_USER = 'SIGN_IN_USER';
+export const USER_UPDATED = 'USER_UPDATED';
+export const REMOVE_RECIPE = 'REMOVE_RECIPE';
+export const UPVOTE_RECIPE = 'UPVOTE_RECIPE';
+export const SIGN_OUT_USER = 'SIGN_OUT_USER';
+export const NEW_USER_ADDED = 'NEW_USER_ADDED';
+export const RECIPE_UPDATED = 'RECIPE_UPDATED';
+export const NEW_REVIEW_ADDED = 'NEW_REVIEW_ADDED';
+export const NEW_REVIEWS_ADDED = 'NEW_REVIEWS_ADDED';
+export const AUTH_USER_UPDATED = 'AUTH_USER_UPDATED';
+export const NEW_RECIPE_CREATED = 'NEW_RECIPE_CREATED';
+export const ADD_USER_TO_UPVOTERS = 'ADD_USER_TO_UPVOTERS';
+export const ADD_USER_TO_FAVORITERS = 'ADD_USER_TO_FAVORITERS';
+export const ADD_USER_TO_DOWNVOTERS = 'ADD_USER_TO_DOWNVOTERS';
+export const REMOVE_USER_FROM_UPVOTERS = 'REMOVE_USER_FROM_UPVOTERS';
+export const REMOVE_USER_FROM_DOWNVOTERS = 'REMOVE_USER_FROM_DOWNVOTERS';
+export const REMOVE_USER_FROM_FAVORITERS = 'REMOVE_USER_FROM_FAVORITERS';
+export const TRIGGER_GET_RECIPES_CATALOG = 'TRIGGER_GET_RECIPES_CATALOG';
+
 /**
  * Check if user is authenticated
  *
@@ -31,11 +51,10 @@ export function getRecipesCatalog() {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.get(`${apiUrl}/recipes${getState().routing.locationBeforeTransitions.search}`);
-
       response.data.data.recipes.recipes.forEach((recipe) => {
         if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
           dispatch({
-            type: 'NEW_RECIPE_CREATED',
+            type: NEW_RECIPE_CREATED,
             payload: recipe
           });
         }
@@ -56,7 +75,7 @@ export function getRecipesCatalog() {
 export function triggerGetRecipesCatalog() {
   return (dispatch) => {
     dispatch({
-      type: 'TRIGGER_GET_RECIPES_CATALOG'
+      type: TRIGGER_GET_RECIPES_CATALOG
     });
   };
 }
@@ -94,7 +113,7 @@ export function getHomePageData() {
       response.data.data.latestRecipes.forEach((recipe) => {
         if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
           dispatch({
-            type: 'NEW_RECIPE_CREATED',
+            type: NEW_RECIPE_CREATED,
             payload: recipe
           });
         }
@@ -103,7 +122,7 @@ export function getHomePageData() {
       response.data.data.mostFavoritedRecipes.forEach((recipe) => {
         if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
           dispatch({
-            type: 'NEW_RECIPE_CREATED',
+            type: NEW_RECIPE_CREATED,
             payload: recipe
           });
         }
@@ -122,13 +141,17 @@ export function getHomePageData() {
  */
 export function getSingleRecipe(recipeId) {
   return async (dispatch, getState, apiUrl) => {
-    const response = await axios.get(`${apiUrl}/recipes/${recipeId}`);
-    const { recipe } = response.data.data;
+    try {
+      const response = await axios.get(`${apiUrl}/recipes/${recipeId}`);
+      const { recipe } = response.data.data;
 
-    dispatch({
-      type: 'NEW_RECIPE_CREATED',
-      payload: recipe
-    });
+      dispatch({
+        type: NEW_RECIPE_CREATED,
+        payload: recipe
+      });
+    } catch (error) {
+      return Promise.reject(error);
+    }
   };
 }
 
@@ -153,14 +176,14 @@ export function toggleUpvote(
     try {
       if (!userHasUpvoted) {
         dispatch({
-          type: 'ADD_USER_TO_UPVOTERS',
+          type: ADD_USER_TO_UPVOTERS,
           payload: {
             indexOfRecipe,
             userId: getState().authUser.user.id
           }
         });
         dispatch({
-          type: 'NOTIFICATION',
+          type: NOTIFICATION,
           payload: {
             level: 'SUCCESS',
             message: 'Recipe upvoted successfully.'
@@ -168,14 +191,14 @@ export function toggleUpvote(
         });
       } else {
         dispatch({
-          type: 'REMOVE_USER_FROM_UPVOTERS',
+          type: REMOVE_USER_FROM_UPVOTERS,
           payload: {
             indexOfRecipe,
             indexOfUpvoter
           }
         });
         dispatch({
-          type: 'NOTIFICATION',
+          type: NOTIFICATION,
           payload: {
             level: 'SUCCESS',
             message: 'Upvote removed successfully.'
@@ -184,7 +207,7 @@ export function toggleUpvote(
       }
       if (userHasDownvoted) {
         dispatch({
-          type: 'REMOVE_USER_FROM_DOWNVOTERS',
+          type: REMOVE_USER_FROM_DOWNVOTERS,
           payload: {
             indexOfRecipe,
             indexOfDownvoter
@@ -219,14 +242,14 @@ export function toggleDownvote(
     try {
       if (!userHasDownvoted) {
         dispatch({
-          type: 'ADD_USER_TO_DOWNVOTERS',
+          type: ADD_USER_TO_DOWNVOTERS,
           payload: {
             indexOfRecipe,
             userId: getState().authUser.user.id
           }
         });
         dispatch({
-          type: 'NOTIFICATION',
+          type: NOTIFICATION,
           payload: {
             level: 'SUCCESS',
             message: 'Recipe downvoted successfully.'
@@ -234,14 +257,14 @@ export function toggleDownvote(
         });
       } else {
         dispatch({
-          type: 'REMOVE_USER_FROM_DOWNVOTERS',
+          type: REMOVE_USER_FROM_DOWNVOTERS,
           payload: {
             indexOfRecipe,
             indexOfDownvoter
           }
         });
         dispatch({
-          type: 'NOTIFICATION',
+          type: NOTIFICATION,
           payload: {
             level: 'SUCCESS',
             message: 'Downvote removed successfully.'
@@ -251,7 +274,7 @@ export function toggleDownvote(
 
       if (userHasUpvoted) {
         dispatch({
-          type: 'REMOVE_USER_FROM_UPVOTERS',
+          type: REMOVE_USER_FROM_UPVOTERS,
           payload: {
             indexOfRecipe,
             indexOfUpvoter
@@ -281,11 +304,11 @@ export function toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, re
     try {
       if (hasFavorited) {
         dispatch({
-          type: 'REMOVE_USER_FROM_FAVORITERS',
+          type: REMOVE_USER_FROM_FAVORITERS,
           payload: { indexOfRecipe, indexOfFavoriter }
         });
         dispatch({
-          type: 'NOTIFICATION',
+          type: NOTIFICATION,
           payload: {
             level: 'SUCCESS',
             message: 'Recipe removed from favorites successfully.'
@@ -293,14 +316,14 @@ export function toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, re
         });
       } else {
         dispatch({
-          type: 'ADD_USER_TO_FAVORITERS',
+          type: ADD_USER_TO_FAVORITERS,
           payload: {
             indexOfRecipe,
             userId: getState().authUser.user.id
           }
         });
         dispatch({
-          type: 'NOTIFICATION',
+          type: NOTIFICATION,
           payload: {
             level: 'SUCCESS',
             message: 'Recipe favorited successfully.'
@@ -323,7 +346,7 @@ export function toggleFavorite(indexOfRecipe, hasFavorited, indexOfFavoriter, re
  */
 export function downvote(recipeId) {
   return {
-    type: 'UPVOTE_RECIPE',
+    type: UPVOTE_RECIPE,
     recipeId
   };
 }
@@ -346,12 +369,12 @@ export function signIn({ email, password }) {
       setAxios(response.data.data);
 
       dispatch({
-        type: 'SIGN_IN_USER',
+        type: SIGN_IN_USER,
         authUser: response.data.data
       });
 
       dispatch({
-        type: 'NOTIFICATION',
+        type: NOTIFICATION,
         payload: {
           level: 'SUCCESS',
           message: 'Successfully signed in.'
@@ -376,7 +399,7 @@ export function signOut() {
     lockr.rm('authUser');
 
     dispatch({
-      type: 'SIGN_OUT_USER'
+      type: SIGN_OUT_USER
     });
 
     return Promise.resolve();
@@ -401,12 +424,12 @@ export function signUp({ name, email, password }) {
       setAxios(response.data.data);
 
       dispatch({
-        type: 'SIGN_IN_USER',
+        type: SIGN_IN_USER,
         authUser: response.data.data
       });
 
       dispatch({
-        type: 'NOTIFICATION',
+        type: NOTIFICATION,
         payload: {
           level: 'SUCCESS',
           message: 'Welcome to BahdRecipes !'
@@ -432,11 +455,11 @@ export function createRecipe(recipe) {
       const response = await axios.post(`${apiUrl}/recipes`, recipe);
 
       dispatch({
-        type: 'NEW_RECIPE_CREATED',
+        type: NEW_RECIPE_CREATED,
         payload: response.data.data.recipe
       });
       dispatch({
-        type: 'NOTIFICATION',
+        type: NOTIFICATION,
         payload: {
           level: 'SUCCESS',
           message: 'Recipe created successfully.'
@@ -466,7 +489,7 @@ export function updateRecipe(recipe, recipeId) {
         .findIndex(recipeInStore => recipeInStore.id === recipeId);
 
       dispatch({
-        type: 'RECIPE_UPDATED',
+        type: RECIPE_UPDATED,
         payload: {
           recipeIndex,
           recipe: response.data.data.recipe
@@ -474,7 +497,7 @@ export function updateRecipe(recipe, recipeId) {
       });
 
       dispatch({
-        type: 'NOTIFICATION',
+        type: NOTIFICATION,
         payload: {
           level: 'SUCCESS',
           message: 'Recipe updated successfully.'
@@ -497,7 +520,7 @@ export function updateRecipe(recipe, recipeId) {
 export function updateRecipesInStore(recipe) {
   return (dispatch) => {
     dispatch({
-      type: 'NEW_RECIPE_CREATED',
+      type: NEW_RECIPE_CREATED,
       payload: recipe
     });
 
@@ -517,7 +540,7 @@ export function getRecipeReviews(recipeId) {
       const response = await axios.get(`${apiUrl}/recipes/${recipeId}/reviews`);
 
       dispatch({
-        type: 'NEW_REVIEWS_ADDED',
+        type: NEW_REVIEWS_ADDED,
         payload: {
           recipeId,
           reviews: response.data.data.reviews
@@ -542,11 +565,10 @@ export function getUserRecipes(userId) {
   return async (dispatch, getState, apiUrl) => {
     try {
       const response = await axios.get(`${apiUrl}/users/${userId}/recipes`);
-
       response.data.data.recipes.forEach((recipe) => {
         if (getState().recipes.findIndex(storeRecipe => recipe.id === storeRecipe.id) === -1) {
           dispatch({
-            type: 'NEW_RECIPE_CREATED',
+            type: NEW_RECIPE_CREATED,
             payload: recipe
           });
         }
@@ -555,7 +577,7 @@ export function getUserRecipes(userId) {
       const { user } = response.data.data;
       if (getState().users.findIndex(storeUser => storeUser.id === user.id) === -1) {
         dispatch({
-          type: 'NEW_USER_ADDED',
+          type: NEW_USER_ADDED,
           payload: user
         });
       }
@@ -579,12 +601,12 @@ export function createReview({ recipeId, review }) {
       const response = await axios.post(`${apiUrl}/recipes/${recipeId}/reviews`, { review });
 
       dispatch({
-        type: 'NEW_REVIEW_ADDED',
+        type: NEW_REVIEW_ADDED,
         payload: response.data.data.review
       });
 
       dispatch({
-        type: 'NOTIFICATION',
+        type: NOTIFICATION,
         payload: {
           level: 'SUCCESS',
           message: 'Recipe reviewed successfully.'
@@ -612,7 +634,7 @@ export function getUserFavorites() {
       recipes.forEach((recipe) => {
         if (getState().recipes.findIndex(recipeInStore => recipeInStore.id === recipe.id) === -1) {
           dispatch({
-            type: 'NEW_RECIPE_CREATED',
+            type: NEW_RECIPE_CREATED,
             payload: recipe
           });
         }
@@ -638,7 +660,7 @@ export function findUser(userId) {
 
       if (getState().users.findIndex(u => u.id === response.data.data.user.id) === -1) {
         dispatch({
-          type: 'NEW_USER_ADDED',
+          type: NEW_USER_ADDED,
           payload: response.data.data.user
         });
       }
@@ -665,7 +687,7 @@ export function updateUserProfile(userData, index) {
       localStorage.setItem('authUser', JSON.stringify(currentUser));
 
       dispatch({
-        type: 'USER_UPDATED',
+        type: USER_UPDATED,
         payload: {
           user: response.data.data.user,
           index
@@ -673,12 +695,12 @@ export function updateUserProfile(userData, index) {
       });
 
       dispatch({
-        type: 'AUTH_USER_UPDATED',
+        type: AUTH_USER_UPDATED,
         payload: response.data.data.user
       });
 
       dispatch({
-        type: 'NOTIFICATION',
+        type: NOTIFICATION,
         payload: {
           level: 'SUCCESS',
           message: 'Your profile was updated successfully.'
@@ -702,11 +724,11 @@ export function deleteRecipe(recipeId) {
     try {
       await axios.delete(`${apiUrl}/recipes/${recipeId}`);
       dispatch({
-        type: 'REMOVE_RECIPE',
+        type: REMOVE_RECIPE,
         payload: { recipeId }
       });
       dispatch({
-        type: 'NOTIFICATION',
+        type: NOTIFICATION,
         payload: {
           level: 'SUCCESS', message: 'Recipe deleted successfully.'
         }

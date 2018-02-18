@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for screens/components/SingleRecipeLoader.jsx</title>
+    <title>Code coverage report for store/reducers/usersReducer.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -16,32 +16,32 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">screens/components</a> SingleRecipeLoader.jsx
+      <a href="../../index.html">All files</a> / <a href="index.html">store/reducers</a> usersReducer.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">28.57% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>2/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">33.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>2/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">28.57% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>2/7</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -67,14 +67,11 @@
 22
 23
 24
-25</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+25
+26
+27
+28
+29</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -84,44 +81,59 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import ContentLoader, { Rect } from 'react-content-loader';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+/**
+ * Reducer for handling users in store
+ *
+ * @export
+ * @param {array} [state=[]] initial state
+ * @param {obj} action action to be performed on state
+ * @returns {array} state
+ */
+export default function usersReducer(state = [], action) {
+  switch (action.type) {
+<span class="branch-0 cbranch-no" title="branch not covered" >    case 'NEW_USER_ADDED':</span>
+<span class="cstat-no" title="statement not covered" >      return [</span>
+        ...state,
+        action.payload
+      ];
+<span class="branch-1 cbranch-no" title="branch not covered" >    case 'USER_UPDATED':</span>
+<span class="cstat-no" title="statement not covered" >      return state.map(<span class="fstat-no" title="function not covered" >(u</span>ser, index) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (index !== action.payload.index) {</span>
+<span class="cstat-no" title="statement not covered" >          return user;</span>
+        }
 &nbsp;
-const SingleRecipeLoader = () =&gt; ((
-  &lt;div&gt;
-    &lt;ContentLoader
-      speed={1}
-      primaryColor="#f5d2bd"
-      secondaryColor="#f9e0d2"
-      width={680}
-      height={700}
-    &gt;
-      &lt;Rect
-        height={400}
-        width={680}
-      /&gt;
-      &lt;Rect y={420} radius={9} width={680} height={18} /&gt;
-      &lt;Rect y={460} radius={9} width={500} height={18} /&gt;
-      &lt;Rect y={500} radius={9} width={420} height={18} /&gt;
-    &lt;/ContentLoader&gt;
-  &lt;/div&gt;
-));
-&nbsp;
-export default SingleRecipeLoader;
+<span class="cstat-no" title="statement not covered" >        return action.payload.user;</span>
+      });
+    default:
+      return state;
+  }
+}
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Feb 18 2018 19:47:41 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Feb 18 2018 12:08:40 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

@@ -1,3 +1,5 @@
+const store = {};
+
 module.exports = {
   setupTestFrameworkScriptFile: './client/src/js/test/setupTests.js',
   testRegex: './client/src/js/test/.*.spec.js$',
@@ -6,9 +8,15 @@ module.exports = {
   },
   globals: {
     localStorage: {
-      removeItem() {},
-      setItem() {},
-      getItem() {}
+      removeItem(key) {
+        delete store[key];
+      },
+      setItem(key, value) {
+        store[key] = value;
+      },
+      getItem(key) {
+        return store[key];
+      }
     }
   }
 };

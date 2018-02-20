@@ -14,5 +14,6 @@ export default {
   apiUrl,
   cloudinaryUploadPreset: 'g5ziunzg',
   cloudinaryImageUploadUrl: 'https://api.cloudinary.com/v1_1/bahdcoder/image/upload',
-  cloudinaryApiKey: '132255634713478'
+  cloudinaryApiKey: '132255634713478',
+  defaultImage: 'http://res.cloudinary.com/bahdcoder/image/upload/v1519099617/ddddd_cmqwxl.png'
 };

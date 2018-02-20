@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="app.spec"
+    errors="1" failures="0" hostname="" id="" package="app.spec" skipped="0"
+    tests="1" time="0.02000" timestamp="Mon, 19 Feb 2018 12:22:11 GMT">
+  
+    <testcase name="User create recipe successful" classname="app.spec" time="0.02000" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [App Spec / User create recipe successful]:
+
+  ReferenceError: recipe is not defined
+    at Object.User create recipe successful (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/test/app.spec.js:42:43)
+    at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

@@ -2,10 +2,12 @@
 // for the nightwatchjs tests, you can start your server with the npm script command, and after the tests, emit a test completed event with node, and then, have a script in your app that listens to this event, and closes the server.
 var config = require('./../config');
 var fakeUser = require('./../mock/user');
+var fakeRecipe = require('../mock/recipe');
 var { registerUser, logoutUser } = require('./../helpers');
 
 var globalMock = {
-  user: fakeUser()
+  user: fakeUser(),
+  recipe: fakeRecipe()
 };
 
 module.exports = {
@@ -30,10 +32,21 @@ module.exports = {
     browser.assert.urlEquals(`${config.appUrl}/`);
     browser.end();
   },
-  '@tags': ['createRecipe'],
-  'User create recipe successful': function() {
+  'User create recipe successful': function(browser) {
     browser.url(`${config.appUrl}/auth/register`);
     registerUser(browser);
+
+    browser.pause(5000);
+    browser.click('a.nav-link.create-recipe-link');
+
+    browser.setValue('input[type=file]', globalMock.recipe.image);
+    browser.setValue('input[name=title]', globalMock.recipe.title);
+    browser.setValue('input[name=timeToCook]', globalMock.recipe.timeToCook);
+    browser.setValue('textarea', globalMock.recipe.description);
+    browser.setValue('input[name=ingredients]', globalMock.recipe.ingredients[0]);
+    browser.setValue('input[name=procedure]', globalMock.recipe.procedure[0]);    
+
+    browser.pause(100000);
   }
   // tags: ['login'],
   // 'User sign in process successful': function (browser) {

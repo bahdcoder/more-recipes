@@ -13,14 +13,12 @@ const registerUser = function (browser) {
   browser.setValue('input[name=confirmPassword]', user.password);
 
   browser.click('.btn.mb-3.btn-primary.btn-lg');
-  browser.click('.btn.mb-3.btn-primary.btn-lg');
   browser.pause(1800);
 
   return globalMock.user;
 }
  
 const logoutUser = function (browser) {
-  browser.click('a.nav-link.dropdown-toggle');
   browser.click('a.nav-link.dropdown-toggle')
     .waitForElementVisible('a.dropdown-item.logout')
     .click('a.dropdown-item.logout');

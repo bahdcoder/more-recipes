@@ -33,7 +33,7 @@ export default class CreateRecipeValidator {
     this.validateTimeToCook();
     this.validateIngredients();
     this.validateProcedure();
-    this.validateImage();
+    //  this.validateImage();
 
     if (this.errors.title.length > 0 ||
       this.errors.description.length > 0 ||

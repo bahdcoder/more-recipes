@@ -202,7 +202,7 @@ class CreateRecipe extends Component {
     const validator = new CreateRecipeValidator(this.state);
     if (!validator.isValid()) {
       const errors = { ...this.state.errors };
-      errors.image = validator.errors.image;
+      //  errors.image = validator.errors.image;
 
       this.setState({ errors });
       return;
@@ -210,8 +210,10 @@ class CreateRecipe extends Component {
 
     try {
       this.setState({ loading: true });
-
-      const imageUrl = await this.uploadImagetoCloudinary();
+      let imageUrl = this.state.imageUrl ? this.state.imageUrl : config.defaultImage;
+      if (this.state.image) {
+        imageUrl = await this.uploadImagetoCloudinary();
+      }
 
       const response = await this.props.createRecipe({
         title: this.state.title,

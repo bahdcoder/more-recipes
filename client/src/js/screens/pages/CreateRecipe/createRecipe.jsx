@@ -387,6 +387,7 @@ class CreateRecipe extends Component {
 
     let updateButton = (
       <button
+        id="updateRecipe"
         className="btn btn-primary btn-lg"
         onClick={this.handleUpdate}
       >
@@ -582,7 +583,7 @@ class CreateRecipe extends Component {
                 <div className="card-body">
                   <div className="form-group row">
                     <div className="col-sm-8">
-                      <input className="form-control" onBlur={this.validateInput} name="title" value={this.state.title} onChange={this.handleInputChange} placeholder="Recipe title ..." type="text" />
+                      <input className="form-control" id="recipeTitle" onBlur={this.validateInput} name="title" value={this.state.title} onChange={this.handleInputChange} placeholder="Recipe title ..." type="text" />
                       {titleErrors}
                     </div>
                     <div className="col-sm-4">

@@ -46,7 +46,7 @@ class Reviews extends Component {
             />
             <div className="media-body">
               <h6 className="font-weight-bold">{review.User.name}<small className="text-muted ml-2">{distanceInWordsToNow(review.createdAt)} ago</small></h6>
-              {review.review}
+              <div className="review-body">{review.review}</div>
             </div>
           </div>
           <hr />

@@ -74,6 +74,7 @@ ShallowWrapper {
                       <input
                         className="form-control"
                         id="staticEmail"
+                        name="email"
                         onChange={[Function]}
                         placeholder="email@example.com"
                         type="text"
@@ -86,6 +87,7 @@ ShallowWrapper {
                       <input
                         className="form-control"
                         id="inputPassword"
+                        name="password"
                         onChange={[Function]}
                         placeholder="Password"
                         type="password"
@@ -188,6 +190,7 @@ ShallowWrapper {
                       <input
                         className="form-control"
                         id="staticEmail"
+                        name="email"
                         onChange={[Function]}
                         placeholder="email@example.com"
                         type="text"
@@ -200,6 +203,7 @@ ShallowWrapper {
                       <input
                         className="form-control"
                         id="inputPassword"
+                        name="password"
                         onChange={[Function]}
                         placeholder="Password"
                         type="password"
@@ -299,6 +303,7 @@ ShallowWrapper {
                       <input
                         className="form-control"
                         id="staticEmail"
+                        name="email"
                         onChange={[Function]}
                         placeholder="email@example.com"
                         type="text"
@@ -311,6 +316,7 @@ ShallowWrapper {
                       <input
                         className="form-control"
                         id="inputPassword"
+                        name="password"
                         onChange={[Function]}
                         placeholder="Password"
                         type="password"
@@ -407,6 +413,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           onChange={[Function]}
                           placeholder="email@example.com"
                           type="text"
@@ -419,6 +426,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           onChange={[Function]}
                           placeholder="Password"
                           type="password"
@@ -535,6 +543,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           onChange={[Function]}
                           placeholder="email@example.com"
                           type="text"
@@ -547,6 +556,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           onChange={[Function]}
                           placeholder="Password"
                           type="password"
@@ -619,6 +629,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           onChange={[Function]}
                           placeholder="email@example.com"
                           type="text"
@@ -631,6 +642,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           onChange={[Function]}
                           placeholder="Password"
                           type="password"
@@ -699,6 +711,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           onChange={[Function]}
                           placeholder="email@example.com"
                           type="text"
@@ -711,6 +724,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           onChange={[Function]}
                           placeholder="Password"
                           type="password"
@@ -776,6 +790,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="staticEmail"
+                            name="email"
                             onChange={[Function]}
                             placeholder="email@example.com"
                             type="text"
@@ -788,6 +803,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="inputPassword"
+                            name="password"
                             onChange={[Function]}
                             placeholder="Password"
                             type="password"
@@ -881,6 +897,7 @@ ShallowWrapper {
                           "children": <input
                             className="form-control"
                             id="staticEmail"
+                            name="email"
                             onChange={[Function]}
                             placeholder="email@example.com"
                             type="text"
@@ -896,6 +913,7 @@ ShallowWrapper {
                           "props": Object {
                             "className": "form-control",
                             "id": "staticEmail",
+                            "name": "email",
                             "onChange": [Function],
                             "placeholder": "email@example.com",
                             "type": "text",
@@ -915,6 +933,7 @@ ShallowWrapper {
                           "children": <input
                             className="form-control"
                             id="inputPassword"
+                            name="password"
                             onChange={[Function]}
                             placeholder="Password"
                             type="password"
@@ -930,6 +949,7 @@ ShallowWrapper {
                           "props": Object {
                             "className": "form-control",
                             "id": "inputPassword",
+                            "name": "password",
                             "onChange": [Function],
                             "placeholder": "Password",
                             "type": "password",
@@ -1142,6 +1162,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           onChange={[Function]}
                           placeholder="email@example.com"
                           type="text"
@@ -1154,6 +1175,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           onChange={[Function]}
                           placeholder="Password"
                           type="password"
@@ -1256,6 +1278,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           onChange={[Function]}
                           placeholder="email@example.com"
                           type="text"
@@ -1268,6 +1291,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           onChange={[Function]}
                           placeholder="Password"
                           type="password"
@@ -1367,6 +1391,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           onChange={[Function]}
                           placeholder="email@example.com"
                           type="text"
@@ -1379,6 +1404,7 @@ ShallowWrapper {
                         <input
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           onChange={[Function]}
                           placeholder="Password"
                           type="password"
@@ -1475,6 +1501,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="staticEmail"
+                            name="email"
                             onChange={[Function]}
                             placeholder="email@example.com"
                             type="text"
@@ -1487,6 +1514,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="inputPassword"
+                            name="password"
                             onChange={[Function]}
                             placeholder="Password"
                             type="password"
@@ -1603,6 +1631,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="staticEmail"
+                            name="email"
                             onChange={[Function]}
                             placeholder="email@example.com"
                             type="text"
@@ -1615,6 +1644,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="inputPassword"
+                            name="password"
                             onChange={[Function]}
                             placeholder="Password"
                             type="password"
@@ -1687,6 +1717,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="staticEmail"
+                            name="email"
                             onChange={[Function]}
                             placeholder="email@example.com"
                             type="text"
@@ -1699,6 +1730,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="inputPassword"
+                            name="password"
                             onChange={[Function]}
                             placeholder="Password"
                             type="password"
@@ -1767,6 +1799,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="staticEmail"
+                            name="email"
                             onChange={[Function]}
                             placeholder="email@example.com"
                             type="text"
@@ -1779,6 +1812,7 @@ ShallowWrapper {
                           <input
                             className="form-control"
                             id="inputPassword"
+                            name="password"
                             onChange={[Function]}
                             placeholder="Password"
                             type="password"
@@ -1844,6 +1878,7 @@ ShallowWrapper {
                             <input
                               className="form-control"
                               id="staticEmail"
+                              name="email"
                               onChange={[Function]}
                               placeholder="email@example.com"
                               type="text"
@@ -1856,6 +1891,7 @@ ShallowWrapper {
                             <input
                               className="form-control"
                               id="inputPassword"
+                              name="password"
                               onChange={[Function]}
                               placeholder="Password"
                               type="password"
@@ -1949,6 +1985,7 @@ ShallowWrapper {
                             "children": <input
                               className="form-control"
                               id="staticEmail"
+                              name="email"
                               onChange={[Function]}
                               placeholder="email@example.com"
                               type="text"
@@ -1964,6 +2001,7 @@ ShallowWrapper {
                             "props": Object {
                               "className": "form-control",
                               "id": "staticEmail",
+                              "name": "email",
                               "onChange": [Function],
                               "placeholder": "email@example.com",
                               "type": "text",
@@ -1983,6 +2021,7 @@ ShallowWrapper {
                             "children": <input
                               className="form-control"
                               id="inputPassword"
+                              name="password"
                               onChange={[Function]}
                               placeholder="Password"
                               type="password"
@@ -1998,6 +2037,7 @@ ShallowWrapper {
                             "props": Object {
                               "className": "form-control",
                               "id": "inputPassword",
+                              "name": "password",
                               "onChange": [Function],
                               "placeholder": "Password",
                               "type": "password",

@@ -5,18 +5,18 @@
 
   <testsuite name="app.spec"
     errors="1" failures="0" hostname="" id="" package="app.spec" skipped="0"
-    tests="1" time="0.02000" timestamp="Mon, 19 Feb 2018 12:22:11 GMT">
+    tests="1" time="0.01700" timestamp="Wed, 21 Feb 2018 18:04:22 GMT">
   
-    <testcase name="User create recipe successful" classname="app.spec" time="0.02000" assertions="0">
+    <testcase name="User logout" classname="app.spec" time="0.01700" assertions="0">
     </testcase>
   
 
   
     <system-err>
-        Error while running [App Spec / User create recipe successful]:
+        Error while running [App Spec / User logout]:
 
-  ReferenceError: recipe is not defined
-    at Object.User create recipe successful (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/test/app.spec.js:42:43)
+  TypeError: browser.assertContains is not a function
+    at Object.User logout (/Users/andeladeveloper/Code/JavaScript/more-recipes/client/e2e/test/app.spec.js:68:13)
     at Module.call (/usr/local/lib/node_modules/nightwatch/lib/runner/module.js:62:34)
     at /usr/local/lib/node_modules/nightwatch/lib/runner/testcase.js:70:29
     at _fulfilled (/usr/local/lib/node_modules/nightwatch/node_modules/q/q.js:834:54)

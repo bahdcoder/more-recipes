@@ -108,6 +108,7 @@ class Login extends Component {
                           type="text"
                           className="form-control"
                           id="staticEmail"
+                          name="email"
                           placeholder="email@example.com"
                           value={this.state.email}
                           onChange={(event) => {
@@ -120,6 +121,7 @@ class Login extends Component {
                           type="password"
                           className="form-control"
                           id="inputPassword"
+                          name="password"
                           placeholder="Password"
                           value={this.state.password}
                           onChange={(event) => {
@@ -156,7 +158,7 @@ Login.propTypes = {
 };
 
 Login.defaultProps = {
-  signIn() {}
+  signIn() { }
 };
 
 export default Login;

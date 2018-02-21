@@ -17,17 +17,17 @@ const Navbar = (props) => {
   if (authUser) {
     navbarUser = (
       <li className="nav-item dropdown">
-        <a className="nav-link dropdown-toggle" href="javascript:;" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <a className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           <Gravatar className="mr-2 navbar-avatar-img" email={props.authUser.user.email} />
           Hey, {props.authUser.user.name}
         </a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <Link className="dropdown-item" to={`/user/${props.authUser.user.id}`}>My profile</Link>
-          <Link className="dropdown-item" to={`/user/${props.authUser.user.id}/recipes`}>My recipes</Link>
+          <Link id="myRecipes" className="dropdown-item" to={`/user/${props.authUser.user.id}/recipes`}>My recipes</Link>
           <Link className="dropdown-item" to="/my/favorites">My favorites</Link>
           <a
             className="dropdown-item logout"
-            href="javascript:;"
+            id="logout"
             onClick={async () => {
               await props.signOut();
               props.router.push('/');

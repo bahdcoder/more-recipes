@@ -126,7 +126,7 @@ ReactDOM.render((
           component={CreateRecipe}
           onEnter={checkIfAuth}
         ></Route>
-
+ 
         <Route path="/my/favorites"
           component={UserFavorites}
           onEnter={checkIfAuth}

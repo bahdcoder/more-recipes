@@ -114,7 +114,11 @@ ShallowWrapper {
                            ago
                         </small>
                       </h6>
-                      nice and lovely
+                      <div
+                        className="review-body"
+                      >
+                        nice and lovely
+                      </div>
                     </div>
                   </div>
                   <hr />
@@ -213,7 +217,11 @@ ShallowWrapper {
                            ago
                         </small>
                       </h6>
-                      nice and lovely
+                      <div
+                        className="review-body"
+                      >
+                        nice and lovely
+                      </div>
                     </div>
                   </div>
                   <hr />
@@ -281,7 +289,11 @@ ShallowWrapper {
                            ago
                         </small>
                       </h6>
-                      nice and lovely
+                      <div
+                        className="review-body"
+                      >
+                        nice and lovely
+                      </div>
                     </div>
                   </div>
                   <hr />
@@ -334,7 +346,11 @@ ShallowWrapper {
                            ago
                         </small>
                       </h6>
-                      nice and lovely
+                      <div
+                        className="review-body"
+                      >
+                        nice and lovely
+                      </div>
                     </div>
                   </div>
                   <hr />
@@ -384,7 +400,11 @@ ShallowWrapper {
                              ago
                           </small>
                         </h6>
-                        nice and lovely
+                        <div
+                          className="review-body"
+                        >
+                          nice and lovely
+                        </div>
                       </div>
                     </div>
                     <hr />
@@ -432,7 +452,11 @@ ShallowWrapper {
                                ago
                             </small>
                           </h6>
-                          nice and lovely
+                          <div
+                            className="review-body"
+                          >
+                            nice and lovely
+                          </div>
                         </div>
                       </div>,
                       <hr />,
@@ -476,7 +500,11 @@ ShallowWrapper {
                                  ago
                               </small>
                             </h6>
-                            nice and lovely
+                            <div
+                              className="review-body"
+                            >
+                              nice and lovely
+                            </div>
                           </div>,
                         ],
                         "className": "ml-3 media",
@@ -521,7 +549,11 @@ ShallowWrapper {
                                    ago
                                 </small>
                               </h6>,
-                              "nice and lovely",
+                              <div
+                                className="review-body"
+                              >
+                                nice and lovely
+                              </div>,
                             ],
                             "className": "media-body",
                           },
@@ -567,7 +599,18 @@ ShallowWrapper {
                               ],
                               "type": "h6",
                             },
-                            "nice and lovely",
+                            Object {
+                              "instance": null,
+                              "key": undefined,
+                              "nodeType": "host",
+                              "props": Object {
+                                "children": "nice and lovely",
+                                "className": "review-body",
+                              },
+                              "ref": null,
+                              "rendered": "nice and lovely",
+                              "type": "div",
+                            },
                           ],
                           "type": "div",
                         },
@@ -706,7 +749,11 @@ ShallowWrapper {
                              ago
                           </small>
                         </h6>
-                        nice and lovely
+                        <div
+                          className="review-body"
+                        >
+                          nice and lovely
+                        </div>
                       </div>
                     </div>
                     <hr />
@@ -805,7 +852,11 @@ ShallowWrapper {
                              ago
                           </small>
                         </h6>
-                        nice and lovely
+                        <div
+                          className="review-body"
+                        >
+                          nice and lovely
+                        </div>
                       </div>
                     </div>
                     <hr />
@@ -873,7 +924,11 @@ ShallowWrapper {
                              ago
                           </small>
                         </h6>
-                        nice and lovely
+                        <div
+                          className="review-body"
+                        >
+                          nice and lovely
+                        </div>
                       </div>
                     </div>
                     <hr />
@@ -926,7 +981,11 @@ ShallowWrapper {
                              ago
                           </small>
                         </h6>
-                        nice and lovely
+                        <div
+                          className="review-body"
+                        >
+                          nice and lovely
+                        </div>
                       </div>
                     </div>
                     <hr />
@@ -976,7 +1035,11 @@ ShallowWrapper {
                                ago
                             </small>
                           </h6>
-                          nice and lovely
+                          <div
+                            className="review-body"
+                          >
+                            nice and lovely
+                          </div>
                         </div>
                       </div>
                       <hr />
@@ -1024,7 +1087,11 @@ ShallowWrapper {
                                  ago
                               </small>
                             </h6>
-                            nice and lovely
+                            <div
+                              className="review-body"
+                            >
+                              nice and lovely
+                            </div>
                           </div>
                         </div>,
                         <hr />,
@@ -1068,7 +1135,11 @@ ShallowWrapper {
                                    ago
                                 </small>
                               </h6>
-                              nice and lovely
+                              <div
+                                className="review-body"
+                              >
+                                nice and lovely
+                              </div>
                             </div>,
                           ],
                           "className": "ml-3 media",
@@ -1113,7 +1184,11 @@ ShallowWrapper {
                                      ago
                                   </small>
                                 </h6>,
-                                "nice and lovely",
+                                <div
+                                  className="review-body"
+                                >
+                                  nice and lovely
+                                </div>,
                               ],
                               "className": "media-body",
                             },
@@ -1159,7 +1234,18 @@ ShallowWrapper {
                                 ],
                                 "type": "h6",
                               },
-                              "nice and lovely",
+                              Object {
+                                "instance": null,
+                                "key": undefined,
+                                "nodeType": "host",
+                                "props": Object {
+                                  "children": "nice and lovely",
+                                  "className": "review-body",
+                                },
+                                "ref": null,
+                                "rendered": "nice and lovely",
+                                "type": "div",
+                              },
                             ],
                             "type": "div",
                           },

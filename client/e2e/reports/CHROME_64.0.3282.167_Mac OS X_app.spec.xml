@@ -5,9 +5,13 @@
 
   <testsuite name="app.spec"
     errors="0" failures="0" hostname="" id="" package="app.spec" skipped="0"
-    tests="1" time="111.3" timestamp="Tue, 20 Feb 2018 03:42:34 GMT">
+    tests="1" time="125.4" timestamp="Thu, 22 Feb 2018 18:04:08 GMT">
   
-    <testcase name="User create recipe successful" classname="app.spec" time="111.3" assertions="0">
+    <testcase name="User can favorite a recipe" classname="app.spec" time="125.4" assertions="2">
+
+    
+
+    
     </testcase>
   
 

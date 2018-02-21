@@ -124,6 +124,8 @@ class UserRecipes extends Component {
         </div>
       ));
     }
+
+    const noRecipes = <h3 className="text-center">No recipes yet.</h3>;
     return (
       <div>
         <Navbar {...this.props} />
@@ -135,7 +137,7 @@ class UserRecipes extends Component {
               </h1>
               <div className="container">
                 <div className="row">
-                  {recipes}
+                  {recipes.length >= 1 ? recipes : noRecipes}
                 </div>
               </div>
 

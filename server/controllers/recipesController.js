@@ -14,7 +14,8 @@ export default class RecipesController {
    * Return a list of all recipes
    * @param {object} req express request object
    * @param {object} res express response object
-   * @returns {json} json
+   *
+   * @returns {object} json
    * @memberof RecipesController
    */
   async index(req, res) {
@@ -74,9 +75,10 @@ export default class RecipesController {
   /**
    * Find a specific recipe
    *
-   * @param {obj} req express request object
-   * @param {any} res express response object
-   * @returns {json} recipe
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
+   * @returns {object} recipe
    * @memberof RecipesController
    */
   async find(req, res) {
@@ -89,7 +91,8 @@ export default class RecipesController {
    * Store a new recipe into the database
    * @param {object} req express request object
    * @param {object} res express response object
-   * @returns {json} json of newly created recipe
+   *
+   * @returns {object} json of newly created recipe
    * @memberof RecipesController
    */
   async create(req, res) {
@@ -130,7 +133,8 @@ export default class RecipesController {
    * Update a recipe in storage
    * @param {object} req express request object
    * @param {object} res express response object
-   * @returns {json} json with updated recipe
+   *
+   * @returns {object} json with updated recipe
    * @memberof RecipesController
    */
   async update(req, res) {
@@ -189,6 +193,7 @@ export default class RecipesController {
    * Add a viewer to a recipe
    * @param {*} req express req object
    * @param {*} res express res object
+   *
    * @returns {json} json with recipe views
    */
   async view(req, res) {
@@ -207,6 +212,7 @@ export default class RecipesController {
    * Delete a recipe from the database
    * @param {any} req express request object
    * @param {any} res express response object
+   *
    * @returns {json} confirmation message
    * @memberof RecipesController
    */

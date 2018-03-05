@@ -1,0 +1,245 @@
+body {
+  background-image: url('./../assets/img/bg.png');
+  margin-bottom: 60px;
+}
+html {
+  position: relative;
+  min-height: 100%;
+}
+/* change the background color */
+.navbar-custom {
+  background-color: #E27C3E;
+  opacity: 0.8;
+}
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+  color: rgba(255,255,255,.8);
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+  color: rgba(255,255,255,.5);
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: #ffffff;
+  font-weight: 700;
+}
+.navbar-logo-img {
+  width: 30px;
+  height: 30px;
+}
+.ion {
+  cursor: pointer;
+}
+.ion-recipe-action:active{
+  transform: translateX(-50%) translateY(-50%) scale(5);
+  transition: all 100ms;
+}
+.jumbotron-logo-img {
+  width: 180px;
+  height: 180px;
+}
+.jumbotron {
+  height: 100vh;
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  background-image: url('./../assets/img/banner-1.jpg');
+}
+.jumbotron-title {
+  color: white;
+  font-weight: bolder;
+}
+
+.navbar .navbar-nav .nav-item .create-recipe-link {
+  color: white;
+  font-weight: 700;
+}
+
+.navbar .navbar-nav .nav-item .nav-link{
+  color: white;
+  font-weight: 700;
+}
+
+.navbar-avatar-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.upload-recipe-img {
+  background-color: rgba(0,0,0,.2);
+  height: 190px;
+  padding: 60px;
+  color: rgba(0,0,0,.6);
+  font-weight: bolder;
+}
+
+.card-title {
+  color: #8bad00;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+
+.card-title a {
+  text-decoration: none;
+  color: #8bad00;
+}
+.display-4, .display-1, .display-2, .display-3, .display-5, 
+.ion {
+  color: #E27C3E;
+}
+
+.header-color {
+  color: #E27C3E;
+}
+
+.color-darker {
+  color: #212529;
+}
+
+.ion .ion-text {
+  color: #212529;
+}
+
+.btn-primary {
+  background-color: #8bad00;
+  border: 1px solid #8bad00;
+}
+.btn-primary:hover {
+  background-color: #647c0c;
+  border: 1px solid #647c0c;
+}
+
+.btn-primary:disabled {
+  background-color: #8bad00;
+  border: 1px solid #8bad00;
+}
+.badge-primary {
+  background-color: #8bad00;
+  border: 1px solid #8bad00;
+}
+
+.pagination > li > a {
+  color: #8bad00;
+}
+
+.pagination > li > a:hover {
+  color: #647c0c;
+}
+
+.pagination > li.active .page-link{
+  background-color: #8bad00;
+  border-color: #8bad00;
+}
+
+.img-zoom {
+  position: relative;
+  overflow: hidden;
+}
+.img-zoom:hover img {
+  transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+}
+.img-zoom img {
+  transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+.footer {
+  color: #ffffff;
+  text-align: center;
+  background-color: #E27C3E;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+}
+.footer a {
+  text-decoration: none;
+  color: white;
+}
+.footer p:last-child {
+  margin-bottom: 0;
+}
+
+
+.hovereffect {
+  width: 100%;
+  height: 100%;
+  float: left;
+  max-height: 180px;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  cursor: default;
+  background: #E27C3E;
+}
+
+.hovereffect .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  padding: 50px 20px;
+}
+
+.hovereffect img {
+  display: block;
+  position: relative;
+  max-width: none;
+  width: calc(100% + 20px);
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(-10px,0,0);
+  transform: translate3d(-10px,0,0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.hovereffect:hover img {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+.hovereffect a, .hovereffect p {
+  color: #FFF;
+  opacity: 0;
+  font-weight: 700;
+  filter: alpha(opacity=0);
+  text-decoration: none;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: translate3d(100%,0,0);
+  transform: translate3d(100%,0,0);
+}
+
+.hovereffect:hover a, .hovereffect:hover p {
+  opacity: 1;
+  filter: alpha(opacity=100);
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+.loader {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.ion-recipe-action-disabled {
+  cursor: default;
+}
+.navbar-toggler-icon {
+  background-image: url('./../assets/img/hamburger.png');
+}

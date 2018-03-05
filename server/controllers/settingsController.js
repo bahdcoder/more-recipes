@@ -5,9 +5,10 @@ import { updateUserSettings } from './../helpers';
 export default class SettingsController {
   /**
    * Update settings for a user
-   * @param {obj} req the express request object
-   * @param {*} res the express response object
-   * @returns {json} json response to user with new settings
+   * @param {object} req the express request object
+   * @param {object} res the express response object
+   *
+   * @returns {object} json response to user with new settings
    */
   async updateUserSettings(req, res) {
     const newSettings = await updateUserSettings(req.authUserObj, req.body);

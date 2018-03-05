@@ -5,9 +5,9 @@
 
   <testsuite name="app.spec"
     errors="0" failures="0" hostname="" id="" package="app.spec" skipped="0"
-    tests="9" time="133.5" timestamp="Mon, 05 Mar 2018 05:39:30 GMT">
+    tests="9" time="113.0" timestamp="Sun, 11 Mar 2018 17:21:08 GMT">
   
-    <testcase name="User logout" classname="app.spec" time="10.90" assertions="3">
+    <testcase name="User logout" classname="app.spec" time="8.180" assertions="3">
 
     
 
@@ -16,7 +16,7 @@
     
     </testcase>
   
-    <testcase name="Home page: (user is not authenticated)" classname="app.spec" time="6.096" assertions="3">
+    <testcase name="Home page: (user is not authenticated)" classname="app.spec" time="2.477" assertions="3">
 
     
 
@@ -25,7 +25,7 @@
     
     </testcase>
   
-    <testcase name="User registration process successful" classname="app.spec" time="8.523" assertions="3">
+    <testcase name="User registration process successful" classname="app.spec" time="6.891" assertions="3">
 
     
 
@@ -34,23 +34,12 @@
     
     </testcase>
   
-    <testcase name="User create recipe successful should redirect to single recipe page" classname="app.spec" time="12.21" assertions="1">
+    <testcase name="User create recipe successful should redirect to single recipe page" classname="app.spec" time="9.920" assertions="1">
 
     
     </testcase>
   
-    <testcase name="User update recipe successful should redirect to single recipe page" classname="app.spec" time="26.04" assertions="4">
-
-    
-
-    
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="User sign in process successful" classname="app.spec" time="13.88" assertions="4">
+    <testcase name="User update recipe successful should redirect to single recipe page" classname="app.spec" time="23.67" assertions="4">
 
     
 
@@ -61,16 +50,7 @@
     
     </testcase>
   
-    <testcase name="User sign in process failed" classname="app.spec" time="13.59" assertions="3">
-
-    
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="User delete recipe" classname="app.spec" time="23.02" assertions="4">
+    <testcase name="User sign in process successful" classname="app.spec" time="12.43" assertions="4">
 
     
 
@@ -81,7 +61,27 @@
     
     </testcase>
   
-    <testcase name="User review recipe" classname="app.spec" time="19.27" assertions="2">
+    <testcase name="User sign in process failed" classname="app.spec" time="12.10" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User delete recipe" classname="app.spec" time="20.66" assertions="4">
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="User review recipe" classname="app.spec" time="16.67" assertions="2">
 
     
 

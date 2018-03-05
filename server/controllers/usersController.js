@@ -11,7 +11,8 @@ export default class UsersController {
    * Favorite a recipe
    * @param {object} req express request object
    * @param {object} res express response object
-   * @returns {json} json
+   *
+   * @returns {object} Confirmation message of favorite action
    * @memberof RecipesController
    */
   async favorite(req, res) {
@@ -34,7 +35,8 @@ export default class UsersController {
    * Get all the user favorite recipes
    * @param {object} req express request object
    * @param {object} res express response object
-   * @returns {json} json
+   *
+   * @returns {json} object of favorite recipes
    * @memberof RecipesController
    */
   async getFavorites(req, res) {
@@ -64,6 +66,7 @@ export default class UsersController {
    *
    * @param {any} req express request object
    * @param {any} res express response object
+   *
    * @returns {json} user
    * @memberof UsersController
    */
@@ -79,8 +82,9 @@ export default class UsersController {
   /**
    * Update authenticated user profile
    *
-   * @param {any} req express request object
-   * @param {any} res express response object
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
    * @returns {json} user
    * @memberof UsersController
    */
@@ -98,8 +102,9 @@ export default class UsersController {
   /**
    * Get all the recipes for a user
    *
-   * @param {obj} req express request object
-   * @param {obj} res express response object
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
    * @returns {json} json[Recipe]
    * @memberof UsersController
    */

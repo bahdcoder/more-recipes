@@ -10,9 +10,10 @@ export default class FrontEndController {
   /**
    * Return data needed by the home page
    *
-   * @param {obj} req express request object
-   * @param {obj} res express response object
-   * @returns {json} json
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
+   * @returns {object} json
    * @memberof FrontEndController
    */
   async home(req, res) {

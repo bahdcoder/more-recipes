@@ -12,10 +12,11 @@ import models from '../database/models';
 export default class ReviewsController {
   /**
    * Get all reviews for a recipe
-   * @param {any} req express request object
-   * @param {any} res express response object
-   * @memberof ReviewsController
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
    * @returns {array} array of recipes
+   * @memberof ReviewsController
    */
   async index(req, res) {
     const recipe = req.currentRecipe;
@@ -30,9 +31,10 @@ export default class ReviewsController {
 
   /**
    * Store a new review to the database
-   * @param {any} req express request object
-   * @param {any} res express response object
-   * @returns {json} json of newly saved review
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
+   * @returns {object} json of newly saved review
    * @memberof ReviewsController
    */
   async create(req, res) {

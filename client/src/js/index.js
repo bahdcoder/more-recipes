@@ -23,6 +23,7 @@ import UserFavorites from './screens/pages/UserFavorites/UserFavorites';
 import '../css/bootstrap.min.css';
 import '../css/animate.min.css';
 import '../css/styles.css';
+import '../css/app.scss';
 
 import Main from './containers/Main';
 

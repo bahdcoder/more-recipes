@@ -8,8 +8,9 @@ import { updateRecipeAttributes } from '../helpers';
 export default class VotesController {
   /**
    * Return all upvoters for a recipe
-   * @param {obj} req express request object
-   * @param {obj} res express response object
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
    * @returns {array} array of users
    * @memberof VotesController
    */
@@ -47,7 +48,8 @@ export default class VotesController {
    * Upvote a recipe
    * @param {object} req express request object
    * @param {object} res express response object
-   * @returns {json} json
+   *
+   * @returns {array} json
    * @memberof RecipesController
    */
   async upvote(req, res) {
@@ -66,7 +68,8 @@ export default class VotesController {
    * Upvote a recipe
    * @param {object} req express request object
    * @param {object} res express response object
-   * @returns {json} json
+   *
+   * @returns {object} successful message
    * @memberof RecipesController
    */
   async downvote(req, res) {

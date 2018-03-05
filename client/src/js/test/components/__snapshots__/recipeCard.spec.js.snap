@@ -71,7 +71,7 @@ exports[`The RecipeCard component should mount without crashing 1`] = `
         className="mr-3 h5"
       >
         <i
-          className="ion ion-recipe-action ion-happy-outline"
+          className="ion ion-recipe-action-disabled ion-happy-outline"
         />
         <span
           className="ml-3"
@@ -83,7 +83,7 @@ exports[`The RecipeCard component should mount without crashing 1`] = `
         className="mr-3 h5"
       >
         <i
-          className="ion ion-recipe-action ion-sad-outline"
+          className="ion ion-recipe-action-disabled ion-sad-outline"
         />
         <span
           className="ml-3"
@@ -95,7 +95,7 @@ exports[`The RecipeCard component should mount without crashing 1`] = `
         className="mr-3 h5"
       >
         <i
-          className="ion ion-recipe-action ion-ios-heart-outline"
+          className="ion ion-recipe-action-disabled ion-ios-heart-outline"
         />
         <span
           className="ml-3"

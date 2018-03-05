@@ -17,6 +17,7 @@ export default class AuthController {
   *
   * @param {object} req express request object
   * @param {object} res express response object
+  *
   * @returns {object} newly created user
   */
   async signup(req, res) {
@@ -48,9 +49,10 @@ export default class AuthController {
 
   /**
    * Sign in a user
-   * @param {obj} req express request object
-   * @param {obj} res express response object
-   * @returns {json} json with user access_token
+   * @param {object} req express request object
+   * @param {object} res express response object
+   *
+   * @returns {object} json with user access_token
    */
   async signin(req, res) {
     try {

@@ -75,6 +75,11 @@ class SingleRecipe extends Component {
     try {
       const response = await axios.get(`${config.apiUrl}/recipes?sort=mostFavorited&perPage=4`);
       const { recipes } = response.data.data.recipes;
+      if (this.props.authUser) {
+        setTimeout(async () => {
+          await axios.post(`${config.apiUrl}/recipes/${this.props.params.id}/views`);
+        }, 10000);
+      }
       const topChefs = recipes.map(recipe => recipe.User);
       const uniqueChefs = [];
       topChefs.forEach((chef) => {

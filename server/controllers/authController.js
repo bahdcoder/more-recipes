@@ -14,6 +14,7 @@ import redisConfig from '../config/redis';
 export default class AuthController {
   /**
   * Register a new user
+  *
   * @param {object} req express request object
   * @param {object} res express response object
   * @returns {object} newly created user

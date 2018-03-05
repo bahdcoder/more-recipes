@@ -20,7 +20,9 @@
     "heroku-postbuild": "npm run build:client && npm run build",
     "jest": "jest --watch --coverage --setupTestFrameworkScriptFile=raf/polyfill",
     "start:worker:mails": "cross-env NODE_ENV=production node server/workers/mails.js",
-    "start:worker:mails:dev": "cross-env NODE_ENV=development node server/workers/mails.js"
+    "start:worker:mails:dev": "cross-env NODE_ENV=development node server/workers/mails.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -54,7 +56,11 @@
     "react-test-renderer": "^16.2.0",
     "redux-mock-store": "^1.3.0",
     "sinon": "^4.1.3",
-    "sinon-chai": "^2.14.0"
+    "sinon-chai": "^2.14.0",
+    "@storybook/react": "^3.3.14",
+    "@storybook/addon-actions": "^3.3.14",
+    "@storybook/addon-links": "^3.3.14",
+    "@storybook/addons": "^3.3.14"
   },
   "dependencies": {
     "axios": "0.17.1",
@@ -146,10 +152,8 @@
   "jest": {
     "setupTestFrameworkScriptFile": "./client/src/js/test/setupTests.js",
     "testRegex": "./client/src/js/test/.*.spec.js$",
-
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/client/src/js/test/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/client/src/js/test/fileMock.js"
     }
   }
 }

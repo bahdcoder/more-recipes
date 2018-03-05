@@ -237,3 +237,9 @@ html {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.ion-recipe-action-disabled {
+  cursor: default;
+}
+.navbar-toggler-icon {
+  background-image: url('./../assets/img/hamburger.png');
+}

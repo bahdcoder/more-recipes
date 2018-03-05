@@ -12,6 +12,21 @@ var globalMock = {
 };
 
 module.exports = {
+  // 'User registration process failed: duplicate email': function (browser) {
+  //   browser.url(`${config.appUrl}/auth/register`);
+
+  //   const registeredUser = registerUser(browser, fakeUser());
+
+  //   browser.assert.urlEquals(`${config.appUrl}/`);
+
+  //   logoutUser(browser);
+
+  //   browser.url(`${config.appUrl}/auth/register`);
+  //   registerUser(browser, registeredUser, false);
+  //   browser.assert.containsText('small.mb-3', 'A user with this email already exists.');
+  //   browser.assert.urlEquals(`${config.appUrl}/auth/register`);
+  //   browser.end();
+  // },
   'User logout': function (browser) {
     browser.url(`${config.appUrl}/auth/register`);
     registerUser(browser, globalMock.user);
@@ -42,21 +57,6 @@ module.exports = {
     browser.assert.urlEquals(`${config.appUrl}/`);
     browser.url(`${config.appUrl}/auth/register`);
     browser.assert.urlEquals(`${config.appUrl}/`);
-    browser.end();
-  },
-  'User registration process failed: duplicate email': function (browser) {
-    browser.url(`${config.appUrl}/auth/register`);
-
-    const registeredUser = registerUser(browser, fakeUser());
-
-    browser.assert.urlEquals(`${config.appUrl}/`);
-
-    logoutUser(browser);
-
-    browser.url(`${config.appUrl}/auth/register`);
-    registerUser(browser, registeredUser, false);
-    browser.assert.containsText('small.mb-3', 'A user with this email already exists.');
-    browser.assert.urlEquals(`${config.appUrl}/auth/register`);
     browser.end();
   },
   'User create recipe successful should redirect to single recipe page': function (browser) {

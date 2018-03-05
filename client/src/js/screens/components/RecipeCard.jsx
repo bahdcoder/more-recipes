@@ -22,15 +22,15 @@ const RecipeCard = ({ recipe }) => ((
       </p>
       <p className="text-muted h4 text-center my-2">
         <span className="mr-3 h5">
-          <i className="ion ion-recipe-action ion-happy-outline" />
+          <i className="ion ion-recipe-action-disabled ion-happy-outline" />
           <span className="ml-3">{numeral(recipe.upvotersIds.length).format('0a')}</span>
         </span>
         <span className="mr-3 h5">
-          <i className="ion ion-recipe-action ion-sad-outline" />
+          <i className="ion ion-recipe-action-disabled ion-sad-outline" />
           <span className="ml-3">{numeral(recipe.downvotersIds.length).format('0a')}</span>
         </span>
         <span className="mr-3 h5">
-          <i className="ion ion-recipe-action ion-ios-heart-outline" />
+          <i className="ion ion-recipe-action-disabled ion-ios-heart-outline" />
           <span className="ml-3">{numeral(recipe.favoritersIds.length).format('0a')} </span>
         </span>
       </p>

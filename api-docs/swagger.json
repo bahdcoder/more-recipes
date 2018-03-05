@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://bahdcoder-more-recipes.herokuapp.com/api/v1",
+      "url": "https://bahdcoder-more-recipes-swagger.herokuapp.com/api/v1",
       "variables": {}
     }
   ],

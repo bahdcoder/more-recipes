@@ -195,10 +195,10 @@ export default class RecipesController {
     const { authUser, currentRecipe } = req;
 
     if (authUser.id === currentRecipe.userId) {
-      return res.sendFailureResponse({ message: 'Unauthorized' }, 401);
+      return res.sendFailureResponse({ message: 'Unauthorized.' }, 401);
     }
-    await client.sadd(`recipe:${req.currentRecipe.id}/viewers`, authUser.id);
-    const viewers = await client.smembers(`recipe:${req.currentRecipe.id}/viewers`);
+    await client.sadd(`recipe:${req.currentRecipe.id}:viewers`, authUser.id);
+    const viewers = await client.smembers(`recipe:${req.currentRecipe.id}:viewers`);
     return res.sendSuccessResponse({ viewers });
   }
 

@@ -1,3 +1,6 @@
+console.log('PROCESS ENV ----->', process.env)
+
+
 /**
  * The different database configurations for different environments.
  */
